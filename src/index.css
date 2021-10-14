@@ -1,13 +1,47 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@font-face {
+    font-family: 'Apple_B';
+    src: url("styles/AppleSDGothicNeoB.woff2") format('woff2'),
+    url("styles/AppleSDGothicNeoB.woff") format('woff'),
+    url("styles/AppleSDGothicNeoB.ttf") format('truetype')
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+  @font-face {
+    font-family: 'Apple_EB';
+    src: url("styles/AppleSDGothicNeoEB.woff2") format('woff2'),
+    url("styles/AppleSDGothicNeoEB.woff") format('woff'),
+    url("styles/AppleSDGothicNeoEB.ttf") format('truetype')
+  }
+
+  @font-face {
+    font-family: 'Apple_L';
+    src: url("styles/AppleSDGothicNeoL.woff2") format('woff2'),
+    url("styles/AppleSDGothicNeoL.woff") format('woff'),
+    url("styles/AppleSDGothicNeoL.ttf") format('truetype')
+  }
+
+  @font-face {
+    font-family: 'Apple_M';
+    src: url("styles/AppleSDGothicNeoM.woff2") format('woff2'),
+    url("styles/AppleSDGothicNeoM.woff") format('woff'),
+    url("styles/AppleSDGothicNeoM.ttf") format('truetype')
+  }
+
+  @font-face {
+    font-family: 'Apple_T';
+    src: url("styles/AppleSDGothicNeoT.woff2") format('woff2'),
+    url("styles/AppleSDGothicNeoT.woff") format('woff'),
+    url("styles/AppleSDGothicNeoT.ttf") format('truetype')
+  }
+
+  @font-face {
+    font-family: "Apple_R";
+    src : url("styles/AppleSDGothicNeoR.woff2") format('woff2'),
+    url("styles/AppleSDGothicNeoR.woff") format('woff'),
+    url("styles/AppleSDGothicNeoR.ttf") format('truetype')
+  }
+
+  
+
+
+
+
