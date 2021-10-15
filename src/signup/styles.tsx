@@ -84,6 +84,12 @@ const styles : any = (theme : any) => ({
         marginBottom : '35.5px',
         cursor : "pointer"
     },
+    radioLabel : {
+        fontSize : '18px',
+        color : '#606060',
+        letterSpacing : '-0.45px',
+        fontFamily : 'Apple_R'
+    },
     lastText : {
         textAlign : 'center',
         paddingTop : '29.7px',
