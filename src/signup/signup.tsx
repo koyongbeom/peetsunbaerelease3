@@ -215,26 +215,26 @@ const SignUp: React.FC<props> = (props) => {
                         <FormControl required fullWidth margin="normal">
                             <div className={classes.label}>이메일 주소</div>
                             <OutlinedInput required={true} error={emailError} onChange={(e) => { setEmail(e.currentTarget.value); }} autoFocus placeholder="이메일 주소 입력" />
-                            {emailError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>올바른 이메일 주소를 적어주세요.</FormHelperText>}
-                            {duplicatedEmailError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>중복된 이메일 주소입니다.</FormHelperText>}
+                            {emailError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>올바른 이메일 주소를 적어주세요.</FormHelperText>}
+                            {duplicatedEmailError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>중복된 이메일 주소입니다.</FormHelperText>}
                         </FormControl>
 
                         <FormControl required fullWidth margin="normal">
                             <div className={classes.label}>비밀번호</div>
                             <OutlinedInput required={true} error={passwordError} onChange={(e) => { setPassword(e.currentTarget.value); }} type="password" autoFocus placeholder="8~20자 입력하세요" />
-                            {passwordError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>8자리 이상 적어주세요.</FormHelperText>}
+                            {passwordError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>8자리 이상 적어주세요.</FormHelperText>}
                         </FormControl>
 
                         <FormControl required fullWidth margin="normal">
                             <div className={classes.label}>비밀번호 확인</div>
                             <OutlinedInput required={true} error={verifyPasswordError} onChange={(e) => { setVerifyPassword(e.currentTarget.value); }} type="password" autoFocus placeholder="비밀번화 확인 입력" />
-                            {verifyPasswordError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>비밀번호와 같지 않아요.</FormHelperText>}
+                            {verifyPasswordError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>비밀번호와 같지 않아요.</FormHelperText>}
                         </FormControl>
 
                         <FormControl required fullWidth margin="normal">
                             <div className={classes.label}>이름</div>
                             <OutlinedInput required={true} onChange={(e) => { setName(e.currentTarget.value); }} autoFocus placeholder="이름 입력" />
-                            {nameError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>이름을 적어주세요.</FormHelperText>}
+                            {nameError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>이름을 적어주세요.</FormHelperText>}
                         </FormControl>
 
                         <FormControl required margin="normal">
@@ -243,15 +243,15 @@ const SignUp: React.FC<props> = (props) => {
                                 <OutlinedInput required={true} error={phoneNumberError} onChange={(e) => { setPhoneNumber(e.currentTarget.value); }} sx={{ width: '278px' }} autoFocus placeholder="핸드폰 번호 입력(-없이)" />
                                 <button onClick={sendCert} className={classes.phoneCert}>인증번호</button>
                             </div>
-                            {phoneNumberError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>- 없이 적어주세요.</FormHelperText>}
-                            {verifiedNumberError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>인증번호가 맞지 않습니다.</FormHelperText>}
+                            {phoneNumberError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>- 없이 적어주세요.</FormHelperText>}
+                            {verifiedNumberError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>인증번호가 맞지 않습니다.</FormHelperText>}
 
                         </FormControl>
 
                         {sendCertBool && <FormControl required fullWidth margin="normal">
                             <div className={classes.label}>인증번호</div>
                             <OutlinedInput required={true} error={verifiedNumberError} onChange={(e) => { setVerifiedNumber(e.currentTarget.value); }} autoFocus placeholder="인증번호 입력" />
-                            {expiredVerifyNumberError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>인증번호 유효시간 만료되었습니다.</FormHelperText>}
+                            {expiredVerifyNumberError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>인증번호 유효시간 만료되었습니다.</FormHelperText>}
                         </FormControl>}
 
                         <FormControl margin="normal" fullWidth>
@@ -265,13 +265,13 @@ const SignUp: React.FC<props> = (props) => {
                         {isParent && <FormControl required fullWidth margin="normal">
                             <div className={classes.label}>학생 핸드폰 번호</div>
                             <OutlinedInput required={true} error={studentPhoneNumberError} onChange={(e) => { setStudentPhoneNumber(e.currentTarget.value); }} placeholder="학생 핸드폰 번호 입력(-없이)" />
-                            {studentPhoneNumberError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>등록되지 않은 학생 번호입니다.</FormHelperText>}
+                            {studentPhoneNumberError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>등록되지 않은 학생 번호입니다.</FormHelperText>}
                         </FormControl>}
 
                         {isTeacher && <FormControl required fullWidth margin="normal">
                             <div className={classes.label}>직원 가입 비밀번호</div>
                             <OutlinedInput type="password" required={true} error={forStaffPasswordError} onChange={(e) => { setForStaffPassword(e.currentTarget.value); }} placeholder="직원용 비밀번호 입력" />
-                            {forStaffPasswordError && <FormHelperText sx={{ fontSize: "20px" }} error={true}>잘못된 비밀번호 입니다.</FormHelperText>}
+                            {forStaffPasswordError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>잘못된 비밀번호 입니다.</FormHelperText>}
                         </FormControl>}
 
 
