@@ -3,6 +3,9 @@ import styles from './styles';
 import { withStyles } from '@mui/styles';
 import Main from './components/main'
 
+import menulist from './components/menulist'
+import { forEachChild } from 'typescript';
+
 interface props {
     classes: any;
     history : any;
@@ -17,7 +20,7 @@ const Dashboard: React.FC<props> = (props) => {
     const classes = props.classes;
 
     const [user, setUser] = useState<user | null>();
-
+    const [sideBarMenuList, setSideBarMenuList] = useState<any>();
 
     //처음 dashboard 진입 시 토큰 가지고 있는지랑 가지고 있다면 토큰 정보 받기-------
     useEffect(() => {
@@ -79,12 +82,33 @@ const Dashboard: React.FC<props> = (props) => {
             <div className={classes.body}>
                 <div className={classes.sideMenu}>
                     <div className={classes.sideMenuProfile}>
-                        <div className={classes.where}></div>
-                        <div className={classes.sideMenuAvatar}></div>
-                        <div className={classes.sideMenuName}></div>
+                        <div className={classes.where}>
+                            <img className={classes.outside} src="img/outside.svg" alt="outside"></img>
+                            <div className={classes.outsideText}>외출중</div>
+                        </div>
+                        <div className={classes.sideMenuAvatar}>
+                            <img className={classes.logo2} src="img/logo2.webp" alt="logo"></img>
+                        </div>
+                        <div className={classes.sideMenuName}>
+                            피트선배<span> </span> 
+                            { user && user.name}
+                        </div>
                     </div>
-                    <div className={classes.sideMenuList}>
-
+                    <div className={classes.sideMenuListDiv}>
+                        <ul className={classes.sideMenuList}>
+                            {user &&
+                            menulist.map((each)=>{
+                                if(each.value.includes(user.value)){
+                                    return (
+                                        <li key={each.name} className={classes.sideMenuListSection}>
+                                            <img src={"img/off/"+each.name+".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                            <div className={classes.sideMenuListText}>{each.description}</div>
+                                        </li>
+                                    )
+                                }
+                            })
+                            }
+                        </ul>
                     </div>
                 </div>
 

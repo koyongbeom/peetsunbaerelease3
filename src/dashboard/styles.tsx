@@ -54,6 +54,64 @@ const styles : any = (theme : any) => ({
     },
     sideMenu : {
         width : "244px",
+    },
+    sideMenuProfile : {
+        marginLeft : "26px",
+        width : "192px",
+        borderBottom : "1px solid #dfdfdf",
+        display : "flex",
+        flexDirection : "column",
+        alignItems : "center",
+        paddingTop : "27px",
+        paddingBottom : "23.5px"
+    },
+    where : {
+        display : "flex",
+        alignItems : "center",
+        marginBottom : "12px"
+    },
+    outside : {
+        width : "24px",
+        marginRight : "6.1px"
+    },
+    outsideText : {
+        fontFamily : "Apple_R",
+        letterSpacing : "-0.75px",
+        color : "#828282",
+        fontSize : "18px"
+    },
+    sideMenuAvatar : {
+        width : "66px",
+        height : "66px",
+        borderRadius : "50%",
+        backgroundColor : "#ebebeb",
+        marginBottom : "10px",
+        display : "flex",
+        justifyContent : "center",
+        alignItems : "center"
+    },
+    sideMenuName : {
+        fontSize : "18px",
+        fontFamily : "Apple_R",
+        letterSpacing : "-0.85px",
+        color : "#303030"
+    },
+    sideMenuList : {
+        paddingTop : "26.5px",
+        paddingLeft : "26.3px"
+    },
+    sideMenuListSection : {
+        display : "flex",
+        marginBottom : "23.4px",
+        cursor : "pointer",
+        alignItems : "center"
+    },
+    sideMenuListImg : {
+        marginRight : "24.7px",
+    },
+    sideMenuListText : {
+        fontFamily : "Apple_R",
+        letterSpacing : "-0.8px"
     }
     
 })

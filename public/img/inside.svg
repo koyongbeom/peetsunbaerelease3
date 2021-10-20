@@ -1,0 +1,10 @@
+<svg id="schedule_black_24dp" xmlns="http://www.w3.org/2000/svg" width="20.323" height="20.323" viewBox="0 0 20.323 20.323">
+    <defs>
+        <style>
+            .cls-2{fill:#3d50b0}
+        </style>
+    </defs>
+    <path id="패스_6048" data-name="패스 6048" d="M0 0h20.323v20.323H0z" style="fill:none"/>
+    <path id="패스_6049" data-name="패스 6049" class="cls-2" d="M10.459 2a8.468 8.468 0 1 0 8.476 8.468A8.464 8.464 0 0 0 10.459 2zm.008 15.242a6.774 6.774 0 1 1 6.774-6.774 6.772 6.772 0 0 1-6.773 6.774z" transform="translate(-.306 -.306)"/>
+    <path id="패스_6050" data-name="패스 6050" class="cls-2" d="M12.27 7H11v5.081l4.446 2.667.635-1.042-3.811-2.26z" transform="translate(-1.685 -1.073)"/>
+</svg>

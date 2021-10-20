@@ -11,7 +11,14 @@ const Main : React.FC<props> = (props) => {
 
     return (
         <div className={classes.main}>
-            Hello World!
+            <div className={classes.attendanceBoard}>
+                <div className={classes.attendanceBoardWeek}>
+
+                </div>
+                <div className={classes.attendanceBoardToday}>
+
+                </div>
+            </div>
         </div>
     )
 }
