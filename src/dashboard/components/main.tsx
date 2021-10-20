@@ -10,7 +10,7 @@ const Main : React.FC<props> = (props) => {
     const classes = props.classes;
 
     return (
-        <div>
+        <div className={classes.main}>
             Hello World!
         </div>
     )

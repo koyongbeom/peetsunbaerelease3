@@ -50,9 +50,9 @@ const styles : any = (theme : any) => ({
     },
     body : {
         display : "flex",
+        width : "100%",
     },
     sideMenu : {
-        backgroundColor : "#3ee0b9",
         width : "244px",
     }
     
