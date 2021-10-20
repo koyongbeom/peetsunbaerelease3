@@ -1,6 +1,8 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
+const keytar = require("keytar");
+const { KeyboardTabSharp } = require("@mui/icons-material");
 
 let mainWindow;
 
@@ -44,3 +46,15 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+ipcMain.on("setToken", (event, token)=>{
+  keytar.setPassword("peetsunbae", "koyongbeom@gmail.com", token).then(result =>{
+    event.returnValue = result;
+  })
+})
+
+ipcMain.on("getToken", (event)=>{
+  keytar.getPassword("peetsunbae", "koyongbeom@gmail.com").then(result=>{
+    event.returnValue = result;
+  })
+})

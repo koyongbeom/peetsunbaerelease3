@@ -5,9 +5,22 @@ import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box'
 import { Button, FormControl, FormHelperText, Modal, OutlinedInput } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import { StringLiteralLike } from 'typescript';
 
 interface props {
-    classes: any,
+    classes: any;
+    history : any;
+}
+
+declare global {
+    interface Window {
+        electron? : {
+            sendMessageApi : {
+                setToken(token : string) : string;
+                getToken() : string;
+            }
+        }
+    }
 }
 
 const style = {
@@ -21,6 +34,8 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
+//Login에 쿠키나 keytar 로 token 소지하고 있으면 바로 dashboard로 가능 기능 필요.
 
 const Login: React.FC<props> = (props) => {
 
@@ -64,8 +79,14 @@ const Login: React.FC<props> = (props) => {
                 
                 //로그인 성공 시--------------------------------------------------------------------------
                 if(result.message === "success"){
-
+                    if(window.electron){
+                        console.log("electron");
+                        const returnValue = window.electron.sendMessageApi.setToken(result.token);
+                        console.log(returnValue);
+                    }
+                    // props.history.push("/dashboard"); 잠시 없애둠
                 }
+                //-----------------------------------------------------------------------------------
                 if(result.message === "fail"){
                     setPasswordError(true);
                 }
@@ -164,6 +185,7 @@ const Login: React.FC<props> = (props) => {
         <main className={classes.main}>
             <div className={classes.appbar}>
                 <div>
+                    <Link to="/dashboard">dashboard</Link> 
                     <img className={classes.logo1} alt="logo" src="img/logo1.svg"></img>
                 </div>
                 <Link to="/">
