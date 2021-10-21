@@ -66,7 +66,7 @@ const Dashboard: React.FC<props> = (props) => {
                             })
                         }
                         if (result.message === "NOT_LOGIN") {
-                            // props.history.push("/");
+                            props.history.push("/");
                         }
                     })
             }).catch(error => {
@@ -76,6 +76,34 @@ const Dashboard: React.FC<props> = (props) => {
 
         start();
     }, []);
+    //-----------------------------------------------------------------------
+
+    //로그아웃 시키는 기능-----------------------------------------------------
+    const logOut = async () => {
+        //일렉트론 이라면 저장된 토큰 삭제-----------------------------------------------------
+        if(window.electron){
+            const result = await window.electron.sendMessageApi.setToken("logOut");
+            console.log(result);
+        }
+        //-----------------------------------------------------------------------
+
+        //쿠키 삭제 위해 서버로 fetch 보냄-----------------------------------------
+        fetch("https://peetsunbae.com/login/logout", {
+            method : "GET",
+            credentials : "include"
+        }).then((response)=>{
+            response.json()
+            .then((result)=>{
+                console.log(result);
+                props.history.push("/");
+            })
+        }).catch((err)=>{
+            console.log(err);
+        })
+        //--------------------------------------------------------------------------
+       
+        //-------------------------------------------------------------------
+    }
     //-----------------------------------------------------------------------
 
     return (
@@ -89,10 +117,10 @@ const Dashboard: React.FC<props> = (props) => {
                         <div className={classes.profileConfig}>
                             프로필설정
                         </div>
-                        <div className={classes.avatarCircle}>
+                        <div className={classes.avatarCircle} onClick={logOut}>
                             <img className={classes.avatar} src="img/avatarG.svg" alt="avatar"></img>
                         </div>
-                        <div className={classes.logout}>
+                        <div className={classes.logout} onClick={logOut}>
                             로그아웃
                         </div>
                     </div>

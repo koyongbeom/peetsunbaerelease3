@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withStyles } from '@mui/styles';
 import styles from './styles';
 import { Link } from 'react-router-dom';
@@ -6,18 +6,19 @@ import Box from '@mui/material/Box'
 import { Button, FormControl, FormHelperText, Modal, OutlinedInput } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { StringLiteralLike } from 'typescript';
+import { send } from 'process';
 
 interface props {
     classes: any;
-    history : any;
+    history: any;
 }
 
 declare global {
     interface Window {
-        electron? : {
-            sendMessageApi : {
-                setToken(token : string) : string;
-                getToken() : string;
+        electron?: {
+            sendMessageApi: {
+                setToken(token: string): string;
+                getToken(): string;
             }
         }
     }
@@ -35,7 +36,7 @@ const style = {
     p: 4,
 };
 
-//Login에 쿠키나 keytar 로 token 소지하고 있으면 바로 dashboard로 가능 기능 필요.
+
 
 const Login: React.FC<props> = (props) => {
 
@@ -58,45 +59,75 @@ const Login: React.FC<props> = (props) => {
     const classes = props.classes;
 
 
+    //로그인 창 처음 들어왔을때 토큰 있는지 확인해서 있으면 로그인창 스킵하고 바로 대시보드로 보내는 기능-----------
+    useEffect(() => {
+        async function send(){
+            //일렉트론 이라면 토큰 가져오는 기능------------------------------------------------------
+            var token = ""
+            if (window.electron) {
+                token = await window.electron.sendMessageApi.getToken();
+            }
+            //-------------------------------------------------------------------------------------
+
+
+            fetch("https://peetsunbae.com/login/start", {
+                method : "GET",
+                headers : {"Authorization" : token},
+                credentials : "include"
+            }).then((response)=>{
+                response.json()
+                .then((result)=>{
+                    if(result.message === "LOGIN"){
+                        props.history.push("/dashboard/home");
+                    }
+                })
+            })
+        }
+
+        send();
+    }, [])
+    //------------------------------------------------------------------------------------------------------
+
+
     //로그인 정보 제출----------------------------------------------------------------------------------
-    const submit = (e : any) => {
+    const submit = (e: any) => {
         e.preventDefault();
 
         setEmailError(false);
         setPasswordError(false);
 
         fetch("https://peetsunbae.com/login/submit", {
-            method : "POST",
-            headers : {"Content-Type" : "application/json"},
-            body : JSON.stringify({
-                email : email,
-                password : password,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: email,
+                password: password,
             })
-        }).then((response)=>{
+        }).then((response) => {
             response.json()
-            .then((result)=>{
-                console.log(result);
-                
-                //로그인 성공 시--------------------------------------------------------------------------
-                if(result.message === "success"){
-                    if(window.electron){
-                        console.log("electron");
-                        const returnValue = window.electron.sendMessageApi.setToken(result.token);
-                        console.log(returnValue);
+                .then((result) => {
+                    console.log(result);
+
+                    //로그인 성공 시--------------------------------------------------------------------------
+                    if (result.message === "success") {
+                        if (window.electron) {
+                            console.log("electron");
+                            const returnValue = window.electron.sendMessageApi.setToken(result.token);
+                            console.log(returnValue);
+                        }
+                        props.history.push("/dashboard");
                     }
-                    // props.history.push("/dashboard"); 잠시 없애둠
-                }
-                //-----------------------------------------------------------------------------------
-                if(result.message === "fail"){
-                    setPasswordError(true);
-                }
-                if(result.message === "emailfail"){
-                    setEmailError(true);
-                }
+                    //-----------------------------------------------------------------------------------
+                    if (result.message === "fail") {
+                        setPasswordError(true);
+                    }
+                    if (result.message === "emailfail") {
+                        setEmailError(true);
+                    }
 
 
-            })
-        }).catch((error)=>{
+                })
+        }).catch((error) => {
             console.log(error);
         })
 
@@ -185,12 +216,11 @@ const Login: React.FC<props> = (props) => {
         <main className={classes.main}>
             <div className={classes.appbar}>
                 <div>
-                    <Link to="/dashboard">dashboard</Link> 
                     <img className={classes.logo1} alt="logo" src="img/logo1.svg"></img>
                 </div>
                 <Link to="/">
                     <div className={classes.login}>
-                        <img className={classes.avatar} alt="avatar" src="img/avatar.svg"></img>
+                        <img className={classes.avatar} alt="avatar" src="img/avatarG.svg"></img>
                         <div className={classes.loginText}>로그인</div>
                     </div>
                 </Link>
@@ -269,12 +299,12 @@ const Login: React.FC<props> = (props) => {
                                 <FormControl required fullWidth margin="normal">
                                     <div className={classes.modal_label}>변경할 비밀번호를 입력해주세요.</div>
                                     <OutlinedInput id="rePassword" name="rePassword" fullWidth type="password" sx={{ height: 40, fontSize: 14 }} required={true} error={rePasswordError} onChange={(e) => { setRePassword(e.currentTarget.value) }} placeholder="변경할 비밀번호(8~20자리)" />
-                                    {rePasswordError && <FormHelperText sx={{ fontSize: "16px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>8~20자 비밀번호를 입력해주세요.</FormHelperText>}
+                                    {rePasswordError && <FormHelperText sx={{ fontSize: "16px", marginLeft: 1, fontFamily: 'Apple_EB' }} error={true}>8~20자 비밀번호를 입력해주세요.</FormHelperText>}
                                     {isPasswordChanged && <FormHelperText filled sx={{ fontSize: "16px", color: 'primary.main', marginLeft: 1, fontFamily: 'Apple_EB' }}>비밀번호가 변경되었습니다.</FormHelperText>}
 
                                 </FormControl>
 
-                           </div>
+                            </div>
                         }
 
                         {!isCertSended &&

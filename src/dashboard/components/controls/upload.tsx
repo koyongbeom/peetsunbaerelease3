@@ -137,6 +137,7 @@ const Upload: React.FC<props> = (props) => {
         fetch("https://peetsunbae.com/dashboard/notification/write", {
             method: "POST",
             headers: { "Authorization": token },
+            credentials : "include",
             body: formData
         }).then((response) => {
             response.json()
