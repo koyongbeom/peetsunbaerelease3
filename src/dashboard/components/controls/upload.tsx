@@ -76,6 +76,7 @@ const Upload: React.FC<props> = (props) => {
 
     const writeTitle = (event: any) => {
         setTitle(event.target.value);
+        setUploadBool(false);
         if(event.target.value){
             setTitleExist(true);
         }else{
@@ -85,6 +86,7 @@ const Upload: React.FC<props> = (props) => {
 
     const writeDescription = (event: any) => {
         setDescription(event.target.value);
+        setUploadBool(false);
         if(event.target.value){
             setDescriptionExsit(true);
         }else{
@@ -125,7 +127,7 @@ const Upload: React.FC<props> = (props) => {
         formData.append("message", JSON.stringify(message));
 
         files.forEach((file: any) => {
-            formData.append('pictures', file);
+            formData.append('notification_picture', file);
         })
 
         var token = "";
@@ -149,6 +151,8 @@ const Upload: React.FC<props> = (props) => {
                         setFiles([]);
                         setFileNames([]);
                         setUploadBool(true);
+                        setTitleExist(false);
+                        setDescriptionExsit(false);
                     }
                 })
         }).catch((error) => {
