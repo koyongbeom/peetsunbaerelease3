@@ -71,7 +71,7 @@ const styles : any = (theme : any) => ({
         marginBottom : "12px"
     },
     outside : {
-        width : "24px",
+        width : "18px",
         marginRight : "6.1px"
     },
     outsideText : {
@@ -111,7 +111,8 @@ const styles : any = (theme : any) => ({
     },
     sideMenuListText : {
         fontFamily : "Apple_R",
-        letterSpacing : "-0.8px"
+        letterSpacing : "-0.8px",
+        color : "#303030"
     }
     
 })
