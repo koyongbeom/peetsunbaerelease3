@@ -121,7 +121,9 @@ const Upload: React.FC<props> = (props) => {
         }
     }
 
-    const submit = () => {
+    const submit = (e : any) => {
+        e.preventDefault();
+
         var formData = new FormData();
         var message = { title: title, description: description };
         formData.append("message", JSON.stringify(message));
@@ -201,7 +203,7 @@ const Upload: React.FC<props> = (props) => {
                             <span style={spanStyles2}>닫기</span>
                         </Button>
                     </Link>
-                    <Button disabled={!titleExist || !descriptionExist} onClick={submit} variant="outlined" size="large" component="label">
+                    <Button disabled={!titleExist || !descriptionExist} onClick={(e : any)=>{submit(e);}} variant="outlined" size="large" component="label">
                         <span style={spanStyles2}>내용 업로드</span>
                     </Button>
                 </div>

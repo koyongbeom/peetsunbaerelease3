@@ -18,6 +18,7 @@ import Restaurant from './components/restaurant';
 import Search from './components/search';
 import NotificationWrite from './components/notificationwrite';
 
+
 import menulist from './components/menulist'
 import { forEachChild } from 'typescript';
 
@@ -39,6 +40,7 @@ const Dashboard: React.FC<props> = (props) => {
 
     const [user, setUser] = useState<user | null>();
     const [sideBarMenuList, setSideBarMenuList] = useState<any>();
+
 
     //처음 dashboard 진입 시 토큰 가지고 있는지랑 가지고 있다면 토큰 정보 받기-------
     useEffect(() => {
@@ -105,6 +107,7 @@ const Dashboard: React.FC<props> = (props) => {
         //-------------------------------------------------------------------
     }
     //-----------------------------------------------------------------------
+
 
     return (
         <Router>

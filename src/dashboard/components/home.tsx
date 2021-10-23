@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@mui/styles';
 import styles from '../componentsStyle/homeStyles'
+
+import useNotifications from './use/usenotification'
+
+import { notificationResult, notification } from './use/usenotification'
+import { Avatar } from '@mui/material';
 
 interface props {
     classes: any;
@@ -8,6 +13,21 @@ interface props {
 
 const Home: React.FC<props> = (props) => {
     const classes = props.classes;
+
+    const [notifications, setNotifications] = useState();
+
+
+
+    //바로 업데이트 필요한 기능들 use로 모아 놓는 곳-------------------------------------
+
+    //-----//공지사항 업데이트 하는 기능------------------------------------------------
+    const updateNotifications = (update: any) => {
+        setNotifications(update);
+    }
+    const { notificationResults, loading } = useNotifications(notifications);
+    //-----//-----------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------
 
     return (
         <div className={classes.main}>
@@ -108,9 +128,70 @@ const Home: React.FC<props> = (props) => {
                 </div>
             </div>
 
-            <div className={classes.notification}>
+            <div className={classes.notificationDiv}>
                 <div className={classes.notificationTitle}>최근 공지사항</div>
-                <ul></ul>
+
+                <div className={classes.notifications}>
+
+                    {
+                        notificationResults &&
+                        notificationResults.map((each: notification) => {
+                            if (each.images.length > 0) {
+                                return (
+                                    <div className={classes.notification}>
+                                        <div className={classes.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
+                                        </div>
+                                        <div className={classes.notification_description}>
+                                            <div className={classes.notification_description1}>
+                                                <div className={classes.notification_description1_1}>
+                                                    {each.title}
+                                                </div>
+                                                <div className={classes.notification_description1_2}>
+                                                    <Avatar>{each.author[0]}</Avatar>
+                                                </div>
+                                            </div>
+                                            <div className={classes.notification_description2}>
+                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                <div className={classes.notification_description2_2}>
+                                                    <img src="img/like.svg" alt="like"></img> 0
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                            else {
+                                return (
+                                    <div className={classes.notification}>
+
+                                        <div className={classes.notification_description_text}>
+                                            <div className={classes.notification_description1}>
+                                                <div className={classes.notification_description1_1}>
+                                                    {each.title}
+                                                </div>
+                                                <div className={classes.notification_description1_2}>
+                                                    <Avatar><span className={classes.avatarText}>{each.author[0]}</span></Avatar>
+                                                </div>
+                                            </div>
+                                            <div className={classes.eachDescription}>
+                                                {each.description}
+                                            </div>
+                                            <div className={classes.notification_description2}>
+                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                <div className={classes.notification_description2_2}>
+                                                    <img src="img/like.svg" alt="like"></img> 0
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                        }
+                        )
+                    }
+
+                </div>
+
             </div>
         </div>
     )
