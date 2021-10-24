@@ -1,33 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { withStyles } from '@mui/styles';
 import styles from '../componentsStyle/homeStyles'
-
-import useNotifications from './use/usenotification'
-
-import { notificationResult, notification } from './use/usenotification'
 import { Avatar } from '@mui/material';
 
-interface props {
-    classes: any;
+import useNotifications from './use/usenotification';
+import { notificationResult, notification } from './use/usenotification';
+import { RouteComponentProps } from 'react-router';
+
+import { Socket } from 'socket.io-client';
+
+
+interface socketProps extends RouteComponentProps{
+    classes : any;
+    socket : Socket;
+    newNotification : number;
 }
 
-const Home: React.FC<props> = (props) => {
-    const classes = props.classes;
 
-    const [notifications, setNotifications] = useState();
+const Home: React.FC<socketProps> = (props) => {
+    const classes = props.classes;
 
 
 
     //바로 업데이트 필요한 기능들 use로 모아 놓는 곳-------------------------------------
 
     //-----//공지사항 업데이트 하는 기능------------------------------------------------
-    const updateNotifications = (update: any) => {
-        setNotifications(update);
-    }
-    const { notificationResults, loading } = useNotifications(notifications);
+    const { notificationResults, loading } = useNotifications(props.newNotification);
     //-----//-----------------------------------------------------------------------
 
     //-------------------------------------------------------------------------------
+
+
+
 
     return (
         <div className={classes.main}>
@@ -138,7 +142,7 @@ const Home: React.FC<props> = (props) => {
                         notificationResults.map((each: notification) => {
                             if (each.images.length > 0) {
                                 return (
-                                    <div className={classes.notification}>
+                                    <div key={each.title} className={classes.notification}>
                                         <div className={classes.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
                                         </div>
                                         <div className={classes.notification_description}>
@@ -162,7 +166,7 @@ const Home: React.FC<props> = (props) => {
                             }
                             else {
                                 return (
-                                    <div className={classes.notification}>
+                                    <div key={each.title} className={classes.notification}>
 
                                         <div className={classes.notification_description_text}>
                                             <div className={classes.notification_description1}>

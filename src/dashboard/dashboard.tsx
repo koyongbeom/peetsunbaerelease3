@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './styles';
 import { withStyles } from '@mui/styles';
@@ -22,7 +22,8 @@ import NotificationWrite from './components/notificationwrite';
 import menulist from './components/menulist'
 import { forEachChild } from 'typescript';
 
-import { Route, BrowserRouter as Router, Link, Switch } from "react-router-dom"
+import { Route, BrowserRouter as Router, Link, Switch } from "react-router-dom";
+import {io} from "socket.io-client";
 
 
 interface props {
@@ -35,11 +36,17 @@ interface user {
     value: string
 }
 
+
+
 const Dashboard: React.FC<props> = (props) => {
     const classes = props.classes;
 
     const [user, setUser] = useState<user | null>();
     const [sideBarMenuList, setSideBarMenuList] = useState<any>();
+
+    const socket = useRef<any>();   //소켓 연결
+
+    const [newNotification, setNewNotification] = useState(1);
 
 
     //처음 dashboard 진입 시 토큰 가지고 있는지랑 가지고 있다면 토큰 정보 받기-------
@@ -108,6 +115,18 @@ const Dashboard: React.FC<props> = (props) => {
     }
     //-----------------------------------------------------------------------
 
+    //socket이 실시간 업데이트 시행하는 곳----------------------------------------------------------
+    useEffect(()=>{
+        socket.current = io("https://peetsunbae.com");
+
+        socket.current.on("newNotification", ()=>{
+            const randomNumber = Math.floor(Math.random()*(99999 - 10000) + 10000);
+            setNewNotification(randomNumber);
+        })
+    }, [])
+    //--------------------------------------------------------------------------------------------
+
+
 
     return (
         <Router>
@@ -166,8 +185,8 @@ const Dashboard: React.FC<props> = (props) => {
                     <Switch>
                         
 
-                        <Route exact path="/dashboard/" component={Home} />
-                        <Route path="/dashboard/home" component={Home} />
+                        <Route exact path="/dashboard/" render={(props)=><Home socket={socket.current} newNotification={newNotification} {...props} /> } />
+                        <Route path="/dashboard/home" render={(props)=><Home socket={socket.current} newNotification={newNotification} {...props} /> } />
                         <Route path="/dashboard/alarm" component={Alarm} />
                         <Route path="/dashboard/attendance" component={Attendance} />
                         <Route path="/dashboard/avatar" component={Avatar} />
@@ -180,7 +199,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/report" component={Report} />
                         <Route path="/dashboard/restaurant" component={Restaurant} />
                         <Route path="/dashboard/search" component={Search} />
-                        <Route path="/dashboard/notification/write" component={NotificationWrite} />
+                        <Route path="/dashboard/notification/write" render={(props)=> <NotificationWrite socket={socket.current} {...props}/>} />
                     </Switch>
                 </div>
 

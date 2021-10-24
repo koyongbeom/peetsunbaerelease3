@@ -1,12 +1,13 @@
 import { Alert, Button, Stack } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField'
 import { ClassNames } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { RepeatOneSharp } from '@mui/icons-material';
+import { Socket } from 'socket.io-client';
 
 interface props {
-
+    socket : Socket;
 }
 
 const Upload: React.FC<props> = (props) => {
@@ -155,12 +156,15 @@ const Upload: React.FC<props> = (props) => {
                         setUploadBool(true);
                         setTitleExist(false);
                         setDescriptionExsit(false);
+                        props.socket.emit("newNotification");
                     }
                 })
         }).catch((error) => {
             console.log(error);
         })
     }
+
+
 
 
 

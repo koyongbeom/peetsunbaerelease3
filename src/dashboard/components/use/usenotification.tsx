@@ -10,7 +10,7 @@ export interface notification {
 
 export interface notificationResult extends Array<notification> {}
 
-const useNotifications: any = (notifications: any) => {
+const useNotifications: any = (newNotification : Boolean) => {
     const [notificationResults, setNotificationResults] = useState<notificationResult>();
     const [loading, setLoading] = useState(false);
 
@@ -43,7 +43,7 @@ const useNotifications: any = (notifications: any) => {
         }
 
         start();
-    }, [notifications]);;
+    }, [newNotification]);;
 
     return {notificationResults, loading};
 }
