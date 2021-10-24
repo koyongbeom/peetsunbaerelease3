@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import { RepeatOneSharp } from '@mui/icons-material';
 import { Socket } from 'socket.io-client';
 
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress'
+
 interface props {
     socket : Socket;
 }
@@ -19,6 +22,7 @@ const Upload: React.FC<props> = (props) => {
 
     const [titleExist, setTitleExist] = useState(false);
     const [descriptionExist, setDescriptionExsit] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
 
     const buttonStyles = {
@@ -124,6 +128,7 @@ const Upload: React.FC<props> = (props) => {
 
     const submit = (e : any) => {
         e.preventDefault();
+        setLoading(true);
 
         var formData = new FormData();
         var message = { title: title, description: description };
@@ -148,6 +153,7 @@ const Upload: React.FC<props> = (props) => {
             response.json()
                 .then((response) => {
                     console.log(response);
+                    setLoading(false);
                     if (response.message === "success") {
                         setTitle("");
                         setDescription("");
@@ -157,6 +163,8 @@ const Upload: React.FC<props> = (props) => {
                         setTitleExist(false);
                         setDescriptionExsit(false);
                         props.socket.emit("newNotification");
+
+
                     }
                 })
         }).catch((error) => {
@@ -193,6 +201,15 @@ const Upload: React.FC<props> = (props) => {
                     </div>
                     <input onChange={(e) => { fileOnChange(e) }} type="file" name="file" id="file" accept="image/*" multiple hidden />
                 </div>
+
+
+                {loading &&
+                <Box sx={{width : '100%', marginTop : 3, marginBottom : 3}}>
+                    <LinearProgress />
+                </Box>
+                }
+
+
 
                 {uploadBool &&
                     <Stack sx={{ width: '100%' }} spacing={2}>
