@@ -141,10 +141,10 @@ const Home: React.FC<socketProps> = (props) => {
 
                     {
                         notificationResults &&
-                        notificationResults.map((each: notification) => {
+                        notificationResults.map((each: notification, index : number) => {
                             if (each.images.length > 0) {
                                 return (
-                                    <div key={each.title} className={classes.notification}>
+                                    <div key={each.title + Math.random()} className={classes.notification}>
                                         <div className={classes.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
                                         </div>
                                         <div className={classes.notification_description}>
@@ -168,7 +168,7 @@ const Home: React.FC<socketProps> = (props) => {
                             }
                             else {
                                 return (
-                                    <div key={each.title} className={classes.notification}>
+                                    <div key={each.title+ Math.random()} className={classes.notification}>
 
                                         <div className={classes.notification_description_text}>
                                             <div className={classes.notification_description1}>

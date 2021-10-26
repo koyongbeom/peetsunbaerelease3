@@ -70,8 +70,11 @@ const styles : any = (theme : any) => ({
         alignItems : "center",
         marginBottom : "12px"
     },
+    inside : {
+        marginRight : "6.1px"
+    },
     outside : {
-        width : "18px",
+        width : "17px",
         marginRight : "6.1px"
     },
     outsideText : {
