@@ -29,7 +29,7 @@ import { io, Socket } from "socket.io-client";
 interface props {
     classes: any;
     history: any;
-    location : any;
+    location: any;
 }
 
 interface user {
@@ -38,7 +38,7 @@ interface user {
     id: number;
 }
 
-type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+type currentSideBarMenuList = "avatar" | "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 const socket: Socket = io("https://peetsunbae.com");
 
@@ -54,7 +54,7 @@ const Dashboard: React.FC<props> = (props) => {
     const [newNotification, setNewNotification] = useState(1);
     const [newLocation, setNewLocation] = useState(1);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(props.location.pathname);
     })
 
@@ -163,7 +163,7 @@ const Dashboard: React.FC<props> = (props) => {
 
     //소켓이 자기 방 알려주는 곳-----------------------------------------------------------------
     useEffect(() => {
-        if(user){
+        if (user) {
             socket.emit("myRoom", user.id);
         }
     }, [user]);
@@ -183,123 +183,133 @@ const Dashboard: React.FC<props> = (props) => {
         //-----//유저 위치 변경 됬을 때 업데이트 하는 기능-------------------------------
 
         socket.on("newLocation", (direction: string) => {
-                console.log('users new direction is ' + direction);
-                if(direction === "inside"){
-                    setLocation("out");
-                }          
-                if (direction === "outside"){
-                    setLocation("in");
-                }
+            console.log('users new direction is ' + direction);
+            if (direction === "inside") {
+                setLocation("out");
+            }
+            if (direction === "outside") {
+                setLocation("in");
+            }
         });
         //-----//---------------------------------------------------------------------
 
         //-----------------------------------------------------------------------------
 
     }, []);
-//--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
 
 
-//활성화된 메뉴에 따라 메뉴 하이라이트 되는 기능-------------------------------------------------
-const activateMenuList = (current : currentSideBarMenuList) => {
-    setCurrentSideBarMenuList(current);
-}
-//----------------------------------------------------------------------------------------
+    //활성화된 메뉴에 따라 메뉴 하이라이트 되는 기능-------------------------------------------------
+    const activateMenuList = (current: currentSideBarMenuList) => {
+        setCurrentSideBarMenuList(current);
+    }
+    //----------------------------------------------------------------------------------------
 
 
 
-return (
-    <Router>
-        <main className={classes.main}>
-            <div className={classes.appBar}>
-                <div className={classes.logoDiv}>
-                    <img src="img/whitelogo.webp" alt="logo"></img>
-                </div>
-                <div className={classes.profileDiv}>
-                    <div className={classes.profileConfig}>
-                        프로필설정
+    return (
+        <Router>
+            <main className={classes.main}>
+                <div className={classes.appBar}>
+                    <div className={classes.logoDiv}>
+                        <img src="img/whitelogo.webp" alt="logo"></img>
                     </div>
-                    <div className={classes.avatarCircle} onClick={logOut}>
-                        <img className={classes.avatar} src="img/avatarG.svg" alt="avatar"></img>
-                    </div>
-                    <div className={classes.logout} onClick={logOut}>
-                        로그아웃
-                    </div>
-                </div>
-            </div>
-
-            <div className={classes.body}>
-                <div className={classes.sideMenu}>
-                    <div className={classes.sideMenuProfile}>
-                        <div className={classes.where}>
-                            {
-                                location === "in" &&
-                                <>
-                                    <img className={classes.inside} src="img/inside.svg" alt="outside"></img>
-                                    <div className={classes.outsideText}>등원중</div>
-                                </>
-                            }
-                            {
-                                location === "out" &&
-                                <>
-                                    <img className={classes.outside} src="img/outside.svg" alt="outside"></img>
-                                    <div className={classes.outsideText}>외출중</div>
-                                </>
-                            }
-
-
-
-
+                    <div className={classes.profileDiv}>
+                        <div className={classes.profileConfig}>
+                            프로필설정
                         </div>
-                        <div className={classes.sideMenuAvatar}>
-                            <img className={classes.logo2} src="img/logo2.webp" alt="logo"></img>
+                        <div className={classes.avatarCircle} onClick={logOut}>
+                            <img className={classes.avatar} src="img/avatarG.svg" alt="avatar"></img>
                         </div>
-                        <div className={classes.sideMenuName}>
-                            피트선배<span> </span>
-                            {user && user.name}
+                        <div className={classes.logout} onClick={logOut}>
+                            로그아웃
                         </div>
                     </div>
-                    <div className={classes.sideMenuListDiv}>
-                        <ul className={classes.sideMenuList}>
-                            {user &&
-                                menulist.map((each) => {
-                                    if (each.value.includes(user.value)) {
-                                        return (
-                                            <Link key={each.name} to={"/dashboard/" + each.name}>
-                                                <li className={classes.sideMenuListSection}>
-                                                    <img src={"img/off/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
-                                                    <div className={classes.sideMenuListText}>{each.description}</div>
-                                                </li>
-                                            </Link>
- 
-                                        )
-                                    }
-                                })
-                            }
-                        </ul>
-                    </div>
                 </div>
-                <Switch>
-                    <Route exact path="/dashboard/" render={(props) => <Home socket={socket} newNotification={newNotification} {...props} />} />
-                    <Route path="/dashboard/home" render={(props) => <Home socket={socket} newNotification={newNotification} {...props} />} />
-                    <Route path="/dashboard/alarm" component={Alarm} />
-                    <Route path="/dashboard/attendance" component={Attendance} />
-                    <Route path="/dashboard/avatar" component={Avatar} />
-                    <Route path="/dashboard/book" component={Book} />
-                    <Route path="/dashboard/chart" component={Chart} />
-                    <Route path="/dashboard/edit" component={Edit} />
-                    <Route path="/dashboard/envelope" component={Envelope} />
-                    <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} {...props} />} />
-                    <Route path="/dashboard/question" component={Question} />
-                    <Route path="/dashboard/report" component={Report} />
-                    <Route path="/dashboard/restaurant" component={Restaurant} />
-                    <Route path="/dashboard/search" component={Search} />
-                    <Route path="/dashboard/notification/write" render={(props) => <NotificationWrite socket={socket} {...props} />} />
-                </Switch>
-            </div>
 
-        </main>
-    </Router>
-)
+                <div className={classes.body}>
+                    <div className={classes.sideMenu}>
+                        <div className={classes.sideMenuProfile}>
+                            <div className={classes.where}>
+                                {
+                                    location === "in" &&
+                                    <>
+                                        <img className={classes.inside} src="img/inside.svg" alt="outside"></img>
+                                        <div className={classes.outsideText}>등원중</div>
+                                    </>
+                                }
+                                {
+                                    location === "out" &&
+                                    <>
+                                        <img className={classes.outside} src="img/outside.svg" alt="outside"></img>
+                                        <div className={classes.outsideText}>외출중</div>
+                                    </>
+                                }
+
+
+
+
+                            </div>
+                            <div className={classes.sideMenuAvatar}>
+                                <img className={classes.logo2} src="img/logo2.webp" alt="logo"></img>
+                            </div>
+                            <div className={classes.sideMenuName}>
+                                피트선배<span> </span>
+                                {user && user.name}
+                            </div>
+                        </div>
+                        <div className={classes.sideMenuListDiv}>
+                            <ul className={classes.sideMenuList}>
+                                {user &&
+                                    menulist.map((each) => {
+                                        if (each.value.includes(user.value)) {
+                                            if (each.name !== currentSideBarMenuList) {
+                                                return (
+                                                    <Link key={each.name} to={"/dashboard/" + each.name}>
+                                                        <li className={classes.sideMenuListSection}>
+                                                            <img src={"img/off/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                            <div className={classes.sideMenuListText}>{each.description}</div>
+                                                        </li>
+                                                    </Link>
+                                                )
+                                            }else{
+                                                return(
+                                                    <Link key={each.name} to={"/dashboard/" + each.name}>
+                                                        <li className={classes.sideMenuListSection}>
+                                                            <img src={"img/on/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                            <div className={classes.sideMenuListTextActive}>{each.description}</div>
+                                                        </li>
+                                                    </Link>
+                                                )
+                                            }
+                                        }
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <Switch>
+                        <Route exact path="/dashboard/" render={(props) => <Home activateMenuList={activateMenuList} socket={socket} newNotification={newNotification} {...props} />} />
+                        <Route path="/dashboard/home" render={(props) => <Home activateMenuList={activateMenuList} socket={socket} newNotification={newNotification} {...props} />} />
+                        <Route path="/dashboard/alarm" render={(props) => <Alarm activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/attendance" render={(props) => <Attendance activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/avatar" render={(props) => <Avatar activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/book" render={(props) => <Book activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/chart" render={(props) => <Chart activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/edit" render={(props) => <Edit activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/envelope" render={(props) => <Envelope activateMenuList={activateMenuList} {...props}  />} />
+                        <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />
+                        <Route path="/dashboard/question" render={(props) => <Question activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/report" render={(props) => <Report activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/restaurant" render={(props) => <Restaurant activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/search" render={(props) => <Search activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/notification/write" render={(props) => <NotificationWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
+                    </Switch>
+                </div>
+
+            </main>
+        </Router>
+    )
 }
 
 export default withStyles(styles)(Dashboard);

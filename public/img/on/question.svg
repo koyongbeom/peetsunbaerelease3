@@ -1,10 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
-    <g style="opacity:.7">
-        <g data-name="그룹 10655">
-            <path data-name="사각형 17575" style="fill:#3d50b0" d="M0 0h26v26H0z"/>
-        </g>
-        <g data-name="그룹 10656">
-            <path data-name="패스 6022" d="M15.158 11.2H3v2h12.158zm0-4L3 9.2h12.158zm4.421 8v-4h-2.211v4h-4.421v2h4.421v4h2.211v-4H24v-2zM3 17.2h7.737v-2H3z"/>
-        </g>
-    </g>
+<svg id="playlist_add_black_24dp" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="그룹_10655" data-name="그룹 10655">
+    <rect id="사각형_17575" data-name="사각형 17575" width="26" height="26" fill="none"/>
+  </g>
+  <g id="그룹_10656" data-name="그룹 10656" transform="translate(3 7.2)">
+    <path id="패스_6022" data-name="패스 6022" d="M15.158,10H3v2H15.158Zm0-4H3V8H15.158Zm4.421,8V10H17.368v4H12.947v2h4.421v4h2.211V16H24V14ZM3,16h7.737V14H3Z" transform="translate(-3 -6)" fill="#3d50b0"/>
+  </g>
 </svg>

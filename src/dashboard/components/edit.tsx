@@ -1,6 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { RouteComponentProps } from 'react-router';
 
-const edit : React.FC = () => {
+type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+
+interface editProps extends RouteComponentProps {
+    activateMenuList : (curret : currentSideBarMenuList) => void;
+}
+
+
+const Edit : React.FC<editProps> = (props) => {
+    useEffect(()=>{
+        props.activateMenuList("edit");
+    }, [])
+
     return(
         <div>
             edit
@@ -8,4 +20,4 @@ const edit : React.FC = () => {
     )
 }
 
-export default edit;
+export default Edit;

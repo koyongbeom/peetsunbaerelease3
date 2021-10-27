@@ -1,6 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-const book : React.FC = () => {
+import { RouteComponentProps } from 'react-router';
+
+type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+
+interface bookProps extends RouteComponentProps {
+    activateMenuList : (curret : currentSideBarMenuList) => void;
+}
+
+
+const Book : React.FC<bookProps> = (props) => {
+    useEffect(()=>{
+        props.activateMenuList("book");
+    }, [])
+
     return(
         <div>
             book
@@ -8,4 +21,4 @@ const book : React.FC = () => {
     )
 }
 
-export default book;
+export default Book;

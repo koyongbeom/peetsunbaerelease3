@@ -1,6 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { RouteComponentProps } from 'react-router';
 
-const restaurant : React.FC = () => {
+type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+
+interface restaurantProps extends RouteComponentProps {
+    activateMenuList : (curret : currentSideBarMenuList) => void;
+}
+
+
+const Restaurant : React.FC<restaurantProps> = (props) => {
+    useEffect(()=>{
+        props.activateMenuList("restaurant");
+    }, [])
+
     return(
         <div>
             restaurant
@@ -8,4 +20,4 @@ const restaurant : React.FC = () => {
     )
 }
 
-export default restaurant;
+export default Restaurant;

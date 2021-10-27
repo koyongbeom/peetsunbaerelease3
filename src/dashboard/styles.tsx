@@ -116,6 +116,11 @@ const styles : any = (theme : any) => ({
         fontFamily : "Apple_R",
         letterSpacing : "-0.8px",
         color : "#303030"
+    },
+    sideMenuListTextActive : {
+        fontFamily : "Apple_B",
+        letterSpacing : "-0.8px",
+        color : "#3d50b0"
     }
     
 })

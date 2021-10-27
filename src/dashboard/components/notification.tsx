@@ -6,13 +6,20 @@ import { withStyles } from '@mui/styles';
 import { Avatar, Button } from '@mui/material';
 import styles from '../componentsStyle/notificationStyles';
 
+type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+
 interface notificationProps extends RouteComponentProps {
     classes : any;
     user : any;
+    activateMenuList : (curret : currentSideBarMenuList) => void;
 }
 
 
 const Notification: React.FC<notificationProps> = (props) => {
+    useEffect(()=>{
+        props.activateMenuList("notification");
+    }, [])
+
     const classes = props.classes;
 
     console.log(props.location.pathname);

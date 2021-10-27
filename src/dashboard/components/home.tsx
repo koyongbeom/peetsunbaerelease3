@@ -9,16 +9,23 @@ import { RouteComponentProps } from 'react-router';
 
 import { Socket } from 'socket.io-client';
 
+type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+
 
 interface socketProps extends RouteComponentProps{
     classes : any;
     socket : Socket;
     newNotification : number;
+    activateMenuList : (curret : currentSideBarMenuList) => void;
 }
 
 
 const Home: React.FC<socketProps> = (props) => {
     const classes = props.classes;
+
+    useEffect(()=>{
+        props.activateMenuList("home");
+    }, [])
 
 
     //바로 업데이트 필요한 기능들 use로 모아 놓는 곳-------------------------------------
