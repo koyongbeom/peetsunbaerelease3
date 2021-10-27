@@ -19,6 +19,7 @@ declare global {
             sendMessageApi: {
                 setToken(token: string): string;
                 getToken(): string;
+                notification(title : string, body : string) : void;
             }
         }
     }

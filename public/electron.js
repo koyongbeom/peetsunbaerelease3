@@ -1,8 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const keytar = require("keytar");
 const { KeyboardTabSharp } = require("@mui/icons-material");
+const { stringify } = require("querystring");
 
 let mainWindow;
 
@@ -58,3 +59,9 @@ ipcMain.on("getToken", (event)=>{
     event.returnValue = result;
   })
 })
+
+//notification-------------------------------------------------------------
+ipcMain.on("notification", (event, title, body)=>{
+  new Notification({title : title, body : body}).show();
+})
+//------------------------------------------------------------------------

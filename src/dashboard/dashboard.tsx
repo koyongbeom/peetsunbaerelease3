@@ -29,13 +29,16 @@ import { io, Socket } from "socket.io-client";
 interface props {
     classes: any;
     history: any;
+    location : any;
 }
 
 interface user {
     name: string;
-    value: string;
+    value: "student" | "teacher" | "parent" | "staff";
     id: number;
 }
+
+type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 const socket: Socket = io("https://peetsunbae.com");
 
@@ -46,11 +49,14 @@ const Dashboard: React.FC<props> = (props) => {
     const [user, setUser] = useState<user | null>();
     const [location, setLocation] = useState<string>("");
     const [sideBarMenuList, setSideBarMenuList] = useState<any>();
-
-
+    const [currentSideBarMenuList, setCurrentSideBarMenuList] = useState<currentSideBarMenuList>("home");
 
     const [newNotification, setNewNotification] = useState(1);
     const [newLocation, setNewLocation] = useState(1);
+
+    useEffect(()=>{
+        console.log(props.location.pathname);
+    })
 
 
     //처음 dashboard 진입 시 토큰 가지고 있는지랑 가지고 있다면 토큰 정보 받기-------
@@ -193,6 +199,13 @@ const Dashboard: React.FC<props> = (props) => {
 //--------------------------------------------------------------------------------------------
 
 
+//활성화된 메뉴에 따라 메뉴 하이라이트 되는 기능-------------------------------------------------
+const activateMenuList = (current : currentSideBarMenuList) => {
+    setCurrentSideBarMenuList(current);
+}
+//----------------------------------------------------------------------------------------
+
+
 
 return (
     <Router>
@@ -257,6 +270,7 @@ return (
                                                     <div className={classes.sideMenuListText}>{each.description}</div>
                                                 </li>
                                             </Link>
+ 
                                         )
                                     }
                                 })
@@ -265,8 +279,6 @@ return (
                     </div>
                 </div>
                 <Switch>
-
-
                     <Route exact path="/dashboard/" render={(props) => <Home socket={socket} newNotification={newNotification} {...props} />} />
                     <Route path="/dashboard/home" render={(props) => <Home socket={socket} newNotification={newNotification} {...props} />} />
                     <Route path="/dashboard/alarm" component={Alarm} />
@@ -276,7 +288,7 @@ return (
                     <Route path="/dashboard/chart" component={Chart} />
                     <Route path="/dashboard/edit" component={Edit} />
                     <Route path="/dashboard/envelope" component={Envelope} />
-                    <Route exact path="/dashboard/notification" component={Notification} />
+                    <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} {...props} />} />
                     <Route path="/dashboard/question" component={Question} />
                     <Route path="/dashboard/report" component={Report} />
                     <Route path="/dashboard/restaurant" component={Restaurant} />
