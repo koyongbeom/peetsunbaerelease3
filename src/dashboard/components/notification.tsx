@@ -84,10 +84,11 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
                                                     <div className={classes.notification_description2_2}>
-                                                        <img src="img/like.svg" alt="like"></img> 0
+                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
+                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -110,10 +111,11 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                     {each.description}
                                                 </div>
                                                 <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
                                                     <div className={classes.notification_description2_2}>
-                                                        <img src="img/like.svg" alt="like"></img> 0
+                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
+                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -147,10 +149,11 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
                                                     <div className={classes.notification_description2_2}>
-                                                        <img src="img/like.svg" alt="like"></img> 0
+                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
+                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -173,10 +176,11 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                     {each.description}
                                                 </div>
                                                 <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
                                                     <div className={classes.notification_description2_2}>
-                                                        <img src="img/like.svg" alt="like"></img> 0
+                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
+                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -193,7 +197,10 @@ const Notification: React.FC<notificationProps> = (props) => {
             {
                 (props.user.value === "teacher" || props.user.value === "staff") &&
                 <Link to="/dashboard/notification/write">
-                    <Button sx={{position : "fixed", bottom : "15px", right : "45px"}} variant="contained">신규 게시물 작성</Button>
+                    <div className={classes.newNotification}>
+                        <img src="./img/pencil.svg" alt="pencil" className={classes.pencil} />
+                        신규 게시물 작성
+                    </div>
                 </Link>
             }
         </div>

@@ -4,12 +4,10 @@ const style : any = (theme : any) => ({
         width: "calc(100% - 244px)",
         height: "100vh",
         paddingLeft: "46px",
-        paddingTop: "48px",
+        paddingTop: "41px",
         paddingBottom: "48px"
     },
-    notificationDiv: {
-        marginTop: "39px"
-    },
+
     notificationTitle: {
         fontFamily: "Apple_B",
         fontSize: "22px",
@@ -96,6 +94,22 @@ const style : any = (theme : any) => ({
     notification_description2_2 : {
         fontFamily : "Apple_L"
     },
+    newNotification : {
+        position : "fixed",
+        right : "42px",
+        bottom : "20px",
+        width : "174px",
+        height : "46px",
+        lineHeight : "46px",
+        textAlign : "center",
+        backgroundColor : "#303030",
+        color : "white",
+        borderRadius : "28px",
+        fontFamily : "Apple_R"
+    },
+    pencil : {
+        marginRight : "6.9px"
+    }
 });
 
 export default style;

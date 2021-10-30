@@ -163,10 +163,11 @@ const Home: React.FC<socketProps> = (props) => {
                                                 </div>
                                             </div>
                                             <div className={classes.notification_description2}>
-                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                
                                                 <div className={classes.notification_description2_2}>
-                                                    <img src="img/like.svg" alt="like"></img> 0
+                                                    {/* <img className={classes.like} src="img/like.svg" alt="like"></img> 0 */}
                                                 </div>
+                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -189,10 +190,11 @@ const Home: React.FC<socketProps> = (props) => {
                                                 {each.description}
                                             </div>
                                             <div className={classes.notification_description2}>
-                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
                                                 <div className={classes.notification_description2_2}>
-                                                    <img src="img/like.svg" alt="like"></img> 0
+                                                    {/* <img  src="img/like.svg" alt="like"></img> 0 */}
                                                 </div>
+                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+
                                             </div>
                                         </div>
                                     </div>

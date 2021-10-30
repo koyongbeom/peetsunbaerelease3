@@ -176,8 +176,9 @@ const styles: any = (theme: Theme) => ({
         letterSpacing : "-0.8px"
     },
     notification_description2_2 : {
-        fontFamily : "Apple_L"
-    }
+        fontFamily : "Apple_L",
+        cursor : "pointer"
+    },
 });
 
 export default styles;
