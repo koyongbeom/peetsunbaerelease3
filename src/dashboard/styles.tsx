@@ -12,7 +12,7 @@ const styles : any = (theme : any) => ({
         height : "78px",
         alignItems : "center",
         paddingLeft : "47px",
-        paddingRight : "40px"
+        paddingRight : "40px",
     },
     profileDiv : {
         display : "flex",

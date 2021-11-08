@@ -2,7 +2,7 @@ const style : any = (theme : any) => ({
     main: {
         backgroundColor: "#f5f5f5",
         width: "calc(100% - 244px)",
-        height: "100vh",
+        height: "calc(100vh)",
         paddingLeft: "46px",
         paddingTop: "41px",
         paddingBottom: "48px"
