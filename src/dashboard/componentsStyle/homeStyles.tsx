@@ -6,7 +6,7 @@ const styles: any = (theme: Theme) => ({
     main: {
         backgroundColor: "#f5f5f5",
         width: "calc(100% - 244px)",
-        height: "calc(100vh)",
+        height: "calc(100vh - 78px)",
         paddingLeft: "46px",
         paddingTop: "48px",
         paddingBottom: "48px"

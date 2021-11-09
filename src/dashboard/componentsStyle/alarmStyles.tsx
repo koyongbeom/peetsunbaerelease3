@@ -1,7 +1,9 @@
 const styles : any = (theme : any) => ({
     main: {
         backgroundColor: "#f5f5f5",
-        width: "calc(100% - 244px)",
+        width: "calc(100% - 0244px)",
+        height : "calc(100vh - 78px)",
+        overflow : "scroll",
         paddingLeft: "46px",
         paddingTop: "45.7px",
         paddingBottom: "71px"

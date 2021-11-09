@@ -6,7 +6,7 @@ const styles : any = (theme : any) => ({
         paddingTop: "45.7px",
         paddingRight : "46px",
         paddingBottom: "71px",
-        height : "100vh"
+        height : "calc(100vh - 78px)"
     },
 });
 

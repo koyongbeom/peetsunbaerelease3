@@ -6,20 +6,29 @@ import { Link } from 'react-router-dom';
 import { RepeatOneSharp } from '@mui/icons-material';
 import { Socket } from 'socket.io-client';
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import "../../componentsStyle/questionupload.css"
+
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress'
 
 interface props {
-    socket : Socket;
+    socket: Socket;
 }
 
 const Upload: React.FC<props> = (props) => {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
+    const [subject, setSubject] = useState<String>("");
 
     const [files, setFiles] = useState<any>([]);
     const [filenames, setFileNames] = useState<string[]>([]);
 
+    const [subjectExist, setSubjectExist] = useState(false);
     const [titleExist, setTitleExist] = useState(false);
     const [descriptionExist, setDescriptionExsit] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -45,7 +54,8 @@ const Upload: React.FC<props> = (props) => {
     }
 
     const divStyle = {
-        marginBottom: "12px"
+        marginBottom: "12px",
+        fontFamily : "Apple_R"
     }
 
     const imageStyle = {
@@ -79,12 +89,22 @@ const Upload: React.FC<props> = (props) => {
         cursor: "pointer"
     }
 
+    const selectSubject = (event : any, value : String) => {
+        setSubject(value);
+        setUploadBool(false);
+        if(value){
+            setSubjectExist(true);
+        }else{
+            setSubjectExist(false);
+        }
+    }
+
     const writeTitle = (event: any) => {
         setTitle(event.target.value);
         setUploadBool(false);
-        if(event.target.value){
+        if (event.target.value) {
             setTitleExist(true);
-        }else{
+        } else {
             setTitleExist(false);
         }
     }
@@ -92,9 +112,9 @@ const Upload: React.FC<props> = (props) => {
     const writeDescription = (event: any) => {
         setDescription(event.target.value);
         setUploadBool(false);
-        if(event.target.value){
+        if (event.target.value) {
             setDescriptionExsit(true);
-        }else{
+        } else {
             setDescriptionExsit(false);
         }
     }
@@ -126,16 +146,16 @@ const Upload: React.FC<props> = (props) => {
         }
     }
 
-    const submit = (e : any) => {
+    const submit = (e: any) => {
         e.preventDefault();
         setLoading(true);
 
         var formData = new FormData();
-        var message = { title: title, description: description };
+        var message = { subject : subject, title: title, description: description };
         formData.append("message", JSON.stringify(message));
 
         files.forEach((file: any) => {
-            formData.append('notification_picture', file);
+            formData.append('question_picture', file);
         })
 
         var token = "";
@@ -144,10 +164,10 @@ const Upload: React.FC<props> = (props) => {
             token = window.electron.sendMessageApi.getToken();
         }
 
-        fetch("https://peetsunbae.com/dashboard/notification/write", {
+        fetch("https://peetsunbae.com/dashboard/question/write", {
             method: "POST",
             headers: { "Authorization": token },
-            credentials : "include",
+            credentials: "include",
             body: formData
         }).then((response) => {
             response.json()
@@ -162,8 +182,6 @@ const Upload: React.FC<props> = (props) => {
                         setUploadBool(true);
                         setTitleExist(false);
                         setDescriptionExsit(false);
-                        props.socket.emit("newNotification");
-
 
                     }
                 })
@@ -178,6 +196,16 @@ const Upload: React.FC<props> = (props) => {
 
     return (
         <div>
+            <FormControl sx={{marginBottom : "12px"}} component="fieldset">
+                <FormLabel component="legend" sx={{ fontFamily : "Apple_R", color : "black !important"}}><span className="radioTitle">과목 선택</span></FormLabel>
+                <RadioGroup onChange={(e, value)=>{selectSubject(e, value)}} row aria-label="gender" name="row-radio-buttons-group">
+                    <FormControlLabel value="chemistry" control={<Radio />} label={<span className="radio">화학</span>} />
+                    <FormControlLabel value="organic" control={<Radio />} label={<span className="radio">유기</span>} />
+                    <FormControlLabel value="physics" control={<Radio />} label={<span className="radio">물리</span>} />
+                    <FormControlLabel value="biology" control={<Radio />} label={<span className="radio">생물</span>} />
+                </RadioGroup>
+            </FormControl>
+
             <form encType="multipart/formdata">
 
                 <div>
@@ -204,9 +232,9 @@ const Upload: React.FC<props> = (props) => {
 
 
                 {loading &&
-                <Box sx={{width : '100%', marginTop : 3, marginBottom : 3}}>
-                    <LinearProgress />
-                </Box>
+                    <Box sx={{ width: '100%', marginTop: 3, marginBottom: 3 }}>
+                        <LinearProgress />
+                    </Box>
                 }
 
 
@@ -219,12 +247,12 @@ const Upload: React.FC<props> = (props) => {
 
 
                 <div style={buttonStyles}>
-                    <Link to="/dashboard/home">
+                    <Link to="/dashboard/question">
                         <Button sx={{ marginRight: 2 }} variant="outlined" size="large" component="label">
                             <span style={spanStyles2}>닫기</span>
                         </Button>
                     </Link>
-                    <Button disabled={!titleExist || !descriptionExist} onClick={(e : any)=>{submit(e);}} variant="outlined" size="large" component="label">
+                    <Button disabled={!titleExist || !descriptionExist || !subjectExist} onClick={(e: any) => { submit(e); }} variant="outlined" size="large" component="label">
                         <span style={spanStyles2}>내용 업로드</span>
                     </Button>
                 </div>

@@ -100,7 +100,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
     }
 
     return (
-        <div className={classes.main}>
+        <div className={`${classes.main} main`}>
             <div className={classes.title}>
                 <img className={classes.clock} src="img/alarm.svg" alt="alarm" />출석
             </div>

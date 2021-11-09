@@ -24,6 +24,7 @@ import { forEachChild } from 'typescript';
 
 import { Route, BrowserRouter as Router, Link, Switch } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
+import QuestionWrite from './components/questionwrite';
 
 
 interface props {
@@ -299,11 +300,12 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/edit" render={(props) => <Edit activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/envelope" render={(props) => <Envelope activateMenuList={activateMenuList} {...props}  />} />
                         <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />
-                        <Route path="/dashboard/question" render={(props) => <Question activateMenuList={activateMenuList} {...props}  />} />
+                        <Route exact path="/dashboard/question" render={(props) => <Question activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/report" render={(props) => <Report activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/restaurant" render={(props) => <Restaurant activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/search" render={(props) => <Search activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/notification/write" render={(props) => <NotificationWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
+                        <Route path="/dashboard/question/write" render={(props) => <QuestionWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
                     </Switch>
                 </div>
 
