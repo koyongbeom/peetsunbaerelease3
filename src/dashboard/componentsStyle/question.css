@@ -5,6 +5,7 @@
     overflow: scroll;
     padding-top: 44px;
     padding-left: 53px;
+    padding-right: 53px;
 }
 
 .title {
@@ -94,3 +95,147 @@ border-radius: 6px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   background-color: #fff;
 }
+
+.questions {
+    margin-top: 22px;
+}
+
+.questionDiv {
+    padding: 30px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+.questionheader {
+    display : flex;
+    align-items: center;
+    border-bottom: 1px solid #d9d9d9;
+    padding-bottom: 24.1px;
+    justify-content: space-between;
+}
+
+.avatar {
+    display: flex;
+}
+
+.avatarImg {
+    width: 20px;
+}
+
+.email {
+    margin-left: 14px;
+    font-family: "Apple_B";
+    font-size: 20px;
+}
+
+.questionBody {
+    padding-top: 20.4px;
+    padding-bottom: 16px;
+}
+
+.bodyTitle {
+    font-family: "Apple_R";
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.bodyDescription {
+    margin-top: 13.4px;
+    font-family: "Apple_R";
+    margin-bottom: 14.7px;
+}
+
+.imgBox {
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+    max-height: 400px;
+    position: relative;
+}
+
+.img {
+    object-fit: contain;
+}
+
+.imgBoxCover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 15px;
+    background-color: transparent;
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Apple_R";
+}
+
+.imgBoxCoverTitle {
+    margin-bottom: 14px;
+    font-size: 18px;
+}
+
+.imgBoxCoverDescription {
+    cursor: pointer;
+}
+
+.imgBoxCover:hover {
+    background-color: rgba(30, 30, 30, 0.6);
+    color: white;
+    transition: all 200ms ease-in;
+}
+
+.imgListElement {
+    margin-bottom: 10px;
+    background-color: rgb(245, 245, 245);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.imgList {
+
+}
+
+.imgList :hover {
+    background-color: rgb(210, 210, 210);
+    transition: all 200ms ease-in;
+}
+
+
+
+.imgListElement_img{
+    margin-right: 25px;
+}
+
+.imgListElement_left{
+    display: flex;
+}
+
+.fileImage {
+    width: 32px;
+}
+
+.imgListElement_name {
+    display: flex;
+    flex-direction: column;
+    justify-content:start;
+}
+
+.imgListElement_namedetail {
+    font-weight: 600;
+}
+
+.letshow {
+    font-size: 10px;
+    margin-top: 10px;
+    font-weight: 600;
+    color: rgb(120, 120, 120);
+    cursor: pointer;
+}
+
+.modalImg {
+
+}
+
