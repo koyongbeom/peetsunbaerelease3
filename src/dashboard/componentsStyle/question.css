@@ -69,6 +69,7 @@
     margin-top: 49px;
     display: flex;
     justify-content: center;
+    margin-bottom: 120px;
 }
 
 .pageNumber {
@@ -102,6 +103,7 @@ border-radius: 6px;
 
 .questionDiv {
     padding: 30px;
+    padding-top: 24px;
     padding-bottom: 24px;
     background-color: white;
     margin-bottom: 20px;
@@ -111,7 +113,7 @@ border-radius: 6px;
     display : flex;
     align-items: center;
     border-bottom: 1px solid #d9d9d9;
-    padding-bottom: 24.1px;
+    padding-bottom: 16.1px;
     justify-content: space-between;
 }
 
@@ -125,16 +127,29 @@ border-radius: 6px;
 
 .avatar {
     display: flex;
+    align-items: center;
 }
 
 .avatarImg {
     width: 20px;
 }
 
-.email {
+.emailDiv {
     margin-left: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.email {
     font-family: "Apple_B";
     font-size: 20px;
+}
+
+.questionDate {
+    font-size: 12px;
+    margin-bottom: 8px;
+    color : rgb(120, 120, 120);
 }
 
 .questionBody {
@@ -149,6 +164,7 @@ border-radius: 6px;
 }
 
 .bodyDescription {
+    white-space: pre-wrap;
     margin-top: 13.4px;
     font-family: "Apple_R";
     margin-bottom: 14.7px;
@@ -351,5 +367,27 @@ border-radius: 6px;
     justify-content: center;
     margin-bottom: 12px;
 }
+
+
+
+.review {
+    padding-top: 23px;
+    padding-bottom: 23px;
+    border-top: 1px solid #d9d9d9;
+    display: flex;
+}
+
+.reviewDescriptionDiv {
+    margin-left: 19.1px;
+    white-space: pre-wrap;
+}
+
+.reviewAuthor{
+    font-family: "Apple_B";
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+
 
 

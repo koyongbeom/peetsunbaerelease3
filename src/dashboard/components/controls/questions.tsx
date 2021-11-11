@@ -75,7 +75,8 @@ const Questions: React.FC<any> = (props) => {
                 credentials: "include"
             }).then((response) => {
                 response.json()
-                    .then((result) => {
+                    .then((result : any) => {
+                        
                         console.log(result.message);
                         setQuestionResults(result.message);
                     })
@@ -253,7 +254,7 @@ const Questions: React.FC<any> = (props) => {
         setAnswerloading(true);
 
         var formData = new FormData();
-        var message = { message: answerValue[index], questionId: questionId, author: props.user.name, userId: props.user.id };
+        var message = { message: inputValue[index], questionId: questionId, author: props.user.name, userId: props.user.id };
         formData.append("message", JSON.stringify(message));
 
         answerFiles.forEach((file: any) => {
@@ -312,12 +313,22 @@ const Questions: React.FC<any> = (props) => {
         <div className="questions">
             {
                 questionResults && questionResults.map((each: any, index: number) => {
+                    
+                    
+
                     return (
                         <div className="questionDiv">
                             <div className="questionheader">
                                 <div className="avatar">
                                     <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
-                                    <div className="email">{each.email}</div>
+                                    <div className="emailDiv">
+                                        <div className="email">
+                                            {each.email}
+                                        </div>
+                                        <div className="questionDate">
+                                            {`${each.createdAt.year}/${each.createdAt.month}/${each.createdAt.date} ${each.createdAt.hours >= 12 ? each.createdAt.hours-12 : each.createdAt.hours}:${each.createdAt.minutes}  ${each.createdAt.hours >= 12 ? "PM" : "AM"}`}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="config" data-id={each.id} onClick={deleteMyQuesiton}>
                                     {each.userId === props.user.id ? <img data-id={each.id} className="trash" src="img/trash-alt-light.svg" alt="config" /> : ""}
@@ -387,6 +398,25 @@ const Questions: React.FC<any> = (props) => {
                                 }
                                 </div>
 
+                                {
+                                    each.reviews.map((review : any)=>{
+                                        return (
+                                        <div className="review">
+                                            <div className="reviewAvatar">
+                                                <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
+                                            </div>
+                                            <div className="reviewDescriptionDiv">
+                                                <div className="reviewAuthor">
+                                                    {review.userName}
+                                                </div>
+                                                <div className="reviewDescription">
+                                                    {<p>{review.description}</p>}
+                                                </div>
+                                            </div>
+                                        </div>)
+                                    })
+                                }
+
                                 <form encType="multipart/formdata">
                                     <div className="answerTextFieldDiv">
                                         <div className="answerTextField">
@@ -404,7 +434,7 @@ const Questions: React.FC<any> = (props) => {
                                                     onBlur={(e) => { blurTextField(e, index) }}
                                                     multiline={true}
                                                     sx={{ ml: 1, flex: 1, fontFamily: "Apple_R", paddingLeft: "2px", paddingTop: "8px", paddingRight: "15px" }}
-                                                    placeholder="메시지를 입력하세요"
+                                                    placeholder="메시지를 입력하세요 (ENTER로 줄바꿈이 가능합니다)"
                                                     inputProps={{ 'aria-label': 'search google maps' }}
                                                     onChange={(e) => { getTextField(e, index) }}
                                                 />
