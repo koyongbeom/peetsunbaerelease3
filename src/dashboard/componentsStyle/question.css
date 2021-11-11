@@ -255,12 +255,22 @@ border-radius: 6px;
     margin-top: 14.1px;
     margin-bottom: 16.9px;
     font-family: "Apple_R";
+    cursor: not-allowed;
+}
+
+.likeicon {
     cursor: pointer;
 }
 
 .liketext{
     margin-top: 2px;
     margin-left: 9.5px;
+    color: rgb(160, 160, 160);
+}
+
+.liketext.activate{
+    font-weight: 600;
+    color: #3d50b0;
 }
 
 .answerTextFieldDiv{
@@ -273,7 +283,35 @@ border-radius: 6px;
 }
 
 .clip {
-    width: 20px;
+    width: 16px;
+    cursor: pointer;
+}
+
+.uploadedFileClip {
+    width: 16px;
+    margin-right: 8px;
+}
+
+.answerFile{
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    background-color: rgb(242, 244, 248);
+}
+
+.answerFileTitle {
+    display: flex;
+}
+
+.uploadedFileTrash {
+    width: 12px;
     cursor: pointer;
 }
 
@@ -306,6 +344,12 @@ border-radius: 6px;
     color: white;
     transition: all 300ms ease-in;
     cursor: pointer;
+}
+
+.answerloading {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
 }
 
 
