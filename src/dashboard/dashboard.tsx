@@ -300,7 +300,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/edit" render={(props) => <Edit activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/envelope" render={(props) => <Envelope activateMenuList={activateMenuList} {...props}  />} />
                         <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />
-                        <Route exact path="/dashboard/question" render={(props) => <Question activateMenuList={activateMenuList} {...props}  />} />
+                        <Route exact path="/dashboard/question" render={(props) => <Question user={user} activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/report" render={(props) => <Report activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/restaurant" render={(props) => <Restaurant activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/search" render={(props) => <Search activateMenuList={activateMenuList} {...props}  />} />

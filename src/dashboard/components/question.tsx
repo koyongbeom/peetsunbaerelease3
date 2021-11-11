@@ -8,6 +8,7 @@ type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book
 
 interface questionProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
+    user : any
 }
 
 
@@ -71,7 +72,7 @@ const Question: React.FC<questionProps> = (props) => {
             </div>
 
             <div className="qnaBoard">
-                <Questions subject={selectMenu} page={currentPage}></Questions>
+                <Questions user={props.user} subject={selectMenu} page={currentPage}></Questions>
             </div>
 
             <div className="pageNumberDiv">

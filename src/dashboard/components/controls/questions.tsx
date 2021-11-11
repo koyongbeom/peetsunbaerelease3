@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from "react"
 import Avatar from '@mui/material/Avatar';
-import { fontFamily } from "@mui/system";
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import DirectionsIcon from '@mui/icons-material/Directions';
+import { emitKeypressEvents } from "readline";
+
 
 const Questions: React.FC<any> = (props) => {
 
     const [loading, setLoading] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
     const [questionResults, setQuestionResults] = useState<any>();
     const [open, setOpen] = React.useState(false);
     const [src, setSrc] = useState("");
+    const [update, setUpdate] = useState(1);
+    const [rows, setRows] = useState([1,1,1,1,1,1,1,1]);
+    const [activate, setActivate] = useState([false,false,false,false,false,false,false,false,false,false]);
+    const [answerValue, setAnswerValue] = useState(["","","","","","","","","","","","","",]);
+    const [memoryRow, setMemoryRow] = useState([3,3,3,3,3,3,3,3,3,3]);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -33,11 +47,11 @@ const Questions: React.FC<any> = (props) => {
         bgcolor: '#f5f5f5',
         border: '1px solid #000',
         p: 1,
-        width : "1200px",
-        height : "800px",
-        display : "flex",
-        justifyContent : "center",
-      };
+        width: "1200px",
+        height: "800px",
+        display: "flex",
+        justifyContent: "center",
+    };
 
 
 
@@ -65,12 +79,103 @@ const Questions: React.FC<any> = (props) => {
         }
         start();
 
-    }, [props.subject, props.page]);
+    }, [props.subject, props.page, update]);
+
+
+
+    const deleteMyQuesiton = async (e: any) => {
+        var token = "";
+        if (window.electron) {
+            token = await window.electron.sendMessageApi.getToken();
+        }
+
+        fetch(`https://peetsunbae.com/dashboard/question/delete?id=${e.target.dataset.id}`, {
+            method: "DELETE",
+            headers: { "Authorization": token },
+            credentials: "include"
+        }).then((response) => {
+            response.json()
+                .then((result) => {
+                    console.log(result.message);
+                    if (result.message === "success") {
+                        const random = Math.floor(Math.random() * 999999);
+                        setUpdate(random);
+                    }
+                })
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const getTextField = (e : any, index : number) => {
+        console.log(e.target.value);
+        console.log(11);
+        const value = e.target.value;
+        const newAnswerValue = answerValue;
+        newAnswerValue[index] = value;
+        setAnswerValue([...newAnswerValue]);
+
+        if(newAnswerValue[index].length%74 === 0){
+            if(Math.floor(newAnswerValue[index].length/74) != 0){
+                const newRows = rows;
+                newRows[index]++;
+                setRows([...newRows]);
+            }
+
+        // const newRows = rows;
+        // newRows[index] = Math.floor(newAnswerValue[index].length/74) + 3;
+        // setRows([...newRows]);
+        }
+    }
+
+    const activateTextField = (e : any, index : number) => {
+        console.log(22);
+        if(e.target.value.length === 0){
+        const newActivate = activate;
+        const newRows = rows;
+
+        newActivate[index] = true;
+        newRows[index] = 3;
+        
+        setActivate([...newActivate]);
+        setRows([...newRows]);
+        console.log(1);
+        }
+    }
+
+    const blurTextField = (e : any, index : number) => {
+
+
+
+        if(e.target.value.length === 0){
+            console.log(33);
+            const newActivate = activate;
+            const newRows = rows;
+    
+    
+            newActivate[index] = false;
+        newRows[index] = 1;
+        setRows([...newRows]);
+        setActivate([...newActivate]);
+        }
+
+        console.log(1);
+    }
+
+    const keypress = (ev : any, index : number) => {
+        console.log(44);
+        if(ev.key === "Enter"){
+            const newRows = rows;
+            newRows[index]++;
+            setRows([...newRows]);
+        }
+    }
+
 
     return (
         <div className="questions">
             {
-                questionResults && questionResults.map((each: any) => {
+                questionResults && questionResults.map((each: any, index : number) => {
                     return (
                         <div className="questionDiv">
                             <div className="questionheader">
@@ -78,8 +183,8 @@ const Questions: React.FC<any> = (props) => {
                                     <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
                                     <div className="email">{each.email}</div>
                                 </div>
-                                <div className="config">
-                                    <img src="img/dotdotdot.svg" alt="config" />
+                                <div className="config" data-id={each.id} onClick={deleteMyQuesiton}>
+                                    {each.userId === props.user.id ? <img data-id={each.id} className="trash" src="img/trash-alt-light.svg" alt="config" /> : ""}
                                 </div>
                             </div>
                             <div className="questionBody">
@@ -134,6 +239,42 @@ const Questions: React.FC<any> = (props) => {
                                         :
                                         ""
                                 }
+                                <div className="likeicon">
+                                    <img src="img/likeicon.svg" alt="like" /><div className="liketext">이해됐어요</div>
+                                </div>
+                                <div className="answerTextFieldDiv">
+                                    <div className="answerTextField">
+                                        <Paper
+                                            elevation={0}
+                                            component="form"
+                                            sx={{ p: '2px 4px', display: 'flex', flexDirection : "column", width: "100%", border : "1px solid #d9d9d9"}}
+                                        >
+                                            <InputBase
+                                                onKeyPress={(ev)=>{keypress(ev, index);}}
+                                                rows = {rows[index]}
+                                                onFocus={(e)=>{activateTextField(e, index)}}
+                                                onBlur={(e)=>{blurTextField(e, index)}}
+                                                multiline={true}
+                                                sx={{ ml: 1, flex: 1, fontFamily :"Apple_R",paddingLeft : "2px", paddingTop : "8px", paddingRight : "15px" }}
+                                                placeholder="메시지를 입력하세요"
+                                                inputProps={{ 'aria-label': 'search google maps' }}
+                                                onChange={(e)=>{getTextField(e, index)}}
+                                            />
+
+                                            {activate[index] ?
+                                            <div className="answerSubmit">
+                                                <div className="fileupload">
+                                                    <img className="clip" src="img/paperclip-light.svg" alt="file" />
+                                                </div>
+                                                <div className={`answerSubmitText ${answerValue[index].length > 0 ? "active" : ""}`}>
+                                                        전송
+                                                </div>
+                                            </div> : ""
+                                            }
+
+                                        </Paper>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     );
