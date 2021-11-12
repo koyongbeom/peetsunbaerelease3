@@ -11,6 +11,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import { emitKeypressEvents } from "readline";
 import { CircularProgress } from "@mui/material";
+import { SportsRugbySharp } from "@mui/icons-material";
+
 
 
 const Questions: React.FC<any> = (props) => {
@@ -32,37 +34,187 @@ const Questions: React.FC<any> = (props) => {
     const [answerFileNames, setAnswerFileNames] = useState<any>([]);
     const [answerFiles, setAnswerFiles] = useState<any>([]);
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const dragRef = useRef<HTMLDivElement>(null);
+    const [startX, setStartX] = useState(0);
+    const [startY, setStartY] = useState(0);
+    const [startScrollLeft, setStartScrollLeft] = useState(0);
+    const [startScrollTop, setStartScrollTop] = useState(0);
+    const [isMouseDown, setIsMouseDown] = useState(false);
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
+    const [percent, setPercent] = useState(100);
+    const [isLandscape, setIsLandScape] = useState(true);
+    const [modalImgStyle, setModalImageStyle] = useState<any>({width : "auto", height : "auto", transform : "rotate(0deg)"});
+    const [walkx, setWalkx] = useState(0);   
+    const [walky, setWalky] = useState(0);
+    const handleOpen = () => { setOpen(true); }
+    const handleClose = () => { setOpen(false); setIsMouseDown(false); }
 
     const textStyle = {
         fontFamily: "Apple_B"
     }
 
 
-    const show = (e: any) => {
+    const show = (e: any, index: number) => {
         console.log(e.target.dataset.src);
+        setPercent(100);
         setOpen(true);
         setSrc(`https://peetsunbae.com/${e.target.dataset.src.split("/public/")[1]}`);
+        const img = new Image();
+        img.src = `https://peetsunbae.com/${e.target.dataset.src.split("/public/")[1]}`;
+        img.onload = function () {
+            console.log(img.width);
+            console.log(img.height);
+            if(img.width > 1.5 * img.height){
+                console.log(1);
+                setIsLandScape(true);
+                setModalImageStyle(
+                    (prevStyle : any) =>
+                    {
+                        return {
+                        ...prevStyle,
+                        width: "1200px",
+                        }
+                    }
+                )
+            }else{
+                setIsLandScape(false);
+                console.log(2);
+                setModalImageStyle(
+                    (prevStyle : any) =>
+                    {
+                        return {
+                        ...prevStyle,
+                        height: "800px",
+                        }
+                    }
+                )
+            }
+
+        }
     }
 
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        bgcolor: '#f5f5f5',
-        border: '1px solid #000',
-        p: 1,
-        width: "1200px",
-        height: "800px",
-        display: "flex",
-        justifyContent: "center",
-    };
+    const letsPlus = () => {
+        const newPercent = percent + 10;
+        if(isLandscape){
+            console.log(+modalImgStyle.width.split("px")[0]);
+            const newWidth = +modalImgStyle.width.split("px")[0] * 1.1;
+
+            setModalImageStyle(
+                (prevStyle : any) =>
+                {
+                    return {
+                    ...prevStyle,
+                    height : "auto",
+                    width: `${newWidth}px`,
+                    }
+                }
+            )
+
+            setPercent(newPercent);
+        }else{
+            console.log(modalImgStyle.width);
+            console.log(+modalImgStyle.height.split("px")[0]);
+            const newHeight = +modalImgStyle.height.split("px")[0] * 1.1;
+           
+            setModalImageStyle(
+                (prevStyle : any) =>
+                {
+                    return {
+                    ...prevStyle,
+                    width : "auto",
+                    height: `${newHeight}px`,
+                    }
+                }
+            )
+            setPercent(newPercent);
+        }
+    }
+    
+    const letsMaximize = () => {
+        if(isLandscape){
+            setModalImageStyle(
+                (prevStyle : any) =>
+                {
+                    return {
+                    ...prevStyle,
+                    width: "1200px",
+                    }
+                }
+            )
+            setPercent(100);
+        }else{
+            setModalImageStyle(
+                (prevStyle : any) =>
+                {
+                    return {
+                    ...prevStyle,
+                    height: "800px",
+                    }
+                }
+            )
+            setPercent(100);
+        }
+    }
+
+    const letsMinus = () => {
+        const newPercent = percent - 10;
+        if(isLandscape){
+            console.log(+modalImgStyle.width.split("px")[0]);
+            const newWidth = +modalImgStyle.width.split("px")[0] * 0.9;
+           
+            setModalImageStyle(
+                (prevStyle : any) =>
+                {
+                    return {
+                    ...prevStyle,
+                    width: `${newWidth}px`,
+                    }
+                }
+            )
+            setPercent(newPercent);
+        }else{
+            console.log(modalImgStyle.width);
+            console.log(+modalImgStyle.height.split("px")[0]);
+            const newHeight = +modalImgStyle.height.split("px")[0] * 0.9;
+           
+            setModalImageStyle(
+                (prevStyle : any) =>
+                {
+                    return {
+                    ...prevStyle,
+                    height: `${newHeight}px`,
+                    }
+                }
+            )
+            setPercent(newPercent);
+        }
+    }
+
+    const letsRotate = () => {
+        var newDegree = modalImgStyle.transform;
+        newDegree = newDegree.replace("rotate(", "");
+        newDegree = +newDegree.replace("deg)", "");
+        newDegree-=90;
+
+        setModalImageStyle(
+            (prevStyle : any) =>
+            {
+                return {
+                ...prevStyle,
+                transform: `rotate(${newDegree}deg)`,
+                }
+            }
+        )
+
+    }
 
 
     //질의응답 게시판 가져오는 기능----------------------------------------------------------------
     useEffect(() => {
+
+        // webFrame.setZoomFactor(3);
+
         async function start() {
             var token = "";
             if (window.electron) {
@@ -75,8 +227,8 @@ const Questions: React.FC<any> = (props) => {
                 credentials: "include"
             }).then((response) => {
                 response.json()
-                    .then((result : any) => {
-                        
+                    .then((result: any) => {
+
                         console.log(result.message);
                         setQuestionResults(result.message);
                     })
@@ -117,8 +269,8 @@ const Questions: React.FC<any> = (props) => {
 
 
     //이해했어요 기능----------------------------------------------
-    const understand = async (e: any, questionId: number, userId : number) => {
-        if(userId != props.user.id){
+    const understand = async (e: any, questionId: number, userId: number) => {
+        if (userId != props.user.id) {
             return;
         }
 
@@ -309,12 +461,51 @@ const Questions: React.FC<any> = (props) => {
 
 
 
+    const handleDown = (e: any) => {
+        if (!dragRef.current?.contains(e.target)) {
+            return;
+        }
+        setIsMouseDown(true);
+        setStartX(e.pageX - dragRef.current.offsetLeft);
+        setStartY(e.pageY - dragRef.current.offsetTop);
+        setStartScrollLeft(dragRef.current.scrollLeft);
+        setStartScrollTop(dragRef.current.scrollTop);
+
+    }
+
+    const handleMove = (e: any) => {
+
+        if (isMouseDown) {
+            e.preventDefault();
+
+            const mouseX = e.pageX - dragRef.current!.offsetLeft;
+            const mouseY = e.pageY - dragRef.current!.offsetTop;
+            // Distance of the mouse from the origin of the last mousedown event
+            const walkX = mouseX - startX;
+            const walkY = mouseY - startY;
+            // Set element scroll
+            setWalkx(walkX);
+            setWalky(walkY);
+            dragRef.current!.scrollLeft = startScrollLeft - walkX;
+            dragRef.current!.scrollTop = startScrollTop - walkY;
+        }
+    }
+
+    const handleMouseUp = (e: any) => {
+        console.log("mouseup");
+        setIsMouseDown(false);
+    }
+
+
+
+
+
     return (
         <div className="questions">
             {
                 questionResults && questionResults.map((each: any, index: number) => {
-                    
-                    
+
+
 
                     return (
                         <div className="questionDiv">
@@ -326,7 +517,7 @@ const Questions: React.FC<any> = (props) => {
                                             {each.email}
                                         </div>
                                         <div className="questionDate">
-                                            {`${each.createdAt.year}/${each.createdAt.month}/${each.createdAt.date} ${each.createdAt.hours >= 12 ? each.createdAt.hours-12 : each.createdAt.hours}:${each.createdAt.minutes}  ${each.createdAt.hours >= 12 ? "PM" : "AM"}`}
+                                            {`${each.createdAt.year}/${each.createdAt.month}/${each.createdAt.date} ${each.createdAt.hours >= 12 ? each.createdAt.hours - 12 : each.createdAt.hours}:${each.createdAt.minutes}  ${each.createdAt.hours >= 12 ? "PM" : "AM"}`}
                                         </div>
                                     </div>
                                 </div>
@@ -348,7 +539,7 @@ const Questions: React.FC<any> = (props) => {
                                                 <div className="imgBoxCoverTitle">
                                                     {each.images[0].split("/question/")[1]}
                                                 </div>
-                                                <div className="imgBoxCoverDescription" data-src={each.images[0]} onClick={show}>
+                                                <div className="imgBoxCoverDescription" data-src={each.images[0]} onClick={(e) => { show(e, index) }}>
                                                     사진 미리보기
                                                 </div>
                                             </div>
@@ -370,7 +561,7 @@ const Questions: React.FC<any> = (props) => {
                                                                 <div className="imgListElement_namedetail">
                                                                     {image.split("/question/")[1]}
                                                                 </div>
-                                                                <div className="letshow" data-src={image} onClick={show}>
+                                                                <div className="letshow" data-src={image} onClick={(e) => { show(e, index) }}>
                                                                     파일 미리보기
                                                                 </div>
                                                             </div>
@@ -387,33 +578,33 @@ const Questions: React.FC<any> = (props) => {
                                         ""
                                 }
                                 <div onClick={(e) => { understand(e, each.id, each.userId) }} className={`likeicon ${each.userId === props.user.id ? "mine" : ""}`}>
-                                    {each.isUnderStand ? 
-                                    <>
-                                    <img src='img/likeiconactivate.svg' alt="like" /><div className="liketext activate">+1 이해됐어요</div> 
-                                    </>
-                                     :
-                                    <>
-                                    <img src='img/likeicon.svg' alt="like" /><div className="liketext">이해됐어요</div> 
-                                    </>
-                                }
+                                    {each.isUnderStand ?
+                                        <>
+                                            <img src='img/likeiconactivate.svg' alt="like" /><div className="liketext activate">+1 이해됐어요</div>
+                                        </>
+                                        :
+                                        <>
+                                            <img src='img/likeicon.svg' alt="like" /><div className="liketext">이해됐어요</div>
+                                        </>
+                                    }
                                 </div>
 
                                 {
-                                    each.reviews.map((review : any)=>{
+                                    each.reviews.map((review: any) => {
                                         return (
-                                        <div className="review">
-                                            <div className="reviewAvatar">
-                                                <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
-                                            </div>
-                                            <div className="reviewDescriptionDiv">
-                                                <div className="reviewAuthor">
-                                                    {review.userName}
+                                            <div className="review">
+                                                <div className="reviewAvatar">
+                                                    <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
                                                 </div>
-                                                <div className="reviewDescription">
-                                                    {<p>{review.description}</p>}
+                                                <div className="reviewDescriptionDiv">
+                                                    <div className="reviewAuthor">
+                                                        {review.userName}
+                                                    </div>
+                                                    <div className="reviewDescription">
+                                                        {<p>{review.description}</p>}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>)
+                                            </div>)
                                     })
                                 }
 
@@ -485,14 +676,31 @@ const Questions: React.FC<any> = (props) => {
 
 
             <Modal
+                disableScrollLock={true}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <img className="modalImg" src={src} alt="question" />
-                </Box>
+                <>
+                    <div className="modalDiv" ref={dragRef} onMouseMove={handleMove} onMouseUp={handleMouseUp} onMouseDown={handleDown}>
+                        <img style={modalImgStyle} className="modalImg" src={src} alt="question" />
+
+                        
+                        <div className="imgOperator">
+                            <img onClick={letsMinus} className="minus" src="img/minus-circle-light.svg" alt="minus" />
+                            <div className="percentDiv">
+                                    {percent}%
+                            </div>
+                            <img onClick={letsPlus} className="plus" src="img/plus-circle-light.svg" alt="plus" />
+                            <img onClick={letsMaximize} className="maximize" src="img/expand-arrows-light.svg" alt="maximize" />
+                            <img onClick={letsRotate} className="rotate" src="img/undo-light.svg" alt="rotate" />
+                        </div>
+                        
+                    </div>
+
+
+                </>
             </Modal>
         </div>
     )
