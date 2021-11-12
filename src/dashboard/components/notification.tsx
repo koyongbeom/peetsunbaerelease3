@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 import { RouteComponentProps } from 'react-router';
 import { withStyles } from '@mui/styles';
-import { Avatar, Button } from '@mui/material';
+import { Avatar, Button, Skeleton } from '@mui/material';
 import styles from '../componentsStyle/notificationStyles';
+import '../componentsStyle/notificationStyle.css';
+import { TrendingUpOutlined } from '@mui/icons-material';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -16,16 +18,27 @@ interface notificationProps extends RouteComponentProps {
 
 
 const Notification: React.FC<notificationProps> = (props) => {
+
+
+
     useEffect(()=>{
         props.activateMenuList("notification");
     }, [])
 
     const classes = props.classes;
 
-    console.log(props.location.pathname);
 
     const [notificationResults, setNotificationResults] = useState<any>();
     const [loading, setLoading] = useState(false);
+    const [imgLoaded, setImgLoaded] = useState([false,false,false,false,false,false,false,false,false]);
+
+    // const handleOnload = (e : any, index : number) => {
+    //     console.log(1111111);
+    //     console.log(index);
+    //     const newImgLoaded = imgLoaded;
+    //     newImgLoaded[index] = true;
+    //     setImgLoaded([...newImgLoaded]);
+    // }
 
 
     useEffect(() => {
@@ -72,7 +85,13 @@ const Notification: React.FC<notificationProps> = (props) => {
                                 if (each.images.length > 0) {
                                     return (
                                         <div key={each.title + Math.random()} className={classes.notification} data-id={each.id}>
-                                            <div className={classes.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
+                                            <div className="imageDiv" style={{ width: "277px", height: "140px", backgroundSize: "cover" }}>
+
+                                                <img className="notification_image" src={`https://peetsunbae.com/${each.images[0].split("/public/")[1]}`} alt="img" />
+                                                {imgLoaded[index] ?
+                                                    "" :
+                                                    <Skeleton variant="rectangular" width={277} height={140} />
+                                                }
                                             </div>
                                             <div className={classes.notification_description}>
                                                 <div className={classes.notification_description1}>
@@ -137,7 +156,12 @@ const Notification: React.FC<notificationProps> = (props) => {
                                 if (each.images.length > 0) {
                                     return (
                                         <div key={each.title + Math.random()} className={classes.notification} data-id={each.id}>
-                                            <div className={classes.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
+                                            <div className="imageDiv" style={{ width: "277px", height: "140px", backgroundSize: "cover" }}>
+                                                
+                                                <img className="notification_image" src={`https://peetsunbae.com/${each.images[0].split("/public/")[1]}`} alt="img" />
+                                                {imgLoaded[index] ? "" :
+                                                    <Skeleton variant="rectangular" width={277} height={140} />
+                                                }
                                             </div>
                                             <div className={classes.notification_description}>
                                                 <div className={classes.notification_description1}>

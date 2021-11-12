@@ -44,8 +44,8 @@ const Questions: React.FC<any> = (props) => {
     const [height, setHeight] = useState(0);
     const [percent, setPercent] = useState(100);
     const [isLandscape, setIsLandScape] = useState(true);
-    const [modalImgStyle, setModalImageStyle] = useState<any>({width : "auto", height : "auto", transform : "rotate(0deg)"});
-    const [walkx, setWalkx] = useState(0);   
+    const [modalImgStyle, setModalImageStyle] = useState<any>({ width: "auto", height: "auto", transform: "rotate(0deg)" });
+    const [walkx, setWalkx] = useState(0);
     const [walky, setWalky] = useState(0);
     const handleOpen = () => { setOpen(true); }
     const handleClose = () => { setOpen(false); setIsMouseDown(false); }
@@ -65,27 +65,27 @@ const Questions: React.FC<any> = (props) => {
         img.onload = function () {
             console.log(img.width);
             console.log(img.height);
-            if(img.width > 1.5 * img.height){
+            if (img.width > 1.5 * img.height) {
                 console.log(1);
                 setIsLandScape(true);
                 setModalImageStyle(
-                    (prevStyle : any) =>
-                    {
+                    (prevStyle: any) => {
                         return {
-                        ...prevStyle,
-                        width: "1200px",
+                            ...prevStyle,
+                            width: "1200px",
+                            transform: "rotate(0deg)"
                         }
                     }
                 )
-            }else{
+            } else {
                 setIsLandScape(false);
                 console.log(2);
                 setModalImageStyle(
-                    (prevStyle : any) =>
-                    {
+                    (prevStyle: any) => {
                         return {
-                        ...prevStyle,
-                        height: "800px",
+                            ...prevStyle,
+                            height: "800px",
+                            transform: "rotate(0deg)"
                         }
                     }
                 )
@@ -96,60 +96,58 @@ const Questions: React.FC<any> = (props) => {
 
     const letsPlus = () => {
         const newPercent = percent + 10;
-        if(isLandscape){
+        if (isLandscape) {
             console.log(+modalImgStyle.width.split("px")[0]);
             const newWidth = +modalImgStyle.width.split("px")[0] * 1.1;
 
             setModalImageStyle(
-                (prevStyle : any) =>
-                {
+                (prevStyle: any) => {
                     return {
-                    ...prevStyle,
-                    height : "auto",
-                    width: `${newWidth}px`,
+                        ...prevStyle,
+                        height: "auto",
+                        width: `${newWidth}px`,
                     }
                 }
             )
 
             setPercent(newPercent);
-        }else{
+        } else {
             console.log(modalImgStyle.width);
             console.log(+modalImgStyle.height.split("px")[0]);
             const newHeight = +modalImgStyle.height.split("px")[0] * 1.1;
-           
+
             setModalImageStyle(
-                (prevStyle : any) =>
-                {
+                (prevStyle: any) => {
                     return {
-                    ...prevStyle,
-                    width : "auto",
-                    height: `${newHeight}px`,
+                        ...prevStyle,
+                        width: "auto",
+                        height: `${newHeight}px`,
                     }
                 }
             )
             setPercent(newPercent);
         }
     }
-    
+
     const letsMaximize = () => {
-        if(isLandscape){
+        if (isLandscape) {
             setModalImageStyle(
-                (prevStyle : any) =>
-                {
+                (prevStyle: any) => {
                     return {
-                    ...prevStyle,
-                    width: "1200px",
+                        ...prevStyle,
+                        width: "1200px",
+                        height : "auto"
                     }
                 }
             )
             setPercent(100);
-        }else{
+        } else {
             setModalImageStyle(
-                (prevStyle : any) =>
-                {
+                (prevStyle: any) => {
                     return {
-                    ...prevStyle,
-                    height: "800px",
+                        ...prevStyle,
+                        height: "800px",
+                        width : "auto"
                     }
                 }
             )
@@ -159,31 +157,29 @@ const Questions: React.FC<any> = (props) => {
 
     const letsMinus = () => {
         const newPercent = percent - 10;
-        if(isLandscape){
+        if (isLandscape) {
             console.log(+modalImgStyle.width.split("px")[0]);
             const newWidth = +modalImgStyle.width.split("px")[0] * 0.9;
-           
+
             setModalImageStyle(
-                (prevStyle : any) =>
-                {
+                (prevStyle: any) => {
                     return {
-                    ...prevStyle,
-                    width: `${newWidth}px`,
+                        ...prevStyle,
+                        width: `${newWidth}px`,
                     }
                 }
             )
             setPercent(newPercent);
-        }else{
+        } else {
             console.log(modalImgStyle.width);
             console.log(+modalImgStyle.height.split("px")[0]);
             const newHeight = +modalImgStyle.height.split("px")[0] * 0.9;
-           
+
             setModalImageStyle(
-                (prevStyle : any) =>
-                {
+                (prevStyle: any) => {
                     return {
-                    ...prevStyle,
-                    height: `${newHeight}px`,
+                        ...prevStyle,
+                        height: `${newHeight}px`,
                     }
                 }
             )
@@ -195,14 +191,13 @@ const Questions: React.FC<any> = (props) => {
         var newDegree = modalImgStyle.transform;
         newDegree = newDegree.replace("rotate(", "");
         newDegree = +newDegree.replace("deg)", "");
-        newDegree-=90;
+        newDegree -= 90;
 
         setModalImageStyle(
-            (prevStyle : any) =>
-            {
+            (prevStyle: any) => {
                 return {
-                ...prevStyle,
-                transform: `rotate(${newDegree}deg)`,
+                    ...prevStyle,
+                    transform: `rotate(${newDegree}deg)`,
                 }
             }
         )
@@ -603,8 +598,30 @@ const Questions: React.FC<any> = (props) => {
                                                     <div className="reviewDescription">
                                                         {<p>{review.description}</p>}
                                                     </div>
+                                                    {review.src ?
+                                                    <div>
+                                                        <div className="imgBox answerImageBox">
+                                                            <div className="imgBoxCover">
+                                                                <div className="imgBoxCoverTitle">
+                                                                    {each.images[0].split("/question/")[1]}
+                                                                </div>
+                                                                <div className="imgBoxCoverDescription" data-src={review.src} onClick={(e) => { show(e, index) }}>
+                                                                    사진 미리보기
+                                                                </div>
+                                                            </div>
+                                                            <img className="img answerImg" src={`https://peetsunbae.com/${review.src.split("/public/")[1]}`} />
+                                                        </div>
+                                                    </div>
+                                                        :
+                                                        ""
+                                                    }
+                                                    <div className="answerDate">
+                                                         {`${each.createdAt.year}/${each.createdAt.month}/${each.createdAt.date} ${each.createdAt.hours >= 12 ? each.createdAt.hours - 12 : each.createdAt.hours}:${each.createdAt.minutes}  ${each.createdAt.hours >= 12 ? "PM" : "AM"}`}
+                                                    </div>
                                                 </div>
-                                            </div>)
+
+                                            </div>
+                                        )
                                     })
                                 }
 
@@ -686,17 +703,17 @@ const Questions: React.FC<any> = (props) => {
                     <div className="modalDiv" ref={dragRef} onMouseMove={handleMove} onMouseUp={handleMouseUp} onMouseDown={handleDown}>
                         <img style={modalImgStyle} className="modalImg" src={src} alt="question" />
 
-                        
+
                         <div className="imgOperator">
                             <img onClick={letsMinus} className="minus" src="img/minus-circle-light.svg" alt="minus" />
                             <div className="percentDiv">
-                                    {percent}%
+                                {percent}%
                             </div>
                             <img onClick={letsPlus} className="plus" src="img/plus-circle-light.svg" alt="plus" />
                             <img onClick={letsMaximize} className="maximize" src="img/expand-arrows-light.svg" alt="maximize" />
                             <img onClick={letsRotate} className="rotate" src="img/undo-light.svg" alt="rotate" />
                         </div>
-                        
+
                     </div>
 
 

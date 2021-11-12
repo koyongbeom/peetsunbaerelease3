@@ -106,7 +106,7 @@ border-radius: 6px;
     padding-top: 24px;
     padding-bottom: 24px;
     background-color: white;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
 }
 
 .questionheader {
@@ -177,6 +177,15 @@ border-radius: 6px;
     border-radius: 15px;
     max-height: 400px;
     position: relative;
+}
+
+.answerImageBox {
+    width: 1010px;
+    margin-top: 25px;
+}
+
+.answerImg{
+    
 }
 
 .img {
@@ -448,6 +457,12 @@ border-radius: 6px;
     font-family: "Apple_B";
     font-size: 20px;
     margin-bottom: 4px;
+}
+
+.answerDate {
+    font-size: 12px;
+    margin-top: 12px;
+    color : rgb(120, 120, 120);
 }
 
 
