@@ -208,7 +208,7 @@ const Questions: React.FC<any> = (props) => {
 
     //질의응답 게시판 가져오는 기능----------------------------------------------------------------
     useEffect(() => {
-
+        
         // webFrame.setZoomFactor(3);
 
         async function start() {
@@ -217,7 +217,7 @@ const Questions: React.FC<any> = (props) => {
                 token = await window.electron.sendMessageApi.getToken();
             }
 
-            fetch(`https://peetsunbae.com/dashboard/question/get?subject=${props.subject}&page=${props.page}`, {
+            fetch(`https://peetsunbae.com/dashboard/question/get?subject=${props.subject}&page=${props.page}&alignment=${props.alignment}`, {
                 method: "GET",
                 headers: { "Authorization": token },
                 credentials: "include"
@@ -234,7 +234,7 @@ const Questions: React.FC<any> = (props) => {
         }
         start();
 
-    }, [props.subject, props.page, update]);
+    }, [props.subject, props.page, props.alignment, update]);
     //----------------------------------------------------------------------------------------------
 
     //본인 글 삭제하는 기능------------------------------------------------------------------------
@@ -397,7 +397,7 @@ const Questions: React.FC<any> = (props) => {
 
 
 
-    const submit = (event: any, questionId: number, index: number) => {
+    const submit = (event: any, questionId: number, index: number, questionUserId : number) => {
         event.preventDefault();
         setAnswerloading(true);
 
@@ -447,6 +447,9 @@ const Questions: React.FC<any> = (props) => {
 
                         const random = Math.floor(Math.random() * 999999);
                         setUpdate(random);
+                        console.log("----------------")
+                        console.log(props.user.id);
+                        props.socket.emit("newAnswer", questionUserId, props.user.id);
                     }
                 })
         }).catch((error) => {
@@ -707,7 +710,7 @@ const Questions: React.FC<any> = (props) => {
                                                                 </div>
                                                             </label>
                                                             <input onChange={(e) => fileOnChange(e, index)} type="file" name="file" id="file" accept="image/*" hidden />
-                                                            <div onClick={(e) => { submit(e, each.id, index); }} className={`answerSubmitText ${answerValue[index].length > 0 ? "active" : ""}`}>
+                                                            <div onClick={(e) => { submit(e, each.id, index, each.userId); }} className={`answerSubmitText ${answerValue[index].length > 0 ? "active" : ""}`}>
                                                                 전송
                                                             </div>
                                                         </div>

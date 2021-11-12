@@ -27,10 +27,12 @@ import { io, Socket } from "socket.io-client";
 import QuestionWrite from './components/questionwrite';
 
 
+
 interface props {
     classes: any;
     history: any;
     location: any;
+    socket : Socket;
 }
 
 interface user {
@@ -41,12 +43,11 @@ interface user {
 
 type currentSideBarMenuList = "avatar" | "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
-const socket: Socket = io("https://peetsunbae.com");
 
 
 const Dashboard: React.FC<props> = (props) => {
     const classes = props.classes;
-
+    const socket = props.socket;
     const [user, setUser] = useState<user | null>();
     const [location, setLocation] = useState<string>("");
     const [sideBarMenuList, setSideBarMenuList] = useState<any>();
@@ -129,6 +130,8 @@ const Dashboard: React.FC<props> = (props) => {
 
     //dashboard 처음 진입 시 외출 중인지 내원 중인지 가져오는 기능-------------------------------
     useEffect(() => {
+
+
         async function start() {
             var token = "";
             //-----// 만약 electron 이라면 저장되어 있는 토큰 가져오는 기능----------
@@ -174,6 +177,7 @@ const Dashboard: React.FC<props> = (props) => {
     useEffect(() => {
 
 
+
         //-----//새로운 공지사항 왔을때 공지사항 업데이트 하는 기능---------------------------
         socket.on("newNotification", () => {
             const randomNumber = Math.floor(Math.random() * (99999 - 10000) + 10000);
@@ -195,6 +199,17 @@ const Dashboard: React.FC<props> = (props) => {
         //-----//---------------------------------------------------------------------
 
         //-----------------------------------------------------------------------------
+
+        //새로운 답변 달렸을 때 알림 받는 기능--------------------------------------------
+        socket.on("newAnswer", (answerUserName)=>{
+            console.log(answerUserName);
+            console.log("newAnswerBySocket");
+            new window.Notification("답변이 달렸습니다.", {body : `${answerUserName}님이 답변을 다셨습니다.`});
+        })
+        
+        //--------------------------------------------------------------------------------
+
+        return function cleanup() {socket.off("newAnswer")}
 
     }, []);
     //--------------------------------------------------------------------------------------------
@@ -300,7 +315,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/edit" render={(props) => <Edit activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/envelope" render={(props) => <Envelope activateMenuList={activateMenuList} {...props}  />} />
                         <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />
-                        <Route exact path="/dashboard/question" render={(props) => <Question user={user} activateMenuList={activateMenuList} {...props}  />} />
+                        <Route exact path="/dashboard/question" render={(props) => <Question user={user} activateMenuList={activateMenuList} {...props} socket={socket} />} />
                         <Route path="/dashboard/report" render={(props) => <Report activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/restaurant" render={(props) => <Restaurant activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/search" render={(props) => <Search activateMenuList={activateMenuList} {...props}  />} />

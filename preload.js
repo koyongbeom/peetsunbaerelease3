@@ -1,5 +1,6 @@
 const {contextBridge, ipcRenderer} = require("electron");
 
+
 contextBridge.exposeInMainWorld('electron',{
     sendMessageApi : {
         setToken : function(token) {

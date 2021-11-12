@@ -21,7 +21,7 @@ declare global {
                 getToken(): string;
                 notification(title : string, body : string) : void;
             }
-        }
+        },
     }
 }
 

@@ -3,15 +3,20 @@ import {Route, BrowserRouter as Router, Link} from "react-router-dom"
 import SignUp from './signup/signup';
 import Login from './login/login';
 import Dashboard from './dashboard/dashboard';
+import {Socket} from "socket.io-client";
 
-const App : React.FC = () => {
+interface props {
+  socket : Socket;
+}
 
+const App : React.FC<props> = (appProps) => {
+  
   return (
     <Router>
       <div id="routing-container">
         <Route exact path="/" component={Login}></Route>
         <Route path="/signup" component={SignUp}></Route>
-        <Route path="/dashboard" component={Dashboard}></Route>
+        <Route path="/dashboard" render={(props)=><Dashboard socket={appProps.socket} {...props}/>} />
       </div>
     </Router>
   )

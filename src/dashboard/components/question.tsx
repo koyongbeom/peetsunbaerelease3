@@ -3,12 +3,17 @@ import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import "../componentsStyle/question.css"
 import Questions from './controls/questions';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { Socket } from 'socket.io-client';
+
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 interface questionProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
-    user : any
+    user: any;
+    socket : Socket;
 }
 
 
@@ -16,6 +21,7 @@ const Question: React.FC<questionProps> = (props) => {
     const [selectMenu, setSelectMenu] = useState("chemistry");
     const [pageStartNumber, setPageStartNumber] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const [alignment, setAlignment] = React.useState('All');
 
     const changeSelectedMenu = (e: any, type: string) => {
         switch (type) {
@@ -28,19 +34,27 @@ const Question: React.FC<questionProps> = (props) => {
         }
     }
 
-    const pageChevron = (direction : String) => {
-        if(direction === "left"){
-            if(pageStartNumber != 1){
+    const pageChevron = (direction: String) => {
+        if (direction === "left") {
+            if (pageStartNumber != 1) {
                 const page = pageStartNumber - 1;
                 setPageStartNumber(pageStartNumber - 5);
                 setCurrentPage(page);
             }
-        }else if(direction === "right"){
+        } else if (direction === "right") {
             const page = pageStartNumber + 5;
             setPageStartNumber(pageStartNumber + 5);
             setCurrentPage(page);
         }
     }
+
+    const handleChange = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string,
+    ) => {
+        console.log(newAlignment);
+        setAlignment(newAlignment);
+    };
 
 
     useEffect(() => {
@@ -71,23 +85,33 @@ const Question: React.FC<questionProps> = (props) => {
                 </div>
             </div>
 
+            <ToggleButtonGroup
+                sx={{marginTop : "20px", backgroundColor : "white"}}
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleChange}
+            >
+                <ToggleButton value="All">All</ToggleButton>
+                <ToggleButton value="My">My</ToggleButton>
+            </ToggleButtonGroup>
             <div className="qnaBoard">
-                <Questions user={props.user} subject={selectMenu} page={currentPage}></Questions>
+                <Questions socket={props.socket} user={props.user} subject={selectMenu} page={currentPage} alignment={alignment}></Questions>
             </div>
 
             <div className="pageNumberDiv">
                 <div className="pageNumber">
-                    <img onClick={()=>{pageChevron("left");}} className="chevron" src="img/chevronLeft.svg" alt="chevronLeft" />
+                    <img onClick={() => { pageChevron("left"); }} className="chevron" src="img/chevronLeft.svg" alt="chevronLeft" />
                     {
-                        [...Array(5)].map((x, i)=>{
+                        [...Array(5)].map((x, i) => {
                             return (
-                                <div onClick={()=>{setCurrentPage(pageStartNumber + i)}} className={`currentPage ${currentPage === pageStartNumber + i ? "active" : ""}`}>
+                                <div onClick={() => { setCurrentPage(pageStartNumber + i) }} className={`currentPage ${currentPage === pageStartNumber + i ? "active" : ""}`}>
                                     {pageStartNumber + i}
                                 </div>
                             )
                         })
                     }
-                    <img className="chevron" onClick={()=>{pageChevron("right");}}  src="img/chevronRight.svg" alt="chevronLeft" />
+                    <img className="chevron" onClick={() => { pageChevron("right"); }} src="img/chevronRight.svg" alt="chevronLeft" />
                 </div>
             </div>
 

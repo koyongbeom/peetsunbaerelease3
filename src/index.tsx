@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css'
+import {Socket, io} from 'socket.io-client';
 
+const socket: Socket = io("https://peetsunbae.com", {autoConnect : false, reconnection : false});
+
+socket.open();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App socket={socket} />
   </React.StrictMode>,
   document.getElementById('root')
 );
