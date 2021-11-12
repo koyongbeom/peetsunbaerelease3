@@ -15,6 +15,7 @@ import { SportsRugbySharp } from "@mui/icons-material";
 
 
 
+
 const Questions: React.FC<any> = (props) => {
 
     const [answerloading, setAnswerloading] = useState(false);
@@ -492,6 +493,32 @@ const Questions: React.FC<any> = (props) => {
     }
 
 
+    const reviewDelete = async (e : any) => {
+        console.log(e.target.dataset.id);
+
+        var token = "";
+        if (window.electron) {
+            token = await window.electron.sendMessageApi.getToken();
+        }
+
+        fetch(`https://peetsunbae.com/dashboard/question/review/delete?id=${e.target.dataset.id}`, {
+            method: "DELETE",
+            headers: { "Authorization": token },
+            credentials: "include"
+        }).then((response) => {
+            response.json()
+                .then((result) => {
+                    console.log(result.message);
+                    if (result.message === "success") {
+                        const random = Math.floor(Math.random() * 999999);
+                        setUpdate(random);
+                    }
+                })
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
 
 
 
@@ -503,7 +530,7 @@ const Questions: React.FC<any> = (props) => {
 
 
                     return (
-                        <div className="questionDiv">
+                        <div className="questionDiv" key={each.description}>
                             <div className="questionheader">
                                 <div className="avatar">
                                     <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
@@ -547,7 +574,7 @@ const Questions: React.FC<any> = (props) => {
                                         <div className="imgList">
                                             {each.images.map((image: any, index: number) => {
                                                 return (
-                                                    <div className="imgListElement">
+                                                    <div key={image} className="imgListElement">
                                                         <div className="imgListElement_left">
                                                             <div className="imgListElement_img">
                                                                 <img className="fileImage" src="img/file-image-solid.svg" alt="file" />
@@ -585,11 +612,16 @@ const Questions: React.FC<any> = (props) => {
                                 </div>
 
                                 {
-                                    each.reviews.map((review: any) => {
+                                    each.reviews.map((review: any, reviewIndex : number) => {
                                         return (
-                                            <div className="review">
+                                            <div key={reviewIndex} className="review">
                                                 <div className="reviewAvatar">
+                                                    {(review.value === "teacher" || review.value=== "staff") ?
+                                                    <Avatar sx={{ bgcolor: "#3d50b0" }}><img src="img/user-tie-solid.svg" alt="user" className="avatarImg" /></Avatar>
+                                                    :
                                                     <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
+                                                }
+                                                   
                                                 </div>
                                                 <div className="reviewDescriptionDiv">
                                                     <div className="reviewAuthor">
@@ -616,8 +648,11 @@ const Questions: React.FC<any> = (props) => {
                                                         ""
                                                     }
                                                     <div className="answerDate">
-                                                         {`${each.createdAt.year}/${each.createdAt.month}/${each.createdAt.date} ${each.createdAt.hours >= 12 ? each.createdAt.hours - 12 : each.createdAt.hours}:${each.createdAt.minutes}  ${each.createdAt.hours >= 12 ? "PM" : "AM"}`}
+                                                         {`${review.createdAt.year}/${review.createdAt.month}/${review.createdAt.date} ${review.createdAt.hours >= 12 ? review.createdAt.hours - 12 : review.createdAt.hours}:${review.createdAt.minutes}  ${review.createdAt.hours >= 12 ? "PM" : "AM"}`}
                                                     </div>
+                                                </div>
+                                                <div className="reviewTrashDiv" onClick={reviewDelete} data-id={review.reviewId}>
+                                                    {review.userId === props.user.id ? <img  data-id={review.reviewId} className="reviewTrash" src="img/trash-alt-light.svg" alt="delete" /> : ""}
                                                 </div>
 
                                             </div>
