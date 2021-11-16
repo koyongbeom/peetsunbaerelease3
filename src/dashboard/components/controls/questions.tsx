@@ -542,7 +542,7 @@ const Questions: React.FC<any> = (props) => {
                                             {each.email}
                                         </div>
                                         <div className="questionDate">
-                                            {`${each.createdAt.year}/${each.createdAt.month}/${each.createdAt.date} ${each.createdAt.hours >= 12 ? each.createdAt.hours - 12 : each.createdAt.hours}:${each.createdAt.minutes}  ${each.createdAt.hours >= 12 ? "PM" : "AM"}`}
+                                            {`${each.createdAt.year}/${each.createdAt.month}/${each.createdAt.date} ${each.createdAt.hours > 12 ? each.createdAt.hours - 12 : each.createdAt.hours}:${each.createdAt.minutes}  ${each.createdAt.hours >= 12 ? "PM" : "AM"}`}
                                         </div>
                                     </div>
                                 </div>
@@ -651,7 +651,7 @@ const Questions: React.FC<any> = (props) => {
                                                         ""
                                                     }
                                                     <div className="answerDate">
-                                                         {`${review.createdAt.year}/${review.createdAt.month}/${review.createdAt.date} ${review.createdAt.hours >= 12 ? review.createdAt.hours - 12 : review.createdAt.hours}:${review.createdAt.minutes}  ${review.createdAt.hours >= 12 ? "PM" : "AM"}`}
+                                                         {`${review.createdAt.year}/${review.createdAt.month}/${review.createdAt.date} ${review.createdAt.hours > 12 ? review.createdAt.hours - 12 : review.createdAt.hours}:${review.createdAt.minutes}  ${review.createdAt.hours >= 12 ? "PM" : "AM"}`}
                                                     </div>
                                                 </div>
                                                 <div className="reviewTrashDiv" onClick={reviewDelete} data-id={review.reviewId}>

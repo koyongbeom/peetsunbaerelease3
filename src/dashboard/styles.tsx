@@ -109,6 +109,9 @@ const styles : any = (theme : any) => ({
         cursor : "pointer",
         alignItems : "center"
     },
+    menuimgcontainer : {
+        width : "50px"
+    },
     sideMenuListImg : {
         marginRight : "24.7px",
     },

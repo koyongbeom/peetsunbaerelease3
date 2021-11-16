@@ -85,18 +85,22 @@ const Question: React.FC<questionProps> = (props) => {
                 </div>
             </div>
 
-            <ToggleButtonGroup
-                sx={{marginTop : "20px", backgroundColor : "white"}}
-                color="primary"
-                value={alignment}
-                exclusive
-                onChange={handleChange}
-            >
-                <ToggleButton value="All">All</ToggleButton>
-                <ToggleButton value="My">My</ToggleButton>
-            </ToggleButtonGroup>
-            <div className="qnaBoard">
-                <Questions socket={props.socket} user={props.user} subject={selectMenu} page={currentPage} alignment={alignment}></Questions>
+            <div className="questionBodyDiv">
+                <div>
+                <ToggleButtonGroup
+                    sx={{ marginTop: "20px", backgroundColor: "white" }}
+                    color="primary"
+                    value={alignment}
+                    exclusive
+                    onChange={handleChange}
+                >
+                    <ToggleButton value="All">All</ToggleButton>
+                    <ToggleButton value="My">My</ToggleButton>
+                </ToggleButtonGroup>
+                <div className="qnaBoard">
+                    <Questions socket={props.socket} user={props.user} subject={selectMenu} page={currentPage} alignment={alignment}></Questions>
+                </div>
+                </div>
             </div>
 
             <div className="pageNumberDiv">

@@ -23,6 +23,7 @@
 .selectMenu {
     margin-top: 24px;
     display: flex;
+    justify-content: center;
 }
 
 .selectedMenu{
@@ -97,11 +98,17 @@ border-radius: 6px;
   background-color: #fff;
 }
 
+.questionBodyDiv{
+    display: flex;
+    justify-content: center;
+}
+
 .questions {
     margin-top: 22px;
 }
 
 .questionDiv {
+    width: 800px;
     padding: 30px;
     padding-top: 24px;
     padding-bottom: 24px;
@@ -181,7 +188,7 @@ border-radius: 6px;
 }
 
 .answerImageBox {
-    width: 1010px;
+
     margin-top: 25px;
 }
 
@@ -191,7 +198,7 @@ border-radius: 6px;
 
 .img {
     object-fit: contain;
-    max-width: 1000px;
+    max-width: 600px;
 }
 
 .imgBoxCover {

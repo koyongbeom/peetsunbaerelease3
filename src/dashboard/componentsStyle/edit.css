@@ -178,6 +178,11 @@
 
 .checklistTitle {
     display: flex;
+    justify-content: space-between;
+}
+
+.checklistTitle_1 {
+    display: flex;
 }
 
 .date {

@@ -166,7 +166,7 @@ const Edit: React.FC<editProps> = (props) => {
                     })
             })
         }
-        setTimeout(()=>{
+        setTimeout(() => {
             start();
         }, 500)
     }, [uploadBool])
@@ -174,7 +174,7 @@ const Edit: React.FC<editProps> = (props) => {
 
 
 
-    const cancel = async (e : any) => {
+    const cancel = async (e: any) => {
         console.log(e.target.dataset.id);
 
         var token = "";
@@ -187,15 +187,15 @@ const Edit: React.FC<editProps> = (props) => {
             headers: { "Content-Type": "application/json", "Authorization": token },
             credentials: "include",
             body: JSON.stringify({
-                id : e.target.dataset.id
+                id: e.target.dataset.id
             })
         }).then((response: any) => {
             response.json()
                 .then((result: any) => {
                     console.log(result);
-                    if(result.message === "success"){
+                    if (result.message === "success") {
                         setCheckResult(
-                            checkResult.filter((each : any)=>each.id!=e.target.dataset.id)
+                            checkResult.filter((each: any) => each.id != e.target.dataset.id)
                         )
                     }
                 })
@@ -210,10 +210,10 @@ const Edit: React.FC<editProps> = (props) => {
             </div>
             <div className="menu">
                 <div className="submenu">
-                    <div className={`menu_status ${select==="submit" ? "active" : "" }`} onClick={(e) => { changeSelect(e, "submit") }}>
+                    <div className={`menu_status ${select === "submit" ? "active" : ""}`} onClick={(e) => { changeSelect(e, "submit") }}>
                         # 지각/결석 날짜 선택
                     </div>
-                    <div className={`menu_status ${select==="check" ? "active" : "" }`} onClick={(e) => { changeSelect(e, "check") }}>
+                    <div className={`menu_status ${select === "check" ? "active" : ""}`} onClick={(e) => { changeSelect(e, "check") }}>
                         내 사유 제출 현황
                     </div>
                 </div>
@@ -319,19 +319,19 @@ const Edit: React.FC<editProps> = (props) => {
                     </div>
                 </div>}
 
-            {(noRemain && select==="submit") &&
+            {(noRemain && select === "submit") &&
                 <Stack sx={{ width: '100%' }} spacing={2}>
                     <Alert severity="error" sx={{ marginTop: 2, marginBottom: 2 }}><span>잔여 횟수가 없습니다.</span></Alert>
                 </Stack>
             }
 
-            {(loading && select ==="submit") &&
+            {(loading && select === "submit") &&
                 <Box sx={{ width: '100%', marginTop: 3, marginBottom: 3 }}>
                     <LinearProgress />
                 </Box>
             }
 
-            {(uploadBool && select==="submit") &&
+            {(uploadBool && select === "submit") &&
                 <Stack sx={{ width: '100%' }} spacing={2}>
                     <Alert severity="info" sx={{ marginTop: 2, marginBottom: 2 }}><span>업로드 성공 !</span></Alert>
                 </Stack>
@@ -346,50 +346,61 @@ const Edit: React.FC<editProps> = (props) => {
                 </div>
             }
 
-            {  select === "check" &&
-            <div className="checkBoard">
-                <div className="checkBoardTitle">
-                    이번달 사유 제출 현황
-                </div>
-                {
-                    checkResult && checkResult.map((each: { id: number, type: string, targetDate: string, reason: string }) => {
-                        const date = new Date(each.targetDate);
-                        const currentDate = new Date();
-                        const bool = currentDate.getTime() < date.getTime();
-                        var description;
-                        switch (each.type) {
-                            case "long" : description="지각"; break;
-                            case "early" : description="조기하원"; break;
-                            case "among" : description="외출"; break;
-                            case "absent" : description="결석"; break;
-                        }
+            {select === "check" &&
+                <div className="checkBoard">
+                    <div className="checkBoardTitle">
+                        이번달 사유 제출 현황
+                    </div>
+                    {
+                        checkResult && checkResult.map((each: { id: number, type: string, targetDate: string, reason: string, startHours: number, startMinutes: number, endHours: number, endMinutes: number }) => {
+                            const date = new Date(each.targetDate);
+                            const currentDate = new Date();
+                            const bool = currentDate.getTime() < date.getTime();
+                            var description;
+                            switch (each.type) {
+                                case "long": description = "지각"; break;
+                                case "early": description = "조기하원"; break;
+                                case "among": description = "외출"; break;
+                                case "absent": description = "결석"; break;
+                            }
 
-                        return (
-                            <div key={each.id} className="checklist" data-id={each.id}>
-                                <div className="checklistTitle">
-                                    <div className="date">
-                                        {`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}
-                                    </div>
-                                    <div>
-                                        <span>[{description}] </span>
-                                        <span>{each.reason}</span>
-                                    </div>
-                                </div>
-                                {bool ? 
-                                <div className="cancel" onClick={cancel} data-id={each.id}>
-                                취소하기
-                                </div>
-                                :
-                                <div>
-                                </div>
-                                 }
-                                
-                            </div>
-                        );
-                    })
-                }
+                            return (
+                                <div key={each.id} className="checklist" data-id={each.id}>
+                                    <div className="checklistTitle">
+                                        <div className="checklistTitle_1">
+                                            <div className="date">
+                                                {`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}
+                                            </div>
+                                            <div>
+                                                <span>[{description}] </span>
+                                                <span>
+                                                    {each.type === "long" && `${each.startHours > 11 ? "오후" : "오전"} ${each.startHours > 12 ? each.startHours - 12 : each.startHours}시 ${each.startMinutes.toString().length === 1 ? "0"+each.startMinutes : each.startMinutes}분 도착`}
+                                                    {each.type === "early" && `${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0"+each.endMinutes : each.endMinutes}분 하원`}
+                                                    {each.type === "among" && `${each.endHours > 11 ? "오후" : "오전"}  ${each.startHours > 12 ? each.startHours - 12 : each.startHours}시 ${each.startMinutes.toString().length === 1 ? "0"+each.startMinutes : each.startMinutes}분 외출 -
+                                                    ${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0"+each.endMinutes : each.endMinutes}분 복귀
+                                                    `
+                                                    
+                                                    }
 
-            </div>}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {bool ?
+                                        <div className="cancel" onClick={cancel} data-id={each.id}>
+                                            취소하기
+                                        </div>
+                                        :
+                                        <div>
+                                        </div>
+                                    }
+
+                                </div>
+                            );
+                        })
+                    }
+
+                </div>}
 
 
         </div>

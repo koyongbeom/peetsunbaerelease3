@@ -35,9 +35,10 @@
   "main": "public/electron.js",
   "homepage": "./",
   "build": {
-    "productName": "electron-test-app",
+    "productName": "피트선배",
     "asar": true,
-    "appId": "org.cpro95.electron-test-app"
+    "appId": "org.cpro95.electron-test-app",
+    "icon" : "public/img/logo.ico"
   },
   "scripts": {
     "react-start": "react-scripts start",

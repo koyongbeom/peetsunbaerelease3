@@ -22,7 +22,7 @@ import NotificationWrite from './components/notificationwrite';
 import menulist from './components/menulist'
 import { forEachChild } from 'typescript';
 
-import { Route, BrowserRouter as Router, Link, Switch } from "react-router-dom";
+import { Route, HashRouter as Router, Link, Switch } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import QuestionWrite from './components/questionwrite';
 
@@ -283,7 +283,9 @@ const Dashboard: React.FC<props> = (props) => {
                                                 return (
                                                     <Link key={each.name} to={"/dashboard/" + each.name}>
                                                         <li className={classes.sideMenuListSection}>
-                                                            <img src={"img/off/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                            <div className={classes.menuimgcontainer}>
+                                                                <img src={"img/off/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                            </div>
                                                             <div className={classes.sideMenuListText}>{each.description}</div>
                                                         </li>
                                                     </Link>
@@ -292,7 +294,9 @@ const Dashboard: React.FC<props> = (props) => {
                                                 return(
                                                     <Link key={each.name} to={"/dashboard/" + each.name}>
                                                         <li className={classes.sideMenuListSection}>
-                                                            <img src={"img/on/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                            <div className={classes.menuimgcontainer}>
+                                                                <img src={"img/on/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                            </div>
                                                             <div className={classes.sideMenuListTextActive}>{each.description}</div>
                                                         </li>
                                                     </Link>

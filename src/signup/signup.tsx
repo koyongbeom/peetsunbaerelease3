@@ -196,7 +196,7 @@ const SignUp: React.FC<props> = (props) => {
                 </div>
                 <Link to="/">
                     <div className={classes.login}>
-                        <img className={classes.avatar} alt="avatar" src="img/avatar.svg"></img>
+                        <img className={classes.avatar} alt="avatar" src="img/avatarG.svg"></img>
                         <div className={classes.loginText}>로그인</div>
                     </div>
                 </Link>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, Link} from "react-router-dom"
+import {Route, HashRouter as Router, Link} from "react-router-dom"
 import SignUp from './signup/signup';
 import Login from './login/login';
 import Dashboard from './dashboard/dashboard';

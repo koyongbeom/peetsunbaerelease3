@@ -9,13 +9,14 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1500,
+    width: 1520,
     height: 927,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
       devTools: isDev,
-      preload : path.join(__dirname, "..", "preload.js")
+      preload : path.join(__dirname, "..", "preload.js"),
+      icon : path.join(__dirname, "img", "logo.ico")
     },
   });
 
