@@ -4,6 +4,7 @@ const isDev = require("electron-is-dev");
 const keytar = require("keytar");
 const { KeyboardTabSharp } = require("@mui/icons-material");
 const { stringify } = require("querystring");
+const {autoUpdater} = require('electron-updater');
 
 let mainWindow;
 
@@ -33,6 +34,10 @@ function createWindow() {
   mainWindow.setResizable(true);
   mainWindow.on("closed", () => (mainWindow = null));
   mainWindow.focus();
+
+  mainWindow.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 }
 
 app.on("ready", createWindow);
@@ -66,3 +71,8 @@ ipcMain.on("notification", (event, title, body)=>{
   new Notification({title : title, body : body}).show();
 })
 //------------------------------------------------------------------------
+
+
+autoUpdater.on('update-downloaded', () => {
+  autoUpdater.quitAndInstall();
+});

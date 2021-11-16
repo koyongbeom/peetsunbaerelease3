@@ -21,6 +21,7 @@
     "@types/react-router-dom": "^5.3.1",
     "@types/socket.io-client": "^3.0.0",
     "electron-is-dev": "^2.0.0",
+    "electron-updater": "^4.3.9",
     "keytar": "^7.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -38,7 +39,7 @@
     "productName": "피트선배",
     "asar": true,
     "appId": "org.cpro95.electron-test-app",
-    "icon" : "public/img/logo.ico"
+    "icon": "public/img/logo.ico"
   },
   "scripts": {
     "react-start": "react-scripts start",
@@ -73,5 +74,9 @@
     "electron": "^15.1.2",
     "electron-builder": "^22.13.1",
     "wait-on": "^6.0.0"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/koyongbeom/peetsunbae2.git"
   }
 }
