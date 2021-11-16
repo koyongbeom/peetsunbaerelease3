@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.11.0",
@@ -48,7 +48,7 @@
     "react-eject": "react-scripts eject",
     "start": "concurrently \"cross-env NODE_ENV=development BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "yarn react-build && electron-builder",
-    "release": "yarn react-build && electron-builder --publish=always"
+    "release": "yarn react-build && electron-builder --win --publish=always"
   },
   "eslintConfig": {
     "extends": [
@@ -76,7 +76,7 @@
     "wait-on": "^6.0.0"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/koyongbeom/peetsunbae2.git"
+    "type": "git",
+    "url": "https://github.com/koyongbeom/peetsunbae2.git"
   }
 }
