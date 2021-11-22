@@ -86,7 +86,7 @@ const styles: any = (theme: any) => ({
         alighItems : 'end'
     },
     modal_header : {
-        width : "400px",
+        width : "100%",
         textAlign : "center",
         borderBottom : "1px solid #c1c1c1",
         paddingBottom : "20px",

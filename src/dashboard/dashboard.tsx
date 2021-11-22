@@ -321,7 +321,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />
                         <Route exact path="/dashboard/question" render={(props) => <Question user={user} activateMenuList={activateMenuList} {...props} socket={socket} />} />
                         <Route path="/dashboard/report" render={(props) => <Report activateMenuList={activateMenuList} {...props}  />} />
-                        <Route path="/dashboard/restaurant" render={(props) => <Restaurant activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/restaurant" render={(props) => <Restaurant user={user} activateMenuList={activateMenuList} socket={socket} {...props}  />} />
                         <Route path="/dashboard/search" render={(props) => <Search activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/notification/write" render={(props) => <NotificationWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
                         <Route path="/dashboard/question/write" render={(props) => <QuestionWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
