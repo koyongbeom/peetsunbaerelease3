@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "0.1.2",
+  "version": "0.1.8",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.11.0",
@@ -77,6 +77,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/koyongbeom/peetsunbae2.git"
+    "url": "https://github.com/koyongbeom/peetsunbaerelease.git"
   }
 }

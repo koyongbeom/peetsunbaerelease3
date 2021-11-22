@@ -15,6 +15,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
+      contextIsolation : false,
       devTools: isDev,
       preload : path.join(__dirname, "..", "preload.js"),
       icon : path.join(__dirname, "img", "logo.ico")
@@ -72,7 +73,17 @@ ipcMain.on("notification", (event, title, body)=>{
 })
 //------------------------------------------------------------------------
 
-
+autoUpdater.on('update-available', () => {
+  mainWindow.webContents.send('update_available');
+});
 autoUpdater.on('update-downloaded', () => {
+  mainWindow.webContents.send('update_downloaded');
+});
+
+ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
+});
+
+ipcMain.on('app_version', (event) => {
+  event.sender.send('app_version', { version: app.getVersion() });
 });
