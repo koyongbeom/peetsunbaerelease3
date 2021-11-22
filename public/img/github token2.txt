@@ -1,0 +1,4 @@
+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
+
+
+ [Environment]::SetEnvironmentVariable("GH_TOKEN","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","User")

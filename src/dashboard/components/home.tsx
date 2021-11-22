@@ -9,6 +9,8 @@ import { RouteComponentProps } from 'react-router';
 
 import { Socket } from 'socket.io-client';
 
+import "../componentsStyle/home.css"
+
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 
@@ -42,7 +44,7 @@ const Home: React.FC<socketProps> = (props) => {
 
 
     return (
-        <div className={classes.main}>
+        <div className={`${classes.main} main2`}>
             <div className={classes.attendanceBoard}>
                 <div className={classes.attendanceBoardWeek}>
                     <div className={classes.attendanceBoardTitle}>

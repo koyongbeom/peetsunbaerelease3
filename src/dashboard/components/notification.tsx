@@ -69,7 +69,7 @@ const Notification: React.FC<notificationProps> = (props) => {
     }, [])
 
     return (
-        <div className={classes.main}>
+        <div className={`${classes.main} main2`}>
             <div className={classes.notificationDiv}>
                 <div className={classes.notificationTitle}>
                     <img src="./img/notification.svg" alt="speechBubble" style={{marginRight : "11.3px"}} />

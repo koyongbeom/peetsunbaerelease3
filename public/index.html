@@ -28,6 +28,7 @@
 
   <style>
     #notification {
+      font-family: "Apple_R";
       position: fixed;
       bottom: 20px;
       left: 20px;
@@ -37,6 +38,35 @@
       background-color: white;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     }
+
+    #close-button{
+      background-color: #3d50b0;
+      color: white;
+      width: 65px;
+      height: 30px;
+      border-radius: 3px;
+      border: none;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    #buttonDiv{
+      display: flex;
+      justify-content: center;
+    }
+
+    #restart-button {
+      margin-top: 16px;
+      background-color: #3d50b0;
+      color: white;
+      width: 65px;
+      height: 30px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      font-family: "Apple_R";
+    }
+
 
     .hidden {
       display: none;
@@ -64,15 +94,16 @@
 
 
 
-  <div id="notification" >
-    <div id="version"></div>
+  <div id="notification" class="hidden">
     <p id="message"></p>
-    <button id="close-button" onClick="closeNotification()">
+    <!-- <button id="close-button" onClick="closeNotification()">
       Close
-    </button>
+    </button> -->
+    <div id="buttonDiv">
     <button id="restart-button" onClick="restartApp()" class="hidden">
-      Restart
+      재시작
     </button>
+  </div>
   </div>
 
   <script>
@@ -90,12 +121,12 @@
     const restartButton = document.getElementById('restart-button');
     ipcRenderer.on('update_available', () => {
         ipcRenderer.removeAllListeners('update_available');
-        message.innerText = 'A new update is available. Downloading now...';
+        message.innerText = '새로운 업데이트 버전을 현재 다운로드 중입니다...';
         notification.classList.remove('hidden');
     });
     ipcRenderer.on('update_downloaded', () => {
         ipcRenderer.removeAllListeners('update_downloaded');
-        message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+        message.innerText = '업데이트가 다운로드 되었습니다. 재시작 버튼을 눌러주세요!';
         restartButton.classList.remove('hidden');
         notification.classList.remove('hidden');
     });
@@ -107,12 +138,6 @@
         ipcRenderer.send('restart_app');
     }
 </script>
-
-
-
-
-
-
 
 
 
