@@ -2,7 +2,7 @@ import { blue } from "@mui/material/colors";
 
 const styles : any = (theme : any) => ({
     main: {
-        width: "1500px",
+        minWidth: "1500px",
         margin: "auto",
     },
     appBar : {
