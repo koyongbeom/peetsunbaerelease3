@@ -25,6 +25,7 @@ import { forEachChild } from 'typescript';
 import { Route, HashRouter as Router, Link, Switch } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import QuestionWrite from './components/questionwrite';
+// import { ipcRenderer } from 'electron';
 
 
 
@@ -107,6 +108,9 @@ const Dashboard: React.FC<props> = (props) => {
             const result = await window.electron.sendMessageApi.setToken("logOut");
             console.log(result);
         }
+
+        // ipcRenderer.send("signOut");
+
         //-----------------------------------------------------------------------
 
         //쿠키 삭제 위해 서버로 fetch 보냄-----------------------------------------
@@ -117,7 +121,10 @@ const Dashboard: React.FC<props> = (props) => {
             response.json()
                 .then((result) => {
                     console.log(result);
-                    props.history.push("/");
+                    props.history.push({
+                        pathname : "/",
+                        state : {from : "dashboard"}
+                    });
                 })
         }).catch((err) => {
             console.log(err);

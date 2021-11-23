@@ -18,6 +18,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -60,22 +61,31 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
     const [lunchBool, setLunchBool] = useState(false);
     const [dinnerBool, setDinnerBool] = useState(false);
 
-    const [dateValue, setDateValue] = useState();
+    const [dateValue, setDateValue] = useState(new Date());
     const [minDate, setMinDate] = useState(1);
 
     const [selectedMealName, setSelectedMealName] = useState("");
     const [selectedMealPrice, setSelectedMealPrice] = useState(0);
+    const [selectedRestaurantName, setSelectedRestaurantName] = useState("");
 
-    const [whenType, setWhenType] = useState<any>("lunch");
+    const [whenType, setWhenType] = useState<any>("none");
 
     const main = useRef<any>(null);
 
     const [mealMenu, setMealMenu] = useState<any>();
 
+    const [lackOfBanlance, setLackOfBalance] = useState(false);
+    const [timeOut, setTimeOut] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [nonSelect, setNonSelect] = useState(false);
+    const [nonSelectMeal, setNonSelectMeal] = useState(false);
+
+
     const handleOpenUpload = () => setOpenUpload(true);
     const handleCloseUpload = () => setOpenUpload(false);
 
     useEffect(() => {
+
         props.activateMenuList("restaurant");
         if (props.user) {
             setName(props.user.name);
@@ -131,22 +141,26 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
             const lunchDeadlineInfo = deadline.lunchHours*60 + deadline.lunchMinutes;
             const dinnerDeadlineInfo = deadline.dinnerHours*60 + deadline.dinnerMinutes;
 
+
+            var clickedDate;
             if(dateValue){
-            const clickedDate = new Date(dateValue);
+            clickedDate = new Date(dateValue);
             console.log(clickedDate.getDate());
             }
             
-            if(currentTimeInfo <= lunchDeadlineInfo){
-                setLunchBool(true);
-                setDinnerBool(true);
-                setWhenType("lunch");
-            }else if(currentTimeInfo > lunchDeadlineInfo && currentTimeInfo <= dinnerDeadlineInfo){
-                setLunchBool(false);
-                setDinnerBool(true);
-                setWhenType("dinner");
-            }else{
-                setLunchBool(false);
-                setDinnerBool(false);
+            if (clickedDate?.getMonth() === date.getMonth() && clickedDate.getDate() === date.getDate()) {
+                if (currentTimeInfo <= lunchDeadlineInfo) {
+                    setLunchBool(true);
+                    setDinnerBool(true);
+                    setWhenType("none");
+                } else if (currentTimeInfo > lunchDeadlineInfo && currentTimeInfo <= dinnerDeadlineInfo) {
+                    setLunchBool(false);
+                    setDinnerBool(true);
+                    setWhenType("none");
+                } else {
+                    setLunchBool(false);
+                    setDinnerBool(false);
+                }
             }
         }
     }, [deadline])
@@ -294,12 +308,13 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
         })
     }
 
-    const selectedMenu = (e: any, name: string, price: number) => {
+    const selectedMenu = (e: any, name: string, price: number, restaurant : string) => {
         if (main.current) {
             main.current.scrollTo({ top: 250, behavior: "smooth" })
         }
         setSelectedMealName(name);
         setSelectedMealPrice(price);
+        setSelectedRestaurantName(restaurant);
     }
 
     const styleCharge = {
@@ -321,6 +336,81 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
         bgcolor: 'background.paper',
         p: 4,
     };
+
+    const submitMeal = () => {
+        console.log(1);
+        console.log(whenType);
+        console.log(selectedMealName);
+        console.log(+chargedAmount<+selectedMealPrice);
+        if(+chargedAmount < +selectedMealPrice){
+            console.log(11111);
+            setLackOfBalance(true);
+            setTimeout(()=>{
+                setLackOfBalance(false);
+            }, 1000)
+        }else if(whenType === "none"){
+            setNonSelect(true);
+            setTimeout(()=>{
+                setNonSelect(false);
+            }, 1000)
+        }else if(!selectedMealName){
+            setNonSelectMeal(true);
+            setTimeout(()=>{
+                setNonSelectMeal(false);
+            }, 1000)
+        }else if(dateValue){
+            const date = new Date(dateValue);
+            console.log(date.getHours());
+
+            var token = "";
+
+            if (window.electron) {
+                token = window.electron.sendMessageApi.getToken();
+            }
+    
+            fetch("https://peetsunbae.com/dashboard/restaurant/order", {
+                method: "POST",
+                headers: { "Authorization": token, "Content-Type" : "application/json" },
+                credentials: "include",
+                body: JSON.stringify({
+                    targetYear : date.getFullYear(),
+                    targetMonth : date.getMonth()+1,
+                    targetDate : date.getDate(),
+                    whenType : whenType,
+                    restaurantName : selectedRestaurantName,
+                    mealName : selectedMealName,
+                    price : selectedMealPrice
+                })
+            }).then((response) => {
+                response.json()
+                    .then((response) => {
+                        console.log(response);
+                        if(response.message === "TIME_OUT"){
+                            setTimeOut(true);
+                            setTimeout(()=>{
+                                setTimeOut(false);
+                            }, 1000);
+                        }else if(response.message === "LACK_BALANCE"){
+                            setLackOfBalance(true);
+                            setTimeout(()=>{
+                                setLackOfBalance(false);
+                            }, 1000);
+                        }else if(response.message === "success"){
+                            setSuccess(true);
+                            const randomNumber = Math.floor(Math.random() * (99999 - 10000) + 10000);
+                            setUpdate(randomNumber);
+                            setTimeout(()=>{
+                                setSuccess(false);
+                            }, 1500);
+                        }
+                    })
+            }).catch((error) => {
+                console.log(error);
+            })
+
+
+        }
+    }
 
     return (
         <div ref={main} className={styles.main}>
@@ -352,7 +442,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
 
                     <div className={styles.moneyCharge}>
                         <div>
-                            - 충전금 잔액 : <span className={styles.money}>{chargedAmount}</span>
+                            - 충전금 잔액 : <span className={styles.money}>{chargedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
                         </div>
                         <div onClick={handleOpenCharge}>
                             충전하기 <img src="img/navigate_next_black_24dp.svg" alt="right" />
@@ -369,7 +459,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                                     <div className={`${styles.eachMenu}`}>
                                         <div className={styles.imgBox}>
                                             <img className={styles.image} src={`https://peetsunbae.com/${menu.src.split("/public/")[1]}`}></img>
-                                            <div onClick={(e) => { selectedMenu(e, menu.mealName, menu.mealPrice) }} className={styles.mealSelect}>
+                                            <div onClick={(e) => { selectedMenu(e, menu.mealName, menu.mealPrice, menu.restaurantName) }} className={styles.mealSelect}>
                                                 <img className={styles.heart} src="img/heart.svg" alt="heart"></img>
                                                 <div className={styles.menuSelectText}>선택하기</div>
                                             </div>
@@ -408,7 +498,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                                     if(!(date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && date.getDate() === today.getDate())){
                                         setLunchBool(true);
                                         setDinnerBool(true);
-                                        setWhenType("lunch");
+                                        setWhenType("none");
                                     }else{
                                         if(deadline){
                                             const date = new Date();
@@ -424,11 +514,11 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                                             if(currentTimeInfo <= lunchDeadlineInfo){
                                                 setLunchBool(true);
                                                 setDinnerBool(true);
-                                                setWhenType("lunch");
+                                                setWhenType("none");
                                             }else if(currentTimeInfo > lunchDeadlineInfo && currentTimeInfo <= dinnerDeadlineInfo){
                                                 setLunchBool(false);
                                                 setDinnerBool(true);
-                                                setWhenType("dinner");
+                                                setWhenType("none");
                                             }else{
                                                 setLunchBool(false);
                                                 setDinnerBool(false);
@@ -441,12 +531,14 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                         </LocalizationProvider>
                     </div>
 
+
+
                     <div className={styles.submitDiv}>
                         <div className={styles.whenDiv}>
-                            <div className={`${styles.when} ${whenType === "lunch" ? styles.active : ""}  ${lunchBool ? "" : styles.disabled}`} onClick={(e : any)=>{setWhenType("lunch")}}>
+                            <div className={`${styles.when} ${whenType === "lunch" ? styles.active : ""}  ${lunchBool ? "" : styles.disabled}`} onClick={(e : any)=>{if(lunchBool){setWhenType("lunch")}}}>
                                 점심
                             </div>
-                            <div className={`${styles.when} ${whenType === "dinner" ? styles.active : ""} ${dinnerBool ? "" : styles.disabled}`} onClick={(e : any)=>{setWhenType("dinner")}}>
+                            <div className={`${styles.when} ${whenType === "dinner" ? styles.active : ""} ${dinnerBool ? "" : styles.disabled}`} onClick={(e : any)=>{if(dinnerBool){setWhenType("dinner")}}}>
                                 저녁
                             </div>
                         </div>
@@ -454,7 +546,15 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                             금액 : <span>{selectedMealPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
                         </div>
 
-                        <div className={styles.submitBtn}>
+                        <div className={styles.alert}>
+                            {lackOfBanlance &&  <Alert severity="error"><span className={styles.alertSpan}>잔액이 부족합니다.</span></Alert>}                           
+                            {timeOut &&  <Alert severity="error"><span className={styles.alertSpan}>신청가능 시간이 지났습니다.</span></Alert>}
+                            {nonSelect &&  <Alert severity="error"><span className={styles.alertSpan}>점심/저녁 선택해주세요.</span></Alert>}
+                            {nonSelectMeal &&  <Alert severity="error"><span className={styles.alertSpan}>도시락을 선택해주세요.</span></Alert>}                                                                   
+                            {success &&  <Alert severity="info"><span className={styles.alertSpan}>도시락 신청 성공</span></Alert>}
+                        </div>
+
+                        <div onClick={submitMeal} className={styles.submitBtn}>
                             신청하기 <img src="img/chevron-right-regular.svg" alt="chevronRight"></img>
                         </div>
                     </div>

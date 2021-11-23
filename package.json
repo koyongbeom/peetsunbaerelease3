@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.11.0",

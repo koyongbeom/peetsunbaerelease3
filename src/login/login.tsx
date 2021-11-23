@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { withStyles } from '@mui/styles';
 import styles from './styles';
 import { Link } from 'react-router-dom';
+import {useLocation} from 'react-router';
 import Box from '@mui/material/Box'
 import { Button, FormControl, FormHelperText, Modal, OutlinedInput } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { StringLiteralLike } from 'typescript';
 import { send } from 'process';
+import { ipcRenderer} from 'electron';
 
 interface props {
     classes: any;
@@ -59,17 +61,31 @@ const Login: React.FC<props> = (props) => {
 
     const classes = props.classes;
 
+    const location = useLocation<any>();
+
 
     //로그인 창 처음 들어왔을때 토큰 있는지 확인해서 있으면 로그인창 스킵하고 바로 대시보드로 보내는 기능-----------
     useEffect(() => {
+
+        var bool = true;
+
+        if(location.state){
+            if(location.state.from === "dashboard"){
+                bool = false;
+            }
+        }
+
         async function send(){
             //일렉트론 이라면 토큰 가져오는 기능------------------------------------------------------
-            var token = ""
+            var token : any = ""
+            console.log("22222");
             if (window.electron) {
+                console.log("111111");
                 token = await window.electron.sendMessageApi.getToken();
             }
             //-------------------------------------------------------------------------------------
 
+            // token = ipcRenderer.sendSync("getToken");
 
             fetch("https://peetsunbae.com/login/start", {
                 method : "GET",
@@ -85,7 +101,9 @@ const Login: React.FC<props> = (props) => {
             })
         }
 
+        if(bool){
         send();
+        }
     }, [])
     //------------------------------------------------------------------------------------------------------
 
@@ -114,7 +132,9 @@ const Login: React.FC<props> = (props) => {
                         if (window.electron) {
                             console.log("electron");
                             const returnValue = window.electron.sendMessageApi.setToken(result.token);
+                            // const returnValue2 = ipcRenderer.sendSync("setToken", result.token);
                             console.log(returnValue);
+                            // console.log(returnValue2);
                         }
                         props.history.push("/dashboard");
                     }

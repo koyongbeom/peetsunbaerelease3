@@ -1,10 +1,10 @@
-const { app, BrowserWindow, ipcMain, Notification } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification} = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const keytar = require("keytar");
 const { KeyboardTabSharp } = require("@mui/icons-material");
 const { stringify } = require("querystring");
-const {autoUpdater} = require('electron-updater');
+const { autoUpdater } = require('electron-updater');
 
 let mainWindow;
 
@@ -15,10 +15,10 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
-      contextIsolation : false,
+      contextIsolation: false,
       devTools: isDev,
-      preload : path.join(__dirname, "..", "preload.js"),
-      icon : path.join(__dirname, "img", "logo.ico")
+      preload: path.join(__dirname, "..", "preload.js"),
+      icon: path.join(__dirname, "img", "logo.ico")
     },
   });
 
@@ -55,21 +55,21 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("setToken", (event, token)=>{
-  keytar.setPassword("peetsunbae", "koyongbeom@gmail.com", token).then(result =>{
+ipcMain.on("setToken", (event, token) => {
+  keytar.setPassword("peetsunbae", "koyongbeom@gmail.com", token).then(result => {
     event.returnValue = result;
   })
 })
 
-ipcMain.on("getToken", (event)=>{
-  keytar.getPassword("peetsunbae", "koyongbeom@gmail.com").then(result=>{
+ipcMain.on("getToken", (event) => {
+  keytar.getPassword("peetsunbae", "koyongbeom@gmail.com").then(result => {
     event.returnValue = result;
   })
 })
 
 //notification-------------------------------------------------------------
-ipcMain.on("notification", (event, title, body)=>{
-  new Notification({title : title, body : body}).show();
+ipcMain.on("notification", (event, title, body) => {
+  new Notification({ title: title, body: body }).show();
 })
 //------------------------------------------------------------------------
 
@@ -87,3 +87,4 @@ ipcMain.on('restart_app', () => {
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
+
