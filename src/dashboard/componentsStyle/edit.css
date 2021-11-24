@@ -190,6 +190,13 @@
 }
 
 .cancel {
+    border: 1px solid #3d50b0;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 14px;
     color: #3d50b0;
     font-family: "Apple_B";
     cursor: pointer;

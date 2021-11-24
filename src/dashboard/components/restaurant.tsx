@@ -19,6 +19,8 @@ import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
+import Meals from './controls/meals';
+import Totalmeals from './controls/totalmeals';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -56,6 +58,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
     const [uploadFile, setUploadFile] = useState();
     const [uploadFileName, setUploadFileName] = useState();
     const [uploadLoading, setUploadLoading] = useState(false);
+    const [submitLoading, setSubmitLoading] = useState(false);
     const [deadline, setDeadline] = useState<any>();
 
     const [lunchBool, setLunchBool] = useState(false);
@@ -75,6 +78,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
     const [mealMenu, setMealMenu] = useState<any>();
 
     const [lackOfBanlance, setLackOfBalance] = useState(false);
+    const [duplicate, setDuplicate] = useState(false);
     const [timeOut, setTimeOut] = useState(false);
     const [success, setSuccess] = useState(false);
     const [nonSelect, setNonSelect] = useState(false);
@@ -169,6 +173,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
         switch (type) {
             case "submit": setSelectMenu("submit"); break;
             case "check": setSelectMenu("check"); break;
+            case "total": setSelectMenu("total"); break;
         }
     }
 
@@ -359,6 +364,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                 setNonSelectMeal(false);
             }, 1000)
         }else if(dateValue){
+            setSubmitLoading(true);
             const date = new Date(dateValue);
             console.log(date.getHours());
 
@@ -384,23 +390,29 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
             }).then((response) => {
                 response.json()
                     .then((response) => {
+                        setSubmitLoading(false);
                         console.log(response);
                         if(response.message === "TIME_OUT"){
                             setTimeOut(true);
                             setTimeout(()=>{
                                 setTimeOut(false);
-                            }, 1000);
+                            }, 1500);
                         }else if(response.message === "LACK_BALANCE"){
                             setLackOfBalance(true);
                             setTimeout(()=>{
                                 setLackOfBalance(false);
-                            }, 1000);
+                            }, 1500);
                         }else if(response.message === "success"){
                             setSuccess(true);
                             const randomNumber = Math.floor(Math.random() * (99999 - 10000) + 10000);
                             setUpdate(randomNumber);
                             setTimeout(()=>{
                                 setSuccess(false);
+                            }, 1500);
+                        }else if(response.message === "DUPLICATE"){
+                            setDuplicate(true);
+                            setTimeout(()=>{
+                                setDuplicate(false);
                             }, 1500);
                         }
                     })
@@ -412,9 +424,19 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
         }
     }
 
+    const letsUpdate = () => {
+        const random = Math.floor(Math.random() * 999999);
+        setUpdate(random);
+    }
+
+    const disableWeekends = (date : any) => {
+        return date.getDay() === 0 || date.getDay() === 6;
+    }
+
     return (
         <div ref={main} className={styles.main}>
-            <div className={styles.mainTitle}>
+            
+                <div className={styles.mainTitle}>
                 <img className={styles.mainImg} src="img/restaurant.svg" /> 도시락 신청
             </div>
 
@@ -425,8 +447,16 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                 <div onClick={(e) => { changeSelectedMenu(e, "check") }} className={`selectedMenu ${selectMenu === "check" ? "active" : ""}`}>
                     나의 신청 현황
                 </div>
+                {
+                    (props.user && (props.user.value === "teacher" || props.user.value === "staff")) &&
+                    <div onClick={(e) => { changeSelectedMenu(e, "total") }} className={`selectedMenu ${selectMenu === "total" ? "active" : ""}`}>
+                        전체 신청 현황
+                    </div>
+                }
             </div>
 
+            {selectMenu === "submit" &&
+            <>
             <div className={styles.restaurantList}>
                     {restaurantList && restaurantList.map((restaurant: string) => {
                         return (
@@ -484,6 +514,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                     <div className={styles.calendarDiv}>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <StaticDatePicker
+                                shouldDisableDate={disableWeekends}
                                 displayStaticWrapperAs="desktop"
                                 openTo="day"
                                 value={dateValue}
@@ -550,8 +581,12 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                             {lackOfBanlance &&  <Alert severity="error"><span className={styles.alertSpan}>잔액이 부족합니다.</span></Alert>}                           
                             {timeOut &&  <Alert severity="error"><span className={styles.alertSpan}>신청가능 시간이 지났습니다.</span></Alert>}
                             {nonSelect &&  <Alert severity="error"><span className={styles.alertSpan}>점심/저녁 선택해주세요.</span></Alert>}
-                            {nonSelectMeal &&  <Alert severity="error"><span className={styles.alertSpan}>도시락을 선택해주세요.</span></Alert>}                                                                   
+                            {nonSelectMeal &&  <Alert severity="error"><span className={styles.alertSpan}>도시락을 선택해주세요.</span></Alert>} 
+                            {duplicate &&  <Alert severity="error"><span className={styles.alertSpan}>이미 해당 시간에 도시락 주문을 하셨습니다.</span></Alert>}                                                                                                                                     
                             {success &&  <Alert severity="info"><span className={styles.alertSpan}>도시락 신청 성공</span></Alert>}
+                            {submitLoading && <div className="answerloading">
+                                    <CircularProgress />
+                                </div>}
                         </div>
 
                         <div onClick={submitMeal} className={styles.submitBtn}>
@@ -785,7 +820,14 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                     </form>
                 </Box>
             </Modal>
-
+            </>
+            }
+            {
+                selectMenu === "check" && <Meals letsUpdate={letsUpdate} />
+            }
+            {
+                selectMenu === "total" && <Totalmeals />
+            }
         </div>
     )
 }

@@ -101,7 +101,7 @@
     </button> -->
     <div id="buttonDiv">
     <button id="restart-button" onClick="restartApp()" class="hidden">
-      재시작
+      설치
     </button>
   </div>
   </div>
@@ -126,7 +126,7 @@
     });
     ipcRenderer.on('update_downloaded', () => {
         ipcRenderer.removeAllListeners('update_downloaded');
-        message.innerText = '업데이트가 다운로드 되었습니다. 재시작 버튼을 눌러주세요!';
+        message.innerText = '업데이트가 다운로드 되었습니다. 설치 버튼을 눌러주세요!';
         restartButton.classList.remove('hidden');
         notification.classList.remove('hidden');
     });
