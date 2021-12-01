@@ -1,0 +1,37 @@
+.datePicker {
+    margin-top: 16px;
+}
+
+.totalCheckBtn{
+    margin-top: 24px;
+    cursor: pointer;
+    margin-right: 12px;
+    border-radius: 4px;
+    background-color: #3d50b0;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: "Apple_L";
+}
+
+.disableTotalCheckBtn {
+    background-color: rgb(224, 224, 224);
+    color: rgb(163, 163, 163);
+    margin-top: 24px;
+    cursor: not-allowed;
+    margin-right: 12px;
+    border-radius: 4px;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Apple_L";
+}
+
+.dataGrid {
+    margin-top: 24px;
+}

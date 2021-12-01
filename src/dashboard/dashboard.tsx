@@ -25,6 +25,7 @@ import { forEachChild } from 'typescript';
 import { Route, HashRouter as Router, Link, Switch } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import QuestionWrite from './components/questionwrite';
+import Profile from './components/profile';
 // import { ipcRenderer } from 'electron';
 
 
@@ -238,9 +239,11 @@ const Dashboard: React.FC<props> = (props) => {
                         <img src="img/whitelogo.webp" alt="logo"></img>
                     </div>
                     <div className={classes.profileDiv}>
-                        <div className={classes.profileConfig}>
-                            프로필설정
-                        </div>
+                        <Link to="/dashboard/profile">
+                            <div className={classes.profileConfig}>
+                                프로필설정
+                            </div>
+                        </Link>
                         <div className={classes.avatarCircle} onClick={logOut}>
                             <img className={classes.avatar} src="img/avatarG.svg" alt="avatar"></img>
                         </div>
@@ -323,7 +326,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/avatar" render={(props) => <Avatar activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/book" render={(props) => <Book activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/chart" render={(props) => <Chart activateMenuList={activateMenuList} {...props}  />} />
-                        <Route path="/dashboard/edit" render={(props) => <Edit activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/edit" render={(props) => <Edit user={user} activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/envelope" render={(props) => <Envelope activateMenuList={activateMenuList} {...props}  />} />
                         <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />
                         <Route exact path="/dashboard/question" render={(props) => <Question user={user} activateMenuList={activateMenuList} {...props} socket={socket} />} />
@@ -332,6 +335,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/search" render={(props) => <Search activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/notification/write" render={(props) => <NotificationWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
                         <Route path="/dashboard/question/write" render={(props) => <QuestionWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
+                        <Route path="/dashboard/profile" render={(props) => <Profile {...props} />} />
                     </Switch>
                 </div>
 

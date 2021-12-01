@@ -388,6 +388,16 @@
     margin-left: 8px;
 }
 
+.uploadFile {
+    font-family: "Apple_R";
+    display: flex;
+    align-items: center;
+}
+
+.uploadFile img{
+    margin-right: 8px;
+}
+
 .whenDiv {
     display: flex;
     align-items: center;

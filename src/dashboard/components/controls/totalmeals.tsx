@@ -4,16 +4,13 @@ import DateRangePicker, { DateRange } from '@mui/lab/DateRangePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Box from '@mui/material/Box';
-import styles from "../../componentsStyle/restaurant.module.css"
+import styles from "../../componentsStyle/restaurant.module.css";
+import koLocale from 'date-fns/locale/ko'
 import { DataGridPro, GridRowsProp, GridColDef, GridToolbar, LicenseInfo, useGridApiRef } from '@mui/x-data-grid-pro';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
-const rows: GridRowsProp = [
-    { id: 1, col1: 'Hello', col2: 'World' },
-    { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-    { id: 3, col1: 'MUI', col2: 'is Amazing' },
-];
+
 
 const columns: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
@@ -29,7 +26,7 @@ const columns: GridColDef[] = [
 const Totalmeals: React.FC<any> = (props) => {
     const [value, setValue] = React.useState<DateRange<Date>>([null, null]);
     const [submitBool, setSubmitBool] = useState(false);
-    const [row, setRow] = useState<any>();
+    const [rows, setRows] = useState<any>();
     const [sum, setSum] = useState(0);
     const apiRef = useGridApiRef();
 
@@ -82,7 +79,7 @@ const Totalmeals: React.FC<any> = (props) => {
                         data.push(oneRow);
                     })
                     console.log(data);
-                    setRow([...data]);
+                    setRows([...data]);
                 })
         })
     }
@@ -102,14 +99,14 @@ const Totalmeals: React.FC<any> = (props) => {
     return (
         <div>
             <div className={styles.datePicker}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                     <DateRangePicker
                         startText="시작일"
                         endText="마지막일"
                         value={value}
                         onChange={(newValue) => {
                             setValue(newValue);
-                            if (newValue) {
+                            if (newValue[0] && newValue[1]) {
                                 setSubmitBool(true);
                             }
                         }}
@@ -120,6 +117,7 @@ const Totalmeals: React.FC<any> = (props) => {
                                 <TextField {...endProps} />
                             </React.Fragment>
                         )}
+                        
                     />
                 </LocalizationProvider>
             </div>
@@ -135,11 +133,11 @@ const Totalmeals: React.FC<any> = (props) => {
 
 
             <div className={styles.dataGrid}>
-                {row &&
+                {rows &&
                     <div style={{ height: 500, width: '100%' }}>
                         <div style={{display : "flex", height : "100%"}}>
                             <div style={{ flexGrow: 1 }}>
-                                <DataGridPro rows={row} columns={columns} components={{Toolbar : GridToolbar}} apiRef={apiRef} 
+                                <DataGridPro rows={rows} columns={columns} components={{Toolbar : GridToolbar}} apiRef={apiRef} 
                                 onStateChange={filterChange}
                                 />
                             </div>

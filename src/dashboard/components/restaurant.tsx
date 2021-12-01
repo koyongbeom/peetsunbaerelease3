@@ -21,6 +21,7 @@ import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Meals from './controls/meals';
 import Totalmeals from './controls/totalmeals';
+import koLocale from 'date-fns/locale/ko'
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -512,14 +513,13 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                         - 선택메뉴 : <span>{selectedMealName}</span>
                     </div>
                     <div className={styles.calendarDiv}>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                             <StaticDatePicker
                                 shouldDisableDate={disableWeekends}
                                 displayStaticWrapperAs="desktop"
                                 openTo="day"
                                 value={dateValue}
                                 disablePast
-                                disableHighlightToday
                                 minDate={minDate}
                                 onChange={(newValue: any) => {
                                     console.log(newValue);
@@ -790,7 +790,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                             <div className={styles.uploadFileDiv}>
                                 <label htmlFor="file">
                                     <div className={styles.uploadFile}>
-                                        <img className="clip" src="img/paperclip-light.svg" alt="file" />
+                                        <img className="clip" src="img/paperclip-light.svg" alt="file" /><span> 가로 세로 같은 사이즈 사진</span>
                                     </div>
                                 </label>
                                 <input onChange={(e) => fileOnChange(e)} type="file" name="file" id="file" accept="image/*" hidden />

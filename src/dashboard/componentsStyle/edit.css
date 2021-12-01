@@ -17,6 +17,7 @@
     margin-bottom: 33px;
     justify-content: space-between;
     align-items: center;
+    width: 1160px;
 }
 
 .submenu {
@@ -27,6 +28,10 @@
 .remain {
     margin-top: 10px;
     font-family: "Apple_R";
+}
+
+.remain span {
+
 }
 
 .menu_status{
@@ -135,6 +140,7 @@
 .submitDiv {
     display: flex;
     justify-content: end;
+    width: 1180px;
 }
 
 .submit {

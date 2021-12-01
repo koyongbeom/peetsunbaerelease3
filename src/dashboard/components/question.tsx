@@ -6,6 +6,7 @@ import Questions from './controls/questions';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Socket } from 'socket.io-client';
+import Offline from './controls/offline';
 
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
@@ -13,7 +14,7 @@ type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book
 interface questionProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
     user: any;
-    socket : Socket;
+    socket: Socket;
 }
 
 
@@ -87,23 +88,41 @@ const Question: React.FC<questionProps> = (props) => {
 
             <div className="questionBodyDiv">
                 <div>
-                <ToggleButtonGroup
-                    sx={{ marginTop: "20px", backgroundColor: "white" }}
-                    color="primary"
-                    value={alignment}
-                    exclusive
-                    onChange={handleChange}
-                >
-                    <ToggleButton value="All">All</ToggleButton>
-                    <ToggleButton value="My">My</ToggleButton>
-                </ToggleButtonGroup>
-                <div className="qnaBoard">
-                    <Questions socket={props.socket} user={props.user} subject={selectMenu} page={currentPage} alignment={alignment}></Questions>
+                    {
+                        selectMenu != "offline" &&
+                        <>
+                            <ToggleButtonGroup
+                                sx={{ marginTop: "20px", backgroundColor: "white" }}
+                                color="primary"
+                                value={alignment}
+                                exclusive
+                                onChange={handleChange}
+                            >
+                                <ToggleButton value="All">All</ToggleButton>
+                                <ToggleButton value="My">My</ToggleButton>
+                            </ToggleButtonGroup>
+
+                            <div className="qnaBoard">
+                                <Questions socket={props.socket} user={props.user} subject={selectMenu} page={currentPage} alignment={alignment}></Questions>
+                            </div>
+                        </>
+                    }
+
+
+
                 </div>
-                </div>
+                {
+                selectMenu === 'offline' &&
+                <Offline user={props.user} />
+                }
             </div>
 
-            <div className="pageNumberDiv">
+
+
+
+            {
+                selectMenu != 'offline' && 
+                <div className="pageNumberDiv">
                 <div className="pageNumber">
                     <img onClick={() => { pageChevron("left"); }} className="chevron" src="img/chevronLeft.svg" alt="chevronLeft" />
                     {
@@ -118,14 +137,20 @@ const Question: React.FC<questionProps> = (props) => {
                     <img className="chevron" onClick={() => { pageChevron("right"); }} src="img/chevronRight.svg" alt="chevronLeft" />
                 </div>
             </div>
+            }
 
 
-            <Link to="/dashboard/question/write">
-                <div className="qnaWrite">
-                    <img src="./img/pencil.svg" alt="pencil" />
-                    질의응답 작성
-                </div>
-            </Link>
+            {selectMenu != 'offline' &&
+                <Link to="/dashboard/question/write">
+                    <div className="qnaWrite">
+                        <img src="./img/pencil.svg" alt="pencil" />
+                        질의응답 작성
+                    </div>
+                </Link>
+            }
+
+
+
         </div>
     )
 }

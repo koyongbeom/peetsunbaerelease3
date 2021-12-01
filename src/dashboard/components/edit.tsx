@@ -11,12 +11,18 @@ import TimePicker from '@mui/lab/TimePicker'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress'
 import { Alert, Stack } from '@mui/material';
+import koLocale from 'date-fns/locale/ko'
+import Totaledits from './controls/totaledits';
+
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 interface editProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
     classes: any;
+    user : {name: string;
+        value: "student" | "teacher" | "parent" | "staff";
+        id: number;} | undefined | null
 }
 
 
@@ -79,7 +85,8 @@ const Edit: React.FC<editProps> = (props) => {
     const changeSelect = (event: any, menu: string) => {
         switch (menu) {
             case "submit": setSelect("submit"); break;
-            case "check": setSelect("check");
+            case "check": setSelect("check"); break;
+            case "total" : setSelect("total");
         }
     }
 
@@ -216,9 +223,15 @@ const Edit: React.FC<editProps> = (props) => {
                     <div className={`menu_status ${select === "check" ? "active" : ""}`} onClick={(e) => { changeSelect(e, "check") }}>
                         내 사유 제출 현황
                     </div>
+                    {
+                        (props.user && props.user.value) &&
+                        <div className={`menu_status ${select === "total" ? "active" : ""}`} onClick={(e) => { changeSelect(e, "total") }}>
+                            전체 제출 현황
+                        </div>
+                    }
                 </div>
                 <div className="remain">
-                    # 잔여 횟수 - {remain}회
+                    # 잔여 횟수 - <span>{remain}</span>회
                 </div>
             </div>
 
@@ -226,13 +239,12 @@ const Edit: React.FC<editProps> = (props) => {
             {select === "submit" &&
                 <div className="wrap">
 
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                         <StaticDatePicker
                             displayStaticWrapperAs="desktop"
                             openTo="day"
                             value={dateValue}
                             disablePast
-                            disableHighlightToday
                             minDate={minDate}
                             onChange={(newValue: any) => {
                                 console.log(newValue);
@@ -401,6 +413,11 @@ const Edit: React.FC<editProps> = (props) => {
                     }
 
                 </div>}
+
+                {
+                    select === "total" && 
+                    <Totaledits />
+                }
 
 
         </div>
