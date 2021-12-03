@@ -1,0 +1,226 @@
+.body {
+    padding-left: 20px;
+    width: 100%;
+    overflow: auto;
+    height : calc(100vh - 78px);
+}
+
+.header {
+    height: 118px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+    width: 100%;
+    font-family: "Apple_B";
+    font-size: "28px";
+    letter-spacing: "-0.7px";
+    line-height: 37px;
+    color: #494951;
+    font-size: 28px;
+    margin-bottom: 46px;
+}
+
+.currentMenu {
+    display: flex;
+    justify-content: center;
+}
+
+.currentMenu img {
+    margin-left: 23.2px;
+    margin-right: 23.2px;
+}
+
+.circle {
+    font-family: "Apple_R";
+    width: 142px;
+    height: 142px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #e6e6e6;
+    border-radius: 50%;
+}
+
+.circle.active{
+    border: 4px solid #566ee8;
+    color: #566ee8;
+    font-family: "Apple_B";
+}
+
+.description {
+    margin-top: 27px;
+    display: flex;
+    justify-content: center;
+    font-family: "Apple_R";
+}
+
+.descriptionText {
+    width: 550px;
+    line-height: 26px;
+    margin-bottom: 54.5px;
+}
+
+.profileBoard {
+    display: flex;
+    justify-content: center;
+}
+
+.profileBoardDescription {
+    width: 474px;
+}
+
+.beforeUniversityTitle {
+    font-size: 26px;
+    font-family: "Apple_B";
+    color: #303030;
+    letter-spacing: -1.3px;
+    margin-bottom: 31px;
+}
+
+.beforeUniversityTitle2 {
+    margin-top: 41px;
+}
+
+.beforeUniversityTitle3 {
+    margin-top: 45.8px;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-family: "Apple_R";
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    color: #606060;
+    margin-bottom: 9px;
+}
+
+.subtitle2 {
+    font-family: "Apple_R";
+    font-size: 16px;
+    letter-spacing: -0.45px;
+    color: #606060;
+    margin-bottom: 9px;
+    width: 40px;
+    height: 42px;
+    margin-right: 12px;
+}
+
+.subtitle3 {
+    margin-bottom: 13px;
+}
+
+.subtitle5 {
+    margin-top: 33px;
+}
+
+.textField {
+    margin-bottom: 33px;
+}
+
+.twoTextField {
+    display: flex;
+}
+
+.twoTextField2 {
+    display: flex;
+    align-items: center;
+}
+
+.firstTextField {
+    margin-right: 13px;
+}
+
+.secondTextField {
+    margin-left: 13px;
+}
+
+.secondDiv {
+    margin-top: 23px;
+}
+
+.radioGroup {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+.radioText {
+    margin-right: 20px;
+    font-size: 18px;
+    color: #606060;
+    font-family: "Apple_R";
+}
+
+.radioDiv {
+    margin-bottom: 51.5px;
+}
+
+.formcontroldiv {
+    width: 50px;
+}
+
+.radioset {
+    display: flex;
+    align-items: center;
+}
+
+.radiosetDiv {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.radioset1 {
+    margin-right: 20px;
+}
+.radioset2 {
+    margin-left: 20px;
+}
+
+.nextBtnDiv {
+    border-top: 1px solid #d5d5d5;
+    padding-top: 48.5px;
+    margin-bottom: 80px;
+}
+
+.nextBtn {
+    cursor: pointer;
+    font-size: 20px;
+    font-family: "Apple_R";
+    letter-spacing: "-1px";
+    width: 100%;
+    height: 62px;
+    border-radius: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3d50b0;
+    color: white;
+}
+
+.password {
+    display: flex;
+}
+
+.password fieldset {
+    border-radius: 3px 0 0 3px;
+}
+
+.certifyButton {
+    cursor: pointer;
+    font-family: "Apple_B";
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    background-color: #3d50b0;
+    border-radius: 0 3px 3px 0;
+}
+
+.inputRounded {
+    border-radius: 0px !important;
+}
+
+.inputRounded .MuiOutlinedInput-root{
+    border-radius: 0px;
+}
