@@ -5,6 +5,9 @@ const keytar = require("keytar");
 const { KeyboardTabSharp } = require("@mui/icons-material");
 const { stringify } = require("querystring");
 const { autoUpdater } = require('electron-updater');
+var axios = require('axios');
+var qs = require('qs');
+const fetch = require("node-fetch");
 
 let mainWindow;
 
@@ -89,4 +92,22 @@ ipcMain.on('restart_app', () => {
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
+
+ipcMain.on('megamd', async (event, id, pw) => {
+  var urlencoded = new URLSearchParams();
+  urlencoded.append("input_id", id);
+  urlencoded.append("input_pw", pw);
+
+  fetch("https://www.megamd.co.kr/member/member_2013/login_sql.asp", {
+    credentials : "omit",
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: urlencoded
+  }).then(response => response.text())
+    .then(result => {
+      console.log(result);
+      event.sender.send("megamd", !result.includes("err"), result, id, pw)
+    })
+    .catch(error => console.log('error', error));
+})
 

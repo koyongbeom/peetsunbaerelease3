@@ -61,6 +61,10 @@
     margin-bottom: 54.5px;
 }
 
+.descriptionText2 {
+    margin-bottom : 41px
+}
+
 .profileBoard {
     display: flex;
     justify-content: center;
@@ -85,6 +89,10 @@
 .beforeUniversityTitle3 {
     margin-top: 45.8px;
     margin-bottom: 15px;
+}
+
+.fullWidthText2 {
+    margin-top: 25.5px;
 }
 
 .subtitle {
@@ -205,6 +213,10 @@
     border-radius: 3px 0 0 3px;
 }
 
+.password.active fieldset {
+    border-color: blue;
+}
+
 .certifyButton {
     cursor: pointer;
     font-family: "Apple_B";
@@ -215,7 +227,10 @@
     width: 220px;
     background-color: #3d50b0;
     border-radius: 0 3px 3px 0;
+    height: 56px;
 }
+
+
 
 .inputRounded {
     border-radius: 0px !important;
@@ -224,3 +239,245 @@
 .inputRounded .MuiOutlinedInput-root{
     border-radius: 0px;
 }
+
+.successhelpertext {
+    color: blue;
+    font-family: "Apple_B";
+}
+
+.failhelpertext {
+    font-family: "Apple_B";
+}
+
+.passwordDiv {
+    margin-bottom: 80px;
+}
+
+.radioRowDiv {
+    display: flex;
+}
+
+.helperText {
+    margin-left: 440px;
+    font-size: 14px;
+}
+
+.helperText.active{
+    margin-left: 430px;
+    color: blue;
+    font-size: 15px;
+}
+
+.wideProfileBoard{
+    display: flex;
+    justify-content: center;
+}
+
+.wideProfileBoardDescription {
+    width: 844px;
+}
+
+.wideTitle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 72px;
+    border-top: 3px solid #707070;
+    border-bottom: 1px solid #cbcbcb;
+    font-size: 26px;
+    color: #3d50b0;
+    letter-spacing: -1.3px;
+    font-family: "Apple_B";
+    margin-bottom: 47px;
+}
+
+.eachPriceTitle {
+    font-family: "Apple_R";
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    color: #606060;
+    margin-bottom: 13.5px;
+}
+
+.eachPriceBox {
+    width: 844px;
+    height: 182px;
+    border : 1px solid #e2e2e2;
+    padding-left: 58px;
+    padding-right: 79px;
+    display: flex;
+}
+
+.eachPriceBox.second{
+    height: 233px;
+    margin-bottom: 40px;
+}
+
+.eachPriceBoxTitle {
+    margin-top: 33.5px;
+    margin-bottom: 36.5px;
+    padding-right: 105px;
+    border-right: 1px solid #d4d4d4;
+}
+
+.eachPriceBoxTitle div{
+    font-size: 18px;
+    font-family: "Apple_R";
+    color: white;
+    width: 158.5px;
+    height: 44.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 22px;
+    background-color: #566ee8;
+}
+
+.eachPriceBoxDescription {
+    width: 100%;
+    padding-left: 72.5px;
+    margin-top: 23px;
+}
+
+.eachPriceBoxDescription .eachPriceBoxDescription_1:last-child{
+    margin-bottom: 0px;
+}
+
+.eachPriceBoxDescription_1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 11px;
+}
+
+.eachPriceBoxDescription .eachPriceBoxDescription_1:last-child{
+    margin-bottom: 0px;
+}
+
+.eachPriceBoxDescription_1 div:first-child {
+    width: 102px;
+    display: flex;
+    justify-content: end;
+}
+
+.eachPriceBoxDescription_1 div:nth-child(2) {
+    width: 152px;
+    height: 39px;
+    background-color: #ecefff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Apple_R";
+    letter-spacing: -0.45px;
+    color: #606060;
+    font-size: 18px;
+}
+
+.eachPriceBoxDescription_1 div:nth-child(2) span {
+    color: #ff4848;
+}
+
+.wideProfileBoardDescription .eachPriceDiv:last-child{
+    margin-top: 38.5px;
+}
+
+.eachPriceDiv.second{
+    margin-top: 38.5px;
+}
+
+.eachCoachingPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 11px;
+}
+
+.eachCoachingPrice div:first-child {
+    width: 88px;
+    display: flex;
+    justify-content: end;
+}
+
+.eachCoachingPrice div:nth-child(2){
+    width: 50px;
+    display: flex;
+    justify-content: end;
+}
+
+.eachCoachingPrice div:nth-child(3){
+    width: 152px;
+    height: 39px;
+    background-color: #ecefff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Apple_R";
+    letter-spacing: -0.45px;
+    color: #606060;
+    font-size: 18px;
+}
+
+.eachCoachingPrice div:nth-child(3) span {
+    color: #ff4848;
+}
+
+.priceDescriptionTextDiv {
+    margin-bottom: 85px;
+}
+
+.priceDescriptionText{
+    font-family: "Apple_R";
+    color: #606060;
+    letter-spacing: -0.4px;
+}
+
+.radioWrapDiv {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 57.5px;
+}
+
+.certifyDiv {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 127.5px;
+}
+
+.nextBtn.third{
+    width: 424px;
+}
+
+.checkBox {
+    width: 100%;
+    padding-top: 40.5px ;
+    padding-left: 46px;
+    padding-right: 46px;
+    padding-bottom: 34px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 3px 6px 0 rgba(184, 184, 184, 0.16);
+    border-radius: 4px;
+    margin-bottom: 36px;
+    font-family: "Apple_R";
+    font-size: 18px;
+    color: #606060;
+    letter-spacing: -0.45px;
+}
+
+.checkBox .text {
+    margin-bottom: 24.5px;
+}
+
+.text div{
+    display: flex;
+}
+
+.text div div:first-child{
+    margin-right: 6px;
+}
+
+
+
+
+
+

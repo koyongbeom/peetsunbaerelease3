@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 import { Subject } from '@mui/icons-material';
 import ProfileFirst from './controls/profilefirst';
 import ProfileSecond from './controls/profilesecond';
+import ProfileThird from './controls/profilethird';
+import ProfileFourth from './controls/profilefourth';
 
 const Profile: React.FC<any> = (props: any) => {
     const [currentProfile, setCurrentProfile] = useState("first");
@@ -22,6 +24,8 @@ const Profile: React.FC<any> = (props: any) => {
         <>
             {currentProfile === "first" ? <ProfileFirst changeProfilePage={changeProfilePage} /> : ""}
             {currentProfile === "second" ? <ProfileSecond changeProfilePage={changeProfilePage} /> : ""}
+            {currentProfile === "third" ? <ProfileThird changeProfilePage={changeProfilePage} /> : ""}
+            {currentProfile === "fourth" ? <ProfileFourth history={props.history} changeProfilePage={changeProfilePage} /> : ""}
         </>
     )
 }

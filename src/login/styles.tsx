@@ -3,7 +3,6 @@ const styles: any = (theme: any) => ({
         width: "1500px",
         margin: "auto",
     },
-
     appbar: {
         display: 'flex',
         justifyContent: 'space-between',

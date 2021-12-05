@@ -43,62 +43,64 @@ const ProfileFirst: React.FC<any> = (props: any) => {
             }).then((response: any) => {
                 response.json()
                     .then((result: any) => {
-                        const data = result.data;
-                        console.log(data);
-                        setPreviousUniversity(data.previousUniversity);
-                        setMajor(data.major);
-                        setDegree(data.degree);
-                        setSemester(data.semester);
-                        setSchoolStatus(data.schoolStatus);
-                        setToeic(data.toeic);
-                        setWhenToeic(data.whenToeic);
-                        setHighschoolKind(data.highschoolKind);
-                        setMathGrade(data.mathGrade);
-                        const currentWhatScienceChecked = [false, false, false, false, false, false, false, false];
-                        const currentScienceGrade = ["", "", "", "", "", "", "", ""];
-                        data.whatScience.forEach((each : any) => {
-                            switch (each.subject) {
-                                case "physicsone" : 
-                                    currentWhatScienceChecked[0] = true;
-                                    currentScienceGrade[0] = each.grade;
-                                    break;
-                                case "physicstwo" :
-                                    currentWhatScienceChecked[1] = true;
-                                    currentScienceGrade[1] = each.grade;
-                                    break;
-                                case "chemistryone" :
-                                    currentWhatScienceChecked[2] = true;
-                                    currentScienceGrade[2] = each.grade;
-                                    break;
-                                case "chemistrytwo" :
-                                    currentWhatScienceChecked[3] = true;
-                                    currentScienceGrade[3] = each.grade;
-                                    break;
-                                case "earthone" :
-                                    currentWhatScienceChecked[4] = true;
-                                    currentScienceGrade[4] = each.grade;
-                                    break;
-                                case "earthtwo" :
-                                    currentWhatScienceChecked[5] = true;
-                                    currentScienceGrade[5] = each.grade;
-                                    break;
-                                case "biologyone" :
-                                    currentWhatScienceChecked[6] = true;
-                                    currentScienceGrade[6] = each.grade;
-                                    break;
-                                case "biologytwo" :
-                                    currentWhatScienceChecked[7] = true;
-                                    currentScienceGrade[7] = each.grade;
-                                    break;
-                            }
-                        })
-                        console.log(currentWhatScienceChecked);
-                        setWhatScienceChecked([...currentWhatScienceChecked]);
-                        setScienceGrade([...currentScienceGrade]);
+                        if (result.data) {
+                            const data = result.data;
+                            console.log(data);
+                            setPreviousUniversity(data.previousUniversity);
+                            setMajor(data.major);
+                            setDegree(data.degree);
+                            setSemester(data.semester);
+                            setSchoolStatus(data.schoolStatus);
+                            setToeic(data.toeic);
+                            setWhenToeic(data.whenToeic);
+                            setHighschoolKind(data.highschoolKind);
+                            setMathGrade(data.mathGrade);
+                            const currentWhatScienceChecked = [false, false, false, false, false, false, false, false];
+                            const currentScienceGrade = ["", "", "", "", "", "", "", ""];
+                            data.whatScience.forEach((each: any) => {
+                                switch (each.subject) {
+                                    case "physicsone":
+                                        currentWhatScienceChecked[0] = true;
+                                        currentScienceGrade[0] = each.grade;
+                                        break;
+                                    case "physicstwo":
+                                        currentWhatScienceChecked[1] = true;
+                                        currentScienceGrade[1] = each.grade;
+                                        break;
+                                    case "chemistryone":
+                                        currentWhatScienceChecked[2] = true;
+                                        currentScienceGrade[2] = each.grade;
+                                        break;
+                                    case "chemistrytwo":
+                                        currentWhatScienceChecked[3] = true;
+                                        currentScienceGrade[3] = each.grade;
+                                        break;
+                                    case "earthone":
+                                        currentWhatScienceChecked[4] = true;
+                                        currentScienceGrade[4] = each.grade;
+                                        break;
+                                    case "earthtwo":
+                                        currentWhatScienceChecked[5] = true;
+                                        currentScienceGrade[5] = each.grade;
+                                        break;
+                                    case "biologyone":
+                                        currentWhatScienceChecked[6] = true;
+                                        currentScienceGrade[6] = each.grade;
+                                        break;
+                                    case "biologytwo":
+                                        currentWhatScienceChecked[7] = true;
+                                        currentScienceGrade[7] = each.grade;
+                                        break;
+                                }
+                            })
+                            console.log(currentWhatScienceChecked);
+                            setWhatScienceChecked([...currentWhatScienceChecked]);
+                            setScienceGrade([...currentScienceGrade]);
+                        }
                     })
             })
         }
-        
+
         start();
     }, []);
 
@@ -429,7 +431,7 @@ const ProfileFirst: React.FC<any> = (props: any) => {
 
                         <div className={styles.nextBtnDiv}>
                             <div onClick={submit} className={styles.nextBtn}>
-                                    {loading ? <CircularProgress style={{color : "white"}} /> : <div>다음으로</div>}
+                                    {loading ? <CircularProgress style={{color : "white"}} /> : <div>저장 후 다음</div>}
                             </div>
                         </div>
 
