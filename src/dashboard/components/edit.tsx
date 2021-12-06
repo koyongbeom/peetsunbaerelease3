@@ -2,7 +2,7 @@ import { withStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import "../componentsStyle/edit.css";
-import styles from "../componentsStyle/editStyles";
+// import styles from "../componentsStyle/editStyles";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -19,7 +19,7 @@ type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book
 
 interface editProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
-    classes: any;
+    // classes: any;
     user : {name: string;
         value: "student" | "teacher" | "parent" | "staff";
         id: number;} | undefined | null
@@ -27,7 +27,7 @@ interface editProps extends RouteComponentProps {
 
 
 const Edit: React.FC<editProps> = (props) => {
-    const classes = props.classes;
+    // const classes = props.classes;
     const date = new Date();
     date.setDate(date.getDate() + 1);
     const minDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -53,8 +53,7 @@ const Edit: React.FC<editProps> = (props) => {
 
     useEffect(() => {
         props.activateMenuList("edit");
-        console.log(classes);
-    }, [])
+    }, []);
 
     useEffect(() => {
         async function start() {
@@ -211,7 +210,7 @@ const Edit: React.FC<editProps> = (props) => {
 
 
     return (
-        <div className={classes.main}>
+        <div className="main2">
             <div>
                 <div className="title"><img className="editImage" src="img/edit.svg" alt="edit"></img>지각/결석 사유 제출</div>
             </div>
@@ -424,4 +423,4 @@ const Edit: React.FC<editProps> = (props) => {
     )
 }
 
-export default withStyles(styles)(Edit);
+export default Edit;

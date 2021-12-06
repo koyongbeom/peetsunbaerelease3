@@ -4,6 +4,7 @@ import SignUp from './signup/signup';
 import Login from './login/login';
 import Dashboard from './dashboard/dashboard';
 import {Socket} from "socket.io-client";
+import Complete from './signup/complete';
 
 interface props {
   socket : Socket;
@@ -16,6 +17,7 @@ const App : React.FC<props> = (appProps) => {
       <div id="routing-container">
         <Route exact path="/" component={Login}></Route>
         <Route path="/signup" component={SignUp}></Route>
+        <Route path="/complete" component={Complete}></Route>
         <Route path="/dashboard" render={(props)=><Dashboard socket={appProps.socket} {...props}/>} />
       </div>
     </Router>

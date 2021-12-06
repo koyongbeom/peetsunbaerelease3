@@ -1,9 +1,10 @@
-import { withStyles } from '@mui/styles';
+// import { withStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import styles from '../componentsStyle/alarmStyles';
-import "../componentsStyle/alarm.css"
+// import styles from '../componentsStyle/alarmStyles';
+// import "../componentsStyle/alarm.css"
 import { userInfo } from 'os';
+import styles from "../componentsStyle/alarm.module.css"
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -15,7 +16,7 @@ interface user {
 
 interface AlarmProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
-    classes: any;
+    // classes: any;
     user : user | null | undefined;
 }
 
@@ -24,7 +25,7 @@ var i = [1, 2, 3, 4, 5, 6, 7];
 var j = [1, 2, 3, 4, 5, 6];
 
 const Alarm: React.FC<AlarmProps> = (props) => {
-    const classes = props.classes;
+    // const classes = props.classes;
     const [year, setYear] = useState<number>(date.getFullYear());
     const [month, setMonth] = useState<number>(date.getMonth());
     const [firstDay, setFirstDay] = useState<number>(3);
@@ -100,44 +101,44 @@ const Alarm: React.FC<AlarmProps> = (props) => {
     }
 
     return (
-        <div className={`${classes.main} main`}>
-            <div className={classes.title}>
-                <img className={classes.clock} src="img/alarm.svg" alt="alarm" />출석
+        <div className={styles.main}>
+            <div className={styles.title}>
+                <img className={styles.clock} src="img/alarm.svg" alt="alarm" />출석
             </div>
 
-            <div className={classes.paper}>
-                <div className={classes.paperTitle}>
-                    <div className={classes.studentName}><img className={classes.calendarFlat} src="img/calendar.svg" alt="calendar" />{props.user?.name} 일정표</div>
-                    <div className={classes.monthStudyTime}>#이번 달 총 공부시간</div>
+            <div className={styles.paper}>
+                <div className={styles.paperTitle}>
+                    <div className={styles.studentName}><img className={styles.calendarFlat} src="img/calendar.svg" alt="calendar" />{props.user?.name} 일정표</div>
+                    <div className={styles.monthStudyTime}>#이번 달 총 공부시간</div>
                 </div>
-                <div className={classes.calendar}>
-                    <div className={classes.calendarTitle}>
-                        <div className="calendarTitleText">
-                            <img className={classes.chevronLeft} onClick={minusMonth} src="img/chevron-left-regular.svg" alt="chevronLeft" />
+                <div className={styles.calendar}>
+                    <div className={styles.calendarTitle}>
+                        <div className={styles.calendarTitleText}>
+                            <img className={styles.chevronLeft} onClick={minusMonth} src="img/chevron-left-regular.svg" alt="chevronLeft" />
                             <span>{year}년 </span><span>{month + 1}월</span>
-                            <img className={classes.chevronRight} onClick={plusMonth} src="img/chevron-right-regular.svg" alt="chevronRight" />
+                            <img className={styles.chevronRight} onClick={plusMonth} src="img/chevron-right-regular.svg" alt="chevronRight" />
                         </div>
                     </div>
-                    <div className={classes.day}>
-                        <div className={classes.dayList}>
+                    <div className={styles.day}>
+                        <div className={styles.dayList}>
                             일요일
                         </div>
-                        <div className={classes.dayList}>
+                        <div className={styles.dayList}>
                             월요일
                         </div>
-                        <div className={classes.dayList}>
+                        <div className={styles.dayList}>
                             화요일
                         </div>
-                        <div className={classes.dayList}>
+                        <div className={styles.dayList}>
                             수요일
                         </div>
-                        <div className={classes.dayList}>
+                        <div className={styles.dayList}>
                             목요일
                         </div>
-                        <div className={classes.dayList}>
+                        <div className={styles.dayList}>
                             금요일
                         </div>
-                        <div className={classes.dayList_last}>
+                        <div className={styles.dayList_last}>
                             토요일
                         </div>
                     </div>
@@ -146,7 +147,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                             j.map((row, index) => {
 
                                     return (
-                                        <div className={`calendarWeek calendarWeek${index}`}>
+                                        <div className={styles.calendarWeek}>
                                             {
                                                 i.map((column, index) => {   
                                                         const number = (row - 1) * 7 + column;
@@ -155,7 +156,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                                                             day = "";
                                                         }
                                                         return (
-                                                            <div data-year={year} data-month={month} data-day={day} className={`calendarDay calendarDay${index}`}>{day}</div>
+                                                            <div data-year={year} data-month={month} data-day={day} className={styles.calendarDay}>{day}</div>
                                                         )
                                                     
                                                 })
@@ -172,5 +173,5 @@ const Alarm: React.FC<AlarmProps> = (props) => {
     )
 }
 
-export default withStyles(styles)(Alarm);
+export default Alarm;
 

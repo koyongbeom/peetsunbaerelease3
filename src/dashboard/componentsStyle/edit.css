@@ -1,3 +1,13 @@
+.main2 {
+    background-color: #f5f5f5;
+    width: calc(100% - 244px);
+    padding-left: 46px;
+    padding-top: 45.7px;
+    padding-right: 46px;
+    padding-bottom: 71px;
+    height: calc(100vh - 78px);
+}
+
 .title{
     font-family: 'Apple_R';
     font-size: 22px;

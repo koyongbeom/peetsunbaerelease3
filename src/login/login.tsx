@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles } from '@mui/styles';
-import styles from './styles';
+// import { withStyles } from '@mui/styles';
+// import styles from './styles';
 import { Link } from 'react-router-dom';
 import {useLocation} from 'react-router';
 import Box from '@mui/material/Box'
@@ -9,10 +9,9 @@ import Typography from '@mui/material/Typography';
 import { StringLiteralLike } from 'typescript';
 import { send } from 'process';
 import { ipcRenderer} from 'electron';
-
+import styles from './login.module.css';
 
 interface props {
-    classes: any;
     history: any;
 }
 
@@ -60,7 +59,7 @@ const Login: React.FC<props> = (props) => {
     const [isCertSended, setIsCertNumberSended] = useState(false);
     const [isPasswordChanged, SetIsPasswordChanged] = useState(false);
 
-    const classes = props.classes;
+    // const classes = props.classes;
 
     const location = useLocation<any>();
 
@@ -235,45 +234,45 @@ const Login: React.FC<props> = (props) => {
     //-------------------------------------------------------------------------------------------
 
     return (
-        <main className={classes.main}>
-            <div className={classes.appbar}>
+        <main className={styles.main}>
+            <div className={styles.appbar}>
                 <div>
-                    <img className={classes.logo1} alt="logo" src="img/logo1.svg"></img>
+                    <img className={styles.logo1} alt="logo" src="img/logo1.svg"></img>
                 </div>
-                <Link to="/">
-                    <div className={classes.login}>
-                        <img className={classes.avatar} alt="avatar" src="img/avatarG.svg"></img>
-                        <div className={classes.loginText}>로그인</div>
+                <Link to="/signup">
+                    <div className={styles.login}>
+                        <img className={styles.avatar} alt="avatar" src="img/avatarG.svg"></img>
+                        <div className={styles.loginText}>회원가입</div>
                     </div>
                 </Link>
             </div>
 
-            <div className={classes.body}>
-                <div className={classes.loginTextBottom}>
+            <div className={styles.body}>
+                <div className={styles.loginTextBottom}>
                     로그인
                 </div>
 
                 <Box component="form" autoComplete="off">
                     <FormControl required fullWidth margin="normal">
-                        <div className={classes.label}>이메일 주소</div>
+                        <div className={styles.label}>이메일 주소</div>
                         <OutlinedInput required={true} error={emailError} onChange={(e) => { setEmail(e.currentTarget.value); }} autoFocus placeholder="이메일 주소 입력" />
                         {emailError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB' }} error={true}>존재하지 않는 이메일 주소 입니다.</FormHelperText>}
                     </FormControl>
 
                     <FormControl required fullWidth margin="normal">
-                        <div className={classes.label}>비밀번호</div>
+                        <div className={styles.label}>비밀번호</div>
                         <OutlinedInput required={true} error={passwordError} onChange={(e) => { setPassword(e.currentTarget.value); }} type="password" autoFocus placeholder="8~20자 입력하세요" />
                         {passwordError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB' }} error={true}>잘못된 비밀번호 입니다.</FormHelperText>}
                     </FormControl>
 
-                    <button onClick={submit} className={classes.submit}>로그인</button>
+                    <button onClick={submit} className={styles.submit}>로그인</button>
 
-                    <div className={classes.lastText}>
-                        <div className={classes.findPasswordText} onClick={modal}>
+                    <div className={styles.lastText}>
+                        <div className={styles.findPasswordText} onClick={modal}>
                             비밀번호가 생각나지 않으시나요?
                         </div>
 
-                        피트선배가 처음이신가요? <Link to="/signup"><span className={classes.lastTextSpan}>회원가입</span></Link>
+                        피트선배가 처음이신가요? <Link to="/signup"><span className={styles.lastTextSpan}>회원가입</span></Link>
                     </div>
                 </Box>
             </div>
@@ -285,7 +284,7 @@ const Login: React.FC<props> = (props) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className={classes.modal}
+                <Box className={styles.modal}
                     sx={{
                         position: 'absolute',
                         top: '50%',
@@ -299,12 +298,12 @@ const Login: React.FC<props> = (props) => {
                     }}
                 >
                     <Box component="form" autoComplete="off">
-                        <div className={classes.modal_header}>
+                        <div className={styles.modal_header}>
                             비밀번호 변경하기
                         </div>
 
                         <FormControl required fullWidth margin="normal">
-                            <div className={classes.modal_label}>핸드폰 번호를 입력해주세요.</div>
+                            <div className={styles.modal_label}>핸드폰 번호를 입력해주세요.</div>
                             <OutlinedInput id="phoneNumber" name="phoneNumber" sx={{ height: 40, fontSize: 14 }} required={true} error={phoneNumberError} onChange={(e) => { setPhoneNumber(e.currentTarget.value) }} autoFocus={!isCertSended} placeholder="핸드폰 번호(-없이)" />
                         </FormControl>
 
@@ -312,14 +311,14 @@ const Login: React.FC<props> = (props) => {
 
                             <div>
                                 <FormControl required margin="normal">
-                                    <div className={classes.modal_label}>수신한 인증번호를 입력해주세요.</div>
+                                    <div className={styles.modal_label}>수신한 인증번호를 입력해주세요.</div>
                                     <OutlinedInput id="certNumber" name="certNumber" sx={{ height: 40, fontSize: 14 }} required={true} error={verifiedNumberError} onChange={(e) => { setCertNumber(e.currentTarget.value) }} autoFocus={isCertSended} placeholder="인증번호" />
                                     {verifiedNumberError && <FormHelperText sx={{ fontSize: "16px", marginLeft: 1, fontFamily: 'Apple_EB' }} error={true}>잘못된 인증번호 입니다.</FormHelperText>}
                                 </FormControl>
 
 
                                 <FormControl required fullWidth margin="normal">
-                                    <div className={classes.modal_label}>변경할 비밀번호를 입력해주세요.</div>
+                                    <div className={styles.modal_label}>변경할 비밀번호를 입력해주세요.</div>
                                     <OutlinedInput id="rePassword" name="rePassword" fullWidth type="password" sx={{ height: 40, fontSize: 14 }} required={true} error={rePasswordError} onChange={(e) => { setRePassword(e.currentTarget.value) }} placeholder="변경할 비밀번호(8~20자리)" />
                                     {rePasswordError && <FormHelperText sx={{ fontSize: "16px", marginLeft: 1, fontFamily: 'Apple_EB' }} error={true}>8~20자 비밀번호를 입력해주세요.</FormHelperText>}
                                     {isPasswordChanged && <FormHelperText filled sx={{ fontSize: "16px", color: 'primary.main', marginLeft: 1, fontFamily: 'Apple_EB' }}>비밀번호가 변경되었습니다.</FormHelperText>}
@@ -330,14 +329,14 @@ const Login: React.FC<props> = (props) => {
                         }
 
                         {!isCertSended &&
-                            <div className={classes.modalBtnDiv}>
-                                <button onClick={sendCert} className={classes.modalBtn}>확인</button>
+                            <div className={styles.modalBtnDiv}>
+                                <button onClick={sendCert} className={styles.modalBtn}>확인</button>
                             </div>
                         }
 
                         {isCertSended &&
-                            <div className={classes.modalBtnDiv}>
-                                <button onClick={sendRePassword} className={classes.modalBtn}>변경</button>
+                            <div className={styles.modalBtnDiv}>
+                                <button onClick={sendRePassword} className={styles.modalBtn}>변경</button>
                             </div>
                         }
 
@@ -356,4 +355,4 @@ const Login: React.FC<props> = (props) => {
     )
 }
 
-export default withStyles(styles)(Login);
+export default Login;

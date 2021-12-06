@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 import { RouteComponentProps } from 'react-router';
-import { withStyles } from '@mui/styles';
+// import { withStyles } from '@mui/styles';
 import { Avatar, Button, Skeleton } from '@mui/material';
-import styles from '../componentsStyle/notificationStyles';
-import '../componentsStyle/notificationStyle.css';
+//import styles from '../componentsStyle/notificationStyles';
+//import '../componentsStyle/notificationStyle.css';
+import styles from "../componentsStyle/notification.module.css";
 import { TrendingUpOutlined } from '@mui/icons-material';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 interface notificationProps extends RouteComponentProps {
-    classes : any;
+    // classes : any;
     user : any;
     activateMenuList : (curret : currentSideBarMenuList) => void;
 }
@@ -25,7 +26,6 @@ const Notification: React.FC<notificationProps> = (props) => {
         props.activateMenuList("notification");
     }, [])
 
-    const classes = props.classes;
 
 
     const [notificationResults, setNotificationResults] = useState<any>();
@@ -68,15 +68,24 @@ const Notification: React.FC<notificationProps> = (props) => {
         start();
     }, [])
 
+    const notificationDetail = (e : any) => {
+        const id = e.target.dataset.id;
+        console.log(e.target.dataset.id);
+        props.history.push({
+            pathname : "/dashboard/notificationdetail",
+            state : {id : id, history : props.history}
+        })
+    }
+
     return (
-        <div className={`${classes.main} main2`}>
-            <div className={classes.notificationDiv}>
-                <div className={classes.notificationTitle}>
+        <div className={styles.main}>
+            <div className={styles.notificationDiv}>
+                <div className={styles.notificationTitle}>
                     <img src="./img/notification.svg" alt="speechBubble" style={{marginRight : "11.3px"}} />
                     최근 공지사항
                 </div>
 
-                <div className={classes.notifications}>
+                <div className={styles.notifications}>
 
                     {
                         notificationResults &&
@@ -84,29 +93,29 @@ const Notification: React.FC<notificationProps> = (props) => {
                             if (index < 4) {
                                 if (each.images.length > 0) {
                                     return (
-                                        <div key={each.title + Math.random()} className={classes.notification} data-id={each.id}>
-                                            <div className="imageDiv" style={{ width: "277px", height: "140px", backgroundSize: "cover" }}>
+                                        <div onClick={notificationDetail} key={each.title + Math.random()} className={styles.notification} data-id={each.id}>
+                                            <div className={styles.imageDiv}  data-id={each.id}>
 
-                                                <img className="notification_image" src={`https://peetsunbae.com/${each.images[0].split("/public/")[1]}`} alt="img" />
+                                                <img data-id={each.id} className={styles.notification_image} src={`https://peetsunbae.com/${each.images[0].split("/public/")[1]}`} alt="img" />
                                                 {imgLoaded[index] ?
                                                     "" :
-                                                    <Skeleton variant="rectangular" width={277} height={140} />
+                                                    <Skeleton data-id={each.id}  variant="rectangular" width={277} height={140} />
                                                 }
                                             </div>
-                                            <div className={classes.notification_description}>
-                                                <div className={classes.notification_description1}>
-                                                    <div className={classes.notification_description1_1}>
+                                            <div data-id={each.id}  className={styles.notification_description}>
+                                                <div data-id={each.id}  className={styles.notification_description1}>
+                                                    <div data-id={each.id}  className={styles.notification_description1_1}>
                                                         {each.title}
                                                     </div>
-                                                    <div className={classes.notification_description1_2}>
-                                                        <Avatar>{each.author[0]}</Avatar>
+                                                    <div data-id={each.id}  className={styles.notification_description1_2}>
+                                                        <Avatar data-id={each.id} >{each.author[0]}</Avatar>
                                                     </div>
                                                 </div>
-                                                <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_2}>
+                                                <div data-id={each.id}  className={styles.notification_description2}>
+                                                    <div data-id={each.id}  className={styles.notification_description2_2}>
                                                         {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                    <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
                                                 </div>
                                             </div>
@@ -115,25 +124,25 @@ const Notification: React.FC<notificationProps> = (props) => {
                                 }
                                 else {
                                     return (
-                                        <div key={each.title + Math.random()} className={classes.notification} data-id={each.id}>
+                                        <div onClick={notificationDetail}  key={each.title + Math.random()} className={styles.notification} data-id={each.id}>
 
-                                            <div className={classes.notification_description_text}>
-                                                <div className={classes.notification_description1}>
-                                                    <div className={classes.notification_description1_1}>
+                                            <div data-id={each.id}  className={styles.notification_description_text}>
+                                                <div data-id={each.id}  className={styles.notification_description1}>
+                                                    <div data-id={each.id}  className={styles.notification_description1_1}>
                                                         {each.title}
                                                     </div>
-                                                    <div className={classes.notification_description1_2}>
-                                                        <Avatar><span className={classes.avatarText}>{each.author[0]}</span></Avatar>
+                                                    <div data-id={each.id}  className={styles.notification_description1_2}>
+                                                        <Avatar data-id={each.id} ><span data-id={each.id}  className={styles.avatarText}>{each.author[0]}</span></Avatar>
                                                     </div>
                                                 </div>
-                                                <div className={classes.eachDescription}>
+                                                <div data-id={each.id}  className={styles.eachDescription}>
                                                     {each.description}
                                                 </div>
-                                                <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_2}>
+                                                <div data-id={each.id}  className={styles.notification_description2}>
+                                                    <div data-id={each.id}  className={styles.notification_description2_2}>
                                                         {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                    <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
                                                 </div>
                                             </div>
@@ -147,7 +156,7 @@ const Notification: React.FC<notificationProps> = (props) => {
 
                 </div>
 
-                <div className={classes.notifications2}>
+                <div className={styles.notifications2}>
 
                     {
                         notificationResults &&
@@ -155,28 +164,28 @@ const Notification: React.FC<notificationProps> = (props) => {
                             if (3< index) {
                                 if (each.images.length > 0) {
                                     return (
-                                        <div key={each.title + Math.random()} className={classes.notification} data-id={each.id}>
-                                            <div className="imageDiv" style={{ width: "277px", height: "140px", backgroundSize: "cover" }}>
+                                        <div onClick={notificationDetail}  key={each.title + Math.random()} className={styles.notification} data-id={each.id}>
+                                            <div data-id={each.id}  className={styles.imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover" }}>
                                                 
-                                                <img className="notification_image" src={`https://peetsunbae.com/${each.images[0].split("/public/")[1]}`} alt="img" />
+                                                <img data-id={each.id}  className={styles.notification_image} src={`https://peetsunbae.com/${each.images[0].split("/public/")[1]}`} alt="img" />
                                                 {imgLoaded[index] ? "" :
-                                                    <Skeleton variant="rectangular" width={277} height={140} />
+                                                    <Skeleton data-id={each.id}  variant="rectangular" width={277} height={140} />
                                                 }
                                             </div>
-                                            <div className={classes.notification_description}>
-                                                <div className={classes.notification_description1}>
-                                                    <div className={classes.notification_description1_1}>
+                                            <div data-id={each.id}  className={styles.notification_description}>
+                                                <div data-id={each.id}  className={styles.notification_description1}>
+                                                    <div data-id={each.id}  className={styles.notification_description1_1}>
                                                         {each.title}
                                                     </div>
-                                                    <div className={classes.notification_description1_2}>
-                                                        <Avatar>{each.author[0]}</Avatar>
+                                                    <div data-id={each.id}  className={styles.notification_description1_2}>
+                                                        <Avatar data-id={each.id} >{each.author[0]}</Avatar>
                                                     </div>
                                                 </div>
-                                                <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_2}>
+                                                <div data-id={each.id}  className={styles.notification_description2}>
+                                                    <div data-id={each.id}  className={styles.notification_description2_2}>
                                                         {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                    <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
                                                 </div>
                                             </div>
@@ -185,25 +194,25 @@ const Notification: React.FC<notificationProps> = (props) => {
                                 }
                                 else {
                                     return (
-                                        <div key={each.title + Math.random()} className={classes.notification} data-id={each.id}>
+                                        <div onClick={notificationDetail}  data-id={each.id}  key={each.title + Math.random()} className={styles.notification}>
 
-                                            <div className={classes.notification_description_text}>
-                                                <div className={classes.notification_description1}>
-                                                    <div className={classes.notification_description1_1}>
+                                            <div data-id={each.id}  className={styles.notification_description_text}>
+                                                <div data-id={each.id}  className={styles.notification_description1}>
+                                                    <div data-id={each.id}  className={styles.notification_description1_1}>
                                                         {each.title}
                                                     </div>
-                                                    <div className={classes.notification_description1_2}>
-                                                        <Avatar><span className={classes.avatarText}>{each.author[0]}</span></Avatar>
+                                                    <div data-id={each.id}  className={styles.notification_description1_2}>
+                                                        <Avatar><span className={styles.avatarText}>{each.author[0]}</span></Avatar>
                                                     </div>
                                                 </div>
-                                                <div className={classes.eachDescription}>
+                                                <div data-id={each.id}  className={styles.eachDescription}>
                                                     {each.description}
                                                 </div>
-                                                <div className={classes.notification_description2}>
-                                                    <div className={classes.notification_description2_2}>
+                                                <div data-id={each.id}  className={styles.notification_description2}>
+                                                    <div data-id={each.id}  className={styles.notification_description2_2}>
                                                         {/* <img src="img/like.svg" alt="like"></img> 0 */}
                                                     </div>
-                                                    <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                    <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
                                                 </div>
                                             </div>
@@ -221,8 +230,8 @@ const Notification: React.FC<notificationProps> = (props) => {
             {
                 (props.user.value === "teacher" || props.user.value === "staff") &&
                 <Link to="/dashboard/notification/write">
-                    <div className={classes.newNotification}>
-                        <img src="./img/pencil.svg" alt="pencil" className={classes.pencil} />
+                    <div className={styles.newNotification}>
+                        <img src="./img/pencil.svg" alt="pencil" className={styles.pencil} />
                         신규 게시물 작성
                     </div>
                 </Link>
@@ -231,4 +240,4 @@ const Notification: React.FC<notificationProps> = (props) => {
     )
 }
 
-export default withStyles(styles)(Notification);
+export default Notification;

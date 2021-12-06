@@ -1,0 +1,49 @@
+.buttonStyles {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.spanStyles {
+    font-family: "Apple_R";
+    font-size: 14px;
+}
+
+.spanStyles2 {
+    font-family: "Apple_B";
+    font-size: 14px;
+}
+
+.divStyle {
+    margin-bottom: 12px;
+    font-family: "Apple_R";
+}
+
+.imageStyle {
+    width: 32px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.filenameDiv {
+    display: flex;
+    align-items: center;
+}
+
+.filenameStyle {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    margin-bottom: 6px;
+}
+
+.filenameDivStyle {
+    font-family: "Apple_R";
+}
+
+.times {
+    width: 12px;
+    margin-right: 16px;
+    vertical-align: text-bottom;
+    margin-left: 6px;
+    cursor: pointer;
+}

@@ -9,6 +9,8 @@ import { Socket } from 'socket.io-client';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress'
 
+import styles from "../../componentsStyle/upload.module.css";
+
 interface props {
     socket : Socket;
 }
@@ -25,59 +27,7 @@ const Upload: React.FC<props> = (props) => {
     const [loading, setLoading] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
 
-    const buttonStyles = {
-        display: "flex",
-        justifyContent: "flex-end",
-    }
 
-    const spanStyles = {
-        fontFamily: "Apple_R",
-        fontSize: "14px"
-    }
-
-    const spanStyles2 = {
-        fontFamily: "Apple_B",
-        fontSize: "14px"
-    }
-
-    const imageBox = {
-
-    }
-
-    const divStyle = {
-        marginBottom: "12px"
-    }
-
-    const imageStyle = {
-        width: "32px",
-        marginLeft: "6px",
-        cursor: "pointer"
-    }
-
-    const filenameDiv = {
-        display: "flex",
-        alignItems: "center",
-
-    }
-
-    const filenameStyle = {
-        display: "flex",
-        alignItems: "center",
-        marginLeft: "12px",
-        marginBottom: "6px",
-    }
-
-    const filenameDivStyle = {
-        fontFamily: "Apple_R"
-    }
-
-    const times = {
-        width: "12px",
-        marginRight: "16px",
-        verticalAlign: "text-bottom",
-        marginLeft: "6px",
-        cursor: "pointer"
-    }
 
     const writeTitle = (event: any) => {
         setTitle(event.target.value);
@@ -181,23 +131,23 @@ const Upload: React.FC<props> = (props) => {
             <form encType="multipart/formdata">
 
                 <div>
-                    <div style={divStyle}>제목</div>
+                    <div className={styles.divStyle}>제목</div>
                     <TextField value={title} onChange={writeTitle} required sx={{ backgroundColor: "white", marginBottom: 3 }} id="title" fullWidth variant="outlined" placeholder="제목을 적어주세요" />
                 </div>
 
                 <div>
-                    <div style={divStyle}>게시글 본문</div>
+                    <div className={styles.divStyle}>게시글 본문</div>
                     <TextField value={description} onChange={writeDescription} required sx={{ backgroundColor: "white", marginBottom: 1 }} id="description" multiline rows={12} fullWidth variant="outlined" placeholder="내용을 적어주세요" />
                 </div>
 
-                <div style={filenameDiv}>
+                <div className={styles.filenameDiv}>
 
                     <label htmlFor="file">
-                        <img style={imageStyle} src="img/images-light.svg" alt="images">
+                        <img className={styles.imageStyle} src="img/images-light.svg" alt="images">
                         </img>
                     </label>
-                    <div style={filenameStyle}>
-                        {filenames.map((filename) => (<div style={filenameDivStyle} data-name={filename} key={filename}>{filename}<img onClick={(e) => { deleteImage(e); }} style={times} data-name={filename} alt="cancel" src="img/times-light.svg"></img></div>))}
+                    <div className={styles.filenameStyle}>
+                        {filenames.map((filename) => (<div className={styles.filenameDivStyle} data-name={filename} key={filename}>{filename}<img onClick={(e) => { deleteImage(e); }} className={styles.times} data-name={filename} alt="cancel" src="img/times-light.svg"></img></div>))}
                     </div>
                     <input onChange={(e) => { fileOnChange(e) }} type="file" name="file" id="file" accept="image/*" multiple hidden />
                 </div>
@@ -213,19 +163,19 @@ const Upload: React.FC<props> = (props) => {
 
                 {uploadBool &&
                     <Stack sx={{ width: '100%' }} spacing={2}>
-                        <Alert severity="info" sx={{ marginTop: 2, marginBottom: 2 }}><span style={spanStyles2}>업로드 성공 !</span></Alert>
+                        <Alert severity="info" sx={{ marginTop: 2, marginBottom: 2 }}><span className={styles.spanStyles2}>업로드 성공 !</span></Alert>
                     </Stack>
                 }
 
 
-                <div style={buttonStyles}>
+                <div className={styles.buttonStyles}>
                     <Link to="/dashboard/home">
                         <Button sx={{ marginRight: 2 }} variant="outlined" size="large" component="label">
-                            <span style={spanStyles2}>닫기</span>
+                            <span className={styles.spanStyles2}>닫기</span>
                         </Button>
                     </Link>
                     <Button disabled={!titleExist || !descriptionExist} onClick={(e : any)=>{submit(e);}} variant="outlined" size="large" component="label">
-                        <span style={spanStyles2}>내용 업로드</span>
+                        <span className={styles.spanStyles2}>내용 업로드</span>
                     </Button>
                 </div>
 

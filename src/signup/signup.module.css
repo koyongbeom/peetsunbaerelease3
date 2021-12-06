@@ -1,5 +1,5 @@
 .main {
-    min-width: 1500px;
+    min-width : 1500px;
     margin: auto;
 }
 
@@ -26,7 +26,7 @@
     width: 14.1px;
 }
 
-.loginText{
+.loginText {
     font-family: "Apple_R";
     font-size: 15px;
     letter-spacing: -0.75px;
@@ -40,13 +40,19 @@
     margin: 0 auto;
 }
 
-.loginTextBottom {
+.signUpText {
     margin-top: 70.5px;
     font-family: "Apple_R";
-    letter-spacing: "-1.5px";
+    letter-spacing: -1.5px;
     font-size: 30px;
     color: #303030;
     margin-bottom: 20px;
+}
+
+.input {
+    color: red;
+    width: 80%;
+    margin-top: 20px;
 }
 
 .label {
@@ -55,6 +61,21 @@
     color: #606060;
     letter-spacing: -0.45px;
     font-family: "Apple_R";
+}
+
+.phone {
+    display: flex;
+}
+
+.phoneCert {
+    width: 148px;
+    margin-left: 13.8px;
+    font-family: "Apple_R";
+    font-size: 18px;
+    background-color: #121a50;
+    color: white;
+    border-radius: 28px;
+    cursor: pointer;
 }
 
 .submit {
@@ -72,11 +93,11 @@
     cursor: pointer;
 }
 
-.findPasswordText {
-    font-size: 16px;
-    margin-bottom: 12px;
-    letter-spacing: -0.16px;
-    cursor: pointer;
+.radioLabel {
+    font-size: 18px;
+    color: #606060;
+    letter-spacing: -0.45px;
+    font-family: "Apple_R";
 }
 
 .lastText {
@@ -89,51 +110,3 @@
     font-family: "Apple_R";
     margin-bottom: 20px;
 }
-
-.phone {
-    display: flex;
-    align-items: flex-end;
-}
-
-.modal_header {
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid #c1c1c1;
-    padding-bottom: 20px;
-    font-family: "Apple_B";
-}
-
-.phoneCert {
-    width: 110px;
-    margin-left: 13.8px;
-    font-family: "Apple_R";
-    font-size: 18px;
-    background-color: #121a50;
-    color: white;
-    border-radius: 16px;
-    cursor: pointer;
-}
-
-.modal_label {
-    margin-top: 4px;
-    margin-bottom: 16px;
-    font-size: 16px;
-    color: #606060;
-    letter-spacing: -0.45px;
-    font-family: "Apple_R";
-}
-
-.modalBtn {
-    margin-top: 24px;
-    width: 60px;
-    font-family: "Apple_B";
-    color: #3d50b0;
-    background-color: white;
-    border: 1px solid #c1c1c1;
-    font-size: 16px;
-    border-radius: 12px;
-    height: 28px;
-    line-height: 28px;
-    cursor: pointer;
-}
-

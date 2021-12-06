@@ -1,0 +1,145 @@
+.main {
+    min-width: 1500px;
+    margin: auto;
+}
+
+.appBar {
+    background-color: #3d50b0;
+    display: flex;
+    justify-content: space-between;
+    height: 78px;
+    align-items: center;
+    padding-left: 47px;
+    padding-right: 40px;
+}
+
+.profileDiv {
+    display: flex;
+    align-items: center;
+}
+
+.profileConfig {
+    color: #e6e6e6;
+    font-family: "Apple_R";
+    font-size: 15px;
+    padding-right: 7.5px;
+    border-right: 1px solid #ffffff;
+    margin-right: 16.5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.avatarCircle {
+    width: 36px;
+    height: 36px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    margin-right: 11px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.logout {
+    color: #e6e6e6;
+    font-family: "Apple_R";
+    font-size: 15px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 14px;
+}
+
+.body {
+    display: flex;
+    width: 100%;
+}
+
+.sideMenu {
+    width: 244px;
+}
+
+.sideMenuProfile {
+    margin-left: 26px;
+    width: 192px;
+    border-bottom: 1px solid #dfdfdf;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 27px;
+    padding-bottom: 23.5px;
+}
+
+.where {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.inside {
+    margin-right: 6.1px;
+}
+
+.outside {
+    width: 17px;
+    margin-right: 6.1px;
+}
+
+.outsideText {
+    font-family: "Apple_R";
+    letter-spacing: -0.75px;
+    color: #828282;
+    font-size: 18px;
+}
+
+.sideMenuAvatar {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background-color: #ebebeb;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sideMenuName {
+    font-size: 18px;
+    font-family: "Apple_R";
+    letter-spacing: -0.85px;
+    color: #303030;
+}
+
+.sideMenuList {
+    padding-top: 26.5px;
+    padding-left: 26.3px;
+}
+
+.sideMenuListSection {
+    display: flex;
+    margin-bottom: 23.4px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.menuimgcontainer {
+    width: 50px;
+}
+
+.sdeMenuListImg {
+    margin-right: 24.7px;
+}
+
+.sideMenuListText {
+    font-family: "Apple_R";
+    letter-spacing: -0.8px;
+    color: #303030;
+}
+
+.sideMenuListTextActive {
+    font-family: "Apple_B";
+    letter-spacing: -0.8px;
+    color: #3d50b0;
+}

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { withStyles } from '@mui/styles';
-import styles from '../componentsStyle/homeStyles'
+// import styles from '../componentsStyle/homeStyles'
 import { Avatar, Skeleton } from '@mui/material';
-
+import styles from "../componentsStyle/home.module.css";
 import useNotifications from './use/usenotification';
 import { notificationResult, notification } from './use/usenotification';
 import { RouteComponentProps } from 'react-router';
@@ -15,7 +15,7 @@ type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book
 
 
 interface socketProps extends RouteComponentProps{
-    classes : any;
+    // classes : any;
     socket : Socket;
     newNotification : number;
     activateMenuList : (curret : currentSideBarMenuList) => void;
@@ -23,7 +23,7 @@ interface socketProps extends RouteComponentProps{
 
 
 const Home: React.FC<socketProps> = (props) => {
-    const classes = props.classes;
+    // const classes = props.classes;
 
     useEffect(()=>{
         props.activateMenuList("home");
@@ -38,52 +38,59 @@ const Home: React.FC<socketProps> = (props) => {
 
     //-------------------------------------------------------------------------------
 
-
+    const notificationDetail = (e : any) => {
+        const id = e.target.dataset.id;
+        console.log(e.target.dataset.id);
+        props.history.push({
+            pathname : "/dashboard/notificationdetail",
+            state : {id : id}
+        })
+    }
 
 
 
 
     return (
-        <div className={`${classes.main} main2`}>
-            <div className={classes.attendanceBoard}>
-                <div className={classes.attendanceBoardWeek}>
-                    <div className={classes.attendanceBoardTitle}>
-                        <div className={classes.attendanceBoardTitle_1}>
+        <div className={`${styles.main}`}>
+            <div className={styles.attendanceBoard}>
+                <div className={styles.attendanceBoardWeek}>
+                    <div className={styles.attendanceBoardTitle}>
+                        <div className={styles.attendanceBoardTitle_1}>
                             이번주 공부 시간
                         </div>
-                        <div className={classes.attendanceBoardTitle_2}>
+                        <div className={styles.attendanceBoardTitle_2}>
                             #자세히
                         </div>
                     </div>
-                    <div className={classes.attendanceBoardDescription}>
-                        <div className={classes.attendanceBoardDescription_1}>
-                            <div className={classes.attendanceBoardDescription_1_1}>
+                    <div className={styles.attendanceBoardDescription}>
+                        <div className={styles.attendanceBoardDescription_1}>
+                            <div className={styles.attendanceBoardDescription_1_1}>
                                 총 공부시간
                             </div>
-                            <div className={classes.attendanceBoardDescription_1_2}>
-                                <span className={classes.attendanceBoardDescriptionHour}>21</span>
+                            <div className={styles.attendanceBoardDescription_1_2}>
+                                <span className={styles.attendanceBoardDescriptionHour}>21</span>
                                 <span>시간</span>
-                                <span className={classes.attendanceBoardDescriptionMinute}>30</span>
+                                <span className={styles.attendanceBoardDescriptionMinute}>30</span>
                                 <span>분</span>
                             </div>
                         </div>
 
-                        <div className={classes.attendanceBoardDescription_1}>
-                            <div className={classes.attendanceBoardDescription_1_1}>
+                        <div className={styles.attendanceBoardDescription_1}>
+                            <div className={styles.attendanceBoardDescription_1_1}>
                                 지각/결석
                             </div>
-                            <div className={classes.attendanceBoardDescription_1_2}>
-                                <span className={classes.attendanceBoardDescriptionHour}>3 / 1</span>
+                            <div className={styles.attendanceBoardDescription_1_2}>
+                                <span className={styles.attendanceBoardDescriptionHour}>3 / 1</span>
                                 <span>회</span>
                             </div>
                         </div>
 
-                        <div className={classes.attendanceBoardDescription_1}>
-                            <div className={classes.attendanceBoardDescription_1_1}>
+                        <div className={styles.attendanceBoardDescription_1}>
+                            <div className={styles.attendanceBoardDescription_1_1}>
                                 공부 시간 등수
                             </div>
-                            <div className={classes.attendanceBoardDescription_1_2}>
-                                <span className={classes.attendanceBoardDescriptionHour}>21/172</span>
+                            <div className={styles.attendanceBoardDescription_1_2}>
+                                <span className={styles.attendanceBoardDescriptionHour}>21/172</span>
                                 <span>등</span>
                             </div>
                         </div>
@@ -95,44 +102,44 @@ const Home: React.FC<socketProps> = (props) => {
 
 
 
-                <div className={classes.attendanceBoardToday}>
-                    <div className={classes.attendanceBoardTitle}>
-                        <div className={classes.attendanceBoardTitle_1}>
+                <div className={styles.attendanceBoardToday}>
+                    <div className={styles.attendanceBoardTitle}>
+                        <div className={styles.attendanceBoardTitle_1}>
                             오늘 공부 시간
                         </div>
-                        <div className={classes.attendanceBoardTitle_2}>
+                        <div className={styles.attendanceBoardTitle_2}>
                             #자세히
                         </div>
                     </div>
-                    <div className={classes.attendanceBoardDescription}>
-                        <div className={classes.attendanceBoardDescription_1}>
-                            <div className={classes.attendanceBoardDescription_1_1}>
+                    <div className={styles.attendanceBoardDescription}>
+                        <div className={styles.attendanceBoardDescription_1}>
+                            <div className={styles.attendanceBoardDescription_1_1}>
                                 총 공부시간
                             </div>
-                            <div className={classes.attendanceBoardDescription_1_2}>
-                                <span className={classes.attendanceBoardDescriptionHour}>21</span>
+                            <div className={styles.attendanceBoardDescription_1_2}>
+                                <span className={styles.attendanceBoardDescriptionHour}>21</span>
                                 <span>시간</span>
-                                <span className={classes.attendanceBoardDescriptionMinute}>30</span>
+                                <span className={styles.attendanceBoardDescriptionMinute}>30</span>
                                 <span>분</span>
                             </div>
                         </div>
 
-                        <div className={classes.attendanceBoardDescription_1}>
-                            <div className={classes.attendanceBoardDescription_1_1}>
+                        <div className={styles.attendanceBoardDescription_1}>
+                            <div className={styles.attendanceBoardDescription_1_1}>
                                 지각/결석
                             </div>
-                            <div className={classes.attendanceBoardDescription_1_2}>
-                                <span className={classes.attendanceBoardDescriptionHour}>0 / 0</span>
+                            <div className={styles.attendanceBoardDescription_1_2}>
+                                <span className={styles.attendanceBoardDescriptionHour}>0 / 0</span>
                                 <span>회</span>
                             </div>
                         </div>
 
-                        <div className={classes.attendanceBoardDescription_1}>
-                            <div className={classes.attendanceBoardDescription_1_1}>
+                        <div className={styles.attendanceBoardDescription_1}>
+                            <div className={styles.attendanceBoardDescription_1_1}>
                                 공부 시간 등수
                             </div>
-                            <div className={classes.attendanceBoardDescription_1_2}>
-                                <span className={classes.attendanceBoardDescriptionHour}>21/172</span>
+                            <div className={styles.attendanceBoardDescription_1_2}>
+                                <span className={styles.attendanceBoardDescriptionHour}>21/172</span>
                                 <span>등</span>
                             </div>
                         </div>
@@ -142,34 +149,34 @@ const Home: React.FC<socketProps> = (props) => {
                 </div>
             </div>
 
-            <div className={classes.notificationDiv}>
-                <div className={classes.notificationTitle}>최근 공지사항</div>
+            <div className={styles.notificationDiv}>
+                <div className={styles.notificationTitle}>최근 공지사항</div>
 
-                <div className={classes.notifications}>
+                <div className={styles.notifications}>
 
                     {
                         notificationResults &&
-                        notificationResults.map((each: notification, index : number) => {
+                        notificationResults.map((each: any, index : number) => {
                             if (each.images.length > 0) {
                                 return (
-                                    <div key={each.title + Math.random()} className={classes.notification}>
-                                        <div className={classes.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
+                                    <div onClick={notificationDetail} data-id={each.id} key={each.title + Math.random()} className={styles.notification}>
+                                        <div data-id={each.id}  className={styles.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
                                         </div>
-                                        <div className={classes.notification_description}>
-                                            <div className={classes.notification_description1}>
-                                                <div className={classes.notification_description1_1}>
+                                        <div data-id={each.id} className={styles.notification_description}>
+                                            <div data-id={each.id} className={styles.notification_description1}>
+                                                <div data-id={each.id} className={styles.notification_description1_1}>
                                                     {each.title}
                                                 </div>
-                                                <div className={classes.notification_description1_2}>
+                                                <div data-id={each.id} className={styles.notification_description1_2}>
                                                     <Avatar>{each.author[0]}</Avatar>
                                                 </div>
                                             </div>
-                                            <div className={classes.notification_description2}>
+                                            <div data-id={each.id} className={styles.notification_description2}>
                                                 
-                                                <div className={classes.notification_description2_2}>
-                                                    {/* <img className={classes.like} src="img/like.svg" alt="like"></img> 0 */}
+                                                <div data-id={each.id} className={styles.notification_description2_2}>
+                                                    {/* <img className={styles.like} src="img/like.svg" alt="like"></img> 0 */}
                                                 </div>
-                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                <div data-id={each.id} className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -177,25 +184,25 @@ const Home: React.FC<socketProps> = (props) => {
                             }
                             else {
                                 return (
-                                    <div key={each.title+ Math.random()} className={classes.notification}>
+                                    <div onClick={notificationDetail} data-id={each.id} key={each.title+ Math.random()} className={styles.notification}>
 
-                                        <div className={classes.notification_description_text}>
-                                            <div className={classes.notification_description1}>
-                                                <div className={classes.notification_description1_1}>
+                                        <div data-id={each.id} className={styles.notification_description_text}>
+                                            <div  data-id={each.id} className={styles.notification_description1}>
+                                                <div  data-id={each.id} className={styles.notification_description1_1}>
                                                     {each.title}
                                                 </div>
-                                                <div className={classes.notification_description1_2}>
-                                                    <Avatar><span className={classes.avatarText}>{each.author[0]}</span></Avatar>
+                                                <div  data-id={each.id} className={styles.notification_description1_2}>
+                                                    <Avatar><span className={styles.avatarText}>{each.author[0]}</span></Avatar>
                                                 </div>
                                             </div>
-                                            <div className={classes.eachDescription}>
+                                            <div  data-id={each.id} className={styles.eachDescription}>
                                                 {each.description}
                                             </div>
-                                            <div className={classes.notification_description2}>
-                                                <div className={classes.notification_description2_2}>
+                                            <div  data-id={each.id} className={styles.notification_description2}>
+                                                <div  data-id={each.id} className={styles.notification_description2_2}>
                                                     {/* <img  src="img/like.svg" alt="like"></img> 0 */}
                                                 </div>
-                                                <div className={classes.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                <div  data-id={each.id} className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
                                             </div>
                                         </div>
@@ -213,4 +220,4 @@ const Home: React.FC<socketProps> = (props) => {
     )
 }
 
-export default withStyles(styles)(Home);
+export default Home;

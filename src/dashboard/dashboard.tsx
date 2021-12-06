@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import styles from './styles';
-import { withStyles } from '@mui/styles';
+// import styles from './styles';
+// import { withStyles } from '@mui/styles';
 
+import styles from "./dashboard.module.css"
 import Home from './components/home';
 import Alarm from './components/alarm';
 import Attendance from './components/attendance';
@@ -26,12 +27,13 @@ import { Route, HashRouter as Router, Link, Switch } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import QuestionWrite from './components/questionwrite';
 import Profile from './components/profile';
+import NotificationDetail from './components/controls/notificationdetail';
 // import { ipcRenderer } from 'electron';
 
 
 
 interface props {
-    classes: any;
+    // classes: any;
     history: any;
     location: any;
     socket : Socket;
@@ -48,7 +50,7 @@ type currentSideBarMenuList = "avatar" | "home" | "notification" | "alarm" | "ed
 
 
 const Dashboard: React.FC<props> = (props) => {
-    const classes = props.classes;
+    // const classes = props.classes;
     const socket = props.socket;
     const [user, setUser] = useState<user | null>();
     const [location, setLocation] = useState<string>("");
@@ -233,42 +235,42 @@ const Dashboard: React.FC<props> = (props) => {
 
     return (
         <Router>
-            <main className={classes.main}>
-                <div className={classes.appBar}>
-                    <div className={classes.logoDiv}>
+            <main className={styles.main}>
+                <div className={styles.appBar}>
+                    <div className={styles.logoDiv}>
                         <img src="img/whitelogo.webp" alt="logo"></img>
                     </div>
-                    <div className={classes.profileDiv}>
+                    <div className={styles.profileDiv}>
                         <Link to="/dashboard/profile">
-                            <div className={classes.profileConfig}>
+                            <div className={styles.profileConfig}>
                                 프로필설정
                             </div>
                         </Link>
-                        <div className={classes.avatarCircle} onClick={logOut}>
-                            <img className={classes.avatar} src="img/avatarG.svg" alt="avatar"></img>
+                        <div className={styles.avatarCircle} onClick={logOut}>
+                            <img className={styles.avatar} src="img/avatarG.svg" alt="avatar"></img>
                         </div>
-                        <div className={classes.logout} onClick={logOut}>
+                        <div className={styles.logout} onClick={logOut}>
                             로그아웃
                         </div>
                     </div>
                 </div>
 
-                <div className={classes.body}>
-                    <div className={classes.sideMenu}>
-                        <div className={classes.sideMenuProfile}>
-                            <div className={classes.where}>
+                <div className={styles.body}>
+                    <div className={styles.sideMenu}>
+                        <div className={styles.sideMenuProfile}>
+                            <div className={styles.where}>
                                 {
                                     location === "in" &&
                                     <>
-                                        <img className={classes.inside} src="img/inside.svg" alt="outside"></img>
-                                        <div className={classes.outsideText}>등원중</div>
+                                        <img className={styles.inside} src="img/inside.svg" alt="outside"></img>
+                                        <div className={styles.outsideText}>등원중</div>
                                     </>
                                 }
                                 {
                                     location === "out" &&
                                     <>
-                                        <img className={classes.outside} src="img/outside.svg" alt="outside"></img>
-                                        <div className={classes.outsideText}>외출중</div>
+                                        <img className={styles.outside} src="img/outside.svg" alt="outside"></img>
+                                        <div className={styles.outsideText}>외출중</div>
                                     </>
                                 }
 
@@ -276,38 +278,38 @@ const Dashboard: React.FC<props> = (props) => {
 
 
                             </div>
-                            <div className={classes.sideMenuAvatar}>
-                                <img className={classes.logo2} src="img/logo2.webp" alt="logo"></img>
+                            <div className={styles.sideMenuAvatar}>
+                                <img className={styles.logo2} src="img/logo2.webp" alt="logo"></img>
                             </div>
-                            <div className={classes.sideMenuName}>
+                            <div className={styles.sideMenuName}>
                                 피트선배<span> </span>
                                 {user && user.name}
                             </div>
                         </div>
-                        <div className={classes.sideMenuListDiv}>
-                            <ul className={classes.sideMenuList}>
+                        <div className={styles.sideMenuListDiv}>
+                            <ul className={styles.sideMenuList}>
                                 {user &&
                                     menulist.map((each) => {
                                         if (each.value.includes(user.value)) {
                                             if (each.name !== currentSideBarMenuList) {
                                                 return (
                                                     <Link key={each.name} to={"/dashboard/" + each.name}>
-                                                        <li className={classes.sideMenuListSection}>
-                                                            <div className={classes.menuimgcontainer}>
-                                                                <img src={"img/off/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                        <li className={styles.sideMenuListSection}>
+                                                            <div className={styles.menuimgcontainer}>
+                                                                <img src={"img/off/" + each.name + ".svg"} alt={each.name} className={styles.sideMenuListImg}></img>
                                                             </div>
-                                                            <div className={classes.sideMenuListText}>{each.description}</div>
+                                                            <div className={styles.sideMenuListText}>{each.description}</div>
                                                         </li>
                                                     </Link>
                                                 )
                                             }else{
                                                 return(
                                                     <Link key={each.name} to={"/dashboard/" + each.name}>
-                                                        <li className={classes.sideMenuListSection}>
-                                                            <div className={classes.menuimgcontainer}>
-                                                                <img src={"img/on/" + each.name + ".svg"} alt={each.name} className={classes.sideMenuListImg}></img>
+                                                        <li className={styles.sideMenuListSection}>
+                                                            <div className={styles.menuimgcontainer}>
+                                                                <img src={"img/on/" + each.name + ".svg"} alt={each.name} className={styles.sideMenuListImg}></img>
                                                             </div>
-                                                            <div className={classes.sideMenuListTextActive}>{each.description}</div>
+                                                            <div className={styles.sideMenuListTextActive}>{each.description}</div>
                                                         </li>
                                                     </Link>
                                                 )
@@ -336,6 +338,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/notification/write" render={(props) => <NotificationWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
                         <Route path="/dashboard/question/write" render={(props) => <QuestionWrite activateMenuList={activateMenuList} socket={socket} {...props} />} />
                         <Route path="/dashboard/profile" render={(props) => <Profile {...props} />} />
+                        <Route path="/dashboard/notificationdetail" render={(props) => <NotificationDetail user={user} {...props} />} />
                     </Switch>
                 </div>
 
@@ -344,4 +347,4 @@ const Dashboard: React.FC<props> = (props) => {
     )
 }
 
-export default withStyles(styles)(Dashboard);
+export default Dashboard;

@@ -1,0 +1,124 @@
+.main {
+    background-color: #f5f5f5;
+    width: calc(100% - 244px);
+    padding-left: 46px;
+    padding-top: 41px;
+    padding-right: 46px;
+    padding-bottom: 71px;
+    height: calc(100vh - 78px);
+    overflow: scroll;
+}
+
+.main::-webkit-scrollbar{
+    background-color: #f5f5f5;
+}
+
+.main::-webkit-scrollbar-thumb{
+    background-color: #bbbcb6;
+    border-radius: 10px;
+
+}
+
+.title {
+    margin-bottom: 28px;
+}
+
+.title img {
+    margin-right: 11.3px;
+}
+
+.titleText {
+    font-size: 22px;
+    font-family: "Apple_R";
+    color: #303030;
+    letter-spacing: -1.1px;
+    display: inline-block;
+}
+
+.descriptionBox {
+    border-top: 3px solid #707070;
+    padding-top: 20px;
+    padding-bottom: 85px;
+    border-bottom: 3px solid #707070;
+}
+
+.descriptionBoxTitle {
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 22px;
+    font-family: "Apple_R";
+    letter-spacing: -1.1px;
+    color: #303030;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #cbcbcb;
+    display: flex;
+    justify-content: space-between;
+}
+
+.descriptionBoxTitle img{
+    width: 18px;
+    cursor: pointer;
+}
+
+.descriptionBoxDate {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 297px;
+    border-bottom: 1px solid #cbcbcb;
+    padding-bottom: 20px;
+    font-family: "Apple_R";
+    color: #303030;
+    font-size: 17px;
+}
+
+.descriptionBoxDate div {
+    display: flex;
+}
+
+.descriptionBoxDate div div:first-child{
+    margin-right: 50px;
+}
+
+.descriptionBoxBody {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 82px;
+}
+
+.imagesBox div {
+    margin-bottom: 30px;
+}
+
+.notificationImage {
+    max-width: 800px;
+}
+
+.text {
+    white-space: pre-wrap;
+    font-family: "Apple_R";
+    color: #303030;
+    letter-spacing: -0.8px;
+    line-height: 30px;
+}
+
+.listBtnDiv {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.listBtn {
+    cursor: pointer;
+    width: 195.5px;
+    height: 53px;
+    background-color: #3a3a3a;
+    color: white;
+    font-family: "Apple_R";
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

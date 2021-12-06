@@ -1,0 +1,140 @@
+.main {
+    background-color: #f5f5f5;
+    width: calc(100% - 244px);
+    padding-left: 46px;
+    padding-top: 45.7px;
+    padding-right: 46px;
+    padding-bottom: 71px;
+    height: calc(100vh - 78px);
+}
+
+.notificationDiv {
+    margin-bottom: 80px;
+}
+
+.notificationTitle {
+    font-family: "Apple_B";
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.notifications {
+    display: flex;
+}
+
+.notifications2 {
+    display: flex;
+    margin-top: 39px;
+}
+
+.notification {
+    cursor: pointer;
+    margin-right: 19px;
+}
+
+.notification_imageDiv{
+    width: 277px;
+    height: 140px;
+    background-size: cover;
+}
+
+.notification_image {
+    width: 277px;
+}
+
+.imageDiv {
+    width: 277px;
+    height: 140px;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.notification_description {
+    padding-left: 23px;
+    padding-bottom: 21px;
+    padding-right: 21px;
+    background-color: white;
+}
+
+.notification_description_text {
+    padding-top: 6px;
+    padding-left: 23px;
+    padding-bottom: 21px;
+    padding-right: 21px;
+    background-color: white;
+    width: 277px;
+    height: 279px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.notification_description1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 34px;
+    padding-top: 18px;
+}
+
+.notification_description1_1 {
+    width: 150px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
+    font-family: "Apple_B";
+    letter-spacing: -0.85px;
+}
+
+.notification_description2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.eachDescription {
+    font-size: 15px;
+    line-height: 22px;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 70px;
+    height: 65px;
+    font-family: "Apple_L";
+    letter-spacing: -0.75px;
+}
+
+.avatarText {
+    font-family: "Apple_R";
+}
+
+.notification_description2_1{
+    font-family: "Apple_L";
+    letter-spacing: -0.8px;
+}
+
+.notification_description2_2 {
+    font-family: "Apple_L";
+}
+
+.newNotification {
+    position: fixed;
+    right: 42px;
+    bottom: 20px;
+    width: 174px;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #303030;
+    color: white;
+    border-radius: 28px;
+    font-family: "Apple_R";
+}
+
+.pencil {
+    margin-right: 6.9px;
+}

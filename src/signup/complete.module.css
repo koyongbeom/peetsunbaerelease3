@@ -1,0 +1,126 @@
+.main {
+    min-width: 1500px;
+    margin: auto;
+}
+
+.appbar {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 99.8px;
+    padding-right: 93px;
+    padding-top: 27px;
+    padding-bottom: 19.5px;
+    border-bottom: 1px solid #dedede;
+}
+
+.logo1 {
+    width: 143.7px;
+}
+
+.login {
+    vertical-align: super;
+}
+
+.avatar {
+    margin-right: 7.8px;
+    width: 14.1px;
+}
+
+.loginText{
+    font-family: "Apple_R";
+    font-size: 15px;
+    letter-spacing: -0.75px;
+    color: #303030;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.body {
+    width: 741.6px;
+    margin: 0 auto;
+}
+
+.loginTextBottom {
+    margin-top: 70.5px;
+    font-family: "Apple_R";
+    letter-spacing: "-1.5px";
+    font-size: 30px;
+    color: #303030;
+    margin-bottom: 20px;
+}
+
+
+
+
+.bodyTitle {
+    margin-top: 87.5px;
+    padding-top: 20px;
+    border-top: 3px solid #707070;
+    font-family: "Apple_R";
+    letter-spacing: -0.8px;
+    color: #606060;
+}
+
+.bodyDescription {
+    margin-top: 21px;
+    border-top: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+    padding-top: 53px;
+    padding-bottom: 54.3px;
+}
+
+.checkImage {
+    width: 91px;
+    height: 91px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.bodyDescriptionText {
+    margin-top: 26px;
+    font-size: 30px;
+    font-family: "Apple_R";
+    letter-spacing: -1.5px;
+    color: #303030;
+    display: flex;
+    justify-content: center;
+}
+
+.bodyDescriptionText2{
+    margin-top: 10.1px;
+    font-family: "Apple_R";
+    color: #a7a7a7;
+    letter-spacing: -0.4px;
+    display: flex;
+    justify-content: center;
+}
+
+.submitDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.submit {
+    margin-top: 45.5px;
+    width: 440px;
+    height: 62px;
+    border-radius: 31px;
+    color: white;
+    font-family: "Apple_R";
+    font-size: 20px;
+    letter-spacing: -1px;
+    background-color: #3d50b0;
+    border: none;
+    margin-bottom: 35.5px;
+    cursor: pointer;
+}
+
+
+
+
+
