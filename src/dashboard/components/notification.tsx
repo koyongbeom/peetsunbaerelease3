@@ -113,7 +113,7 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                 </div>
                                                 <div data-id={each.id}  className={styles.notification_description2}>
                                                     <div data-id={each.id}  className={styles.notification_description2_2}>
-                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
+                                                        {!each.isRead ? <div className={styles.new}>NEW</div> : ""}
                                                     </div>
                                                     <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
@@ -140,7 +140,7 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                 </div>
                                                 <div data-id={each.id}  className={styles.notification_description2}>
                                                     <div data-id={each.id}  className={styles.notification_description2_2}>
-                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
+                                                        {!each.isRead ? <div className={styles.new}>NEW</div> : ""}
                                                     </div>
                                                     <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
@@ -183,7 +183,7 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                 </div>
                                                 <div data-id={each.id}  className={styles.notification_description2}>
                                                     <div data-id={each.id}  className={styles.notification_description2_2}>
-                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
+                                                        {!each.isRead ? <div className={styles.new}>NEW</div> : ""}
                                                     </div>
                                                     <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 
@@ -210,7 +210,7 @@ const Notification: React.FC<notificationProps> = (props) => {
                                                 </div>
                                                 <div data-id={each.id}  className={styles.notification_description2}>
                                                     <div data-id={each.id}  className={styles.notification_description2_2}>
-                                                        {/* <img src="img/like.svg" alt="like"></img> 0 */}
+                                                          {!each.isRead ? <div className={styles.new}>NEW</div> : ""}
                                                     </div>
                                                     <div data-id={each.id}  className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 

@@ -21,7 +21,7 @@ import { AnySrvRecord, AnyTxtRecord } from 'dns';
 import Alert from '@mui/material/Alert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
+import OfflineStatus from './offlinestatus';
 
 
 const Offline: React.FC<any> = (props) => {
@@ -57,7 +57,7 @@ const Offline: React.FC<any> = (props) => {
 
     const [updateBool, setUpdateBool] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(false);
-    
+
 
 
     const handleUpdateModalOpen = () => {
@@ -85,7 +85,7 @@ const Offline: React.FC<any> = (props) => {
         setAnchorEl(null);
         event.preventDefault();
 
-        var message = { id : currentId };
+        var message = { id: currentId };
 
         var token = "";
 
@@ -95,7 +95,7 @@ const Offline: React.FC<any> = (props) => {
 
         fetch("https://peetsunbae.com/dashboard/question/offline/delete", {
             method: "POST",
-            headers: { "Authorization": token, "Content-Type" : "application/json" },
+            headers: { "Authorization": token, "Content-Type": "application/json" },
             credentials: "include",
             body: JSON.stringify(message)
         }).then((response) => {
@@ -162,8 +162,10 @@ const Offline: React.FC<any> = (props) => {
             })
         }
 
-        setAvailableDate("");
-        start();
+        if (!(selectedMenu === "status")) {
+            setAvailableDate("");
+            start();
+        }
 
     }, [selectedMenu, random]);
 
@@ -294,7 +296,7 @@ const Offline: React.FC<any> = (props) => {
         e.preventDefault();
         setUpdateLoading(true);
 
-        var message = { startTime: startTime, endTime: endTime, id : currentId };
+        var message = { startTime: startTime, endTime: endTime, id: currentId };
 
         var token = "";
 
@@ -304,7 +306,7 @@ const Offline: React.FC<any> = (props) => {
 
         fetch("https://peetsunbae.com/dashboard/question/offline/update", {
             method: "POST",
-            headers: { "Authorization": token, "Content-Type" : "application/json" },
+            headers: { "Authorization": token, "Content-Type": "application/json" },
             credentials: "include",
             body: JSON.stringify(message)
         }).then((response) => {
@@ -421,402 +423,410 @@ const Offline: React.FC<any> = (props) => {
                     <div className={selectedMenu === "organic" ? styles.active : ""} onClick={(e) => { selectMenu(e, "organic") }}>유기</div>
                     <div className={selectedMenu === "physics" ? styles.active : ""} onClick={(e) => { selectMenu(e, "physics") }}>물리</div>
                     <div className={selectedMenu === "biology" ? styles.active : ""} onClick={(e) => { selectMenu(e, "biology") }}>생물</div>
+                    <div className={selectedMenu === "status" ? styles.active : ""} onClick={(e) => { selectMenu(e, "status") }}>신청현황</div>
                 </div>
             </div>
 
-
-            <div className={styles.teacherDiv}>
-                <div className={styles.teacherImg}>
-                    {data && data.map((each: any) => {
-                        if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
-                            return (
-                                <img className={styles.teacherImage} src={`https://peetsunbae.com/${each.src.split("/public/")[1]}`} alt="img"></img>
-                            );;
-                        }
-                    })}
-                </div>
-                <div className={styles.teacherDescription}>
-                    <div className={styles.teacherSubject}>
-                        {selectedMenu === "chemistry" ? "ㆍ 피트선배 화학 담당" : ""}
-                        {selectedMenu === "organic" ? "ㆍ 피트선배 유기화학 담당" : ""}
-                        {selectedMenu === "physics" ? "ㆍ 피트선배 물리 담당" : ""}
-                        {selectedMenu === "biology" ? "ㆍ 피트선배 생물 담당" : ""}
-                    </div>
-                    <div className={styles.teacherName}>
-                        {data && data.map((each: any) => {
-                            if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
-                                return (
-                                    `ㆍ ${each.teacherName}`
-                                );
-                            }
-                        })}
-                    </div>
-                    <div className={styles.location}>
-                        {data && data.map((each: any) => {
-                            if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
-                                return (
-                                    `ㆍ ${each.uploadTeacherDescription}`
-                                );
-                            }
-                        })}
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.selectDiv}>
-                <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
-                    <StaticDatePicker
-                        loading={calendarLoading}
-                        shouldDisableDate={isVoid}
-                        displayStaticWrapperAs="desktop"
-                        openTo="day"
-                        value={dateValue}
-                        disablePast
-                        onChange={(newValue: any) => {
-                            console.log(newValue);
-                            setDateValue(newValue);
-                                if(data){
-                                data.map((each : any)=> {
-                                    if (new Date(each.targetDate).getDate() === new Date(newValue).getDate() && new Date(each.targetDate).getMonth() === new Date(newValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(newValue).getFullYear()){
-                                        setCurrentId(each.id);
-                                        console.log("-------------");
-                                        console.log(each.id);
+            {!(selectedMenu === "status") &&
+                        <>
+                        <div className={styles.teacherDiv}>
+                            <div className={styles.teacherImg}>
+                                {data && data.map((each: any) => {
+                                    if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
+                                        return (
+                                            <img className={styles.teacherImage} src={`https://peetsunbae.com/${each.src.split("/public/")[1]}`} alt="img"></img>
+                                        );;
                                     }
-                                })
-                            }
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                    />
-                </LocalizationProvider>
-                <div className={styles.timeSelect}>
-                    <div className={styles.timeSelectTitle}>
-                        <div>시간선택</div>
-                        {props.user && (props.user.value === "teacher" || props.user.value === "staff") ?
-                            <div id="basic-button" onClick={handleClick}>
-
-                                <img className={styles.cog} src="img/cog-solid.svg" alt="setting" />
-                            </div> : ""}
-                    </div>
-                    <div className={styles.alert}>
-                        {enrollStatus === "ALREADY" && <Alert severity="error"><span className={styles.alertSpan}>이미 해당 날짜에 등록하셨습니다.</span></Alert>}
-                        {enrollStatus === "DUPLICATE" && <Alert severity="error"><span className={styles.alertSpan}>다른 학생이 예약한 시간입니다.</span></Alert>}
-                        {enrollStatus === "DELETED" && <Alert severity="info"><span className={styles.alertSpan}>해당 시간 예약이 취소되었습니다.</span></Alert>}
-                        {enrollStatus === "success" && <Alert severity="info"><span className={styles.alertSpan}>해당 시간 예약이 완료되었습니다.</span></Alert>}
-                    </div>
-                    {enrollLoading ?
-                        <div className={styles.enrollLoading}>
-                            <CircularProgress />
+                                })}
+                            </div>
+                            <div className={styles.teacherDescription}>
+                                <div className={styles.teacherSubject}>
+                                    {selectedMenu === "chemistry" ? "ㆍ 피트선배 화학 담당" : ""}
+                                    {selectedMenu === "organic" ? "ㆍ 피트선배 유기화학 담당" : ""}
+                                    {selectedMenu === "physics" ? "ㆍ 피트선배 물리 담당" : ""}
+                                    {selectedMenu === "biology" ? "ㆍ 피트선배 생물 담당" : ""}
+                                </div>
+                                <div className={styles.teacherName}>
+                                    {data && data.map((each: any) => {
+                                        if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
+                                            return (
+                                                `ㆍ ${each.teacherName}`
+                                            );
+                                        }
+                                    })}
+                                </div>
+                                <div className={styles.location}>
+                                    {data && data.map((each: any) => {
+                                        if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
+                                            return (
+                                                `ㆍ ${each.uploadTeacherDescription}`
+                                            );
+                                        }
+                                    })}
+                                </div>
+                            </div>
                         </div>
-                        :
-                        <div className={styles.times}>
-                            {data && enrolled && data.map((each: any) => {
-                                if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
-
-                                    return (
-                                        each.availableTimes.map((one: any) => {
-                                            var status;
-                                            var count = 0;
-                                            enrolled.forEach((enrolledTime: any) => {
-                                                if ((+one.hours * 60 + +one.minutes) === +enrolledTime.questionTime && each.id === enrolledTime.questionId) {
-                                                    status = "occupied"
-                                                    if (+enrolledTime.userId === +props.user.id) {
-                                                        status = "mine"
-                                                    }
+        
+                        <div className={styles.selectDiv}>
+                            <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
+                                <StaticDatePicker
+                                    loading={calendarLoading}
+                                    shouldDisableDate={isVoid}
+                                    displayStaticWrapperAs="desktop"
+                                    openTo="day"
+                                    value={dateValue}
+                                    disablePast
+                                    onChange={(newValue: any) => {
+                                        console.log(newValue);
+                                        setDateValue(newValue);
+                                        if (data) {
+                                            data.map((each: any) => {
+                                                if (new Date(each.targetDate).getDate() === new Date(newValue).getDate() && new Date(each.targetDate).getMonth() === new Date(newValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(newValue).getFullYear()) {
+                                                    setCurrentId(each.id);
+                                                    console.log("-------------");
+                                                    console.log(each.id);
                                                 }
                                             })
-
-                                            return (
-                                                <div onClick={status === "occupied" ? voidFunction : enrollQuestion} data-questionid={each.id} data-time={+one.hours * 60 + +one.minutes} className={`${styles.timeDiv} ${status === "occupied" ? styles.occupied : ""} ${status === "mine" ? styles.mine : ""}`}>
-                                                    {one.hours} : {one.minutes < 10 ? "0" + one.minutes : one.minutes}
-                                                </div>
-                                            )
-                                        })
-                                    )
-                                }
-                            })}
-                        </div>}
-                </div>
-                <div className={styles.questionDescription}>
-                    <div className={styles.questionDescriptionTitle}>
-                        질의 내용 전송(선택사항)
-                    </div>
-                    <div className={styles.questionDiscriptionDiv}>
-                        {data && data.map((each: any) => {
-                            if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
-                                return (
-                                    <div>
-                                        <div>
-                                            {each.telephoneNumber ? "선생님 전화번호" : ""}
-                                        </div>
-                                        <div>
-                                            {each.telephoneNumber ? each.telephoneNumber : ""}
-                                        </div>
-                                        <div>
-                                            {each.telephoneNumber ? "질의할 내용을 카톡이나 문자로 미리 전송해주시면 더 좋은 질의응답을 받을 수 있습니다." : ""}
-                                        </div>
+                                        }
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </LocalizationProvider>
+                            <div className={styles.timeSelect}>
+                                <div className={styles.timeSelectTitle}>
+                                    <div>시간선택</div>
+                                    {props.user && (props.user.value === "teacher" || props.user.value === "staff") ?
+                                        <div id="basic-button" onClick={handleClick}>
+        
+                                            <img className={styles.cog} src="img/cog-solid.svg" alt="setting" />
+                                        </div> : ""}
+                                </div>
+                                <div className={styles.alert}>
+                                    {enrollStatus === "ALREADY" && <Alert severity="error"><span className={styles.alertSpan}>이미 해당 날짜에 등록하셨습니다.</span></Alert>}
+                                    {enrollStatus === "DUPLICATE" && <Alert severity="error"><span className={styles.alertSpan}>다른 학생이 예약한 시간입니다.</span></Alert>}
+                                    {enrollStatus === "DELETED" && <Alert severity="info"><span className={styles.alertSpan}>해당 시간 예약이 취소되었습니다.</span></Alert>}
+                                    {enrollStatus === "success" && <Alert severity="info"><span className={styles.alertSpan}>해당 시간 예약이 완료되었습니다.</span></Alert>}
+                                </div>
+                                {enrollLoading ?
+                                    <div className={styles.enrollLoading}>
+                                        <CircularProgress />
                                     </div>
-                                );
-                            }
-                        })}
-                    </div>
-
-                </div>
-            </div>
-
-
-
-
-            {(props.user && (props.user.value === "teacher" || props.user.value === "staff")) &&
-                <div onClick={(e) => { setOpenUpload(true) }} className="qnaWrite">
-                    <img src="./img/pencil.svg" alt="pencil" />
-                    질의응답 등록
-                </div>
-            }
-
-            <Modal
-                open={openUpload}
-                onClose={handleCloseUpload}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={styleCharge}>
-
-                    <form encType="multipart/formdata">
-
-                        <div onClick={(e) => { setOpenUpload(false) }} className={styles.chargeTitle}>
-                            오프라인 질의응답 업로드
+                                    :
+                                    <div className={styles.times}>
+                                        {data && enrolled && data.map((each: any) => {
+                                            if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
+        
+                                                return (
+                                                    each.availableTimes.map((one: any) => {
+                                                        var status;
+                                                        var count = 0;
+                                                        enrolled.forEach((enrolledTime: any) => {
+                                                            if ((+one.hours * 60 + +one.minutes) === +enrolledTime.questionTime && each.id === enrolledTime.questionId) {
+                                                                status = "occupied"
+                                                                if (+enrolledTime.userId === +props.user.id) {
+                                                                    status = "mine"
+                                                                }
+                                                            }
+                                                        })
+        
+                                                        return (
+                                                            <div onClick={status === "occupied" ? voidFunction : enrollQuestion} data-questionid={each.id} data-time={+one.hours * 60 + +one.minutes} className={`${styles.timeDiv} ${status === "occupied" ? styles.occupied : ""} ${status === "mine" ? styles.mine : ""}`}>
+                                                                {one.hours} : {one.minutes < 10 ? "0" + one.minutes : one.minutes}
+                                                            </div>
+                                                        )
+                                                    })
+                                                )
+                                            }
+                                        })}
+                                    </div>}
+                            </div>
+                            <div className={styles.questionDescription}>
+                                <div className={styles.questionDescriptionTitle}>
+                                    질의 내용 전송(선택사항)
+                                </div>
+                                <div className={styles.questionDiscriptionDiv}>
+                                    {data && data.map((each: any) => {
+                                        if (new Date(each.targetDate).getDate() === new Date(dateValue).getDate() && new Date(each.targetDate).getMonth() === new Date(dateValue).getMonth() && new Date(each.targetDate).getFullYear() === new Date(dateValue).getFullYear()) {
+                                            return (
+                                                <div>
+                                                    <div>
+                                                        {each.telephoneNumber ? "선생님 전화번호" : ""}
+                                                    </div>
+                                                    <div>
+                                                        {each.telephoneNumber ? each.telephoneNumber : ""}
+                                                    </div>
+                                                    <div>
+                                                        {each.telephoneNumber ? "질의할 내용을 카톡이나 문자로 미리 전송해주시면 더 좋은 질의응답을 받을 수 있습니다." : ""}
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                    })}
+                                </div>
+        
+                            </div>
                         </div>
-
-                        <div className={styles.chargeBoard}>
-
-                            <FormControl sx={{ marginBottom: "0px" }} component="fieldset">
-                                <FormLabel component="legend" sx={{ fontFamily: "Apple_R", color: "black !important" }}><span className="radioTitle">과목 선택</span></FormLabel>
-                                <RadioGroup onChange={(e, value) => { selectSubject(e, value) }} row aria-label="gender" name="row-radio-buttons-group">
-                                    <FormControlLabel value="chemistry" control={<Radio />} label={<span className="radio">화학</span>} />
-                                    <FormControlLabel value="organic" control={<Radio />} label={<span className="radio">유기</span>} />
-                                    <FormControlLabel value="physics" control={<Radio />} label={<span className="radio">물리</span>} />
-                                    <FormControlLabel value="biology" control={<Radio />} label={<span className="radio">생물</span>} />
-                                </RadioGroup>
-                            </FormControl>
-
-
-                            <FormControl fullWidth>
-                                <div className={styles.chargeName}>선생님 이름</div>
-                                <OutlinedInput
-                                    id="outlined-adornment-amount"
-                                    value={teacherName}
-                                    onChange={handleUploadTeacherName}
-                                />
-                            </FormControl>
-
-                            <FormControl fullWidth>
-                                <div className={styles.chargeName}>선생님 전화번호</div>
-                                <OutlinedInput
-                                    id="outlined-adornment-amount"
-                                    value={uploadTelephoneNumber}
-                                    onChange={handleUploadTelephoneNumber}
-                                />
-                            </FormControl>
-
-                            <FormControl fullWidth>
-                                <div className={styles.chargeName}>질의응답 장소</div>
-                                <OutlinedInput
-                                    id="outlined-adornment-amount"
-                                    value={uploadTeacherDescription}
-                                    onChange={handleUploadTeacherDescription}
-                                />
-                            </FormControl>
-
-                            <div className={styles.datePicker}>
-                                <div className={styles.datePickerTitle}>날짜 선택</div>
+        
+        
+        
+        
+                        {(props.user && (props.user.value === "teacher" || props.user.value === "staff")) &&
+                            <div onClick={(e) => { setOpenUpload(true) }} className="qnaWrite">
+                                <img src="./img/pencil.svg" alt="pencil" />
+                                질의응답 등록
+                            </div>
+                        }
+        
+                        <Modal
+                            open={openUpload}
+                            onClose={handleCloseUpload}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={styleCharge}>
+        
+                                <form encType="multipart/formdata">
+        
+                                    <div onClick={(e) => { setOpenUpload(false) }} className={styles.chargeTitle}>
+                                        오프라인 질의응답 업로드
+                                    </div>
+        
+                                    <div className={styles.chargeBoard}>
+        
+                                        <FormControl sx={{ marginBottom: "0px" }} component="fieldset">
+                                            <FormLabel component="legend" sx={{ fontFamily: "Apple_R", color: "black !important" }}><span className="radioTitle">과목 선택</span></FormLabel>
+                                            <RadioGroup onChange={(e, value) => { selectSubject(e, value) }} row aria-label="gender" name="row-radio-buttons-group">
+                                                <FormControlLabel value="chemistry" control={<Radio />} label={<span className="radio">화학</span>} />
+                                                <FormControlLabel value="organic" control={<Radio />} label={<span className="radio">유기</span>} />
+                                                <FormControlLabel value="physics" control={<Radio />} label={<span className="radio">물리</span>} />
+                                                <FormControlLabel value="biology" control={<Radio />} label={<span className="radio">생물</span>} />
+                                            </RadioGroup>
+                                        </FormControl>
+        
+        
+                                        <FormControl fullWidth>
+                                            <div className={styles.chargeName}>선생님 이름</div>
+                                            <OutlinedInput
+                                                id="outlined-adornment-amount"
+                                                value={teacherName}
+                                                onChange={handleUploadTeacherName}
+                                            />
+                                        </FormControl>
+        
+                                        <FormControl fullWidth>
+                                            <div className={styles.chargeName}>선생님 전화번호</div>
+                                            <OutlinedInput
+                                                id="outlined-adornment-amount"
+                                                value={uploadTelephoneNumber}
+                                                onChange={handleUploadTelephoneNumber}
+                                            />
+                                        </FormControl>
+        
+                                        <FormControl fullWidth>
+                                            <div className={styles.chargeName}>질의응답 장소</div>
+                                            <OutlinedInput
+                                                id="outlined-adornment-amount"
+                                                value={uploadTeacherDescription}
+                                                onChange={handleUploadTeacherDescription}
+                                            />
+                                        </FormControl>
+        
+                                        <div className={styles.datePicker}>
+                                            <div className={styles.datePickerTitle}>날짜 선택</div>
+                                            <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
+                                                <DatePicker
+        
+                                                    value={date}
+                                                    onChange={(newValue: any) => {
+                                                        console.log(new Date(newValue).toString());
+                                                        setDate(newValue);
+                                                    }}
+                                                    renderInput={(params) => <TextField {...params} />}
+                                                />
+        
+                                                <div className={styles.datePickerDiv}>
+                                                    <div>
+                                                        <div className={styles.datePickerTitle1}>시작 시간</div>
+        
+                                                        <TimePicker
+                                                            value={startTime}
+                                                            onChange={(newValue) => {
+                                                                console.log(new Date(newValue).toString());
+                                                                setStartTime(newValue);
+                                                                if (uploadSubject && uploadFile && teacherName && uploadTelephoneNumber && uploadTeacherDescription && date && startTime && endTime && new Date(newValue).getTime() < new Date(endTime).getTime() && new Date(newValue).getMinutes() % 15 === 0 && new Date(endTime).getMinutes() % 15 === 0) {
+                                                                    setUploadBool(true);
+                                                                } else {
+                                                                    setUploadBool(false);
+                                                                }
+        
+                                                            }}
+                                                            renderInput={(params) => <TextField className={styles.timePicker1} {...params} />}
+                                                        />
+                                                    </div>
+        
+                                                    <div>
+                                                        <div className={styles.datePickerTitle2}>종료 시간</div>
+        
+                                                        <TimePicker
+                                                            value={endTime}
+                                                            onChange={(newValue) => {
+                                                                if (uploadSubject && uploadFile && teacherName && uploadTelephoneNumber && uploadTeacherDescription && date && startTime && endTime && new Date(startTime).getTime() < new Date(newValue).getTime() && new Date(startTime).getMinutes() % 15 === 0 && new Date(newValue).getMinutes() % 15 === 0) {
+                                                                    setUploadBool(true);
+                                                                } else {
+                                                                    setUploadBool(false);
+                                                                }
+                                                                setEndTime(newValue);
+                                                            }}
+                                                            renderInput={(params) => <TextField className={styles.timePicker2} {...params} />}
+                                                        />
+                                                    </div>
+        
+                                                </div>
+                                                <div className={styles.addText}> * 00분, 15분, 30분, 45분 중 선택해주세요</div>
+                                            </LocalizationProvider>
+                                        </div>
+        
+        
+                                        {
+                                            uploadFile ?
+                                                <div className="answerFile" style={{ marginTop: "16px" }}>
+                                                    <div className="answerFileTitle">
+                                                        <img className="uploadedFileClip" src="img/paperclip-light.svg" alt="file" />
+                                                        <div>{uploadFileName}</div>
+                                                    </div>
+                                                    <div>
+                                                        <img onClick={deleteFile} className="uploadedFileTrash" src="img/trash-alt-light.svg" alt="config" />
+                                                    </div>
+                                                </div> : ""
+                                        }
+        
+        
+                                        <div className={styles.uploadFileDiv}>
+                                            <label htmlFor="file">
+                                                <div className={styles.uploadFile}>
+                                                    <img className="clip" src="img/paperclip-light.svg" alt="file" /><span></span>
+                                                </div>
+                                            </label>
+                                            <input onChange={(e) => fileOnChange(e)} type="file" name="file" id="file" accept="image/*" hidden />
+                                            <div className={styles.addText}> *1200px X 800px</div>
+                                        </div>
+        
+        
+                                    </div>
+        
+                                    <div className={styles.chargeBtnDiv}>
+        
+                                        {uploadLoading ?
+                                            <div className="answerloading">
+                                                <CircularProgress />
+                                            </div> : ""
+                                        }
+                                        {uploadBool ?
+                                            <div onClick={uploadSubmit} className={styles.chargeBtn}>
+                                                업로드
+                                            </div>
+                                            :
+                                            <div className={styles.disabledChargedBtn}>
+                                                업로드
+                                            </div>
+                                        }
+        
+                                    </div>
+                                </form>
+                            </Box>
+                        </Modal>
+        
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleMenuClose}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}
+                        >
+                            <MenuItem onClick={changeTime}>시간변경</MenuItem>
+                            <div className={styles.blank}></div>
+                            <MenuItem onClick={deleteQuestion} className={styles.deleteQuestionStyles}>글 삭제</MenuItem>
+        
+                        </Menu>
+        
+                        <Modal
+                            open={updateModalOpen}
+                            onClose={handleUpdateModalClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={styleUpdateModal}>
                                 <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
-                                    <DatePicker
-
-                                        value={date}
-                                        onChange={(newValue: any) => {
-                                            console.log(new Date(newValue).toString());
-                                            setDate(newValue);
-                                        }}
-                                        renderInput={(params) => <TextField {...params} />}
-                                    />
-
                                     <div className={styles.datePickerDiv}>
                                         <div>
                                             <div className={styles.datePickerTitle1}>시작 시간</div>
-
                                             <TimePicker
                                                 value={startTime}
                                                 onChange={(newValue) => {
                                                     console.log(new Date(newValue).toString());
                                                     setStartTime(newValue);
-                                                    if (uploadSubject && uploadFile && teacherName && uploadTelephoneNumber && uploadTeacherDescription && date && startTime && endTime && new Date(newValue).getTime() < new Date(endTime).getTime() && new Date(newValue).getMinutes() % 15 === 0 && new Date(endTime).getMinutes() % 15 === 0) {
-                                                        setUploadBool(true);
+                                                    if (startTime && endTime && new Date(newValue).getTime() < new Date(endTime).getTime() && new Date(newValue).getMinutes() % 15 === 0 && new Date(endTime).getMinutes() % 15 === 0) {
+                                                        setUpdateBool(true);
                                                     } else {
-                                                        setUploadBool(false);
+                                                        setUpdateBool(false);
                                                     }
-
+        
                                                 }}
                                                 renderInput={(params) => <TextField className={styles.timePicker1} {...params} />}
                                             />
                                         </div>
-
+        
                                         <div>
                                             <div className={styles.datePickerTitle2}>종료 시간</div>
-
+        
                                             <TimePicker
                                                 value={endTime}
                                                 onChange={(newValue) => {
-                                                    if (uploadSubject && uploadFile && teacherName && uploadTelephoneNumber && uploadTeacherDescription && date && startTime && endTime && new Date(startTime).getTime() < new Date(newValue).getTime() && new Date(startTime).getMinutes() % 15 === 0 && new Date(newValue).getMinutes() % 15 === 0) {
-                                                        setUploadBool(true);
+                                                    if (startTime && endTime && new Date(startTime).getTime() < new Date(newValue).getTime() && new Date(startTime).getMinutes() % 15 === 0 && new Date(newValue).getMinutes() % 15 === 0) {
+                                                        setUpdateBool(true);
                                                     } else {
-                                                        setUploadBool(false);
+                                                        setUpdateBool(false);
                                                     }
                                                     setEndTime(newValue);
                                                 }}
                                                 renderInput={(params) => <TextField className={styles.timePicker2} {...params} />}
                                             />
                                         </div>
-
+        
                                     </div>
                                     <div className={styles.addText}> * 00분, 15분, 30분, 45분 중 선택해주세요</div>
                                 </LocalizationProvider>
-                            </div>
-
-
-                            {
-                                uploadFile ?
-                                    <div className="answerFile" style={{ marginTop: "16px" }}>
-                                        <div className="answerFileTitle">
-                                            <img className="uploadedFileClip" src="img/paperclip-light.svg" alt="file" />
-                                            <div>{uploadFileName}</div>
+        
+                                <div className={styles.chargeBtnDiv}>
+        
+                                    {updateLoading ?
+                                        <div className="answerloading">
+                                            <CircularProgress />
+                                        </div> : ""
+                                    }
+                                    {updateBool ?
+                                        <div onClick={updateSubmit} className={styles.chargeBtn}>
+                                            업로드
                                         </div>
-                                        <div>
-                                            <img onClick={deleteFile} className="uploadedFileTrash" src="img/trash-alt-light.svg" alt="config" />
+                                        :
+                                        <div className={styles.disabledChargedBtn}>
+                                            업로드
                                         </div>
-                                    </div> : ""
-                            }
-
-
-                            <div className={styles.uploadFileDiv}>
-                                <label htmlFor="file">
-                                    <div className={styles.uploadFile}>
-                                        <img className="clip" src="img/paperclip-light.svg" alt="file" /><span></span>
-                                    </div>
-                                </label>
-                                <input onChange={(e) => fileOnChange(e)} type="file" name="file" id="file" accept="image/*" hidden />
-                                <div className={styles.addText}> *1200px X 800px</div>
-                            </div>
-
-
-                        </div>
-
-                        <div className={styles.chargeBtnDiv}>
-
-                            {uploadLoading ?
-                                <div className="answerloading">
-                                    <CircularProgress />
-                                </div> : ""
-                            }
-                            {uploadBool ?
-                                <div onClick={uploadSubmit} className={styles.chargeBtn}>
-                                    업로드
+                                    }
+        
                                 </div>
-                                :
-                                <div className={styles.disabledChargedBtn}>
-                                    업로드
-                                </div>
-                            }
-
-                        </div>
-                    </form>
-                </Box>
-            </Modal>
-
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleMenuClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={changeTime}>시간변경</MenuItem>
-                <div className={styles.blank}></div>
-                <MenuItem onClick={deleteQuestion} className={styles.deleteQuestionStyles}>글 삭제</MenuItem>
-
-            </Menu>
-
-            <Modal
-                open={updateModalOpen}
-                onClose={handleUpdateModalClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={styleUpdateModal}>
-                    <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
-                        <div className={styles.datePickerDiv}>
-                            <div>
-                                <div className={styles.datePickerTitle1}>시작 시간</div>
-                                <TimePicker
-                                    value={startTime}
-                                    onChange={(newValue) => {
-                                        console.log(new Date(newValue).toString());
-                                        setStartTime(newValue);
-                                        if (startTime && endTime && new Date(newValue).getTime() < new Date(endTime).getTime() && new Date(newValue).getMinutes() % 15 === 0 && new Date(endTime).getMinutes() % 15 === 0) {
-                                            setUpdateBool(true);
-                                        } else {
-                                            setUpdateBool(false);
-                                        }
-
-                                    }}
-                                    renderInput={(params) => <TextField className={styles.timePicker1} {...params} />}
-                                />
-                            </div>
-
-                            <div>
-                                <div className={styles.datePickerTitle2}>종료 시간</div>
-
-                                <TimePicker
-                                    value={endTime}
-                                    onChange={(newValue) => {
-                                        if (startTime && endTime && new Date(startTime).getTime() < new Date(newValue).getTime() && new Date(startTime).getMinutes() % 15 === 0 && new Date(newValue).getMinutes() % 15 === 0) {
-                                            setUpdateBool(true);
-                                        } else {
-                                            setUpdateBool(false);
-                                        }
-                                        setEndTime(newValue);
-                                    }}
-                                    renderInput={(params) => <TextField className={styles.timePicker2} {...params} />}
-                                />
-                            </div>
-
-                        </div>
-                        <div className={styles.addText}> * 00분, 15분, 30분, 45분 중 선택해주세요</div>
-                    </LocalizationProvider>
-
-                    <div className={styles.chargeBtnDiv}>
-
-                        {updateLoading ?
-                            <div className="answerloading">
-                                <CircularProgress />
-                            </div> : ""
-                        }
-                        {updateBool ?
-                            <div onClick={updateSubmit} className={styles.chargeBtn}>
-                                업로드
-                            </div>
-                            :
-                            <div className={styles.disabledChargedBtn}>
-                                업로드
-                            </div>
-                        }
-
-                    </div>
-
-                </Box>
-            </Modal>
-
+        
+                            </Box>
+                        </Modal>
+        
+                    </>
+            }
+            {
+                selectedMenu === "status" &&
+                <OfflineStatus user={props.user} />
+            }
 
         </div>
     )

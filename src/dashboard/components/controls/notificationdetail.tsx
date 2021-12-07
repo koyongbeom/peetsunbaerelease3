@@ -86,7 +86,7 @@ const NotificationDetail : React.FC<any> = (props) => {
                             작성일
                         </div>
                         <div>
-                            {notificationResult && notificationResult.createdAt.year}.{notificationResult && notificationResult.createdAt.month}.{notificationResult && notificationResult.createdAt.date}
+                            {notificationResult && notificationResult.createdAt.year}.{notificationResult && notificationResult.createdAt.month}.{notificationResult && notificationResult.createdAt.date} <span className={styles.number}>(조회 : {notificationResult && notificationResult.number})</span>
                         </div>
                     </div>
                     <div>
@@ -113,6 +113,7 @@ const NotificationDetail : React.FC<any> = (props) => {
                     </div>
                 </div>
             </div>
+
 
             <div className={styles.listBtnDiv}>
                 <div onClick={()=>{props.history.push("/dashboard/notification")}} className={styles.listBtn}>

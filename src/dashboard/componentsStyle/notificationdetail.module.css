@@ -73,8 +73,13 @@
     font-size: 17px;
 }
 
+.number {
+    margin-left: 8px;
+}
+
 .descriptionBoxDate div {
     display: flex;
+    align-items: center;
 }
 
 .descriptionBoxDate div div:first-child{

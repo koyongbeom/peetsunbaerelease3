@@ -43,7 +43,7 @@ const Home: React.FC<socketProps> = (props) => {
         console.log(e.target.dataset.id);
         props.history.push({
             pathname : "/dashboard/notificationdetail",
-            state : {id : id}
+            state : {id : id, history : props.history}
         })
     }
 
@@ -174,9 +174,11 @@ const Home: React.FC<socketProps> = (props) => {
                                             <div data-id={each.id} className={styles.notification_description2}>
                                                 
                                                 <div data-id={each.id} className={styles.notification_description2_2}>
-                                                    {/* <img className={styles.like} src="img/like.svg" alt="like"></img> 0 */}
+                                                    {!each.isRead ? <div className={styles.new}>NEW</div> : ""}
                                                 </div>
-                                                <div data-id={each.id} className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
+                                                <div data-id={each.id} className={styles.notification_description2_1}>
+                                                    {each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +202,7 @@ const Home: React.FC<socketProps> = (props) => {
                                             </div>
                                             <div  data-id={each.id} className={styles.notification_description2}>
                                                 <div  data-id={each.id} className={styles.notification_description2_2}>
-                                                    {/* <img  src="img/like.svg" alt="like"></img> 0 */}
+                                                    {!each.isRead ? <div className={styles.new}>NEW</div> : ""}
                                                 </div>
                                                 <div  data-id={each.id} className={styles.notification_description2_1}>{each.createdAt.year + "." + each.createdAt.month + "." + each.createdAt.date}</div>
 

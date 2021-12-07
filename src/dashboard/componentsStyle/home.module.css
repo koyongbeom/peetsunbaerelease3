@@ -184,6 +184,19 @@
     justify-content: space-between;
 }
 
+.new {
+    width: 47.7px;
+    height: 27px;
+    background-color: #eeeeee;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff4848;
+    font-weight: 600;
+    font-size: 14px;
+}
+
 .eachDescription {
     font-size: 15px;
     line-height: 22px;
