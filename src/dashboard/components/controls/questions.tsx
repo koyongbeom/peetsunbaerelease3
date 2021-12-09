@@ -18,6 +18,8 @@ import { SportsRugbySharp } from "@mui/icons-material";
 
 const Questions: React.FC<any> = (props) => {
 
+    const [loading, setLoading] = useState(false);
+
     const [answerloading, setAnswerloading] = useState(false);
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [questionResults, setQuestionResults] = useState<any>();
@@ -208,6 +210,8 @@ const Questions: React.FC<any> = (props) => {
 
     //질의응답 게시판 가져오는 기능----------------------------------------------------------------
     useEffect(() => {
+
+        setLoading(true);
         
         // webFrame.setZoomFactor(3);
 
@@ -227,6 +231,7 @@ const Questions: React.FC<any> = (props) => {
 
                         console.log(result.message);
                         setQuestionResults(result.message);
+                        setLoading(false);
                     })
             }).catch((error) => {
                 console.log(error);
@@ -528,7 +533,13 @@ const Questions: React.FC<any> = (props) => {
     return (
         <div className="questions">
             {
-                questionResults && questionResults.map((each: any, index: number) => {
+                loading &&
+                <div className="questionsLoading">
+                    <CircularProgress />
+                </div>
+            }
+            {
+                (!loading && questionResults) && questionResults.map((each: any, index: number) => {
 
 
 

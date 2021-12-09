@@ -8,6 +8,16 @@
     padding-right: 53px;
 }
 
+.main::-webkit-scrollbar{
+    background-color: #f5f5f5;
+}
+
+.main::-webkit-scrollbar-thumb{
+    background-color: #bbbcb6;
+    border-radius: 10px;
+
+}
+
 .title {
     display: flex;
     align-items: center;
@@ -481,6 +491,14 @@ border-radius: 6px;
     position: absolute;
     top: 20px;
     right: 8px;
+}
+
+.questionsLoading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
 }
 
 

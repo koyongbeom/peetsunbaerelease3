@@ -37,6 +37,9 @@ interface restaurantProps extends RouteComponentProps {
 
 
 const Restaurant: React.FC<restaurantProps> = (props) => {
+
+    const [loading, setLoading] = useState(false);
+
     const [selectMenu, setSelectMenu] = useState("submit");
 
     const [restaurantList, setRestaurantList] = useState<any>();
@@ -100,6 +103,8 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
 
     //처음 시작 할때 메뉴랑 포인트 가져오는 기능----------------------------------------------
     useEffect(() => {
+        setLoading(true);
+
         props.socket.on("newAmount", () => {
             const randomNumber = Math.floor(Math.random() * (99999 - 10000) + 10000);
             console.log("newAmount");
@@ -130,7 +135,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                         });
                         const set: any = new Set(array);
                         setRestaurantList([...set]);
-
+                        setLoading(false);
                     })
             })
         }
@@ -455,8 +460,13 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                     </div>
                 }
             </div>
-
-            {selectMenu === "submit" &&
+            
+            {loading &&
+            <div className={styles.loading}>
+                <CircularProgress />
+            </div>
+            }
+            {(selectMenu === "submit" && !loading) &&
                 <>
                     <div className={styles.restaurantList}>
                         {restaurantList && restaurantList.map((restaurant: string) => {

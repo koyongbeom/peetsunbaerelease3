@@ -25,6 +25,8 @@ import OfflineStatus from './offlinestatus';
 
 
 const Offline: React.FC<any> = (props) => {
+    const [loading, setLoading] = useState(false);
+
     const [isNull, setIsNull] = useState(false);
 
     const [currentId, setCurrentId] = useState(0);
@@ -120,7 +122,7 @@ const Offline: React.FC<any> = (props) => {
 
 
     useEffect(() => {
-
+        setLoading(true);
         const start = async () => {
             var token = "";
             setCalendarLoading(true);
@@ -152,11 +154,13 @@ const Offline: React.FC<any> = (props) => {
                                 console.log(result.data[0].id);
                             }
                             setAvailableDate([...newAvailableDate]);
+                            setLoading(false);
                         } else {
                             setCurrentId(0);
                             setIsNull(true);
                             var VOID: any;
                             setDateValue(VOID);
+                            setLoading(false);
                         }
                     })
             })
@@ -427,7 +431,13 @@ const Offline: React.FC<any> = (props) => {
                 </div>
             </div>
 
-            {!(selectedMenu === "status") &&
+            {(loading &&!(selectedMenu === "status")) &&
+            <div className={styles.loading}>
+                <CircularProgress />
+            </div>
+            }
+
+            {(!(selectedMenu === "status") && !loading ) &&
                         <>
                         <div className={styles.teacherDiv}>
                             <div className={styles.teacherImg}>
