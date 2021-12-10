@@ -1,37 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { RouteComponentProps } from 'react-router';
-import styles from '../componentsStyle/chart.module.css';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import ReactToPrint from 'react-to-print';
-import { Alert, LinearProgress, Modal, Stack } from '@mui/material';
-import Box from '@mui/material/Box';
-import PreviousChart from './controls/previouschart';
+import { Alert, LinearProgress, Stack } from '@mui/material';
+import React, { useState, useRef, useEffect } from 'react';
+import styles from '../../componentsStyle/chart.module.css';
 
-type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+const PreviousChart: React.FC<any> = (props) => {
 
-interface chartProps extends RouteComponentProps {
-    activateMenuList: (curret: currentSideBarMenuList) => void;
-}
-
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '1350px',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    backgroundColor : "#f5f5f5",
-    pt : 1,
-    pb : 4,
-    borderRadius : "8px"
-  };
-
-
-
-const Chart: React.FC<chartProps> = (props) => {
+    const [index, setIndex] = useState(0);
 
     const [loading, setLoading] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
@@ -39,6 +12,9 @@ const Chart: React.FC<chartProps> = (props) => {
     const [selectedUser, setSelectedUser] = useState<any>();
     const componentRef = useRef(null);
     const [active, setActive] = useState(false);
+
+    const [month, setMonth] = useState<any>();
+    const [date, setDate] = useState<any>();
 
     const [correctChemistry, setCorrectChemistry] = useState("");
     const [correctOrganic, setCorrectOrganic] = useState("");
@@ -70,15 +46,19 @@ const Chart: React.FC<chartProps> = (props) => {
     const [descriptionPhysics, setDescriptionPhysics] = useState("");
     const [descriptionBiology, setDescriptionBiology] = useState("");
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-        setOpen(true);
-    }
-    const handleClose = () => {
-        console.log(1);
-        setOpen(false);
+    const minus = (e : any) =>{
+        if(index === 0){
+            // alert("현재 가장 최근 상담일지입니다.")
+        }else{
+            const newIndex = index;
+            setIndex(newIndex - 1);
+        }
     }
 
+    const plus = (e : any) => {
+        const newIndex = index;
+        setIndex(newIndex + 1);
+    }
 
     const change = (e: any, type: string) => {
         switch (type) {
@@ -210,16 +190,9 @@ const Chart: React.FC<chartProps> = (props) => {
                     }
                 })
         })
-
-
-
-
     }
 
-
     useEffect(() => {
-        props.activateMenuList("chart");
-
         setLoading(true);
         console.log("---------");
         async function start() {
@@ -228,99 +201,65 @@ const Chart: React.FC<chartProps> = (props) => {
                 token = await window.electron.sendMessageApi.getToken();
             }
 
-            fetch("https://peetsunbae.com/dashboard/chart/users", {
+            fetch(`https://peetsunbae.com/dashboard/chart/before?userId=${props.selectedUser.id}&index=${index}`, {
                 method: "GET",
                 headers: { "Authorization": token },
                 credentials: "include",
             }).then((response: any) => {
                 response.json()
                     .then((result: any) => {
+                        if(result.message === "success"){
                         console.log(result);
-                        const rows: any = [];
-                        result.data.forEach((each: any, index: number) => {
-                            var data: any = {};
-                            data.id = each.id;
-                            data.label = each.name;
-                            data.phoneNumber = each.phoneNumber;
-                            data.value = each.value;
-                            data.key = index;
-                            rows.push(data);
-                        })
-                        setUsers([...rows]);
+                        setMonth(result.month);
+                        setDate(result.date);
+                        const information = result.data.information;
+                        setCorrectChemistry(information.correctChemistry);
+                        setCorrectOrganic(information.correctOrganic);
+                        setCorrectPhysics(information.correctPhysics);
+                        setCorrectBiology(information.correctBiology);
+                        setFeedbackChemistry(information.feedbackChemistry);
+                        setFeedbackOrganic(information.feedbackOrganic);
+                        setFeedbackPhysics(information.feedbackPhysics);
+                        setFeedbackBiology(information.feedbackBiology);
+                        setLectureChemistry(information.lectureChemistry);
+                        setLectureOrganic(information.lectureOrganic);
+                        setLecturePhysics(information.lecturePhysics);
+                        setLectureBiology(information.lectureBiology);
+                        setBeforeWeekChemistry(information.beforeWeekChemistry);
+                        setBeforeWeekOrganic(information.beforeWeekOrganic);
+                        setBeforeWeekPhysics(information.beforeWeekPhysics);
+                        setBeforeWeekBiology(information.beforeWeekBiology);
+                        setNextWeekChemistry(information.nextWeekChemistry);
+                        setNextWeekOrganic(information.nextWeekOrganic);
+                        setNextWeekPhysics(information.nextWeekPhysics);
+                        setNextWeekBiology(information.nextWeekBiology);
+                        setDescriptionChemistry(information.descriptionChemistry);
+                        setDescriptionOrganic(information.descriptionOrganic);
+                        setDescriptionPhysics(information.descriptionPhysics);
+                        setDescriptionBiology(information.descriptionBiology);
                         setLoading(false);
-
+                        }else if(result.message === "NOT"){
+                            // alert("존재하지 않습니다.");
+                            setLoading(false);
+                        }
                     })
             })
         }
 
         start();
-
-    }, [])
-
-    const marginTop = "10mm";
-    const marginBottom = "10mm";
-    const marginRight = "10mm";
-    const marginLeft = "10mm";
-
-    const onchange = (e: any, value: any) => {
-        setSelectedUser(value);
-        if (value) {
-            setActive(true);
-        } else {
-            setActive(false);
-        }
-    }
+    }, [index]);
 
 
-    const getPageMargins = () => {
-        return `@page { margin: ${marginTop} ${marginRight} ${marginBottom} ${marginLeft} !important; }`;
-    };
 
     return (
-        <div className={styles.main}>
-            <div className={styles.title}>
-                <img src="img/off/chart.svg" alt="chart" /> 상담일지 적기
+        <div className={styles.mainModal}>
+            <div className={styles.manageModalDivTitle}>
+                <div>학습관리({month ? month : ""}월 {date ? date : ""}일)</div>
+                <div>{props.selectedUser && props.selectedUser.label}</div>
             </div>
-            <style>{getPageMargins()}</style>
-            <div className={styles.selectStudentText}>
-                학생선택
-            </div>
-            <div className={styles.autocompleteDiv}>
-                <Autocomplete
-                    onChange={onchange}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={users}
-                    sx={{ width: 226 }}
-                    renderInput={(params) => <TextField {...params} label="이름" />}
-                />
-            </div>
-            <div className={styles.selectMenuDiv}>
-                <div onClick={handleOpen} className={styles.selectMenu}>
-                    #이전 상담일지
-                </div>
-                <div className={styles.selectMenu}>
-                    #출석 기록
-                </div>
-                <div className={styles.selectMenu}>
-                    #인강 수강 기록
-                </div>
-                <div className={styles.selectMenu}>
-                    #정기 일정
-                </div>
-                <div className={styles.selectMenu}>
-                    #학생 프로필
-                </div>
-            </div>
-            <div className={styles.manageDiv} ref={componentRef}>
-                <style type="text/css" media="print">{"\
-  @page {\ size: landscape;\ }\
-"}</style>
-                <div className={styles.manageDivTitle}>
-                    <div>학습관리({new Date().getMonth() + 1}월 {new Date().getDate()}일)</div>
-                    <div>{selectedUser && selectedUser.label}</div>
-                </div>
-                <div className={styles.manageTable}>
+            <div className={styles.manageTableModalDiv}>
+                <img onClick={plus} src="img/chevron-circle-left-light.svg" alt="left" className={styles.modalChevron} />
+                <div className={styles.manageModalTable}>
                     <div className={styles.firstRow}>
                         <div>
                             과목
@@ -354,34 +293,34 @@ const Chart: React.FC<chartProps> = (props) => {
                         </div>
                         <div className={styles.secondRow_3}>
                             <div className={styles.TextFieldwithoutborderradius}>
-                                <input onChange={(e) => { change(e, "correctChemistry") }} value={correctChemistry} className={styles.input} type="text" />
+                                <input value={correctChemistry} className={styles.input} type="text" />
                             </div>
                             <div className={styles.TextFieldwithoutborderradius2}>
-                                <textarea onChange={(e) => { change(e, "feedbackChemistry") }} value={feedbackChemistry} className={styles.textarea} />
+                                <textarea  value={feedbackChemistry} className={styles.textarea} />
                             </div>
                         </div>
                         <div className={styles.secondRow_4}>
                             <div>
-                                <input onChange={(e) => { change(e, "correctOrganic") }} value={correctOrganic} className={styles.input} type="text" />
+                                <input  value={correctOrganic} className={styles.input} type="text" />
                             </div>
                             <div>
-                                <textarea onChange={(e) => { change(e, "feedbackOrganic") }} value={feedbackOrganic} className={styles.textarea} />
+                                <textarea  value={feedbackOrganic} className={styles.textarea} />
                             </div>
                         </div>
                         <div className={styles.secondRow_5}>
                             <div>
-                                <input onChange={(e) => { change(e, "correctPhysics") }} value={correctPhysics} className={styles.input} type="text" />
+                                <input  value={correctPhysics} className={styles.input} type="text" />
                             </div>
                             <div>
-                                <textarea onChange={(e) => { change(e, "feedbackPhysics") }} value={feedbackPhysics} className={styles.textarea} />
+                                <textarea  value={feedbackPhysics} className={styles.textarea} />
                             </div>
                         </div>
                         <div className={styles.secondRow_6}>
                             <div>
-                                <input onChange={(e) => { change(e, "correctBiology") }} value={correctBiology} className={styles.input} type="text" />
+                                <input  value={correctBiology} className={styles.input} type="text" />
                             </div>
                             <div>
-                                <textarea onChange={(e) => { change(e, "feedbackBiology") }} value={feedbackBiology} className={styles.textarea} />
+                                <textarea  value={feedbackBiology} className={styles.textarea} />
                             </div>
                         </div>
                     </div>
@@ -405,46 +344,46 @@ const Chart: React.FC<chartProps> = (props) => {
                         </div>
                         <div className={styles.thirdRow_3}>
                             <div>
-                                <input onChange={(e) => { change(e, "lectureChemistry") }} value={lectureChemistry} className={styles.input} type="text" />
+                                <input  value={lectureChemistry} className={styles.input} type="text" />
                             </div>
                             <div>
-                                <textarea onChange={(e) => { change(e, "beforeWeekChemistry") }} value={beforeWeekChemistry} className={styles.textarea} />
+                                <textarea  value={beforeWeekChemistry} className={styles.textarea} />
                             </div>
                             <div>
-                                <input onChange={(e) => { change(e, "nextWeekChemistry") }} value={nextWeekChemistry} className={styles.input} type="text" />
+                                <input  value={nextWeekChemistry} className={styles.input} type="text" />
                             </div>
                         </div>
                         <div className={styles.thirdRow_4}>
                             <div>
-                                <input onChange={(e) => { change(e, "lectureOrganic") }} value={lectureOrganic} className={styles.input} type="text" />
+                                <input  value={lectureOrganic} className={styles.input} type="text" />
                             </div>
                             <div>
-                                <textarea onChange={(e) => { change(e, "beforeWeekOrganic") }} value={beforeWeekOrganic} className={styles.textarea} />
+                                <textarea  value={beforeWeekOrganic} className={styles.textarea} />
                             </div>
                             <div>
-                                <input onChange={(e) => { change(e, "nextWeekOrganic") }} value={nextWeekOrganic} className={styles.input} type="text" />
+                                <input  value={nextWeekOrganic} className={styles.input} type="text" />
                             </div>
                         </div>
                         <div className={styles.thirdRow_5}>
                             <div>
-                                <input onChange={(e) => { change(e, "lecturePhysics") }} value={lecturePhysics} className={styles.input} type="text" />
+                                <input  value={lecturePhysics} className={styles.input} type="text" />
                             </div>
                             <div>
-                                <textarea onChange={(e) => { change(e, "beforeWeekPhysics") }} value={beforeWeekPhysics} className={styles.textarea} />
+                                <textarea  value={beforeWeekPhysics} className={styles.textarea} />
                             </div>
                             <div>
-                                <input onChange={(e) => { change(e, "nextWeekPhysics") }} value={nextWeekPhysics} className={styles.input} type="text" />
+                                <input  value={nextWeekPhysics} className={styles.input} type="text" />
                             </div>
                         </div>
                         <div className={styles.thirdRow_6}>
                             <div>
-                                <input onChange={(e) => { change(e, "lectureBiology") }} value={lectureBiology} className={styles.input} type="text" />
+                                <input  value={lectureBiology} className={styles.input} type="text" />
                             </div>
                             <div>
-                                <textarea onChange={(e) => { change(e, "beforeWeekBiology") }} value={beforeWeekBiology} className={styles.textarea} />
+                                <textarea  value={beforeWeekBiology} className={styles.textarea} />
                             </div>
                             <div>
-                                <input onChange={(e) => { change(e, "nextWeekBiology") }} value={nextWeekBiology} className={styles.input} type="text" />
+                                <input  value={nextWeekBiology} className={styles.input} type="text" />
                             </div>
                         </div>
                     </div>
@@ -457,78 +396,48 @@ const Chart: React.FC<chartProps> = (props) => {
                         </div>
                         <div className={styles.fourthRow_2}>
                             <div>
-                                <textarea onChange={(e) => { change(e, "descriptionChemistry") }} value={descriptionChemistry} className={styles.textarea} />
+                                <textarea  value={descriptionChemistry} className={styles.textarea} />
                             </div>
                         </div>
                         <div className={styles.fourthRow_3}>
                             <div>
-                                <textarea onChange={(e) => { change(e, "descriptionOrganic") }} value={descriptionOrganic} className={styles.textarea} />
+                                <textarea  value={descriptionOrganic} className={styles.textarea} />
                             </div>
                         </div>
                         <div className={styles.fourthRow_4}>
                             <div>
-                                <textarea onChange={(e) => { change(e, "descriptionPhysics") }} value={descriptionPhysics} className={styles.textarea} />
+                                <textarea  value={descriptionPhysics} className={styles.textarea} />
                             </div>
                         </div>
                         <div className={styles.fourthRow_5}>
                             <div>
-                                <textarea onChange={(e) => { change(e, "descriptionBiology") }} value={descriptionBiology} className={styles.textarea} />
+                                <textarea  value={descriptionBiology} className={styles.textarea} />
                             </div>
                         </div>
                     </div>
                 </div>
+                <img onClick={minus} src="img/chevron-circle-right-light.svg" alt="left" className={styles.modalChevron} />
             </div>
+
             {loading &&
-                <div className={styles.linearProgress}>
+                <div className={styles.modalLinearProgress}>
                     <LinearProgress />
                 </div>
             }
             {(uploadBool) &&
-                <Stack sx={{ width: '100%' }} spacing={2}>
+                <Stack sx={{ width: '91%', marginLeft : "58px" }} spacing={2}>
                     <Alert severity="info" sx={{ marginTop: 2, marginBottom: 2 }}><span>저장 성공 !</span></Alert>
                 </Stack>
             }
 
-            <div className={styles.printDiv}>
-                <ReactToPrint
-                    trigger={() => <img className={styles.print} src="img/print-regular.svg" alt="print"></img>}
-                    content={() => componentRef.current}
-                />
-                {active &&
-                    <div onClick={submit} className={styles.submit}>
-                        저장하기
-                        <img src="img/navigate_next.svg" alt="right"></img>
-                    </div>
-                }
-                {!active &&
-                    <div className={styles.disabledSubmit}>
-                        저장하기
-                        <img src="img/navigate_next.svg" alt="right"></img>
-                    </div>
-                }
-
-            </div>
-            
-            {selectedUser &&
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >   
-                <Box sx={style}>
-                    <div className={styles.cancelBtn}>
-                        <img onClick={handleClose} src="img/times-circle-light.svg" alt="cancel" />
-                    </div>
-                    <div className={styles.modalFirstDiv}>
-                        <PreviousChart selectedUser={selectedUser} />
-                    </div>
-                </Box>
-            </Modal>
-            }
-
+            {/* <div className={styles.modalLastDiv}>
+                <div onClick={submit} className={styles.submit}>
+                    저장하기
+                    <img src="img/navigate_next.svg" alt="right"></img>
+                </div>
+            </div> */}
         </div>
     )
 }
 
-export default Chart;
+export default PreviousChart;
