@@ -476,6 +476,11 @@
     margin-right: 6px;
 }
 
+.progressbar {
+    display: flex;
+    justify-content: center;
+}
+
 
 
 

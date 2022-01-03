@@ -677,3 +677,16 @@
     justify-content: center;
     align-items: center;
 }
+
+.height {
+    height: 15px;
+}
+
+.averageDiv {
+    margin-top: 12px;
+    font-size: 18px;
+}
+
+.averageDiv div{
+    margin-bottom: 6px;
+}

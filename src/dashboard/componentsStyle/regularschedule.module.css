@@ -1,0 +1,260 @@
+.title {
+    width: 1050px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 18px;
+}
+
+.regularSchedule {
+    height: 600px;
+    overflow: auto;
+}
+
+.regularSchedule::-webkit-scrollbar{
+    background-color: transparent;
+}
+
+.main::-webkit-scrollbar-thumb{
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.title img {
+    margin-right: 8px;
+}
+
+.days {
+    display: flex;
+}
+
+.dayDiv {
+    box-sizing: border-box;
+    width: 144px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e4e8ff;
+    border-left: 3px solid rgb(230,230,230);
+    border-top: 3px solid rgb(230,230,230);
+    border-bottom: 3px solid rgb(230,230,230);
+}
+
+.dayFirst1 {
+    box-sizing: border-box;
+    width: 40px;
+    border-top: 3px solid rgb(230,230,230);
+    height: 44px;
+    border-bottom: 3px solid rgb(230,230,230);
+    border-left: 3px solid rgb(230,230,230);
+}
+
+.dayDiv:last-child {
+    border-right: 3px solid rgb(230,230,230);
+}
+
+.dateDiv {
+    display: flex;
+}
+
+.dayFirst2 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    border: 3px solid rgb(230,230,230);
+    border-top: 0;
+    border-right: 0;
+    min-height: 120px;
+}
+
+.dateDivDiv {
+    box-sizing: border-box;
+    width: 144px;
+    border-left: 3px solid rgb(230,230,230);
+    border-bottom: 3px solid rgb(230,230,230);
+}
+
+.dateDivDiv:last-child{
+    border-right: 3px solid rgb(230,230,230);
+}
+
+.eachDay {
+    padding-left: 8px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    font-family: "Apple_R";
+}
+
+.eachDayTitle {
+    font-family: "Apple_B";
+}
+
+.calendarDescription {
+    font-family: "Apple_R";
+    font-size: 14px;
+    margin-bottom: 46px;
+}
+
+.whichDay {
+    font-family: "Apple_R";
+}
+
+.dayLabel {
+    font-family: "Apple_R";
+}
+
+.dayLabel2 {
+    margin-top: 12px;
+}
+
+.dayText {
+    font-family: "Apple_R";
+}
+
+/* CSS */
+.button4 {
+    margin-top: 4px;
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 3px 8px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.button4:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.button4:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+
+.button4:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.button4:focus {
+  outline: 1px transparent;
+}
+
+.button4:before {
+  display: none;
+}
+
+.button4:-webkit-details-marker {
+  display: none;
+}
+
+
+
+.form {
+    margin-bottom: 60px;
+}
+
+.dayText {
+    font-family: "Apple_R";
+}
+
+.daySelectDiv{
+    display: inline-block;
+}
+
+.startTimeDiv {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.startTimeTitle {
+    margin-left: 10px;
+}
+
+.datetimepicker {
+    margin-bottom: 20px;
+    margin-top: 12px;
+}
+
+.reasonDiv {
+    width: 300px;
+    margin-left: 8px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+
+.submitBtn {
+    cursor: pointer;
+    margin-top: 24px;
+    border-radius: 28px;
+    height: 46px;
+    background-color: #121a50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 620px;
+    margin-left: 8px;
+}
+
+
+
+.disabledChargedBtn {
+    margin-left: 8px;
+    cursor: not-allowed;
+    background-color: rgb(224, 224, 224);
+    margin-top: 24px;
+    border-radius: 28px;
+    height: 46px;
+    width: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(163, 163, 163);
+    font-family: "Apple_L";
+}
+
+.isUpload {
+    font-family: "Apple_R";
+}
+
+.uploadLoading {
+    margin-left: 8px;
+}
+
+
+
+
+
+
+
+
+
+

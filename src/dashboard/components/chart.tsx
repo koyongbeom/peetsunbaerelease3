@@ -7,6 +7,11 @@ import ReactToPrint from 'react-to-print';
 import { Alert, LinearProgress, Modal, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import PreviousChart from './controls/previouschart';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import RegularSchedule from './controls/regularSchedule';
+import ChartProfile from './controls/chartprofile';
+import ChartProfileSecond from './controls/chartprofilesecond';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -23,11 +28,11 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    backgroundColor : "#f5f5f5",
-    pt : 1,
-    pb : 4,
-    borderRadius : "8px"
-  };
+    backgroundColor: "#f5f5f5",
+    pt: 1,
+    pb: 4,
+    borderRadius: "8px"
+};
 
 
 
@@ -70,8 +75,56 @@ const Chart: React.FC<chartProps> = (props) => {
     const [descriptionPhysics, setDescriptionPhysics] = useState("");
     const [descriptionBiology, setDescriptionBiology] = useState("");
 
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const menuOpen = Boolean(anchorEl);
+
+    const [modalMenu, setModalMenu] = useState("");
+
+    const handleMenuClick = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+
+    const handleMenuClose = async (e: any, kind: string) => {
+        setAnchorEl(null);
+
+        var token = "";
+        if (window.electron) {
+            token = await window.electron.sendMessageApi.getToken();
+        }
+
+        fetch(`https://peetsunbae.com/dashboard/chart/password?kind=${kind}&studentId=${selectedUser.id}`, {
+            method: "GET",
+            headers: { "Authorization": token },
+            credentials: "include",
+        }).then((response: any) => {
+            response.json()
+                .then((result: any) => {
+                    console.log(result);
+                    const id = result.id;
+                    const pw = result.pw;
+                    fetch("http://localhost:5001", {
+                        method : "POST",
+                        headers : {"Content-Type" : "application/json"},
+                        body : JSON.stringify({
+                            id,
+                            pw,
+                            kind
+                        })
+                    }).then((response : any)=>{
+                        response.json()
+                        .then((result : any)=>{
+                            console.log(result);
+                        })
+                    })
+                })
+        })
+
+    };
+
     const [open, setOpen] = useState(false);
-    const handleOpen = () => {
+    const handleOpen = (modalMenu : string) => {
+        setModalMenu(modalMenu);
         setOpen(true);
     }
     const handleClose = () => {
@@ -296,19 +349,19 @@ const Chart: React.FC<chartProps> = (props) => {
                 />
             </div>
             <div className={styles.selectMenuDiv}>
-                <div onClick={handleOpen} className={styles.selectMenu}>
+                <div onClick={(e)=>{handleOpen("previous")}} className={styles.selectMenu}>
                     #이전 상담일지
                 </div>
                 <div className={styles.selectMenu}>
                     #출석 기록
                 </div>
-                <div className={styles.selectMenu}>
+                <div className={styles.selectMenu} onClick={handleMenuClick} aria-expanded={open ? 'true' : undefined}>
                     #인강 수강 기록
                 </div>
-                <div className={styles.selectMenu}>
+                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("regular");}}>
                     #정기 일정
                 </div>
-                <div className={styles.selectMenu}>
+                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("profile");}}>
                     #학생 프로필
                 </div>
             </div>
@@ -508,23 +561,43 @@ const Chart: React.FC<chartProps> = (props) => {
                 }
 
             </div>
-            
+
             {selectedUser &&
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >   
-                <Box sx={style}>
-                    <div className={styles.cancelBtn}>
-                        <img onClick={handleClose} src="img/times-circle-light.svg" alt="cancel" />
-                    </div>
-                    <div className={styles.modalFirstDiv}>
-                        <PreviousChart selectedUser={selectedUser} />
-                    </div>
-                </Box>
-            </Modal>
+                <>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <div className={styles.cancelBtn}>
+                                <img onClick={handleClose} src="img/times-circle-light.svg" alt="cancel" />
+                            </div>
+                            <div className={styles.modalFirstDiv}>
+                                {modalMenu === "previous" && <PreviousChart selectedUser={selectedUser} />}
+                                {modalMenu === "regular" && <RegularSchedule selectedUser={selectedUser} /> }
+                                {modalMenu === "profile" && <ChartProfile selectedUser={selectedUser} setModalMenu={setModalMenu} /> }
+                                {modalMenu === "profileSecond" && <ChartProfileSecond selectedUser={selectedUser} /> }
+                            </div>
+                        </Box>
+                    </Modal>
+
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={menuOpen}
+                        onClose={handleMenuClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem onClick={(e) => { handleMenuClose(e, "megamd") }}>메가엠디</MenuItem>
+                        <MenuItem onClick={(e) => { handleMenuClose(e, "peetdangi") }}>핏단기</MenuItem>
+                        <MenuItem onClick={(e) => { handleMenuClose(e, "mdnp") }}>엠디엔피</MenuItem>
+                    </Menu>
+
+                </>
             }
 
         </div>

@@ -16,6 +16,8 @@ const PreviousChart: React.FC<any> = (props) => {
     const [month, setMonth] = useState<any>();
     const [date, setDate] = useState<any>();
 
+    const [teacherName, setTeacherName] = useState("");
+
     const [correctChemistry, setCorrectChemistry] = useState("");
     const [correctOrganic, setCorrectOrganic] = useState("");
     const [correctPhysics, setCorrectPhysics] = useState("");
@@ -237,6 +239,7 @@ const PreviousChart: React.FC<any> = (props) => {
                         setDescriptionOrganic(information.descriptionOrganic);
                         setDescriptionPhysics(information.descriptionPhysics);
                         setDescriptionBiology(information.descriptionBiology);
+                        setTeacherName(result.data.name);
                         setLoading(false);
                         }else if(result.message === "NOT"){
                             // alert("존재하지 않습니다.");
@@ -254,7 +257,7 @@ const PreviousChart: React.FC<any> = (props) => {
     return (
         <div className={styles.mainModal}>
             <div className={styles.manageModalDivTitle}>
-                <div>학습관리({month ? month : ""}월 {date ? date : ""}일)</div>
+                <div>학습관리({month ? month : ""}월 {date ? date : ""}일) - {teacherName} 담임선생님</div>
                 <div>{props.selectedUser && props.selectedUser.label}</div>
             </div>
             <div className={styles.manageTableModalDiv}>

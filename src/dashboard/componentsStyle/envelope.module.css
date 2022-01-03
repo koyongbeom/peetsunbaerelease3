@@ -1,0 +1,22 @@
+.main {
+    background-color: #f5f5f5;
+    width: calc(100% - 244px);
+    padding-left: 46px;
+    padding-top: 45.7px;
+    padding-right: 46px;
+    padding-bottom: 71px;
+    height: calc(100vh - 78px);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-family: "Apple_R";
+    color: #303030;
+    letter-spacing: -1.1px;
+}
+
+.title img {
+    margin-right: 10.3px;
+}
