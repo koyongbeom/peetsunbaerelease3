@@ -20,3 +20,43 @@
 .title img {
     margin-right: 10.3px;
 }
+
+
+.searchMenu {
+    margin-top: 23px;
+    display: flex;
+    margin-bottom: 33px;   
+}
+
+.searchMenuDiv {
+    font-family: "Apple_R";
+    width: 177px;
+    height: 51px;
+    border-radius: 28px;
+    border: 1px solid #cbcbcb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 14px;
+    cursor: pointer;
+}
+
+.searchMenuDiv.active{
+    background-color: #3d50b0;
+    border: none;
+    color: white;
+}
+
+.textfieldDiv {
+    margin-top: 16px;
+}
+
+.buttonDiv {
+    margin-top: 16px;
+    display: flex;
+    justify-content: end;
+}
+
+.buttonText {
+    font-family: "Apple_R";
+}

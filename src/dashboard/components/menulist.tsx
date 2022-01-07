@@ -50,9 +50,9 @@ const menu = [
         description : "상담일지 적기"
     },
     {
-        value : ["teacher, staff"],
+        value : ["teacher", "staff"],
         name : "attendance",
-        description : "출석 관리"
+        description : "업무 보고"
     },
     {
 

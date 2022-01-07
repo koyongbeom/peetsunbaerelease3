@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import koLocale from 'date-fns/locale/ko'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { GridRenderCellParams,DataGridPro, GridRowsProp, GridColDef, GridToolbar, LicenseInfo, useGridApiRef, GridEditRowsModel } from '@mui/x-data-grid-pro';
+import { GridRenderCellParams, DataGridPro, GridRowsProp, GridColDef, GridToolbar, LicenseInfo, useGridApiRef, GridEditRowsModel } from '@mui/x-data-grid-pro';
 import { eachDayOfInterval } from 'date-fns';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -12,6 +12,9 @@ import Popper from '@mui/material/Popper';
 import { createStyles, makeStyles } from '@mui/styles';
 import styles from '../componentsStyle/envelope.module.css';
 import { createTheme, darken, lighten } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Autocomplete from '@mui/material/Autocomplete';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -19,25 +22,147 @@ LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQS
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 interface envelopeProps extends RouteComponentProps {
-    activateMenuList : (curret : currentSideBarMenuList) => void;
+    activateMenuList: (curret: currentSideBarMenuList) => void;
+    user: any
 }
 
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
-const Envelope : React.FC<envelopeProps> = (props) => {
-    useEffect(()=>{
+
+const Envelope: React.FC<envelopeProps> = (props) => {
+    const [searchMenu, setSearchMenu] = useState("write");
+    const [open, setOpen] = React.useState(false);
+    const [selectedUser, setSelectedUser] = useState<any>();
+    const [active, setActive] = useState(true);
+    const [users, setUsers] = useState<any>();
+    const [message, setMessage] = useState("");
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {setActive(true); setOpen(false);}
+
+
+    useEffect(() => {
         props.activateMenuList("envelope");
+
+        async function start() {
+            var token = "";
+            if (window.electron) {
+                token = await window.electron.sendMessageApi.getToken();
+            }
+
+            fetch("https://peetsunbae.com/dashboard/chart/users", {
+                method: "GET",
+                headers: { "Authorization": token },
+                credentials: "include",
+            }).then((response: any) => {
+                response.json()
+                    .then((result: any) => {
+                        console.log(result);
+                        const rows: any = [];
+                        result.data.forEach((each: any, index: number) => {
+                            var data: any = {};
+                            data.id = each.id;
+                            data.label = each.name;
+                            data.phoneNumber = each.phoneNumber;
+                            data.value = each.value;
+                            data.key = index;
+                            rows.push(data);
+                        })
+                        setUsers([...rows]);
+
+                    })
+            })
+        }
+
+        start();
     }, [])
 
-    return(
-        <div className={styles.main}>
-            <div className={styles.title}>
-                <img src="img/off/envelope.svg" alt="envelope" />
-                나에게 온 메세지
-            </div>
+    const onchange = (e: any, value: any) => {
+        console.log(value);
+        setSelectedUser(value);
+        if (value && message) {
+            setActive(false);
+        } else {
+            setActive(true);
+        }
+    }
 
-            <div>
-                
+    const changeMessage = (e : any) => {
+        setMessage(e.target.value);
+        if(selectedUser && e.target.value){
+            setActive(false);
+        } else {
+            setActive(true);
+        }
+    }
+
+    const submit = (e : any) => {
+        console.log(selectedUser);
+        console.log(message);
+    }
+
+    return (
+        <div className={styles.main}>
+            <div className={styles.mainBoard}>
+                <div className={styles.title}>
+                    <img src="img/off/envelope.svg" alt="envelope" />
+                    나에게 온 메세지
+                </div>
+
+                <div className={styles.searchMenu}>
+                    <div onClick={(e) => { setSearchMenu("write") }} className={`${styles.searchMenuDiv} ${searchMenu === "write" ? styles.active : ""}`}>
+                        나에게 온 메세지
+                    </div>
+                    {(props.user.value === "teacher" || props.user.value === "staff") &&
+                        <div onClick={(e) => { setSearchMenu("watch") }} className={`${styles.searchMenuDiv} ${searchMenu === "watch" ? styles.active : ""}`}>
+                            전체 메세지
+                        </div>
+                    }
+                </div>
             </div>
+            
+            {(props.user.value === "teacher" || props.user.value === "staff") &&
+            <div onClick={handleOpen} className="qnaWrite">
+                <img src="./img/pencil.svg" alt="pencil" />
+                메세지 보내기
+            </div>
+            }
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div className={styles.autocompleteDiv}>
+                        <Autocomplete
+                            onChange={onchange}
+                            disablePortal
+                            id="combo-box-demo"
+                            options={users}
+                            sx={{ width: "100%" }}
+                            renderInput={(params) => <TextField {...params} label="이름" />}
+                        />
+                    </div>
+                    <div className={styles.textfieldDiv}>
+                        <TextField value={message} onChange={(e)=>{changeMessage(e)}} fullWidth id="outlined-basic" label="메세지" variant="outlined" />
+                    </div>
+                    <div className={styles.buttonDiv}>
+                        <Button onClick={submit} disabled={active} variant="contained"><span className={styles.buttonText}>전송하기</span></Button>
+                    </div>
+                </Box>
+            </Modal>
+
 
         </div>
     )
