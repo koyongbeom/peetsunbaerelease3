@@ -16,6 +16,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Alert, LinearProgress } from '@mui/material';
+import koLocale from 'date-fns/locale/ko'
+
 
 const array = ["", "", "", "", "", "", ""];
 
@@ -803,7 +805,7 @@ const RegularSchedule: React.FC<any> = (props) => {
                     {(kindValue === "long" || kindValue === "among" || kindValue == "add") &&
                         <div className={styles.startTimeDiv}>
                             <div className={styles.startTimeTitle}>{(kindValue === "long" || kindValue === "add") && "도착시간"}{kindValue === "among" && "출발시간"}</div>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                                 <TimePicker
                                     value={startValue}
                                     onChange={(newValue: any) => {
@@ -817,7 +819,7 @@ const RegularSchedule: React.FC<any> = (props) => {
                     {(kindValue === "early" || kindValue === "among" || kindValue == "add") &&
                         <div className={styles.startTimeDiv}>
                             <div className={styles.startTimeTitle}>{(kindValue === "early" || kindValue === "add") && "하원시간"}{kindValue === "among" && "도착시간"}</div>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                                 <TimePicker
                                     value={exitValue}
                                     onChange={(newValue: any) => {

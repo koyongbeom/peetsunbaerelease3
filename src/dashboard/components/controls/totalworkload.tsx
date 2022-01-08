@@ -189,21 +189,16 @@ function isOverflown(element: Element): boolean {
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
-const columns: GridColDef[] = [
-    { field: 'time', headerName: '시간', width: 120, filterable : false},
-    { field: 'description', headerName: '내용', width: 730, renderCell: renderCellExpand, filterable : false },
-    { field: 'answer', headerName: '완료 답변', width: 150, editable : true, renderCell: renderCellExpand, filterable : false},
-    { field: 'answerTime', headerName: '완료시간', width: 150, renderCell: renderCellExpand, filterable : false},
-    { field: 'answerName', headerName: '답변인', width: 150, renderCell: renderCellExpand, filterable : false},
+const columns2: GridColDef[] = [
+    { field: 'day', headerName: '요일', width: 80, filterable : true},
+    { field: 'time', headerName: '시간', width: 120, filterable : true},
+    { field: 'description', headerName: '내용', width: 730, renderCell: renderCellExpand, filterable : true },
     { field: 'location', headerName: '장소', width: 100},
-    { field: 'ip', headerName: 'IP', width: 150, renderCell: renderCellExpand, filterable : false},
-    { field: 'block', headerName: '', width: 150, renderCell: renderCellExpand, filterable : false},
-
   ];
 
-const WorkLoadToday : React.FC<any> = (props) => {
+const TotalWorkLoad : React.FC<any> = (props) => {
     const classes = useStyles2();
-    const [rows, setRows] = useState<any>([]);
+    const [rows2, setRows2] = useState<any>([]);
     const [loading, setLoading] = useState(false);
     const [editRowsModel, setEditRowsModel] = React.useState({});
 
@@ -232,59 +227,79 @@ const WorkLoadToday : React.FC<any> = (props) => {
                 token = await window.electron.sendMessageApi.getToken();
             }
 
-            fetch("https://peetsunbae.com/dashboard/report/work", {
+            fetch("https://peetsunbae.com/dashboard/report/totalwork", {
                 method: "GET",
                 headers: { "Authorization": token },
                 credentials: "include",
             }).then((response: any) => {
                 response.json()
                     .then((result: any) => {
-                      setLoading(false);
-                      console.log(result);
-                      const data = result.data;
-                      const answers = result.answer;
+                        setLoading(false);
+                        console.log(result);
+                        const data = result.data;
 
-                      data.sort(function (a: any, b: any) {
-                        if (a.startTime > b.startTime) {
-                          return 1;
-                        }
-                        if (a.startTime === b.startTime) {
-                          if (a.endTime >= b.endTime) {
-                            return 1;
-                          } else {
-                            return -1;
-                          }
-                        }
-                        if (a.startTime < b.startTime) {
-                          return -1;
-                        }
-                      });
-                      console.log(data);
-
-                      const newRows: any = [];
-
-                        data.forEach((each: any, number : number) => {
-                            const oneRow : any = {};
-                            oneRow.id = each.id;
-                            oneRow.time = `${Math.floor(each.startTime/60) < 10 ? "0" + Math.floor(each.startTime/60) : Math.floor(each.startTime/60)}:${each.startTime%60 < 10 ? "0" + each.startTime%60 : each.startTime%60}~${Math.floor(each.endTime/60) < 10 ? "0" + Math.floor(each.endTime/60) : Math.floor(each.endTime/60)}:${each.endTime%60 < 10 ? "0" + each.endTime%60 : each.endTime%60}`
-                            oneRow.location = each.location;
-                            oneRow.description = each.description;
-                            oneRow.startTime = each.startTime;
-                            oneRow.endTime = each.endTime;
-                            oneRow.block = "--------------------------------------";
-                            answers.forEach((answer : any)=>{
-                                if(answer.workId === each.id){
-                                    oneRow.answer = answer.answer;
-                                    const answerDate = new Date(answer.answerTime);
-                                    oneRow.answerTime = `${answerDate.getHours() < 10 ? "0"+answerDate.getHours() : answerDate.getHours()} : ${answerDate.getMinutes() < 10 ? "0"+answerDate.getMinutes() : answerDate.getMinutes()}`;
-                                    oneRow.ip = answer.ip;
-                                    oneRow.answerName = answer.answerUserName;
+                        data.sort(function(a : any,b : any){
+                            if(a.startTime > b.startTime){
+                                return 1;
+                            }
+                            if(a.startTime === b.startTime){
+                                if(a.endTime >= b.endTime){
+                                    return 1;
+                                }else{
+                                    return -1;
                                 }
-                            })
-                            newRows.push(oneRow);
+                            }
+                            if(a.startTime < b.startTime){
+                                return -1;
+                            }
                         });
 
-                        setRows([...newRows]);
+                        console.log(data);
+
+                        const newRows: any = [];
+
+                        data.forEach((each: any, number: number) => {
+                            each.day.forEach((boolean: Boolean, index: number) => {
+                                if (boolean) {
+                                    const oneRow: any = {};
+                                    oneRow.id = Math.random();
+                                    oneRow.time = `${Math.floor(each.startTime / 60) < 10 ? "0" + Math.floor(each.startTime / 60) : Math.floor(each.startTime / 60)}:${each.startTime % 60 < 10 ? "0" + each.startTime % 60 : each.startTime % 60}~${Math.floor(each.endTime / 60) < 10 ? "0" + Math.floor(each.endTime / 60) : Math.floor(each.endTime / 60)}:${each.endTime % 60 < 10 ? "0" + each.endTime % 60 : each.endTime % 60}`
+                                    oneRow.location = each.location;
+                                    oneRow.description = each.description;
+                                    oneRow.startTime = each.startTime;
+                                    oneRow.endTime = each.endTime;
+                                    switch (index) {
+                                        case 0:
+                                            oneRow.day = "일";
+                                            break;
+                                        case 1:
+                                            oneRow.day = "월";
+                                            break;
+                                        case 2:
+                                            oneRow.day = "화";
+                                            break;
+                                        case 3:
+                                            oneRow.day = "수";
+                                            break;
+                                        case 4:
+                                            oneRow.day = "목";
+                                            break;
+                                        case 5:
+                                            oneRow.day = "금";
+                                            break;
+                                        case 6:
+                                            oneRow.day = "토";
+                                            break;
+                                    }
+
+
+                                    oneRow.block = "--------------------------------------";
+                                    newRows.push(oneRow);
+                                }
+                            })
+                        });
+
+                        setRows2([...newRows]);
                     })
             })
         }
@@ -296,11 +311,11 @@ const WorkLoadToday : React.FC<any> = (props) => {
         console.log(e);
         const id = e.id;
         const field = e.field;
-        var value = e.value;
+        const value = e.value;
         console.log(id, field, value);
 
-        if(!value){
-          value = "";
+        if(!e.value){
+          e.value = "";
         }
 
         var token = "";
@@ -329,40 +344,17 @@ const WorkLoadToday : React.FC<any> = (props) => {
     return (
         <div>
             <div className={styles.mysearchDate}>
-                <div className={styles.caution2}>
-                    - '꼭!' 업무 완료 후에 답변 적어주세요. (업무 완료 전에 미리 작성하지 말기) : ) <br>
-                    </br>
-                    - '완료 답변'은 구체적으로 적어주세요.
+                <div>
+                    꼭! [업무 완료 후]에 처리사항 구체적으로 적어주세요.   
                 </div>
                 <div>
                     {new Date().getFullYear()}-{new Date().getMonth() + 1}-{new Date().getDate()}
                 </div>
             </div>
             <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white" }}>
-                <DataGridPro loading={loading} rows={rows} columns={columns}
+                <DataGridPro loading={loading} rows={rows2} columns={columns2}
+                    density="compact"
                     components={{ Toolbar: GridToolbar }}
-                    getRowClassName={(params: any) => {
-                        if (!params.getValue(params.id, "answer")) {
-                            if (params.getValue(params.id, "startTime") <= currentTime && params.getValue(params.id, "endTime") >= currentTime) {
-                                return (
-                                    "super-app-theme--확인"
-                                )
-                            } else if(params.getValue(params.id, "startTime") > currentTime){
-                                return (
-                                    "super-app-theme"
-                                )
-                            } else {
-                              return (
-                                "super-app-theme--미확인"
-                              )
-                            }
-                        } else {
-                            return (
-                                "super-app-theme--처리완료"
-                            )
-                        }
-                    }
-                    }
                     onCellEditCommit={handleCommit}
                     disableSelectionOnClick={true}
                 />
@@ -374,4 +366,4 @@ const WorkLoadToday : React.FC<any> = (props) => {
     )
 }
 
-export default WorkLoadToday;
+export default TotalWorkLoad;

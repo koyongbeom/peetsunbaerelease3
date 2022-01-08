@@ -190,107 +190,70 @@ function isOverflown(element: Element): boolean {
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 const columns: GridColDef[] = [
-    { field: 'time', headerName: '시간', width: 120, filterable : false},
+    { field: 'fromUser', headerName: '보낸사람', width: 120, filterable : false},
+    { field: 'time', headerName: '시간', width: 160, filterable : false},
     { field: 'description', headerName: '내용', width: 730, renderCell: renderCellExpand, filterable : false },
-    { field: 'answer', headerName: '완료 답변', width: 150, editable : true, renderCell: renderCellExpand, filterable : false},
-    { field: 'answerTime', headerName: '완료시간', width: 150, renderCell: renderCellExpand, filterable : false},
-    { field: 'answerName', headerName: '답변인', width: 150, renderCell: renderCellExpand, filterable : false},
-    { field: 'location', headerName: '장소', width: 100},
-    { field: 'ip', headerName: 'IP', width: 150, renderCell: renderCellExpand, filterable : false},
-    { field: 'block', headerName: '', width: 150, renderCell: renderCellExpand, filterable : false},
-
+    { field: 'answer', headerName: '답변 보내기', width: 150, editable : true, renderCell: renderCellExpand, filterable : false},
   ];
 
-const WorkLoadToday : React.FC<any> = (props) => {
+const MyMessage : React.FC<any> = (props) => {
     const classes = useStyles2();
     const [rows, setRows] = useState<any>([]);
     const [loading, setLoading] = useState(false);
     const [editRowsModel, setEditRowsModel] = React.useState({});
 
     const [update, setUpdate] = useState(0);
-    const [currentTime, setCurrentTime] = useState(new Date().getHours() * 60 + new Date().getMinutes());
 
-    useEffect(() => {
-        setTimeout(()=>{
-            setUpdate(Math.random());
-        }, 40000);
-    }, []);
-    
-    
     
     useEffect(() => {
         setLoading(true);
 
-        setTimeout(()=>{
-            setCurrentTime(new Date().getHours() * 60 + new Date().getMinutes());
-        }, 20000)
-
-        
         const start = async () => {
             var token = "";
             if (window.electron) {
                 token = await window.electron.sendMessageApi.getToken();
             }
 
-            fetch("https://peetsunbae.com/dashboard/report/work", {
+            fetch("https://peetsunbae.com/dashboard/envelope/message", {
                 method: "GET",
                 headers: { "Authorization": token },
                 credentials: "include",
             }).then((response: any) => {
                 response.json()
                     .then((result: any) => {
-                      setLoading(false);
-                      console.log(result);
-                      const data = result.data;
-                      const answers = result.answer;
-
-                      data.sort(function (a: any, b: any) {
-                        if (a.startTime > b.startTime) {
-                          return 1;
-                        }
-                        if (a.startTime === b.startTime) {
-                          if (a.endTime >= b.endTime) {
-                            return 1;
-                          } else {
-                            return -1;
-                          }
-                        }
-                        if (a.startTime < b.startTime) {
-                          return -1;
-                        }
-                      });
-                      console.log(data);
-
-                      const newRows: any = [];
-
-                        data.forEach((each: any, number : number) => {
+                        setLoading(false);
+                        console.log(result);
+                        const newRows : any = [];
+                        result.data.forEach((each : any)=>{
                             const oneRow : any = {};
-                            oneRow.id = each.id;
-                            oneRow.time = `${Math.floor(each.startTime/60) < 10 ? "0" + Math.floor(each.startTime/60) : Math.floor(each.startTime/60)}:${each.startTime%60 < 10 ? "0" + each.startTime%60 : each.startTime%60}~${Math.floor(each.endTime/60) < 10 ? "0" + Math.floor(each.endTime/60) : Math.floor(each.endTime/60)}:${each.endTime%60 < 10 ? "0" + each.endTime%60 : each.endTime%60}`
-                            oneRow.location = each.location;
-                            oneRow.description = each.description;
-                            oneRow.startTime = each.startTime;
-                            oneRow.endTime = each.endTime;
-                            oneRow.block = "--------------------------------------";
-                            answers.forEach((answer : any)=>{
-                                if(answer.workId === each.id){
-                                    oneRow.answer = answer.answer;
-                                    const answerDate = new Date(answer.answerTime);
-                                    oneRow.answerTime = `${answerDate.getHours() < 10 ? "0"+answerDate.getHours() : answerDate.getHours()} : ${answerDate.getMinutes() < 10 ? "0"+answerDate.getMinutes() : answerDate.getMinutes()}`;
-                                    oneRow.ip = answer.ip;
-                                    oneRow.answerName = answer.answerUserName;
+                            const createdAt = new Date(each.createdAt);
+                            var ampm : string;
+                            var hours : number;
+                            if(createdAt.getHours() >= 12){
+                                ampm = "오후";
+                                hours = createdAt.getHours() - 12;
+                                if(hours === 0){
+                                    hours = 12;
                                 }
-                            })
+                            }else{
+                                ampm = "오전";
+                                hours = createdAt.getHours()
+                            }
+                            oneRow.id = each.id;
+                            oneRow.fromUser = each.fromUserName;
+                            oneRow.time = `${createdAt.getFullYear()}-${createdAt.getMonth()+1}-${createdAt.getDate()} ${ampm} ${hours < 10 ? "0" + hours : hours}:${createdAt.getMinutes() < 10 ? "0" + createdAt.getMinutes() : createdAt.getMinutes()}`
+                            oneRow.description = each.message;
+                            oneRow.answer = each.answer;
                             newRows.push(oneRow);
-                        });
-
+                        })
+                        console.log(11);
                         setRows([...newRows]);
                     })
             })
         }
 
         start();
-    }, [update]);
+    }, []);
 
     const handleCommit = async (e : any) => {
         console.log(e);
@@ -300,15 +263,15 @@ const WorkLoadToday : React.FC<any> = (props) => {
         console.log(id, field, value);
 
         if(!value){
-          value = "";
-        }
+            value = "";
+          }
 
         var token = "";
             if (window.electron) {
                 token = await window.electron.sendMessageApi.getToken();
             }
 
-            fetch(`https://peetsunbae.com/dashboard/report/work`, {
+            fetch(`https://peetsunbae.com/dashboard/envelope/message`, {
                 method: "PATCH",
                 headers: { "Authorization": token, "Content-Type" : "application/json" },
                 credentials: "include",
@@ -319,59 +282,45 @@ const WorkLoadToday : React.FC<any> = (props) => {
                 response.json()
                     .then((result: any) => {
                         console.log(result);
-                        setUpdate(Math.random());
                     })
             })
     }
 
 
 
-    return (
-        <div>
-            <div className={styles.mysearchDate}>
-                <div className={styles.caution2}>
-                    - '꼭!' 업무 완료 후에 답변 적어주세요. (업무 완료 전에 미리 작성하지 말기) : ) <br>
-                    </br>
-                    - '완료 답변'은 구체적으로 적어주세요.
-                </div>
-                <div>
-                    {new Date().getFullYear()}-{new Date().getMonth() + 1}-{new Date().getDate()}
-                </div>
-            </div>
-            <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white" }}>
-                <DataGridPro loading={loading} rows={rows} columns={columns}
-                    components={{ Toolbar: GridToolbar }}
-                    getRowClassName={(params: any) => {
-                        if (!params.getValue(params.id, "answer")) {
-                            if (params.getValue(params.id, "startTime") <= currentTime && params.getValue(params.id, "endTime") >= currentTime) {
-                                return (
-                                    "super-app-theme--확인"
-                                )
-                            } else if(params.getValue(params.id, "startTime") > currentTime){
-                                return (
-                                    "super-app-theme"
-                                )
-                            } else {
-                              return (
-                                "super-app-theme--미확인"
-                              )
-                            }
-                        } else {
-                            return (
-                                "super-app-theme--처리완료"
-                            )
-                        }
-                    }
-                    }
-                    onCellEditCommit={handleCommit}
-                    disableSelectionOnClick={true}
-                />
-            </div>
-            <div className={styles.mysearchDescription}>
-                * 미완료 - 빨강색, 현재 할일 - 주황색, 완료 - 파랑색<br />
-            </div>
+  return (
+    <div>
+      <div className={styles.mysearchDate}>
+        <div className={styles.caution}>
+          꼭! 메세지 확인 후 '답변 보내기'에 답변 보내주세요.(수월한 업무처리 도와주세요!)
         </div>
-    )
+        <div>
+          {new Date().getFullYear()}-{new Date().getMonth() + 1}-{new Date().getDate()}
+        </div>
+      </div>
+      <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white" }}>
+        <DataGridPro loading={loading} rows={rows} columns={columns}
+          onCellEditCommit={handleCommit}
+          disableSelectionOnClick={true}
+          getRowClassName={(params) => {
+            if(params.getValue(params.id, "answer")){
+              return (
+                `super-app-theme`
+              )
+            }else{
+              return (
+                `super-app-theme--처리완료`
+              )
+            }
+          }
+          }
+        />
+      </div>
+      <div className={styles.mysearchDescription}>
+        * 미답변 메세지 - 파랑색<br />
+      </div>
+    </div>
+  )
 }
 
-export default WorkLoadToday;
+export default MyMessage;

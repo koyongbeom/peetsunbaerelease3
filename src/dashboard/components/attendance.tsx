@@ -17,6 +17,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Alert, Stack } from '@mui/material';
 import WorkLoadToday from './controls/workloadtoday';
+import TotalWorkLoad from './controls/totalworkload';
+import koLocale from 'date-fns/locale/ko'
 
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
@@ -151,6 +153,10 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                     searchMenu === "write" &&
                     <WorkLoadToday />
                 }
+                {
+                    searchMenu === "watch" &&
+                    <TotalWorkLoad />
+                }
 
 
             </div>
@@ -191,7 +197,7 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                         <div className={styles.timeDiv}>수행 시간</div>
                         <div className={styles.timeSelect}>
                             <div>
-                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                                     <TimePicker
                                         value={startTime}
                                         onChange={(newValue: any) => {
@@ -206,7 +212,7 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                                 ~
                             </div>
                             <div>
-                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                                     <TimePicker
                                         value={endTime}
                                         onChange={(newValue: any) => {

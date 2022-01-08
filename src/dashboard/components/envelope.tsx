@@ -11,10 +11,15 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { createStyles, makeStyles } from '@mui/styles';
 import styles from '../componentsStyle/envelope.module.css';
-import { createTheme, darken, lighten } from '@mui/material/styles';
+
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Autocomplete from '@mui/material/Autocomplete';
+import LinearProgress from '@mui/material/LinearProgress';
+import { Alert, Stack } from '@mui/material';
+import MyMessage from './controls/mymessage';
+import TotalMessage from './controls/totalmessage';
+
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -46,6 +51,8 @@ const Envelope: React.FC<envelopeProps> = (props) => {
     const [active, setActive] = useState(true);
     const [users, setUsers] = useState<any>();
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [uploadBool, setUploadBool] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => {setActive(true); setOpen(false);}
 
@@ -83,8 +90,11 @@ const Envelope: React.FC<envelopeProps> = (props) => {
             })
         }
 
+        if(props.user.value === "teacher" || props.user.value === "staff"){
         start();
-    }, [])
+        }
+    }, []);
+
 
     const onchange = (e: any, value: any) => {
         console.log(value);
@@ -105,9 +115,38 @@ const Envelope: React.FC<envelopeProps> = (props) => {
         }
     }
 
-    const submit = (e : any) => {
+    const submit = async (e : any) => {
         console.log(selectedUser);
         console.log(message);
+
+        setLoading(true);
+
+        var token = "";
+        if (window.electron) {
+            token = await window.electron.sendMessageApi.getToken();
+        }
+
+        fetch("https://peetsunbae.com/dashboard/envelope/message", {
+            method: "POST",
+            headers: { "Authorization": token, "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+                message, selectedUser
+            })
+        }).then((response: any) => {
+            response.json()
+                .then((result: any) => {
+                    console.log(result);
+                    setLoading(false);
+                    if(result.message === "success"){
+                        setUploadBool(true);
+                        setTimeout(()=>{
+                            setUploadBool(false);
+                        }, 1000);
+                    }
+                })
+        })
+
     }
 
     return (
@@ -128,7 +167,22 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                         </div>
                     }
                 </div>
+
+                <div>
+                    {
+                        searchMenu === "write" &&
+                        <MyMessage />
+                    }
+                    {
+                        searchMenu === "watch" &&
+                        <TotalMessage />
+                    }
+                </div>
             </div>
+
+
+
+
             
             {(props.user.value === "teacher" || props.user.value === "staff") &&
             <div onClick={handleOpen} className="qnaWrite">
@@ -157,6 +211,22 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                     <div className={styles.textfieldDiv}>
                         <TextField value={message} onChange={(e)=>{changeMessage(e)}} fullWidth id="outlined-basic" label="메세지" variant="outlined" />
                     </div>
+
+                    
+                    {loading &&
+                        <Box sx={{ width: '100%', marginTop: 3, marginBottom: 3 }}>
+                            <LinearProgress />
+                        </Box>
+                    }
+
+
+
+                    {uploadBool &&
+                        <Stack sx={{ width: '100%' }} spacing={2}>
+                            <Alert severity="info" sx={{ marginTop: 2, marginBottom: 2 }}><span className={styles.spanStyles2}>업로드 성공 !</span></Alert>
+                        </Stack>
+                    }
+
                     <div className={styles.buttonDiv}>
                         <Button onClick={submit} disabled={active} variant="contained"><span className={styles.buttonText}>전송하기</span></Button>
                     </div>

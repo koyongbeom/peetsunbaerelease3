@@ -276,7 +276,7 @@ const Edit: React.FC<editProps> = (props) => {
                                     <div className="timePickerExitTitle">
                                         학원 나가는 시간
                                     </div>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                                         <TimePicker
                                             value={exitValue}
                                             onChange={(newValue: any) => {
@@ -294,7 +294,7 @@ const Edit: React.FC<editProps> = (props) => {
                                     <div className="timePickerArriveTitle">
                                         학원 도착 시간
                                     </div>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                                         <TimePicker
                                             value={arriveValue}
                                             onChange={(newValue: any) => {
