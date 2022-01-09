@@ -6,6 +6,17 @@
     padding-right: 46px;
     padding-bottom: 71px;
     height: calc(100vh - 78px);
+    overflow: auto;
+}
+
+.main::-webkit-scrollbar{
+    background-color: #f5f5f5;
+    width: 6px !important;
+}
+
+.main::-webkit-scrollbar-thumb{
+    background-color: #bbbcb6;
+    border-radius: 10px;
 }
 
 .title {

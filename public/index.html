@@ -71,6 +71,7 @@
     .hidden {
       display: none;
     }
+
   </style>
 
 
@@ -106,6 +107,7 @@
   </div>
   </div>
 
+
   <script>
     const { ipcRenderer } = require('electron');
     const version = document.getElementById('version');
@@ -137,6 +139,7 @@
     function restartApp() {
         ipcRenderer.send('restart_app');
     }
+
 </script>
 
 
