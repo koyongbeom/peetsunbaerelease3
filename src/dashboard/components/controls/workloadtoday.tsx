@@ -52,6 +52,9 @@ const useStyles2 = makeStyles(
             backgroundColor: getHoverBackgroundColor(theme.palette.error.main),
           },
         },
+        '& .timeout': {
+          color : theme.palette.error.main,
+        },
       },
     };
   },
@@ -395,36 +398,50 @@ const WorkLoadToday: React.FC<any> = (props) => {
         </div>
       </div>
       <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white" }}>
-        <DataGridPro loading={loading} rows={rows} columns={columns}
-          density='compact'
-          components={{ Toolbar: GridToolbar }}
-          filterModel={filterModel}
-          onFilterModelChange={(model) => setFilterModel(model)}
-          getRowClassName={(params: any) => {
-            if (!params.getValue(params.id, "answer")) {
-              if (params.getValue(params.id, "startTime") <= currentTime && params.getValue(params.id, "endTime") >= currentTime) {
-                return (
-                  "super-app-theme--확인"
-                )
-              } else if (params.getValue(params.id, "startTime") > currentTime) {
-                return (
-                  "super-app-theme"
-                )
+        
+          <DataGridPro loading={loading} rows={rows} columns={columns}
+            density='compact'
+            components={{ Toolbar: GridToolbar }}
+            filterModel={filterModel}
+            onFilterModelChange={(model) => setFilterModel(model)}
+            getRowClassName={(params: any) => {
+              if (!params.getValue(params.id, "answer")) {
+                if (params.getValue(params.id, "startTime") <= currentTime && params.getValue(params.id, "endTime") >= currentTime) {
+                  return (
+                    "super-app-theme--확인"
+                  )
+                } else if (params.getValue(params.id, "startTime") > currentTime) {
+                  return (
+                    "super-app-theme"
+                  )
+                } else {
+                  return (
+                    "super-app-theme--미확인"
+                  )
+                }
               } else {
                 return (
-                  "super-app-theme--미확인"
+                  "super-app-theme--처리완료"
                 )
               }
-            } else {
-              return (
-                "super-app-theme--처리완료"
-              )
             }
-          }
-          }
-          onCellEditCommit={handleCommit}
-          disableSelectionOnClick={true}
-        />
+            }
+            getCellClassName={(params: any) => {
+              if (params.field != "answerTime") {
+                return '';
+              } else if(!params.value){
+                return '';
+              } else {
+                const hours = +(params.value.split(":")[0]);
+                const minutes = +(params.value.split(":")[1]);
+                const answerTimeValue = hours * 60 + minutes;
+                return (params.row.startTime > answerTimeValue || params.row.endTime < answerTimeValue) ? "timeout" : "";
+              }
+            }}
+            onCellEditCommit={handleCommit}
+            disableSelectionOnClick={true}
+          />
+        
       </div>
       <div className={styles.mysearchDescription}>
         * 미완료 - 빨강색, 현재 할일 - 주황색, 완료 - 파랑색<br />
