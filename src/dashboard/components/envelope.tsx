@@ -19,6 +19,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { Alert, Stack } from '@mui/material';
 import MyMessage from './controls/mymessage';
 import TotalMessage from './controls/totalmessage';
+import { Socket } from 'socket.io-client';
 
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
@@ -28,7 +29,9 @@ type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book
 
 interface envelopeProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
-    user: any
+    user: any;
+    socket : Socket;
+    unreadMessage : any;
 }
 
 const style = {
@@ -143,6 +146,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                         setTimeout(()=>{
                             setUploadBool(false);
                         }, 1000);
+                        props.socket.emit("newMessage", selectedUser.id, props.user.name);
                     }
                 })
         })
@@ -171,7 +175,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                 <div>
                     {
                         searchMenu === "write" &&
-                        <MyMessage />
+                        <MyMessage unreadMessage={props.unreadMessage} />
                     }
                     {
                         searchMenu === "watch" &&

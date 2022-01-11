@@ -281,6 +281,7 @@ const MyMessage : React.FC<any> = (props) => {
             }).then((response: any) => {
                 response.json()
                     .then((result: any) => {
+                        props.unreadMessage();
                         console.log(result);
                     })
             })

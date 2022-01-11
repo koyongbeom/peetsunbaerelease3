@@ -52,6 +52,7 @@ type currentSideBarMenuList = "avatar" | "home" | "notification" | "alarm" | "ed
 const Dashboard: React.FC<props> = (props) => {
     // const classes = props.classes;
     const socket = props.socket;
+    const [count, setCount] = useState(0);
     const [user, setUser] = useState<user | null>();
     const [location, setLocation] = useState<string>("");
     const [sideBarMenuList, setSideBarMenuList] = useState<any>();
@@ -64,9 +65,36 @@ const Dashboard: React.FC<props> = (props) => {
         console.log(props.location.pathname);
     })
 
+    //답장 안한 message 갯수 물어보는 기능
+    const unreadMessage = async () => {
+        var token = "";
+            //-----// 만약 electron 이라면 저장되어 있는 토큰 가져오는 기능----------
+            if (window.electron) {
+                token = await window.electron.sendMessageApi.getToken();
+            }
+            //------------------------------------------------------------------
+
+            fetch("https://peetsunbae.com/dashboard/envelope/number", {
+                method: "GET",
+                credentials: "include",
+                headers: { 'Authorization': token }
+            }).then((response) => {
+                response.json()
+                    .then((result) => {
+                        console.log("------------");
+                        console.log(result);
+                        setCount(result.data);
+                    })
+            }).catch(error => {
+                console.log(error);
+            })
+    }
+
 
     //처음 dashboard 진입 시 토큰 가지고 있는지랑 가지고 있다면 토큰 정보 받기-------
     useEffect(() => {
+
+        unreadMessage();
 
         async function start() {
             var token = "";
@@ -219,6 +247,14 @@ const Dashboard: React.FC<props> = (props) => {
         
         //--------------------------------------------------------------------------------
 
+        //새로운 메세지 받았을 때
+        socket.on("newMessage", (messageUserName)=>{
+            console.log("----------");
+            console.log("newMessage");
+            new window.Notification("새로운 메세지가 왔습니다.", {body : `${messageUserName}님이 메세지를 보냈습니다.`});
+            unreadMessage();
+        })
+
         return function cleanup() {socket.off("newAnswer")}
 
     }, []);
@@ -298,7 +334,13 @@ const Dashboard: React.FC<props> = (props) => {
                                                             <div className={styles.menuimgcontainer}>
                                                                 <img src={"img/off/" + each.name + ".svg"} alt={each.name} className={styles.sideMenuListImg}></img>
                                                             </div>
-                                                            <div className={styles.sideMenuListText}>{each.description}</div>
+                                                            <div className={styles.sideMenuListText}>
+                                                                {each.description}
+                                                            </div>
+                                                            {
+                                                                    (each.name === "envelope" && count > 0) ?
+                                                                    <div className={styles.noticeNumber}>{count} +</div> : ""
+                                                            }
                                                         </li>
                                                     </Link>
                                                 )
@@ -309,7 +351,13 @@ const Dashboard: React.FC<props> = (props) => {
                                                             <div className={styles.menuimgcontainer}>
                                                                 <img src={"img/on/" + each.name + ".svg"} alt={each.name} className={styles.sideMenuListImg}></img>
                                                             </div>
-                                                            <div className={styles.sideMenuListTextActive}>{each.description}</div>
+                                                            <div className={styles.sideMenuListTextActive}>
+                                                                {each.description}
+                                                            </div>
+                                                            {
+                                                                    (each.name === "envelope" && count > 0) ?
+                                                                    <div className={styles.noticeNumber}>{count} +</div> : ""
+                                                            }
                                                         </li>
                                                     </Link>
                                                 )
@@ -329,7 +377,7 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route path="/dashboard/book" render={(props) => <Book activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/chart" render={(props) => <Chart activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/edit" render={(props) => <Edit user={user} activateMenuList={activateMenuList} {...props}  />} />
-                        <Route path="/dashboard/envelope" render={(props) => <Envelope user={user} activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/envelope" render={(props) => <Envelope unreadMessage={unreadMessage} socket={socket} user={user} activateMenuList={activateMenuList} {...props}  />} />
                         <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />
                         <Route exact path="/dashboard/question" render={(props) => <Question user={user} activateMenuList={activateMenuList} {...props} socket={socket} />} />
                         <Route path="/dashboard/report" render={(props) => <Report activateMenuList={activateMenuList} {...props}  />} />
