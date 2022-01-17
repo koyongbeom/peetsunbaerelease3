@@ -190,13 +190,13 @@ function isOverflown(element: Element): boolean {
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 const columns: GridColDef[] = [
-    { field: 'fromUser', headerName: '보낸사람', width: 120, filterable : false},
+    { field: 'fromUser', headerName: '받은사람', width: 120, filterable : false},
     { field: 'description', headerName: '내용', width: 730, renderCell: renderCellExpand, filterable : false },
-    { field: 'answer', headerName: '답장 보내기', width: 150, editable : true, renderCell: renderCellExpand, filterable : false},
-    { field: 'time', headerName: '도착시간', width: 160, filterable : false},
+    { field: 'answer', headerName: '답장', width: 150, renderCell: renderCellExpand, filterable : false},
+    { field: 'time', headerName: '시간', width: 160, filterable : false},
   ];
 
-const MyMessage : React.FC<any> = (props) => {
+const MineMessage : React.FC<any> = (props) => {
     const classes = useStyles2();
     const [rows, setRows] = useState<any>([]);
     const [loading, setLoading] = useState(false);
@@ -214,7 +214,7 @@ const MyMessage : React.FC<any> = (props) => {
                 token = await window.electron.sendMessageApi.getToken();
             }
 
-            fetch("https://peetsunbae.com/dashboard/envelope/message", {
+            fetch("https://peetsunbae.com/dashboard/envelope/minemessage", {
                 method: "GET",
                 headers: { "Authorization": token },
                 credentials: "include",
@@ -240,7 +240,7 @@ const MyMessage : React.FC<any> = (props) => {
                                 hours = createdAt.getHours()
                             }
                             oneRow.id = each.id;
-                            oneRow.fromUser = each.fromUserName;
+                            oneRow.fromUser = each.toUserName;
                             oneRow.time = `${createdAt.getMonth()+1}월${createdAt.getDate()}일 ${ampm} ${hours < 10 ? "0" + hours : hours}:${createdAt.getMinutes() < 10 ? "0" + createdAt.getMinutes() : createdAt.getMinutes()}`
                             oneRow.description = each.message;
                             oneRow.answer = each.answer;
@@ -255,45 +255,12 @@ const MyMessage : React.FC<any> = (props) => {
         start();
     }, []);
 
-    const handleCommit = async (e : any) => {
-        console.log(e);
-        const id = e.id;
-        const field = e.field;
-        var value = e.value;
-        console.log(id, field, value);
-
-        if(!value){
-            value = "";
-          }
-
-        var token = "";
-            if (window.electron) {
-                token = await window.electron.sendMessageApi.getToken();
-            }
-
-            fetch(`https://peetsunbae.com/dashboard/envelope/message`, {
-                method: "PATCH",
-                headers: { "Authorization": token, "Content-Type" : "application/json" },
-                credentials: "include",
-                body : JSON.stringify({
-                    id, field, value
-                })
-            }).then((response: any) => {
-                response.json()
-                    .then((result: any) => {
-                        props.unreadMessage();
-                        console.log(result);
-                    })
-            })
-    }
-
-
 
   return (
     <div>
       <div className={styles.mysearchDate}>
         <div className={styles.caution}>
-          꼭! 메세지 확인 후 '답변 보내기'에 답변 보내주세요.(수월한 업무처리 도와주세요!)
+          학원에 대한 모든 건의사항, 요청사항은 '의견 보내기' 메뉴에서 보내주세요 !
         </div>
         <div>
           {new Date().getFullYear()}-{new Date().getMonth() + 1}-{new Date().getDate()}
@@ -301,8 +268,6 @@ const MyMessage : React.FC<any> = (props) => {
       </div>
       <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white" }}>
         <DataGridPro loading={loading} rows={rows} columns={columns}
-          onCellEditCommit={handleCommit}
-          disableSelectionOnClick={true}
           getRowClassName={(params) => {
             if(params.getValue(params.id, "answer")){
               return (
@@ -324,4 +289,4 @@ const MyMessage : React.FC<any> = (props) => {
   )
 }
 
-export default MyMessage;
+export default MineMessage;

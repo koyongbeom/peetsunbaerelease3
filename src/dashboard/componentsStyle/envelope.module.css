@@ -59,7 +59,7 @@
 }
 
 .textfieldDiv {
-    margin-top: 16px;
+    margin-top: 20px;
 }
 
 .buttonDiv {
@@ -74,4 +74,15 @@
 
 .spanStyles2 {
     font-family: "Apple_R";
+}
+
+.messageTitle {
+    font-family: "Apple_B";
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.nameText {
+    font-family: "Apple_R";
+    font-size: 15px;
 }

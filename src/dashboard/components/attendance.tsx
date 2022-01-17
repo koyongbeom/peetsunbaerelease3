@@ -19,6 +19,8 @@ import { Alert, Stack } from '@mui/material';
 import WorkLoadToday from './controls/workloadtoday';
 import TotalWorkLoad from './controls/totalworkload';
 import koLocale from 'date-fns/locale/ko'
+import TotalAttendance from './controls/totalattendance';
+import Mobile from './controls/mobile';
 
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
@@ -137,7 +139,7 @@ const Attendance: React.FC<attendanceProps> = (props) => {
 
             <div className={styles.mainBoard}>
                 <div className={styles.title}>
-                    <img src="img/off/chart.svg" alt="chart" /> 업무 보고
+                    <img src="img/off/chart.svg" alt="chart" /> 업무 관리
                 </div>
 
                 <div className={styles.searchMenu}>
@@ -146,6 +148,12 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                     </div>
                     <div onClick={(e) => { setSearchMenu("watch") }} className={`${styles.searchMenuDiv} ${searchMenu === "watch" ? styles.active : ""}`}>
                         전체 업무보고
+                    </div>
+                    <div onClick={(e) => { setSearchMenu("attendance") }} className={`${styles.searchMenuDiv} ${searchMenu === "attendance" ? styles.active : ""}`}>
+                        출결버스
+                    </div>
+                    <div onClick={(e) => { setSearchMenu("message") }} className={`${styles.searchMenuDiv} ${searchMenu === "message" ? styles.active : ""}`}>
+                        문자매니저
                     </div>
                 </div>
 
@@ -156,6 +164,14 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                 {
                     searchMenu === "watch" &&
                     <TotalWorkLoad />
+                }
+                {
+                    searchMenu === "attendance" &&
+                    <TotalAttendance />
+                }
+                {
+                    searchMenu === "message" &&
+                    <Mobile />
                 }
 
 

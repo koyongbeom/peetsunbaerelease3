@@ -41,6 +41,7 @@ const Edit: React.FC<editProps> = (props) => {
 
     const [noRemain, setNoremain] = useState(false);
     const [remain, setRemain] = useState(0);
+    const [count, setCount] = useState(0);
     const exitArriveDefaultDate = new Date(2021, 11, 8, 9);
     const [dateValue, setDateValue] = useState(date);
     const [exitValue, setExitValue] = useState(exitArriveDefaultDate);
@@ -70,10 +71,7 @@ const Edit: React.FC<editProps> = (props) => {
                 response.json()
                     .then((result: any) => {
                         console.log(result);
-                        if (result.message > 3) {
-                            result.message = 3;
-                        }
-                        setRemain(3 - result.message);
+                        setCount(result.message);
                     })
             })
         }
@@ -103,10 +101,6 @@ const Edit: React.FC<editProps> = (props) => {
         //     alert("사유를 적은 후에 제출 부탁드립니다 : )");
         //     return;
         // }
-        if (remain < 1) {
-            setNoremain(true);
-            return;
-        }
 
         setLoading(true);
         var dateInfo = new Date(dateValue);
@@ -230,7 +224,7 @@ const Edit: React.FC<editProps> = (props) => {
                     }
                 </div>
                 <div className="remain">
-                    # 잔여 횟수 - <span>{remain}</span>회
+                    # 이번달 제출 횟수 - <span>{count}</span>회
                 </div>
             </div>
 

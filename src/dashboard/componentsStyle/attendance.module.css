@@ -116,3 +116,55 @@
     font-family: "Apple_R";
 }
 
+.board {
+    margin-top: 40px;
+    padding-top: 24px;
+    display: flex;
+}
+
+.phoneBoard {
+    background-color: white;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 32px;
+}
+
+.phoneBoard:hover{
+    background-color: rgb(200, 200, 200);
+}
+
+.phone {
+    width: 32px;
+}
+
+.phoneTitle {
+    font-family: "Apple_B";
+    color: black;
+}
+
+.messageLaw {
+    margin-top: 64px;
+    font-family: "Apple_R";
+}
+
+.messageLawTitle {
+    font-family: "Apple_B";
+    font-size: 18px;
+}
+
+.bold {
+    color: red;
+    font-family: "Apple_B";
+}
+
+.messageLawText {
+    margin-top: 8px;
+    margin-left: 16px;
+    font-family: "Apple_R";
+}

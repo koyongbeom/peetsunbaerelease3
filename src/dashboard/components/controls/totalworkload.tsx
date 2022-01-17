@@ -493,7 +493,7 @@ const TotalWorkLoad: React.FC<any> = (props) => {
           components={{ Toolbar: GridToolbar }}
           filterModel={filterModel}
           onFilterModelChange={(model) => setFilterModel(model)}
-          disableSelectionOnClick={true}
+          disableSelectionOnClick={false}
           getRowClassName={(params: any) => {
             if (!params.getValue(params.id, "answer")) {
               return (

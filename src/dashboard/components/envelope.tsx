@@ -20,6 +20,7 @@ import { Alert, Stack } from '@mui/material';
 import MyMessage from './controls/mymessage';
 import TotalMessage from './controls/totalmessage';
 import { Socket } from 'socket.io-client';
+import MineMessage from './controls/minemessage';
 
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
@@ -41,9 +42,11 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    borderRadius : "24px",
     boxShadow: 24,
-    p: 4,
+    p: 3,
+    paddingLeft : 5,
+    paddingRight : 5
 };
 
 
@@ -81,6 +84,26 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                         result.data.forEach((each: any, index: number) => {
                             var data: any = {};
                             data.id = each.id;
+                            switch (each.name){
+                                case "고용범" : 
+                                    each.name = "[대표]" + " 고용범";
+                                    break;
+                                case "곽윤정" :
+                                    each.name = "[2호점 저녁 조교샘]" + " 곽윤정";
+                                    break;
+                                case "김아현" :
+                                    each.name = "[2호점 낮 조교샘]" + " 김아현";
+                                    break;
+                                case "박가을" :
+                                    each.name = "[원장]" + " 박가을";
+                                    break;
+                                case "심윤주" :
+                                    each.name = "[본점 4층 조교샘]" + " 심윤주";
+                                    break;
+                                case "양지원" :
+                                    each.name = "[본점 6층 조교샘]" + " 양지원";
+                                    break;
+                            }
                             data.label = each.name;
                             data.phoneNumber = each.phoneNumber;
                             data.value = each.value;
@@ -93,9 +116,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
             })
         }
 
-        if(props.user.value === "teacher" || props.user.value === "staff"){
         start();
-        }
     }, []);
 
 
@@ -165,6 +186,9 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                     <div onClick={(e) => { setSearchMenu("write") }} className={`${styles.searchMenuDiv} ${searchMenu === "write" ? styles.active : ""}`}>
                         나에게 온 메세지
                     </div>
+                    <div onClick={(e) => { setSearchMenu("mine") }} className={`${styles.searchMenuDiv} ${searchMenu === "mine" ? styles.active : ""}`}>
+                        내가 보낸 메세지
+                    </div>
                     {(props.user.value === "teacher" || props.user.value === "staff") &&
                         <div onClick={(e) => { setSearchMenu("watch") }} className={`${styles.searchMenuDiv} ${searchMenu === "watch" ? styles.active : ""}`}>
                             전체 메세지
@@ -178,6 +202,10 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                         <MyMessage unreadMessage={props.unreadMessage} />
                     }
                     {
+                        searchMenu === "mine" &&
+                        <MineMessage />
+                    }
+                    {
                         searchMenu === "watch" &&
                         <TotalMessage />
                     }
@@ -188,12 +216,12 @@ const Envelope: React.FC<envelopeProps> = (props) => {
 
 
             
-            {(props.user.value === "teacher" || props.user.value === "staff") &&
+
             <div onClick={handleOpen} className="qnaWrite">
                 <img src="./img/pencil.svg" alt="pencil" />
                 메세지 보내기
             </div>
-            }
+            
 
             <Modal
                 open={open}
@@ -202,18 +230,21 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
+                    <div className={styles.messageTitle}>
+                        메세지 보내기
+                    </div>
                     <div className={styles.autocompleteDiv}>
                         <Autocomplete
                             onChange={onchange}
                             disablePortal
                             id="combo-box-demo"
                             options={users}
-                            sx={{ width: "100%" }}
-                            renderInput={(params) => <TextField {...params} label="이름" />}
+                            sx={{ width: "100%", borderRadius : "40px !important" }}
+                            renderInput={(params) => <TextField {...params} sx={{borderRadius : "24px"}} label={<span className={styles.nameText}>이름</span>} />}
                         />
                     </div>
                     <div className={styles.textfieldDiv}>
-                        <TextField value={message} onChange={(e)=>{changeMessage(e)}} fullWidth id="outlined-basic" label="메세지" variant="outlined" />
+                        <TextField value={message} onChange={(e)=>{changeMessage(e)}} fullWidth id="outlined-basic" label={<span className={styles.nameText}>메세지</span>} variant="outlined" />
                     </div>
 
                     

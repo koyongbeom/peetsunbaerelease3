@@ -52,7 +52,7 @@ const menu = [
     {
         value : ["teacher", "staff"],
         name : "attendance",
-        description : "업무 보고"
+        description : "업무 관리"
     },
     {
 
