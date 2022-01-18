@@ -117,8 +117,7 @@
 }
 
 .board {
-    margin-top: 40px;
-    padding-top: 24px;
+    padding-top: 32px;
     display: flex;
 }
 
@@ -135,6 +134,14 @@
     margin-right: 32px;
 }
 
+.phoneBoard.active {
+    background-color: #3d50b0;
+}
+
+.phoneBoard.active .phoneTitle {
+    color: whitesmoke;
+}
+
 .phoneBoard:hover{
     background-color: rgb(200, 200, 200);
 }
@@ -149,7 +156,7 @@
 }
 
 .messageLaw {
-    margin-top: 64px;
+    margin-top: 32px;
     font-family: "Apple_R";
 }
 
@@ -167,4 +174,8 @@
     margin-top: 8px;
     margin-left: 16px;
     font-family: "Apple_R";
+}
+
+.mobiletitle {
+    font-family: "Apple_B";
 }

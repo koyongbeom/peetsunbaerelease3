@@ -153,7 +153,7 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                         출결버스
                     </div>
                     <div onClick={(e) => { setSearchMenu("message") }} className={`${styles.searchMenuDiv} ${searchMenu === "message" ? styles.active : ""}`}>
-                        문자매니저
+                        휴대폰 관리
                     </div>
                 </div>
 
