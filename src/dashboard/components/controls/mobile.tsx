@@ -84,9 +84,8 @@ const Mobile: React.FC<any> = (props) => {
 
         setCurrent(where);
 
-        console.log(`http://106.248.52.182:${port}`);
 
-        fetch(`http://106.248.52.182:${port}`, {
+        fetch(`https://peetsunbae.com/dashboard/report/mobile?where=${where}`, {
             method: "GET",
             headers: { "Authorization": token },
         }).then((response: any) => {
