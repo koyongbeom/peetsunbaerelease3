@@ -24,14 +24,14 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '1350px',
+    width: '1420px',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     backgroundColor: "#f5f5f5",
     pt: 1,
     pb: 4,
-    borderRadius: "8px"
+    borderRadius: "8px",
 };
 
 
@@ -74,6 +74,8 @@ const Chart: React.FC<chartProps> = (props) => {
     const [descriptionOrganic, setDescriptionOrganic] = useState("");
     const [descriptionPhysics, setDescriptionPhysics] = useState("");
     const [descriptionBiology, setDescriptionBiology] = useState("");
+
+    const [addText, setAddText] = useState("");
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const menuOpen = Boolean(anchorEl);
@@ -207,6 +209,9 @@ const Chart: React.FC<chartProps> = (props) => {
             case "descriptionBiology":
                 setDescriptionBiology(e.target.value);
                 break;
+            case "addText":
+                setAddText(e.target.value);
+                break;
         }
     }
 
@@ -237,7 +242,8 @@ const Chart: React.FC<chartProps> = (props) => {
             descriptionChemistry,
             descriptionOrganic,
             descriptionPhysics,
-            descriptionBiology
+            descriptionBiology,
+            addText
         }
 
         var token = "";
@@ -316,6 +322,7 @@ const Chart: React.FC<chartProps> = (props) => {
     const marginLeft = "10mm";
 
     const onchange = (e: any, value: any) => {
+        setOpen(false);
         setSelectedUser(value);
         if (value) {
             setActive(true);
@@ -526,6 +533,20 @@ const Chart: React.FC<chartProps> = (props) => {
                         <div className={styles.fourthRow_5}>
                             <div>
                                 <textarea onChange={(e) => { change(e, "descriptionBiology") }} value={descriptionBiology} className={styles.textarea} />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className={styles.fifthRow}>
+                        <div className={styles.fifthRow_1}>
+                            <div>
+                                추가사항<br />
+                            </div>
+                        </div>
+                        <div className={styles.fifthRow_2}>
+                            <div>
+                                <textarea onChange={(e) => { change(e, "addText") }} value={addText} className={styles.textarea} />
                             </div>
                         </div>
                     </div>

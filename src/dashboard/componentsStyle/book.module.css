@@ -9,29 +9,9 @@
     font-family: "Apple_R";
 }
 
-.mainModal {
-    background-color: #f5f5f5;
-    padding-bottom: 24px;
-    overflow: auto;
-    height: 750px;
-}
-
-.mainModal::-webkit-scrollbar{
-    background-color: #f5f5f5;
-    width: 0px !important;
-
-}
-
-.mainModal::-webkit-scrollbar-thumb{
-    background-color: #bbbcb6;
-    border-radius: 10px;
-
-}
-
 .main::-webkit-scrollbar{
     background-color: #f5f5f5;
     width: 6px !important;
-
 }
 
 .main::-webkit-scrollbar-thumb{
@@ -46,48 +26,18 @@
     font-size: 22px;
     font-family: "Apple_R";
     color: #303030;
+    margin-bottom: 31px;
 }
 
 .title img {
     margin-right: 10px;
 }
 
-.selectStudentText {
-    margin-top: 21px;
-    font-family: "Apple_R";
-    font-size: 21px;
-    letter-spacing: -1.05px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #cbcbcb;
-}
-
-.autocompleteDiv {
-    margin-top: 26px;
-}
-
-.selectMenuDiv {
-    margin-top: 37px;
+.onlyStudent {
     display: flex;
-    cursor: pointer;  
+    margin-bottom: 16px;
 }
 
-.selectMenu:hover{
-    background-color: rgba(255,255,255,.8);
-}
-
-.selectMenu {
-    width: 152px;
-    height: 46px;
-    border: 1px solid #c9c9c9;
-    border-radius: 28px;
-    margin-right: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Apple_R";
-    color: #566ee8;
-    letter-spacing: -0.8px;
-}
 
 .manageDiv {
     margin-top: 36px;
@@ -114,6 +64,10 @@
     display: flex;
     justify-content: space-between;
     margin-right: 50px;
+    width: 1150px;
+}
+
+.modalLinearProgress{
     width: 1150px;
 }
 
@@ -469,7 +423,6 @@
 
 .fourthRow {
     display: flex;
-    
 }
 
 .fourthRow div div {
@@ -565,338 +518,48 @@
 }
 
 
+
 .input {
-      padding-left: 10px;
-      padding-right: 10px;
-      width: 100%;
-      height: 100%;
-      border: none;
-      font-family: "Apple_R";
-  }
-
-  .input:focus {
-    outline: none !important;
-    border:1.5px solid blue;
-  }
-
-  .textarea {
-    font-family: "Apple_R";
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
     height: 100%;
     border: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    resize: none;
-  }
-
-  .textarea:focus {
-    outline: none !important;
-    border:1.5px solid #3d50b0;
-  }
-
-  .printDiv {
-      margin-top: 30px;
-  }
-
-
-
-
-
-
-  @media print {
-      .manageTable {
-        border-left: 1px solid black;
-        border-bottom: 1px solid black;
-        border-right: 1px solid black;
-      }
-      
-      
-.firstRow div {
-    border-right: 1px solid #707070;
-    border-bottom: 2px solid #707070;
+    font-family: "Apple_R";
 }
 
-.secondRow_1{
-    border-right: 1px solid #707070;
-    border-bottom: 2px solid #707070;
+.input:focus {
+  outline: none !important;
+  border:1.5px solid blue;
 }
 
-.secondRow_2 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
+.textarea {
+  font-family: "Apple_R";
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  resize: none;
 }
 
-.secondRow_2 div:nth-child(2){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
+.textarea:focus {
+  outline: none !important;
+  border:1.5px solid #3d50b0;
 }
 
-.secondRow_3 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.secondRow_3 div:nth-child(2){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.secondRow_4 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.secondRow_4 div:nth-child(2){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.secondRow_5 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.secondRow_5 div:nth-child(2){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.secondRow_6 div:first-child{
-    border-bottom: 1px solid #707070;
-}
-
-.secondRow_6 div:nth-child(2){
-    border-bottom: 2px solid #707070
-}
-
-.thirdRow_1{
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_2 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_2 div:nth-child(2){
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_2 div:nth-child(3){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_3 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_3 div:nth-child(2){
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_3 div:nth-child(3){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_4 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_4 div:nth-child(2){
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_4 div:nth-child(3){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_5 div:first-child{
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_5 div:nth-child(2){
-    border-bottom: 1px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_5 div:nth-child(3){
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid #707070;
-}
-
-.thirdRow_6 div:first-child{
-    border-bottom: 1px solid #707070;
-}
-
-.thirdRow_6 div:nth-child(2){
-    border-bottom: 1px solid #707070;
-
-}
-
-.thirdRow_6 div:nth-child(3){
-    border-bottom: 2px solid #707070;
-}
-
-
-
-.fourthRow_1 div{
-    border-right: 1px solid #707070;
-    border-bottom: 2px solid #707070;
-
-}
-
-.fourthRow_2 div{
-    border-right: 1px solid #707070;
-    border-bottom: 2px solid #707070;
-
-}
-
-.fourthRow_3 div{
-    border-right: 1px solid #707070;
-    border-bottom: 2px solid #707070;
-
-}
-
-.fourthRow_4 div{
-    border-right: 1px solid #707070;
-    border-bottom: 2px solid #707070;
-
-}
-
-.fourthRow_5 div {
-    border-bottom: 2px solid #707070;
-    border-right: 1px solid black;
-
-}
-
-
-  }
-
-
-  /* CSS */
-  .button14 {
-    background-image: linear-gradient(#f7f8fa ,#e7e9ec);
-    border-color: #adb1b8 #a2a6ac #8d9096;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 3px;
-    box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
-    box-sizing: border-box;
-    color: #0f1111;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Amazon Ember",Arial,sans-serif;
-    font-size: 14px;
-    height: 29px;
-    font-size: 13px;
-    outline: 0;
-    overflow: hidden;
-    padding: 0 11px;
-    text-align: center;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
-  }
-  
-  .button14:active {
-    border-bottom-color: #a2a6ac;
-  }
-  
-  .button14:active:hover {
-    border-bottom-color: #a2a6ac;
-  }
-  
-  .button14:hover {
-    border-color: #a2a6ac #979aa1 #82858a;
-  }
-  
-  .button14:focus {
-    border-color: #e77600;
-    box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
-    outline: 0;
-  }
-
-  .printDiv {
-      display: flex;
-      align-items: center;
-      justify-content: end;
-      width: 1150px;
-  }
-
-  .print {
-      width: 32px;
-      cursor: pointer;
-  }
-
-.submit {
-    margin-left: 16px;
-    width: 181px;
-    height: 46px;
-    background-color: #3d50b0;
-    color: white;
-    border-radius: 28px;
+.direction {
+    width: 1155px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 25px;
-    padding-right: 20px;
-    cursor: pointer;
+    margin-bottom: 16px;
 }
 
-.disabledSubmit {
-    margin-left: 16px;
-    width: 181px;
-    height: 46px;
-    background-color: rgb(224, 224, 224);
-    color: rgb(163, 163, 163);
-    border-radius: 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 25px;
-    padding-right: 20px;
-    cursor: not-allowed;
+.autocompleteDiv {
+    margin-bottom: 16px;
 }
 
-.linearProgress {
-    margin-top: 24px;
-    width: 1150px;
-}
-
-.modalLinearProgress{
-    width: 1150px;
-    margin-left: 60px;
-}
-
-.manageTableModalDiv {
+.secondDirection {
     display: flex;
 }
-
-.modalChevron {
-    width: 38px;
-    cursor: pointer;
-}
-
-
-.modalLastDiv{
-    margin-top: 24px;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 56px;
-}
-
-

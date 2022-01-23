@@ -48,6 +48,8 @@ const PreviousChart: React.FC<any> = (props) => {
     const [descriptionPhysics, setDescriptionPhysics] = useState("");
     const [descriptionBiology, setDescriptionBiology] = useState("");
 
+    const [addText, setAddText] = useState("");
+
     const minus = (e : any) =>{
         if(index === 0){
             // alert("현재 가장 최근 상담일지입니다.")
@@ -62,137 +64,6 @@ const PreviousChart: React.FC<any> = (props) => {
         setIndex(newIndex + 1);
     }
 
-    const change = (e: any, type: string) => {
-        switch (type) {
-            case "correctChemistry":
-                setCorrectChemistry(e.target.value);
-                break;
-            case "correctOrganic":
-                setCorrectOrganic(e.target.value);
-                break;
-            case "correctPhysics":
-                setCorrectPhysics(e.target.value);
-                break;
-            case "correctBiology":
-                setCorrectBiology(e.target.value);
-                break;
-            case "feedbackChemistry":
-                setFeedbackChemistry(e.target.value);
-                break;
-            case "feedbackOrganic":
-                setFeedbackOrganic(e.target.value);
-                break;
-            case "feedbackPhysics":
-                setFeedbackPhysics(e.target.value);
-                break;
-            case "feedbackBiology":
-                setFeedbackBiology(e.target.value);
-                break;
-            case "lectureChemistry":
-                setLectureChemistry(e.target.value);
-                break;
-            case "lectureOrganic":
-                setLectureOrganic(e.target.value);
-                break;
-            case "lecturePhysics":
-                setLecturePhysics(e.target.value);
-                break;
-            case "lectureBiology":
-                setLectureBiology(e.target.value);
-                break;
-            case "beforeWeekChemistry":
-                setBeforeWeekChemistry(e.target.value);
-                break;
-            case "beforeWeekOrganic":
-                setBeforeWeekOrganic(e.target.value);
-                break;
-            case "beforeWeekPhysics":
-                setBeforeWeekPhysics(e.target.value);
-                break;
-            case "beforeWeekBiology":
-                setBeforeWeekBiology(e.target.value);
-                break;
-            case "nextWeekChemistry":
-                setNextWeekChemistry(e.target.value);
-                break;
-            case "nextWeekOrganic":
-                setNextWeekOrganic(e.target.value);
-                break;
-            case "nextWeekPhysics":
-                setNextWeekPhysics(e.target.value);
-                break;
-            case "nextWeekBiology":
-                setNextWeekBiology(e.target.value);
-                break;
-            case "descriptionChemistry":
-                setDescriptionChemistry(e.target.value);
-                break;
-            case "descriptionOrganic":
-                setDescriptionOrganic(e.target.value);
-                break;
-            case "descriptionPhysics":
-                setDescriptionPhysics(e.target.value);
-                break;
-            case "descriptionBiology":
-                setDescriptionBiology(e.target.value);
-                break;
-        }
-    }
-
-    const submit = async () => {
-        setLoading(true);
-        const data = {
-            studentId: selectedUser.id,
-            correctChemistry,
-            correctOrganic,
-            correctPhysics,
-            correctBiology,
-            feedbackChemistry,
-            feedbackOrganic,
-            feedbackPhysics,
-            feedbackBiology,
-            lectureChemistry,
-            lectureOrganic,
-            lecturePhysics,
-            lectureBiology,
-            beforeWeekChemistry,
-            beforeWeekOrganic,
-            beforeWeekPhysics,
-            beforeWeekBiology,
-            nextWeekChemistry,
-            nextWeekOrganic,
-            nextWeekPhysics,
-            nextWeekBiology,
-            descriptionChemistry,
-            descriptionOrganic,
-            descriptionPhysics,
-            descriptionBiology
-        }
-
-        var token = "";
-        if (window.electron) {
-            token = await window.electron.sendMessageApi.getToken();
-        }
-
-        fetch("https://peetsunbae.com/dashboard/chart/write", {
-            method: "POST",
-            headers: { "Authorization": token, "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify(data)
-        }).then((response: any) => {
-            response.json()
-                .then((result: any) => {
-                    console.log(result);
-                    setLoading(false);
-                    if (result.message === "success") {
-                        setUploadBool(true);
-                        setTimeout(() => {
-                            setUploadBool(false);
-                        }, 2000)
-                    }
-                })
-        })
-    }
 
     useEffect(() => {
         setLoading(true);
@@ -239,6 +110,7 @@ const PreviousChart: React.FC<any> = (props) => {
                         setDescriptionOrganic(information.descriptionOrganic);
                         setDescriptionPhysics(information.descriptionPhysics);
                         setDescriptionBiology(information.descriptionBiology);
+                        setAddText(information.addText);
                         setTeacherName(result.data.name);
                         setLoading(false);
                         }else if(result.message === "NOT"){
@@ -415,6 +287,19 @@ const PreviousChart: React.FC<any> = (props) => {
                         <div className={styles.fourthRow_5}>
                             <div>
                                 <textarea  value={descriptionBiology} className={styles.textarea} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.fifthRow}>
+                        <div className={styles.fifthRow_1}>
+                            <div>
+                                추가사항<br />
+                            </div>
+                        </div>
+                        <div className={styles.fifthRow_2}>
+                            <div>
+                                <textarea value={addText} className={styles.textarea} />
                             </div>
                         </div>
                     </div>

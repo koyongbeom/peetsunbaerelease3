@@ -20,7 +20,7 @@ const menu = [
         description : "지각/결석 사유 제출"
     },
     {
-        value : ["student", "parent"],
+        value : ["student", "parent", "teacher", "staff"],
         name : "book",
         description : "상담일지"
     },
