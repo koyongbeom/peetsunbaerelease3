@@ -272,7 +272,7 @@ const Dashboard: React.FC<props> = (props) => {
     return (
         <Router>
             <main className={styles.main}>
-                <div className={styles.appBar}>
+                <div className={`${styles.appBar} ${styles.notablet}`}>
                     <div className={styles.logoDiv}>
                         <img src="img/whitelogo.webp" alt="logo"></img>
                     </div>
@@ -292,7 +292,7 @@ const Dashboard: React.FC<props> = (props) => {
                 </div>
 
                 <div className={styles.body}>
-                    <div className={styles.sideMenu}>
+                    <div className={`${styles.sideMenu} ${styles.notablet}`}>
                         <div className={styles.sideMenuProfile}>
                             <div className={styles.where}>
                                 {

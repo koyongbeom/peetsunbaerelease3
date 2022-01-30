@@ -159,7 +159,7 @@ const Home: React.FC<socketProps> = (props) => {
                         notificationResults.map((each: any, index : number) => {
                             if (each.images.length > 0) {
                                 return (
-                                    <div onClick={notificationDetail} data-id={each.id} key={each.title + Math.random()} className={styles.notification}>
+                                    <div onClick={notificationDetail} data-id={each.id} key={each.title + Math.random()} className={`${styles.notification} ${(index === 2 || index === 3) ? styles.tabletnone : ""}`}>
                                         <div data-id={each.id}  className={styles.notification_imageDiv} style={{ width: "277px", height: "140px", backgroundSize: "cover", backgroundImage: `url("https://peetsunbae.com/${each.images[0].split("/public/")[1]}")` }}>
                                         </div>
                                         <div data-id={each.id} className={styles.notification_description}>
@@ -186,7 +186,7 @@ const Home: React.FC<socketProps> = (props) => {
                             }
                             else {
                                 return (
-                                    <div onClick={notificationDetail} data-id={each.id} key={each.title+ Math.random()} className={styles.notification}>
+                                    <div onClick={notificationDetail} data-id={each.id} key={each.title+ Math.random()} className={`${styles.notification} ${(index === 2 || index === 3) ? styles.tabletnone : ""}`}>
 
                                         <div data-id={each.id} className={styles.notification_description_text}>
                                             <div  data-id={each.id} className={styles.notification_description1}>

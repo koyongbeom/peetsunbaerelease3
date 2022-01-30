@@ -179,3 +179,55 @@
 .mobiletitle {
     font-family: "Apple_B";
 }
+
+.sendsms {
+    margin-top: 16px;
+}
+
+.sendsmstitle {
+    margin-top: 24px;
+    font-family: "Apple_B";
+    margin-bottom: 12px;
+}
+
+.sendsmsphone{
+    font-family: "Apple_R";
+    margin-bottom: 4px;
+}
+
+.sendsmsphonetext{
+    margin-bottom: 8px;
+}
+
+.sendsmsdescription {
+    font-family: "Apple_R";
+    margin-bottom: 4px;
+}
+
+.sendsms {
+    display: flex;
+}
+
+.firstDiv {
+    margin-right: 12px;
+}
+
+.sendBtn {
+    margin-top: 25px;
+    margin-left: 8px;
+}
+
+.placeholeder {
+    font-family: "Apple_R";
+}
+
+.sendName {
+    font-family: "Apple_B";
+    color: #3d50b0;
+    margin-left: 6px;
+    height: 80px;
+}
+
+.alertDiv {
+    margin-top: 3px;
+}

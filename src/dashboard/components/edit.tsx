@@ -29,9 +29,6 @@ interface editProps extends RouteComponentProps {
 const Edit: React.FC<editProps> = (props) => {
     // const classes = props.classes;
     const date = new Date();
-    date.setDate(date.getDate() + 1);
-    const minDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
     const [select, setSelect] = useState("submit");
 
     const [loading, setLoading] = useState(false);
@@ -238,7 +235,7 @@ const Edit: React.FC<editProps> = (props) => {
                             openTo="day"
                             value={dateValue}
                             disablePast
-                            minDate={minDate}
+                            // minDate={minDate}
                             onChange={(newValue: any) => {
                                 console.log(newValue);
                                 setDateValue(newValue);
