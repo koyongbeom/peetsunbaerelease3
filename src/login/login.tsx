@@ -119,7 +119,7 @@ const Login: React.FC<props> = (props) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: email,
+                email: email.split(" ").join(""),
                 password: password,
             })
         }).then((response) => {

@@ -51,6 +51,7 @@ const Home: React.FC<socketProps> = (props) => {
 
 
     return (
+    <>
         <div className={`${styles.main}`}>
             <div className={styles.attendanceBoard}>
                 <div className={styles.attendanceBoardWeek}>
@@ -219,6 +220,7 @@ const Home: React.FC<socketProps> = (props) => {
 
             </div>
         </div>
+    </>
     )
 }
 

@@ -137,3 +137,8 @@
     cursor: pointer;
 }
 
+@media screen and (max-width : 1024px){
+    .main {
+        min-width: 0;
+    }
+}

@@ -28,7 +28,10 @@ import { io, Socket } from "socket.io-client";
 import QuestionWrite from './components/questionwrite';
 import Profile from './components/profile';
 import NotificationDetail from './components/controls/notificationdetail';
+import TemporaryDrawer from './components/drawer';
 // import { ipcRenderer } from 'electron';
+
+
 
 
 
@@ -274,7 +277,7 @@ const Dashboard: React.FC<props> = (props) => {
             <main className={styles.main}>
                 <div className={`${styles.appBar} ${styles.notablet}`}>
                     <div className={styles.logoDiv}>
-                        <img src="img/whitelogo.webp" alt="logo"></img>
+                        <img src="img/longlogo_white.svg" alt="logo"></img>
                     </div>
                     <div className={styles.profileDiv}>
                         <Link to="/dashboard/profile">
@@ -337,6 +340,21 @@ const Dashboard: React.FC<props> = (props) => {
                                                             <div className={styles.sideMenuListText}>
                                                                 {each.description}
                                                             </div>
+                                                            <div className={`${styles.sideMenuListText} ${styles.mobile}`}>
+
+                                                                {
+                                                                    each.description === "지각/결석 사유 제출" ? "사유 제출" : ""
+                                                                }
+                                                                {
+                                                                    each.description === "나에게 온 메시지" ? "메시지" : ""
+                                                                }
+                                                                {
+                                                                    each.description === "상담일지 적기" ? "일지 적기" : ""
+                                                                }
+                                                                {
+                                                                    (each.description != "지각/결석 사유 제출" && each.description != "나에게 온 메시지" && each.description != "상담일지 적기") ? each.description : ""
+                                                                }
+                                                            </div>
                                                             {
                                                                     (each.name === "envelope" && count > 0) ?
                                                                     <div className={styles.noticeNumber}>{count} +</div> : ""
@@ -353,6 +371,21 @@ const Dashboard: React.FC<props> = (props) => {
                                                             </div>
                                                             <div className={styles.sideMenuListTextActive}>
                                                                 {each.description}
+                                                            </div>
+                                                            <div className={`${styles.sideMenuListTextActive} ${styles.mobile}`}>
+
+                                                                {
+                                                                    each.description === "지각/결석 사유 제출" ? "사유 제출" : ""
+                                                                }
+                                                                {
+                                                                    each.description === "나에게 온 메시지" ? "메시지" : ""
+                                                                }
+                                                                {
+                                                                    each.description === "상담일지 적기" ? "일지 적기" : ""
+                                                                }
+                                                                {
+                                                                    (each.description != "지각/결석 사유 제출" && each.description != "나에게 온 메시지" && each.description != "상담일지 적기") ? each.description : ""
+                                                                }
                                                             </div>
                                                             {
                                                                     (each.name === "envelope" && count > 0) ?
@@ -391,6 +424,7 @@ const Dashboard: React.FC<props> = (props) => {
                 </div>
 
             </main>
+
         </Router>
     )
 }

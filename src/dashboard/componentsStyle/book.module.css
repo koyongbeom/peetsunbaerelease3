@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     font-size: 22px;
-    font-family: "Apple_R";
+    font-family: "Apple_B";
     color: #303030;
     margin-bottom: 31px;
 }
@@ -562,4 +562,23 @@
 
 .secondDirection {
     display: flex;
+}
+
+/* @media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+    }
+} */
+
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+        }
+    }
 }

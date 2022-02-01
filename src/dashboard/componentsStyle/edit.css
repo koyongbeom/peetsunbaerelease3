@@ -9,13 +9,14 @@
 }
 
 .title{
-    font-family: 'Apple_R';
+    font-family: 'Apple_B' !important;
     font-size: 22px;
 }
 
 .editImage {
     margin-right: 11px;
 }
+
 
 .wrap {
     display: flex;
@@ -28,6 +29,11 @@
     justify-content: space-between;
     align-items: center;
     width: 1160px;
+}
+
+.css-4l7j15{
+    border-radius: 10px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px;
 }
 
 .submenu {
@@ -74,6 +80,8 @@
 
 
 .select {
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px;
+    border-radius: 10px;
     background-color: white;
     width: 400px;
     margin-left: 28px;
@@ -130,6 +138,8 @@
     margin-left: 28px;
     padding-left: 22px;
     padding-right: 22px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px;
+    border-radius: 10px;
 }
 
 .descriptionTitle {
@@ -175,6 +185,8 @@
     padding-top: 36px;
     padding-left: 30px;
     padding-right: 30px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
+    border-radius: 12px;
 }
 
 .checkBoardTitle {
@@ -216,4 +228,31 @@
     color: #3d50b0;
     font-family: "Apple_B";
     cursor: pointer;
+}
+
+/* @media screen and (max-width : 1024px){
+    .main2 {
+        height: 130vh;
+        overflow: auto;
+    }
+} */
+
+@media screen and (max-width : 1024px){
+    .main2 {
+        height: 130vh;
+        width: 1256px;
+    }
+
+    @media (orientation : portrait){
+        .css-ekeie0{
+            align-items: flex-start !important;
+            padding-top: 27% !important;
+        }
+    }
+
+    @media (orientation : landscape){
+        .main2 {
+            height: auto;
+        }
+    }
 }

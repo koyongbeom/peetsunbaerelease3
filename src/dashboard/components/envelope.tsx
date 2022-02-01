@@ -217,7 +217,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
 
             
 
-            <div onClick={handleOpen} className="qnaWrite">
+            <div onClick={handleOpen} className={`${styles.message} qnaWrite`}>
                 <img src="./img/pencil.svg" alt="pencil" />
                 메세지 보내기
             </div>

@@ -30,9 +30,12 @@
 .notification {
     cursor: pointer;
     margin-right: 19px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .notification_imageDiv{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     width: 277px;
     height: 140px;
     background-size: cover;
@@ -40,6 +43,8 @@
 
 .notification_image {
     width: 277px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
 .imageDiv {
@@ -54,9 +59,13 @@
     padding-bottom: 21px;
     padding-right: 21px;
     background-color: white;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
 }
 
 .notification_description_text {
+    border-radius: 10px;
     padding-top: 6px;
     padding-left: 23px;
     padding-bottom: 21px;
@@ -150,4 +159,31 @@
 
 .pencil {
     margin-right: 6.9px;
+}
+
+/* @media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        overflow: auto;
+    }
+} */
+
+/* @media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+} */
+
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+        }
+    }
 }

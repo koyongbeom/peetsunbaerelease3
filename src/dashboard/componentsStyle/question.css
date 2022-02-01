@@ -6,6 +6,7 @@
     padding-top: 44px;
     padding-left: 53px;
     padding-right: 53px;
+    padding-bottom: 60px;
 }
 
 .main::-webkit-scrollbar{
@@ -73,6 +74,7 @@
     font-family: "Apple_R";
 }
 
+
 .qnaWrite img{
     margin-right: 10.9px;
 }
@@ -126,6 +128,7 @@ border-radius: 6px;
     background-color: white;
     margin-bottom: 60px;
     border-radius: 10px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .questionheader {
@@ -290,7 +293,7 @@ border-radius: 6px;
 }
 
 .modalDiv{
-    padding-top: 40px;
+    /* padding-top: 40px;
     padding-bottom: 40px;
     cursor: grab;
     position: relative;
@@ -302,13 +305,21 @@ border-radius: 6px;
     text-align: center;
     background-color: rgb(242, 244, 248);
     overflow: scroll;
-    box-sizing: border-box;
+    box-sizing: border-box; */
+    position: relative;
+}
+
+.imageWrapper {
+    display: flex;
+    justify-content: center;
 }
 
 
-
 .modalImg {
-    
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, 0);
 }
 
 .imgOperator {
@@ -471,6 +482,11 @@ border-radius: 6px;
 
 .reviewDescriptionDiv {
     margin-left: 19.1px;
+    flex-grow: 1;
+    padding-right: 30px;
+}
+
+.reviewDescription {
     white-space: pre-wrap;
 }
 
@@ -502,5 +518,41 @@ border-radius: 6px;
     height: 300px;
 }
 
+/* @media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+    }
+} */
+
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+
+    .bodyTitle {
+        font-size: 26px;
+    }
+
+    .bodyDescription {
+        font-size: 22px;
+    }
+
+    @media (orientation : portrait){
+        .imgOperator {
+            top: 65%;
+        }
+    }
+
+    .questionDiv {
+        width: 1150px;
+    }
+
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+        }
+    }
+}
 
 

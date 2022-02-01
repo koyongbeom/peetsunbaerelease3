@@ -29,13 +29,21 @@
     justify-content: space-between;
 }
 
+.title div:first-child{
+    display: flex;
+    align-items: center;
+}
+
 .paper {
+    border-radius: 12px;
     margin-top: 19px;
     width: 1164px;
     background-color: white;
     padding-left: 67px;
     padding-right: 67px;
     padding-bottom: 108px;
+    transition: box-shadow 0.2s ease 0s;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .paperTitle {
@@ -116,7 +124,6 @@
 
 .day {
     justify-content: stretch;
-    background-color: red;
     display: flex;
     border-top: 4px solid #f2f2f2;
     border-bottom: 4px solid #f2f2f2;
@@ -183,7 +190,27 @@
 }
 
 
+@media screen and (max-width : 1024px){
+    /* .main {
+        height: 130vh;
+        overflow: auto;
+    } */
 
+    
+}
+
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+        }
+    }
+}
 
 
 

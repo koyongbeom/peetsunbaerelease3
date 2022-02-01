@@ -110,3 +110,9 @@
     font-family: "Apple_R";
     margin-bottom: 20px;
 }
+
+@media screen and (max-width : 1024px){
+    .main {
+        min-width: 0;
+    }
+}

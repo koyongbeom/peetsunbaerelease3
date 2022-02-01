@@ -127,3 +127,10 @@
     align-items: center;
 }
 
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+}
+

@@ -13,6 +13,30 @@ import { emitKeypressEvents } from "readline";
 import { CircularProgress } from "@mui/material";
 import { SportsRugbySharp } from "@mui/icons-material";
 
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: "1350px",
+    height: "850px",
+    bgcolor: '#303030',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    overflow: "auto",
+    cursor: "grab",
+    "@media (max-width : 1024px)" : {
+        "@media (orientation : landscape)" : {
+            width : "1000px",
+            height : "650px"
+        },
+        "@media (orientation : portrait)" : {
+            width : "1150px"
+        }
+    }
+};
+
 
 
 
@@ -139,7 +163,7 @@ const Questions: React.FC<any> = (props) => {
                     return {
                         ...prevStyle,
                         width: "1200px",
-                        height : "auto"
+                        height: "auto"
                     }
                 }
             )
@@ -150,7 +174,7 @@ const Questions: React.FC<any> = (props) => {
                     return {
                         ...prevStyle,
                         height: "800px",
-                        width : "auto"
+                        width: "auto"
                     }
                 }
             )
@@ -212,7 +236,7 @@ const Questions: React.FC<any> = (props) => {
     useEffect(() => {
 
         setLoading(true);
-        
+
         // webFrame.setZoomFactor(3);
 
         async function start() {
@@ -402,7 +426,7 @@ const Questions: React.FC<any> = (props) => {
 
 
 
-    const submit = (event: any, questionId: number, index: number, questionUserId : number) => {
+    const submit = (event: any, questionId: number, index: number, questionUserId: number) => {
         event.preventDefault();
         setAnswerloading(true);
 
@@ -501,7 +525,7 @@ const Questions: React.FC<any> = (props) => {
     }
 
 
-    const reviewDelete = async (e : any) => {
+    const reviewDelete = async (e: any) => {
         console.log(e.target.dataset.id);
 
         var token = "";
@@ -626,16 +650,16 @@ const Questions: React.FC<any> = (props) => {
                                 </div>
 
                                 {
-                                    each.reviews.map((review: any, reviewIndex : number) => {
+                                    each.reviews.map((review: any, reviewIndex: number) => {
                                         return (
                                             <div key={reviewIndex} className="review">
                                                 <div className="reviewAvatar">
-                                                    {(review.value === "teacher" || review.value=== "staff") ?
-                                                    <Avatar sx={{ bgcolor: "#3d50b0" }}><img src="img/user-tie-solid.svg" alt="user" className="avatarImg" /></Avatar>
-                                                    :
-                                                    <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
-                                                }
-                                                   
+                                                    {(review.value === "teacher" || review.value === "staff") ?
+                                                        <Avatar sx={{ bgcolor: "#3d50b0" }}><img src="img/user-tie-solid.svg" alt="user" className="avatarImg" /></Avatar>
+                                                        :
+                                                        <Avatar sx={{ bgcolor: "#b0dbf1" }}><img src="img/user-solid.svg" alt="user" className="avatarImg" /></Avatar>
+                                                    }
+
                                                 </div>
                                                 <div className="reviewDescriptionDiv">
                                                     <div className="reviewAuthor">
@@ -645,28 +669,28 @@ const Questions: React.FC<any> = (props) => {
                                                         {<p>{review.description}</p>}
                                                     </div>
                                                     {review.src ?
-                                                    <div>
-                                                        <div className="imgBox answerImageBox">
-                                                            <div className="imgBoxCover">
-                                                                <div className="imgBoxCoverTitle">
-                                                                    {each.images[0].split("/question/")[1]}
+                                                        <div>
+                                                            <div className="imgBox answerImageBox">
+                                                                <div className="imgBoxCover">
+                                                                    <div className="imgBoxCoverTitle">
+                                                                        {each.images[0].split("/question/")[1]}
+                                                                    </div>
+                                                                    <div className="imgBoxCoverDescription" data-src={review.src} onClick={(e) => { show(e, index) }}>
+                                                                        사진 미리보기
+                                                                    </div>
                                                                 </div>
-                                                                <div className="imgBoxCoverDescription" data-src={review.src} onClick={(e) => { show(e, index) }}>
-                                                                    사진 미리보기
-                                                                </div>
+                                                                <img className="img answerImg" src={`https://peetsunbae.com/${review.src.split("/public/")[1]}`} />
                                                             </div>
-                                                            <img className="img answerImg" src={`https://peetsunbae.com/${review.src.split("/public/")[1]}`} />
                                                         </div>
-                                                    </div>
                                                         :
                                                         ""
                                                     }
                                                     <div className="answerDate">
-                                                         {`${review.createdAt.year}/${review.createdAt.month}/${review.createdAt.date} ${review.createdAt.hours > 12 ? review.createdAt.hours - 12 : review.createdAt.hours}:${review.createdAt.minutes}  ${review.createdAt.hours >= 12 ? "PM" : "AM"}`}
+                                                        {`${review.createdAt.year}/${review.createdAt.month}/${review.createdAt.date} ${review.createdAt.hours > 12 ? review.createdAt.hours - 12 : review.createdAt.hours}:${review.createdAt.minutes}  ${review.createdAt.hours >= 12 ? "PM" : "AM"}`}
                                                     </div>
                                                 </div>
                                                 <div className="reviewTrashDiv" onClick={reviewDelete} data-id={review.reviewId}>
-                                                    {review.userId === props.user.id ? <img  data-id={review.reviewId} className="reviewTrash" src="img/trash-alt-light.svg" alt="delete" /> : ""}
+                                                    {review.userId === props.user.id ? <img data-id={review.reviewId} className="reviewTrash" src="img/trash-alt-light.svg" alt="delete" /> : ""}
                                                 </div>
 
                                             </div>
@@ -749,23 +773,28 @@ const Questions: React.FC<any> = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <>
-                    <div className="modalDiv" ref={dragRef} onMouseMove={handleMove} onMouseUp={handleMouseUp} onMouseDown={handleDown}>
-                        <img style={modalImgStyle} className="modalImg" src={src} alt="question" />
+                    <Box sx={style} ref={dragRef} onMouseMove={handleMove} onMouseUp={handleMouseUp} onMouseDown={handleDown}>
+                        <div className="modalDiv" ref={dragRef} onMouseMove={handleMove} onMouseUp={handleMouseUp} onMouseDown={handleDown}>
 
-
-                        <div className="imgOperator">
-                            <img onClick={letsMinus} className="minus" src="img/minus-circle-light.svg" alt="minus" />
-                            <div className="percentDiv">
-                                {percent}%
+                            <div className="imageWrapper">
+                                <img style={modalImgStyle} className="modalImg" src={src} alt="question" />
                             </div>
-                            <img onClick={letsPlus} className="plus" src="img/plus-circle-light.svg" alt="plus" />
-                            <img onClick={letsMaximize} className="maximize" src="img/expand-arrows-light.svg" alt="maximize" />
-                            <img onClick={letsRotate} className="rotate" src="img/undo-light.svg" alt="rotate" />
+
+
+
+
+
                         </div>
-
+                    </Box>
+                    <div className="imgOperator">
+                        <img onClick={letsMinus} className="minus" src="img/minus-circle-light.svg" alt="minus" />
+                        <div className="percentDiv">
+                            {percent}%
+                        </div>
+                        <img onClick={letsPlus} className="plus" src="img/plus-circle-light.svg" alt="plus" />
+                        <img onClick={letsMaximize} className="maximize" src="img/expand-arrows-light.svg" alt="maximize" />
+                        <img onClick={letsRotate} className="rotate" src="img/undo-light.svg" alt="rotate" />
                     </div>
-
-
                 </>
             </Modal>
         </div>

@@ -123,7 +123,7 @@ const Meals: React.FC<any> = (props) => {
                 </div>
                 {day && day.map((eachDay, index) => {
                     return (
-                        <div className={styles.dayDiv}>
+                        <div className={`${styles.dayDiv} ${eachDay === "일" ? styles.sunday : ""}`}>
                             {eachDay}
                         </div>
                     );

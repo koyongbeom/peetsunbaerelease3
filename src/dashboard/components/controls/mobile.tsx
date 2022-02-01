@@ -142,7 +142,7 @@ const Mobile: React.FC<any> = (props) => {
                     console.log(result);
                     console.log(result.data);
                     const rows: any = [];
-                    const defaultRow: any = { id: Math.random(), date: "--------------", time: "-----------", number: "--------------------", description: "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------", from: "blank" }
+                    const defaultRow: any = { id: Math.random(), date: "--------------", time: "-----------", number: "--------------------", description: "----------------------------------------------------------------------------------------------------------------------------------------------", from: "blank" }
                     result.data.forEach((each: any) => {
                         each.name = ""
                         each.fullMessages.reverse();

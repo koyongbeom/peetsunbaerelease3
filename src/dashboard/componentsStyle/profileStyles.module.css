@@ -482,6 +482,18 @@
 }
 
 
+@media screen and (max-width : 1024px){
+    .body {
+        height: 130vh;
+        overflow: auto;
+    }
+
+    @media (orientation : landscape){
+        .body {
+            height: auto;
+        }
+    }
+}
 
 
 

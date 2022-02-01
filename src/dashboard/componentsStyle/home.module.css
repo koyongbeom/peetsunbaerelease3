@@ -10,7 +10,7 @@
 
 .main {
     background-color: #f5f5f5;
-    width: calc(100% - 244px);
+    width: calc(100% - 244px); 
     padding-left: 46px;
     padding-top: 48px;
     height: calc(100vh - 78px);
@@ -19,22 +19,29 @@
 
 .attendanceBoard {
     display: flex;
+    border-radius: 14px !important;
 }
 
 .attendanceBoardWeek {
-    width: 568px;
+    width: 568px !important;
     padding-bottom: 34.5px;
     background-color: #ffffff;
     margin-right: 28px;
+    border-radius: 14px;
+    box-shadow: rgb(20 20 20 / 4%) 0px 12px 24px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .attendanceBoardToday {
     width: 568px;
     padding-bottom: 34.5px;
     background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: rgb(20 20 20 / 4%) 0px 12px 24px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .attendanceBoardTitle {
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
     background-color: #ececec;
     display: flex;
     justify-content: space-between;
@@ -129,9 +136,12 @@
 .notification {
     margin-right: 19px;
     cursor: pointer;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .notification_imageDiv {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     width: 277px;
     height: 140px;
     background-size: cover;
@@ -146,9 +156,12 @@
     padding-bottom: 21px;
     padding-right: 21px;
     background-color:white;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .notification_description_text {
+    border-radius: 10px;
     padding-top: 6px;
     padding-left: 23px;
     padding-bottom: 21px;
@@ -228,64 +241,21 @@
 }
 
 
+
 @media screen and (max-width : 1024px){
-
-    .main{
-        width : 100%
+    .main {
+        height: 130vh;
+        width: 1256px;
     }
 
-    .attendanceBoard {
-        align-items: initial;
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+        }
     }
-    /* .main {
-        height: auto;
-        width: 100%;
-        height: 100vh;
-        padding: 0;
-        padding-top: 100px;
-    }
-
-    .attendanceBoard {
-        display: unset;
-    }
-
-
-    .attendanceBoardWeek {
-        margin: 0 auto;
-        margin-bottom: 25px;
-    }
-
-    .attendanceBoardToday {
-        margin: 0 auto;
-    }
-
-    .tabletnone {
-        display: none;
-    }
-
-    .notificationTitle {
-        display: flex;
-        justify-content: center;
-    }
-
-    .notifications {
-        justify-content: center;
-    }
-     */
 }
 
-@media screen and (max-width : 650px){
-    /* .main {
-        height: 1000px;
-        width: 900px;
-        padding-left: 50px;
-        padding-right: 50px;
-    }
 
-    .notifications {
-        justify-content: initial;
-    } */
-}
 
 
 

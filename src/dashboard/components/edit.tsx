@@ -15,14 +15,17 @@ import koLocale from 'date-fns/locale/ko'
 import Totaledits from './controls/totaledits';
 
 
+
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 interface editProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
     // classes: any;
-    user : {name: string;
+    user: {
+        name: string;
         value: "student" | "teacher" | "parent" | "staff";
-        id: number;} | undefined | null
+        id: number;
+    } | undefined | null
 }
 
 
@@ -80,7 +83,7 @@ const Edit: React.FC<editProps> = (props) => {
         switch (menu) {
             case "submit": setSelect("submit"); break;
             case "check": setSelect("check"); break;
-            case "total" : setSelect("total");
+            case "total": setSelect("total");
         }
     }
 
@@ -228,13 +231,13 @@ const Edit: React.FC<editProps> = (props) => {
 
             {select === "submit" &&
                 <div className="wrap">
-
                     <LocalizationProvider locale={koLocale} dateAdapter={AdapterDateFns}>
                         <StaticDatePicker
                             displayStaticWrapperAs="desktop"
                             openTo="day"
                             value={dateValue}
                             disablePast
+
                             // minDate={minDate}
                             onChange={(newValue: any) => {
                                 console.log(newValue);
@@ -243,6 +246,7 @@ const Edit: React.FC<editProps> = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
+
 
                     <div className="select">
                         <div className="selectTitle">
@@ -299,10 +303,8 @@ const Edit: React.FC<editProps> = (props) => {
                             }
 
                         </div>
-
-
-
                     </div>
+                    
                     <div className="description">
                         <div className="descriptionTitle">
                             지각/결석 사유
@@ -376,12 +378,12 @@ const Edit: React.FC<editProps> = (props) => {
                                             <div>
                                                 <span>[{description}] </span>
                                                 <span>
-                                                    {each.type === "long" && `${each.startHours > 11 ? "오후" : "오전"} ${each.startHours > 12 ? each.startHours - 12 : each.startHours}시 ${each.startMinutes.toString().length === 1 ? "0"+each.startMinutes : each.startMinutes}분 도착`}
-                                                    {each.type === "early" && `${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0"+each.endMinutes : each.endMinutes}분 하원`}
-                                                    {each.type === "among" && `${each.endHours > 11 ? "오후" : "오전"}  ${each.startHours > 12 ? each.startHours - 12 : each.startHours}시 ${each.startMinutes.toString().length === 1 ? "0"+each.startMinutes : each.startMinutes}분 외출 -
-                                                    ${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0"+each.endMinutes : each.endMinutes}분 복귀
+                                                    {each.type === "long" && `${each.startHours > 11 ? "오후" : "오전"} ${each.startHours > 12 ? each.startHours - 12 : each.startHours}시 ${each.startMinutes.toString().length === 1 ? "0" + each.startMinutes : each.startMinutes}분 도착`}
+                                                    {each.type === "early" && `${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0" + each.endMinutes : each.endMinutes}분 하원`}
+                                                    {each.type === "among" && `${each.endHours > 11 ? "오후" : "오전"}  ${each.startHours > 12 ? each.startHours - 12 : each.startHours}시 ${each.startMinutes.toString().length === 1 ? "0" + each.startMinutes : each.startMinutes}분 외출 -
+                                                    ${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0" + each.endMinutes : each.endMinutes}분 복귀
                                                     `
-                                                    
+
                                                     }
 
                                                 </span>
@@ -404,10 +406,10 @@ const Edit: React.FC<editProps> = (props) => {
 
                 </div>}
 
-                {
-                    select === "total" && 
-                    <Totaledits />
-                }
+            {
+                select === "total" &&
+                <Totaledits />
+            }
 
 
         </div>

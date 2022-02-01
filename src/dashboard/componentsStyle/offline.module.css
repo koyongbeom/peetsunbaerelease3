@@ -133,6 +133,8 @@
     margin-top: 52px;
     background-color: white;
     display: flex;
+    border-radius: 12px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .teacherImage {
@@ -183,6 +185,9 @@
     padding-top: 25px;
     padding-left: 27px;
     padding-right: 27px;
+    border-radius: 10px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px;
+
 }
 
 
@@ -229,6 +234,9 @@
     padding-top: 25px;
     padding-left: 27px;
     padding-right: 27px;
+    border-radius: 10px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px;
+
 }
 
 .questionDescriptionTitle{

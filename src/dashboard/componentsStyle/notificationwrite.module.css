@@ -13,3 +13,24 @@
     font-family: "Apple_R";
     margin-bottom: 26px;
 }
+
+@media screen and (max-width : 1024px){
+    /* .main {
+        height: 130vh;
+        overflow: auto;
+    } */
+}
+
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+            padding-bottom: 40px;
+        }
+    }
+}

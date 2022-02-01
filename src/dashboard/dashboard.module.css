@@ -11,6 +11,11 @@
     align-items: center;
     padding-left: 47px;
     padding-right: 40px;
+    
+}
+
+.logoDiv{
+    width: 143.7px;
 }
 
 .profileDiv {
@@ -62,6 +67,8 @@
     width: 244px;
     overflow: auto;
     padding-bottom: 60px;
+    z-index: 100;
+    box-shadow: rgb(63 70 125 / 20%) 1px 0px 1.5px 0px, rgb(101 94 115 / 10%) 4px 2px 4px 0.5px;
 }
 
 
@@ -141,7 +148,6 @@
     margin-bottom: 18px;
     cursor: pointer;
     align-items: center;
-
 }
 
 .noticeNumber {
@@ -180,6 +186,118 @@
     color: #3d50b0;
 }
 
+.sideMenuListText.mobile{
+    display: none;
+}
+
+.sideMenuListTextActive.mobile{
+    display: none;
+}
+
+.mobileProfile {
+    display: none;
+}
+
+
 @media screen and (max-width : 1024px){
-    
+    /* .sideMenu {
+        height: 130vh;
+    } */
+
+    .sideMenuListTextActive{
+        display: none;
+        font-family: "Apple_B";
+        font-size: 18px;
+    }
+
+    .sideMenuListTextActive.mobile{
+        display: block;
+    }
+
+
+
+    .main {
+        min-width: 1256px;
+    }
+
+    .body {
+        display: block;
+    }
+
+    .sideMenu {
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        width: auto;
+        height: auto;
+        padding-bottom: 0;
+        box-shadow: rgb(63 70 125 / 20%) 0px 1px 3px 0px, rgb(101 94 115 / 10%) 2px 4px 8px 1px;        z-index: 99999;
+        margin-bottom: 12px;
+    }
+
+    /* .mobileProfile {
+        display: block;
+        background-color: white;
+        box-shadow: rgb(63 70 125 / 20%) 0px 1px 3px 0px, rgb(101 94 115 / 10%) 2px 4px 8px 1px;
+        font-family: "Apple_B";
+        padding-left: 47px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        z-index: 5;
+        font-size: 24px;
+    } */
+
+    .sideMenuProfile {
+        display: none;
+    }
+
+    .sideMenuListSection{
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 80px;
+        height: 60px;
+        margin-bottom: 0;
+        margin-right: 5px;
+    }
+
+    .sideMenuList {
+        padding-top: 0;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        padding-top: 35px;
+        padding-bottom: 35px;
+
+    }
+
+    .sideMenuListText {
+        display: none;
+        font-family: "Apple_B";
+        font-size: 18px;
+    }
+
+    .sideMenuListText.mobile{
+        display: block;
+    }
+
+    .menuimgcontainer{
+        margin: 0;
+    }
+
+    .sideMenuListText{
+        margin: 0;
+    }
+
+    .menuimgcontainer{
+        width: auto;
+    }
+
+
+    /* .sideMenu {
+        height: 200px;
+        display: flex;
+        width: 100%;
+    } */
+
 }

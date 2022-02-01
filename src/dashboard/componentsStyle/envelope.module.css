@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     font-size: 22px;
-    font-family: "Apple_R";
+    font-family: "Apple_B";
     color: #303030;
     letter-spacing: -1.1px;
 }
@@ -85,4 +85,34 @@
 .nameText {
     font-family: "Apple_R";
     font-size: 15px;
+}
+
+/* @media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        overflow: auto;
+    }
+} */
+
+
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+
+
+
+
+    @media (orientation : portrait) {
+        .message{
+            bottom : 44%;
+        }
+    }
+
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+        }
+    }
 }

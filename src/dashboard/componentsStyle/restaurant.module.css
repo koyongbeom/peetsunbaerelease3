@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     font-size: 22px;
-    font-family: "Apple_R";
+    font-family: "Apple_B";
     color: #303030;
     letter-spacing: -1.1px;
 }
@@ -109,11 +109,15 @@
 .imgBox {
     width: 216px;
     position: relative;
+    border-radius: 10px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px;
 }
 
 .image {
     width: 216px;
     height: 216px;
+    border-radius: 10px;
+
 }
 
 .mealSelect {
@@ -169,6 +173,8 @@
     justify-content: space-between;
     padding-left: 30px;
     padding-right: 30px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
+    border-radius: 10px;
 }
 
 .moneyCharge div:first-child {
@@ -387,6 +393,8 @@
     color: #121a50;
     letter-spacing: -0.63px;
     margin-bottom: 46px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
+    border-radius: 10px;
 }
 
 .selectedMealMenu span {
@@ -416,11 +424,18 @@
     justify-content: center;
 }
 
+.css-4l7j15{
+    border-radius: 10px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px;
+}
+
 .submitDiv {
     margin-top: 33px;
     background-color: white;
     padding-top: 25px;
     padding-bottom: 26px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
+    border-radius: 10px;
 }
 
 .whenDiv .when:first-child{
@@ -502,6 +517,8 @@
     padding-top: 53px;
     padding-left: 66px;
     padding-right: 50px;
+    border-radius: 12px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
 }
 
 .title {
@@ -522,6 +539,11 @@
 .dayLine {
     margin-top: 16px;
     display: flex;
+    border-top: 2px solid #303030;
+}
+
+.sunday {
+    color: #d14e4e;
 }
 
 .dayFirst1 {
@@ -533,6 +555,8 @@
 }
 
 .dayFirst2 {
+    
+    font-family: "Apple_R";
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -544,6 +568,7 @@
 }
 
 .dayFirst3 {
+    font-family: "Apple_R";
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -555,15 +580,14 @@
 }
 
 .dayDiv {
-
+    font-family: "Apple_R";
     width: 144px;
     height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e4e8ff;
+    background-color: #ebebeb;
     border-left: 3px solid #f2f2f2;
-    border-top: 3px solid #f2f2f2;
     border-bottom: 3px solid #f2f2f2;
 }
 
@@ -701,4 +725,24 @@
 
 .averageDiv div{
     margin-bottom: 6px;
+}
+
+/* @media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        overflow: auto;
+    }
+} */
+
+@media screen and (max-width : 1024px){
+    .main {
+        height: 130vh;
+        width: 1256px;
+    }
+
+    @media (orientation : landscape){
+        .main {
+            height: auto;
+        }
+    }
 }
