@@ -213,33 +213,33 @@ const SignUp: React.FC<props> = (props) => {
                     >
                         <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>이메일 주소</div>
-                            <OutlinedInput required={true} error={emailError} onChange={(e) => { setEmail(e.currentTarget.value); }} autoFocus placeholder="이메일 주소 입력" />
+                            <OutlinedInput sx={{"@media (max-width : 1024px)" : {fontSize : "2.5rem", height : "7rem"}}} required={true} error={emailError} onChange={(e) => { setEmail(e.currentTarget.value); }} placeholder="이메일 주소 입력" />
                             {emailError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>올바른 이메일 주소를 적어주세요.</FormHelperText>}
                             {duplicatedEmailError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>중복된 이메일 주소입니다.</FormHelperText>}
                         </FormControl>
 
                         <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>비밀번호</div>
-                            <OutlinedInput required={true} error={passwordError} onChange={(e) => { setPassword(e.currentTarget.value); }} type="password" autoFocus placeholder="8~20자 입력하세요" />
+                            <OutlinedInput sx={{"@media (max-width : 1024px)" : {fontSize : "2.5rem", height : "7rem"}}} required={true} error={passwordError} onChange={(e) => { setPassword(e.currentTarget.value); }} type="password" placeholder="8~20자 입력" />
                             {passwordError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>8자리 이상 적어주세요.</FormHelperText>}
                         </FormControl>
 
                         <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>비밀번호 확인</div>
-                            <OutlinedInput required={true} error={verifyPasswordError} onChange={(e) => { setVerifyPassword(e.currentTarget.value); }} type="password" autoFocus placeholder="비밀번화 확인 입력" />
+                            <OutlinedInput sx={{"@media (max-width : 1024px)" : {fontSize : "2.5rem", height : "7rem"}}} required={true} error={verifyPasswordError} onChange={(e) => { setVerifyPassword(e.currentTarget.value); }} type="password" placeholder="비밀번호 확인 입력" />
                             {verifyPasswordError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>비밀번호와 같지 않아요.</FormHelperText>}
                         </FormControl>
 
                         <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>이름</div>
-                            <OutlinedInput required={true} onChange={(e) => { setName(e.currentTarget.value); }} autoFocus placeholder="이름 입력" />
+                            <OutlinedInput sx={{"@media (max-width : 1024px)" : {fontSize : "2.5rem", height : "7rem"}}} required={true} onChange={(e) => { setName(e.currentTarget.value); }} placeholder="이름 입력" />
                             {nameError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>이름을 적어주세요.</FormHelperText>}
                         </FormControl>
 
-                        <FormControl required margin="normal">
+                        <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>핸드폰 번호</div>
                             <div className={styles.phone}>
-                                <OutlinedInput required={true} error={phoneNumberError} onChange={(e) => { setPhoneNumber(e.currentTarget.value); }} sx={{ width: '278px' }} autoFocus placeholder="핸드폰 번호 입력(-없이)" />
+                                <OutlinedInput required={true} error={phoneNumberError} onChange={(e) => { setPhoneNumber(e.currentTarget.value); }} sx={{ width: '278px', "@media (max-width : 1024px)" : {fontSize : "2.5rem", width : "85%", height : "7rem"} }} placeholder="핸드폰 번호(-없이)" />
                                 <button onClick={sendCert} className={styles.phoneCert}>인증번호</button>
                             </div>
                             {phoneNumberError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>- 없이 적어주세요.</FormHelperText>}
@@ -249,27 +249,27 @@ const SignUp: React.FC<props> = (props) => {
 
                         {sendCertBool && <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>인증번호</div>
-                            <OutlinedInput required={true} error={verifiedNumberError} onChange={(e) => { setVerifiedNumber(e.currentTarget.value); }} autoFocus placeholder="인증번호 입력" />
+                            <OutlinedInput sx={{"@media (max-width : 1024px)" : {fontSize : "2.5rem"}}} required={true} error={verifiedNumberError} onChange={(e) => { setVerifiedNumber(e.currentTarget.value); }} placeholder="인증번호 입력" />
                             {expiredVerifyNumberError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>인증번호 유효시간 만료되었습니다.</FormHelperText>}
                         </FormControl>}
 
                         <FormControl margin="normal" fullWidth>
-                            <RadioGroup value={value} onChange={handleChange} row aria-label="job" name="row-radio-buttons-group" sx={{ width: "80%", display: "flex", justifyContent: "space-between" }}>
-                                <FormControlLabel value="student" control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 29 }, '&.Mui-checked': { color: "#3d50b0" }, }} />} label={<span className={styles.radioLabel}>{"학생"}</span>} />
-                                <FormControlLabel value="parent" control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 29 }, '&.Mui-checked': { color: "#3d50b0" }, }} />} label={<span className={styles.radioLabel}>{"학부모"}</span>} />
-                                <FormControlLabel value="teacher" control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 29 }, '&.Mui-checked': { color: "#3d50b0" }, }} />} label={<span className={styles.radioLabel}>{"담임선생님"}</span>} />
+                            <RadioGroup value={value} onChange={handleChange} row aria-label="job" name="row-radio-buttons-group" sx={{ width: "80%", display: "flex", justifyContent: "space-between", "@media (max-width : 1024px)" : {marginTop : "32px"} }}>
+                                <FormControlLabel value="student" control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 29 }, '&.Mui-checked': { color: "#3d50b0" }, "@media (max-width : 1024px)" : {'& .MuiSvgIcon-root': { fontSize: "3rem" }} }} />} label={<span className={styles.radioLabel}>{"학생"}</span>} />
+                                <FormControlLabel value="parent" control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 29 }, '&.Mui-checked': { color: "#3d50b0" }, "@media (max-width : 1024px)" : {'& .MuiSvgIcon-root': { fontSize: "3rem" }} }} />} label={<span className={styles.radioLabel}>{"학부모"}</span>} />
+                                <FormControlLabel value="teacher" control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 29 }, '&.Mui-checked': { color: "#3d50b0" }, "@media (max-width : 1024px)" : {'& .MuiSvgIcon-root': { fontSize: "3rem" }} }} />} label={<span className={styles.radioLabel}>{"담임선생님"}</span>} />
                             </RadioGroup>
                         </FormControl>
 
                         {isParent && <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>학생 핸드폰 번호</div>
-                            <OutlinedInput required={true} error={studentPhoneNumberError} onChange={(e) => { setStudentPhoneNumber(e.currentTarget.value); }} placeholder="학생 핸드폰 번호 입력(-없이)" />
+                            <OutlinedInput sx={{"@media (max-width : 1024px)" : {fontSize : "2.5rem", height : "7rem"}}} required={true} error={studentPhoneNumberError} onChange={(e) => { setStudentPhoneNumber(e.currentTarget.value); }} placeholder="학생 핸드폰 번호 입력(-없이)" />
                             {studentPhoneNumberError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>등록되지 않은 학생 번호입니다.</FormHelperText>}
                         </FormControl>}
 
                         {isTeacher && <FormControl required fullWidth margin="normal">
                             <div className={styles.label}>직원 가입 비밀번호</div>
-                            <OutlinedInput type="password" required={true} error={forStaffPasswordError} onChange={(e) => { setForStaffPassword(e.currentTarget.value); }} placeholder="직원용 비밀번호 입력" />
+                            <OutlinedInput sx={{"@media (max-width : 1024px)" : {fontSize : "2.5rem", height : "7rem"}}} type="password" required={true} error={forStaffPasswordError} onChange={(e) => { setForStaffPassword(e.currentTarget.value); }} placeholder="직원용 비밀번호 입력" />
                             {forStaffPasswordError && <FormHelperText sx={{ fontSize: "20px", marginLeft: 1, fontFamily: 'Apple_EB'  }} error={true}>잘못된 비밀번호 입니다.</FormHelperText>}
                         </FormControl>}
 

@@ -11,6 +11,24 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import TotalDemerit from './totaldemerit';
+
+
+const style = [
+    {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 1200,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      }
+]
+
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -37,6 +55,11 @@ const Alarm: React.FC<AlarmProps> = (props) => {
     const [firstDay, setFirstDay] = useState<number>(3);
     const [lastDate, setLastDate] = useState<number>(3);
     const [unit, setUnit] = React.useState('day');
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const [modalKind, setModalKind] = useState(0);
 
     useEffect(() => {
         props.activateMenuList("alarm");
@@ -107,7 +130,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
         setMonth(changeToMonth);
     }
 
-    const handleChange = (e : any) => {
+    const handleChange = (e: any) => {
         setUnit(e.target.value);
     }
 
@@ -125,7 +148,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                             <Box sx={{ minWidth: "150px" }}>
                                 <FormControl fullWidth>
                                     <Select
-                                        sx={{height : "46px"}}
+                                        sx={{ height: "46px" }}
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={unit}
@@ -140,22 +163,22 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                         </div>
                         <div>
                             <Box>
-                                <Button sx={{width : "95px", height : "46px", marginLeft : "7px", border : "1px solid #cfcfcf", color : "#6b6b6b", fontFamily : "Apple_R", fontSize : "15px"}} variant="outlined">상담일정</Button>
+                                <Button sx={{ width: "95px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R", fontSize: "15px" }} variant="outlined">상담일정</Button>
                             </Box>
                         </div>
                         <div>
                             <Box>
-                                <Button onClick={minusMonth} sx={{minWidth : "46px",height : "46px", marginLeft : "7px", border : "1px solid #cfcfcf", color : "#6b6b6b", fontFamily : "Apple_R"}} variant="outlined"><img src="img/chevron-left.svg" alt="left"></img></Button>
+                                <Button onClick={minusMonth} sx={{ minWidth: "46px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R" }} variant="outlined"><img src="img/chevron-left.svg" alt="left"></img></Button>
                             </Box>
                         </div>
                         <div>
                             <Box>
-                                <Button onClick={plusMonth} sx={{minWidth : "46px",height : "46px", marginLeft : "7px", border : "1px solid #cfcfcf", color : "#6b6b6b", fontFamily : "Apple_R"}} variant="outlined"><img src="img/chevron-right.svg" alt="right"></img></Button>
+                                <Button onClick={plusMonth} sx={{ minWidth: "46px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R" }} variant="outlined"><img src="img/chevron-right.svg" alt="right"></img></Button>
                             </Box>
                         </div>
                     </div>
                     <div>
-                        <Button sx={{width : "180px", height : "46px", border : "1px solid #728aff", color : "#3d50b0", fontFamily : "Apple_R", fontSize : "16px"}} variant="outlined"># 이번 달 총 벌점기록</Button>
+                        <Button onClick={handleOpen} sx={{ width: "180px", height: "46px", border: "1px solid #728aff", color: "#3d50b0", fontFamily: "Apple_R", fontSize: "16px" }} variant="outlined"># 이번 달 총 벌점기록</Button>
                     </div>
                 </div>
                 <div className={styles.whenMonth}>
@@ -212,6 +235,17 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                     </div>
                 </div>
             </div>
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style[modalKind]}>
+                    <TotalDemerit />
+                </Box>
+            </Modal>
         </div>
     )
 }

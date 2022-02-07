@@ -217,7 +217,7 @@ const Edit: React.FC<editProps> = (props) => {
                         내 사유 제출 현황
                     </div>
                     {
-                        (props.user && props.user.value) &&
+                        (props.user && (props.user.value === "teacher" || props.user.value === "staff" )) &&
                         <div className={`menu_status ${select === "total" ? "active" : ""}`} onClick={(e) => { changeSelect(e, "total") }}>
                             전체 제출 현황
                         </div>

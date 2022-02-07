@@ -23,43 +23,11 @@ declare global {
     }
 }
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+
 
 
 
 const Complete: React.FC<props> = (props) => {
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [open, setOpen] = useState(false);
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [certNumber, setCertNumber] = useState("");
-    const [rePassword, setRePassword] = useState("");
-
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-    const [phoneNumberError, setPhoneNumberError] = useState(false);
-    const [verifiedNumberError, setVerifiedNumberError] = useState(false);
-    const [rePasswordError, setRePasswordError] = useState(false);
-
-    const [isCertSended, setIsCertNumberSended] = useState(false);
-    const [isPasswordChanged, SetIsPasswordChanged] = useState(false);
-
-    // const classes = props.classes;
-
-    const location = useLocation<any>();
-
-
 
 
 
@@ -85,7 +53,7 @@ const Complete: React.FC<props> = (props) => {
 
                     <div className={styles.bodyDescription}>
                         <div className={styles.checkImage}>
-                            <img src="img/check_black_24dp (2).svg" alt="check" />
+                            <img className={styles.checkimg} src="img/check_black_24dp (2).svg" alt="check" />
                         </div>
                         <div className={styles.bodyDescriptionText}>
                             피트선배 회원가입이 완료되었습니다.

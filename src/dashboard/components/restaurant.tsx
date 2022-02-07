@@ -13,7 +13,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import { AccountCircle } from '@mui/icons-material';
 import { Socket } from 'socket.io-client';
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, FormHelperText } from "@mui/material";
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -644,6 +644,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                                                 onChange={handleChangeAmount}
                                                 startAdornment={<InputAdornment position="start">₩</InputAdornment>}
                                             />
+                                            <FormHelperText>최대 보유 금액 30,000원</FormHelperText>
                                         </FormControl>
 
                                         <FormControl fullWidth>

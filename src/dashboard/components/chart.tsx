@@ -617,9 +617,12 @@ const Chart: React.FC<chartProps> = (props) => {
                         <MenuItem onClick={(e) => { handleMenuClose(e, "peetdangi") }}>핏단기</MenuItem>
                         <MenuItem onClick={(e) => { handleMenuClose(e, "mdnp") }}>엠디엔피</MenuItem>
                     </Menu>
+                    
 
+                    
                 </>
             }
+
 
         </div>
     )

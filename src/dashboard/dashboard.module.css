@@ -67,8 +67,8 @@
     width: 244px;
     overflow: auto;
     padding-bottom: 60px;
-    z-index: 100;
-    box-shadow: rgb(63 70 125 / 20%) 1px 0px 1.5px 0px, rgb(101 94 115 / 10%) 4px 2px 4px 0.5px;
+    /* z-index: 100;
+    box-shadow: rgb(63 70 125 / 20%) 1px 0px 1.5px 0px, rgb(101 94 115 / 10%) 4px 2px 4px 0.5px; */
 }
 
 

@@ -244,10 +244,6 @@ const Mobile: React.FC<any> = (props) => {
 
     return (
         <div>
-            <div className={styles.mobiletitle}>
-                문자 내역 가져오기<br></br>
-                (현재 개발 단계 : 문자 가져오기, 개발 계획 : 문자 보내기 기능 추가 예정)
-            </div>
             <div className={styles.board}>
                 <div className={`${styles.phoneBoard} ${current === "four" ? styles.active : ""}`} onClick={(e) => { connect(e, "four") }}>
                     <div className={styles.phoneImage}>

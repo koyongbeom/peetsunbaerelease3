@@ -50,6 +50,14 @@
  a:visited {text-decoration: none;}
  a:hover { text-decoration: none;}
 
+ .minuscell{
+   color: blue;
+ }
+
+ .pluscell{
+   color : red;
+ }
+
 
   
 

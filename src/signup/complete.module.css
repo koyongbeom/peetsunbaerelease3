@@ -124,6 +124,45 @@
     .main {
         min-width: 0;
     }
+
+    .appbar {
+        display: none;
+    }
+
+    .bodyTitle {
+        font-size: 2.5rem;
+    }
+
+    .checkImage {
+        width : 20rem;
+        height: 20rem;
+    }
+
+    .checkimg {
+        width: 12rem;
+    }
+
+    .bodyDescriptionText {
+        font-size: 2.5rem;
+    }
+
+    .bodyDescriptionText2 {
+        font-size: 1rem;
+    }
+
+    .submitDiv {
+        display: block;
+    }
+
+    .submit {
+        width: 100%;
+        height: 7.5rem;
+        border-radius: 3.5rem;
+        font-size: 2.2rem;
+        font-family: "Apple_B";
+    }
+
+
 }
 
 

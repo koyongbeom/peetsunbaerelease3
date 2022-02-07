@@ -1,5 +1,5 @@
 import { RouteComponentProps } from 'react-router';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import koLocale from 'date-fns/locale/ko'
@@ -59,6 +59,8 @@ const Envelope: React.FC<envelopeProps> = (props) => {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
+    const [update, setUpdate] = useState(0); 
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => {setActive(true); setOpen(false);}
 
@@ -97,11 +99,14 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                                 case "박가을" :
                                     each.name = "[원장]" + " 박가을";
                                     break;
-                                case "심윤주" :
-                                    each.name = "[본점 4층 조교샘]" + " 심윤주";
+                                case "윤예주" :
+                                    each.name = "[본점 4층 조교샘]" + " 윤예주";
                                     break;
                                 case "양지원" :
                                     each.name = "[본점 6층 조교샘]" + " 양지원";
+                                    break;
+                                case "김동훈" :
+                                    each.name = "[담임관리자]" + " 김동훈";
                                     break;
                             }
                             data.label = each.name;
@@ -168,11 +173,13 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                             setUploadBool(false);
                         }, 1000);
                         props.socket.emit("newMessage", selectedUser.id, props.user.name);
+                        setUpdate(Math.random());
                     }
                 })
         })
 
     }
+
 
     return (
         <div className={styles.main}>
@@ -184,10 +191,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
 
                 <div className={styles.searchMenu}>
                     <div onClick={(e) => { setSearchMenu("write") }} className={`${styles.searchMenuDiv} ${searchMenu === "write" ? styles.active : ""}`}>
-                        나에게 온 메세지
-                    </div>
-                    <div onClick={(e) => { setSearchMenu("mine") }} className={`${styles.searchMenuDiv} ${searchMenu === "mine" ? styles.active : ""}`}>
-                        내가 보낸 메세지
+                        메세지함
                     </div>
                     {(props.user.value === "teacher" || props.user.value === "staff") &&
                         <div onClick={(e) => { setSearchMenu("watch") }} className={`${styles.searchMenuDiv} ${searchMenu === "watch" ? styles.active : ""}`}>
@@ -199,11 +203,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                 <div>
                     {
                         searchMenu === "write" &&
-                        <MyMessage unreadMessage={props.unreadMessage} />
-                    }
-                    {
-                        searchMenu === "mine" &&
-                        <MineMessage />
+                        <MyMessage update={update} unreadMessage={props.unreadMessage} />
                     }
                     {
                         searchMenu === "watch" &&

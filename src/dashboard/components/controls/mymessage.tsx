@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import koLocale from 'date-fns/locale/ko'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { GridRenderCellParams,DataGridPro, GridRowsProp, GridColDef, GridToolbar, LicenseInfo, useGridApiRef, GridEditRowsModel } from '@mui/x-data-grid-pro';
+import { GridCellParams, GridApiRef, GridRenderCellParams,DataGridPro, GridRowsProp, GridColumns, GridColDef, GridToolbar, LicenseInfo, useGridApiRef, GridEditRowsModel, GridFilterModel } from '@mui/x-data-grid-pro';
 import { eachDayOfInterval } from 'date-fns';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -11,6 +11,8 @@ import Popper from '@mui/material/Popper';
 import { createStyles, makeStyles } from '@mui/styles';
 import styles from '../../componentsStyle/upload.module.css';
 import { createTheme, darken, lighten } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import renderCellExpand from '../data/rendercellexpand';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -50,6 +52,12 @@ const useStyles2 = makeStyles(
             backgroundColor: getHoverBackgroundColor(theme.palette.error.main),
           },
         },
+        '& .from' : {
+          color : theme.palette.warning.main
+        },
+        '& .to' : {
+          color : theme.palette.info.main
+        }
       },
     };
   },
@@ -59,141 +67,12 @@ const useStyles2 = makeStyles(
 
 
 
-interface GridCellExpandProps {
-    value: string;
-    width: number;
-  }
-
-
-  const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      alignItems: 'center',
-      lineHeight: '24px',
-      width: '100%',
-      height: '100%',
-      position: 'relative',
-      display: 'flex',
-      '& .cellValue': {
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      },
-    },
-  }),
-);
-
-
-function isOverflown(element: Element): boolean {
-    return (
-      element.scrollHeight > element.clientHeight ||
-      element.scrollWidth > element.clientWidth
-    );
-  }
-
-
-  const GridCellExpand = React.memo(function GridCellExpand(
-    props: GridCellExpandProps,
-  ) {
-    const { width, value } = props;
-    const wrapper = React.useRef<HTMLDivElement | null>(null);
-    const cellDiv = React.useRef(null);
-    const cellValue = React.useRef(null);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const classes = useStyles();
-    const [showFullCell, setShowFullCell] = React.useState(false);
-    const [showPopper, setShowPopper] = React.useState(false);
-  
-    const handleMouseEnter = () => {
-      const isCurrentlyOverflown = isOverflown(cellValue.current!);
-      setShowPopper(isCurrentlyOverflown);
-      setAnchorEl(cellDiv.current);
-      setShowFullCell(true);
-    };
-  
-    const handleMouseLeave = () => {
-      setShowFullCell(false);
-    };
-  
-    React.useEffect(() => {
-      if (!showFullCell) {
-        return undefined;
-      }
-  
-      function handleKeyDown(nativeEvent: KeyboardEvent) {
-        // IE11, Edge (prior to using Bink?) use 'Esc'
-        if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
-          setShowFullCell(false);
-        }
-      }
-  
-      document.addEventListener('keydown', handleKeyDown);
-  
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-      };
-    }, [setShowFullCell, showFullCell]);
-  
-    return (
-      <div
-        ref={wrapper}
-        className={classes.root}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div
-          ref={cellDiv}
-          style={{
-            height: 1,
-            width,
-            display: 'block',
-            position: 'absolute',
-            top: 0,
-          }}
-        />
-        <div ref={cellValue} className="cellValue">
-          {value}
-        </div>
-        {showPopper && (
-          <Popper
-            open={showFullCell && anchorEl !== null}
-            anchorEl={anchorEl}
-            style={{ width, marginLeft: -17 }}
-          >
-            <Paper
-              elevation={1}
-              style={{ minHeight: wrapper.current!.offsetHeight - 3 }}
-            >
-              <Typography variant="body2" style={{ padding: 8 }}>
-                {value}
-              </Typography>
-            </Paper>
-          </Popper>
-        )}
-      </div>
-    );
-  });
-  
-  function renderCellExpand(params: GridRenderCellParams<string>) {
-    return (
-      <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
-    );
-  }
-
-
-
-
-
-
-
-
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 const columns: GridColDef[] = [
-    { field: 'fromUser', headerName: '보낸사람', width: 120, filterable : false},
-    { field: 'description', headerName: '내용', width: 730, renderCell: renderCellExpand, filterable : false },
-    { field: 'answer', headerName: '답장 보내기', width: 150, editable : true, renderCell: renderCellExpand, filterable : false},
-    { field: 'time', headerName: '도착시간', width: 160, filterable : false},
+    { field: 'name', headerName: '이름', width: 120, editable : false},
+    { field: 'description', headerName: '내용', width: 730, renderCell: renderCellExpand, filterable : false, editable : false },
+    { field: 'time', headerName: '전송시간', width: 160, filterable : false, editable : false},
   ];
 
 const MyMessage : React.FC<any> = (props) => {
@@ -201,12 +80,33 @@ const MyMessage : React.FC<any> = (props) => {
     const [rows, setRows] = useState<any>([]);
     const [loading, setLoading] = useState(false);
     const [editRowsModel, setEditRowsModel] = React.useState({});
-
     const [update, setUpdate] = useState(0);
+    const apiRef = useGridApiRef();
+    const [name, setName] = useState("");
 
-    
+    const [filterModel, setFilterModel] = React.useState<GridFilterModel>({
+      items: [
+          { id: 2, columnField: 'name', operatorValue: 'contains', value: "" }
+      ],
+  });
+
+    const nameChange = (e : any) => {
+      console.log(filterModel);
+      setName(e.target.value);
+      console.log(111);
+      const newFilterModel : any = filterModel;
+      newFilterModel.items.forEach((each : any)=>{
+          if(each.id === 2){
+              each.value = e.target.value;
+          }
+      })
+      console.log(newFilterModel);
+      setFilterModel({...newFilterModel});
+    }
+
     useEffect(() => {
         setLoading(true);
+
 
         const start = async () => {
             var token = "";
@@ -240,52 +140,22 @@ const MyMessage : React.FC<any> = (props) => {
                                 hours = createdAt.getHours()
                             }
                             oneRow.id = each.id;
-                            oneRow.fromUser = each.fromUserName;
+                            oneRow.name = each.direction === "from" ? each.toUserName : each.fromUserName;
                             oneRow.time = `${createdAt.getMonth()+1}월${createdAt.getDate()}일 ${ampm} ${hours < 10 ? "0" + hours : hours}:${createdAt.getMinutes() < 10 ? "0" + createdAt.getMinutes() : createdAt.getMinutes()}`
                             oneRow.description = each.message;
                             oneRow.answer = each.answer;
+                            oneRow.direction = each.direction;
                             newRows.push(oneRow);
                         })
                         console.log(11);
                         setRows([...newRows]);
+                        props.unreadMessage();
                     })
             })
         }
 
         start();
-    }, []);
-
-    const handleCommit = async (e : any) => {
-        console.log(e);
-        const id = e.id;
-        const field = e.field;
-        var value = e.value;
-        console.log(id, field, value);
-
-        if(!value){
-            value = "";
-          }
-
-        var token = "";
-            if (window.electron) {
-                token = await window.electron.sendMessageApi.getToken();
-            }
-
-            fetch(`https://peetsunbae.com/dashboard/envelope/message`, {
-                method: "PATCH",
-                headers: { "Authorization": token, "Content-Type" : "application/json" },
-                credentials: "include",
-                body : JSON.stringify({
-                    id, field, value
-                })
-            }).then((response: any) => {
-                response.json()
-                    .then((result: any) => {
-                        props.unreadMessage();
-                        console.log(result);
-                    })
-            })
-    }
+    }, [props.update]);
 
 
 
@@ -293,24 +163,26 @@ const MyMessage : React.FC<any> = (props) => {
     <div>
       <div className={styles.mysearchDate}>
         <div className={styles.caution}>
-          꼭! 메세지 확인 후 '답변 보내기'에 답변 보내주세요.(수월한 업무처리 도와주세요!)
+          - 꼭! 메세지 확인 후 답변 보내주세요.(수월한 업무처리 도와주세요!)<br></br>
         </div>
         <div>
-          {new Date().getFullYear()}-{new Date().getMonth() + 1}-{new Date().getDate()}
+            <TextField value={name} onChange={nameChange} id="standard-basic" placeholder="이름을 검색하세요" variant="standard" />
         </div>
       </div>
       <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white" }}>
         <DataGridPro loading={loading} rows={rows} columns={columns}
-          onCellEditCommit={handleCommit}
-          disableSelectionOnClick={true}
+          density="compact"
+          apiRef={apiRef}
+          filterModel={filterModel}
+          onFilterModelChange={(model) => setFilterModel(model)}
           getRowClassName={(params) => {
-            if(params.getValue(params.id, "answer")){
+            if(params.getValue(params.id, "direction") === "from"){
               return (
-                `super-app-theme`
+                `from`
               )
             }else{
               return (
-                `super-app-theme--처리완료`
+                `to`
               )
             }
           }
@@ -318,7 +190,7 @@ const MyMessage : React.FC<any> = (props) => {
         />
       </div>
       <div className={styles.mysearchDescription}>
-        * 미답변 메세지 - 파랑색<br />
+        * 전송한 메세지 : 빨간색, 수신한 메세지 : 파란색<br />
       </div>
     </div>
   )

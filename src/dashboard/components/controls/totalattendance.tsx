@@ -547,7 +547,7 @@ const TotalAttendance: React.FC<any> = (props) => {
         const currentMonth = new Date().getMonth() + 1;
         const currentYear = new Date().getFullYear();
 
-        getAttendance(1, 2022);
+        getAttendance(currentMonth, currentYear);
     }, []);
 
 

@@ -197,8 +197,6 @@ const columns: GridColDef[] = [
   { field: 'fromUser', headerName: '보낸사람', width: 120, filterable: true },
   { field: 'toUser', headerName: '받는사람', width: 120, filterable: true },
   { field: 'description', headerName: '내용', width: 730, renderCell: renderCellExpand, filterable: false },
-  { field: 'answer', headerName: '답변', width: 150, editable: true, renderCell: renderCellExpand, filterable: false },
-  { field: 'answerTime', headerName: '답변시간', width: 160, editable: true, renderCell: renderCellExpand, filterable: false },
 ];
 
 const TotalMessage: React.FC<any> = (props) => {
@@ -349,7 +347,6 @@ const TotalMessage: React.FC<any> = (props) => {
       <div className={styles.mysearchDate}>
         <div className={styles.caution}>
           <br></br>
-          꼭! 메세지 확인 후 '답변 보내기'에 답변 보내주세요.(수월한 업무처리 도와주세요!)
         </div>
         <div>
           <ToggleButtonGroup
