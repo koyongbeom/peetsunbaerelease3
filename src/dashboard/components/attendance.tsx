@@ -155,6 +155,9 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                     <div onClick={(e) => { setSearchMenu("message") }} className={`${styles.searchMenuDiv} ${searchMenu === "message" ? styles.active : ""}`}>
                         휴대폰 관리
                     </div>
+                    <div onClick={(e) => { setSearchMenu("second") }} className={`${styles.searchMenuDiv} ${searchMenu === "second" ? styles.active : ""}`}>
+                        2호점 출석
+                    </div>
                 </div>
 
                 {

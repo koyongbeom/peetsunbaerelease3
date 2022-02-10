@@ -254,8 +254,8 @@ const Dashboard: React.FC<props> = (props) => {
         socket.on("newMessage", (messageUserName)=>{
             console.log("----------");
             console.log("newMessage");
-            new window.Notification("새로운 메세지가 왔습니다.", {body : `${messageUserName}님이 메세지를 보냈습니다.`});
             unreadMessage();
+            new window.Notification("새로운 메세지가 왔습니다.", {body : `${messageUserName}님이 메세지를 보냈습니다.`});
         })
 
         return function cleanup() {socket.off("newAnswer")}

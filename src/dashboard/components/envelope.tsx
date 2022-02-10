@@ -31,8 +31,8 @@ type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book
 interface envelopeProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
     user: any;
-    socket : Socket;
-    unreadMessage : any;
+    socket: Socket;
+    unreadMessage: any;
 }
 
 const style = {
@@ -42,11 +42,11 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    borderRadius : "24px",
+    borderRadius: "24px",
     boxShadow: 24,
     p: 3,
-    paddingLeft : 5,
-    paddingRight : 5
+    paddingLeft: 5,
+    paddingRight: 5
 };
 
 
@@ -59,10 +59,10 @@ const Envelope: React.FC<envelopeProps> = (props) => {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
-    const [update, setUpdate] = useState(0); 
+    const [update, setUpdate] = useState(0);
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => {setActive(true); setOpen(false);}
+    const handleClose = () => { setActive(true); setOpen(false); }
 
 
     useEffect(() => {
@@ -83,40 +83,41 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                     .then((result: any) => {
                         console.log(result);
                         const rows: any = [];
-                        result.data.forEach((each: any, index: number) => {
-                            var data: any = {};
-                            data.id = each.id;
-                            switch (each.name){
-                                case "고용범" : 
-                                    each.name = "[대표]" + " 고용범";
-                                    break;
-                                case "곽윤정" :
-                                    each.name = "[2호점 저녁 조교샘]" + " 곽윤정";
-                                    break;
-                                case "김아현" :
-                                    each.name = "[2호점 낮 조교샘]" + " 김아현";
-                                    break;
-                                case "박가을" :
-                                    each.name = "[원장]" + " 박가을";
-                                    break;
-                                case "윤예주" :
-                                    each.name = "[본점 4층 조교샘]" + " 윤예주";
-                                    break;
-                                case "양지원" :
-                                    each.name = "[본점 6층 조교샘]" + " 양지원";
-                                    break;
-                                case "김동훈" :
-                                    each.name = "[담임관리자]" + " 김동훈";
-                                    break;
-                            }
-                            data.label = each.name;
-                            data.phoneNumber = each.phoneNumber;
-                            data.value = each.value;
-                            data.key = index;
-                            rows.push(data);
-                        })
-                        setUsers([...rows]);
-
+                        if (result.data) {
+                            result.data.forEach((each: any, index: number) => {
+                                var data: any = {};
+                                data.id = each.id;
+                                switch (each.name) {
+                                    case "고용범":
+                                        each.name = "[대표]" + " 고용범";
+                                        break;
+                                    case "곽윤정":
+                                        each.name = "[2호점 저녁 조교샘]" + " 곽윤정";
+                                        break;
+                                    case "김아현":
+                                        each.name = "[2호점 낮 조교샘]" + " 김아현";
+                                        break;
+                                    case "박가을":
+                                        each.name = "[원장]" + " 박가을";
+                                        break;
+                                    case "윤예주":
+                                        each.name = "[본점 4층 조교샘]" + " 윤예주";
+                                        break;
+                                    case "양지원":
+                                        each.name = "[본점 6층 조교샘]" + " 양지원";
+                                        break;
+                                    case "김동훈":
+                                        each.name = "[담임관리자]" + " 김동훈";
+                                        break;
+                                }
+                                data.label = each.name;
+                                data.phoneNumber = each.phoneNumber;
+                                data.value = each.value;
+                                data.key = index;
+                                rows.push(data);
+                            })
+                            setUsers([...rows]);
+                        }
                     })
             })
         }
@@ -135,16 +136,16 @@ const Envelope: React.FC<envelopeProps> = (props) => {
         }
     }
 
-    const changeMessage = (e : any) => {
+    const changeMessage = (e: any) => {
         setMessage(e.target.value);
-        if(selectedUser && e.target.value){
+        if (selectedUser && e.target.value) {
             setActive(false);
         } else {
             setActive(true);
         }
     }
 
-    const submit = async (e : any) => {
+    const submit = async (e: any) => {
         console.log(selectedUser);
         console.log(message);
 
@@ -167,9 +168,9 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                 .then((result: any) => {
                     console.log(result);
                     setLoading(false);
-                    if(result.message === "success"){
+                    if (result.message === "success") {
                         setUploadBool(true);
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             setUploadBool(false);
                         }, 1000);
                         props.socket.emit("newMessage", selectedUser.id, props.user.name);
@@ -215,13 +216,13 @@ const Envelope: React.FC<envelopeProps> = (props) => {
 
 
 
-            
+
 
             <div onClick={handleOpen} className={`${styles.message} qnaWrite`}>
                 <img src="./img/pencil.svg" alt="pencil" />
                 메세지 보내기
             </div>
-            
+
 
             <Modal
                 open={open}
@@ -239,15 +240,15 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                             disablePortal
                             id="combo-box-demo"
                             options={users}
-                            sx={{ width: "100%", borderRadius : "40px !important" }}
-                            renderInput={(params) => <TextField {...params} sx={{borderRadius : "24px"}} label={<span className={styles.nameText}>이름</span>} />}
+                            sx={{ width: "100%", borderRadius: "40px !important" }}
+                            renderInput={(params) => <TextField {...params} sx={{ borderRadius: "24px" }} label={<span className={styles.nameText}>이름</span>} />}
                         />
                     </div>
                     <div className={styles.textfieldDiv}>
-                        <TextField value={message} onChange={(e)=>{changeMessage(e)}} fullWidth id="outlined-basic" label={<span className={styles.nameText}>메세지</span>} variant="outlined" />
+                        <TextField value={message} onChange={(e) => { changeMessage(e) }} fullWidth id="outlined-basic" label={<span className={styles.nameText}>메세지</span>} variant="outlined" />
                     </div>
 
-                    
+
                     {loading &&
                         <Box sx={{ width: '100%', marginTop: 3, marginBottom: 3 }}>
                             <LinearProgress />
