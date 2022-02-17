@@ -237,6 +237,47 @@
     }
 } */
 
+.studentsBox {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1150px;
+}
+
+.insideStudent {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: center;
+    color: blue;
+    width: 160px;
+    border: 1px solid black;
+    font-family: "Apple_R";
+}
+
+.outsideStudent {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid black;
+    text-align: center;
+    color: red;
+    width: 160px;
+    font-family: "Apple_R";
+
+}
+
+.studentTitle {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-family: "Apple_B";
+    margin-top: 24px;
+}
+
+.teacherTitle {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-family: "Apple_B";
+    margin-top: 48px;
+}
+
 @media screen and (max-width : 1024px){
     .main {
         height: 130vh;

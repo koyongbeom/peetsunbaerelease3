@@ -20,7 +20,11 @@ import WorkLoadToday from './controls/workloadtoday';
 import TotalWorkLoad from './controls/totalworkload';
 import koLocale from 'date-fns/locale/ko'
 import TotalAttendance from './controls/totalattendance';
+import PhotoManager from "./controls/photomanager";
 import Mobile from './controls/mobile';
+import TotalFingerprint from './controls/totalfingerprint';
+import CurrentSeat from './controls/currentseat';
+import SecondAttendance from './controls/secondattendance';
 
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
@@ -137,7 +141,7 @@ const Attendance: React.FC<attendanceProps> = (props) => {
     return (
         <div className={styles.main}>
 
-            <div className={styles.mainBoard}>
+            <div className={`${styles.mainBoard} ${searchMenu === "photo" ? styles.photo : ""}`}>
                 <div className={styles.title}>
                     <img src="img/off/chart.svg" alt="chart" /> 업무 관리
                 </div>
@@ -145,6 +149,9 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                 <div className={styles.searchMenu}>
                     <div onClick={(e) => { setSearchMenu("write") }} className={`${styles.searchMenuDiv} ${searchMenu === "write" ? styles.active : ""}`}>
                         오늘 업무보고
+                    </div>
+                    <div onClick={(e) => { setSearchMenu("photo") }} className={`${styles.searchMenuDiv} ${searchMenu === "photo" ? styles.active : ""}`}>
+                        인증샷
                     </div>
                     <div onClick={(e) => { setSearchMenu("watch") }} className={`${styles.searchMenuDiv} ${searchMenu === "watch" ? styles.active : ""}`}>
                         전체 업무보고
@@ -165,6 +172,10 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                     <WorkLoadToday />
                 }
                 {
+                    searchMenu === "photo" &&
+                    <PhotoManager />
+                }
+                {
                     searchMenu === "watch" &&
                     <TotalWorkLoad />
                 }
@@ -176,14 +187,24 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                     searchMenu === "message" &&
                     <Mobile />
                 }
+                {
+                    searchMenu === "second" &&
+                    <>
+                        <SecondAttendance />
+                    </>
+                }
 
 
             </div>
-
-            <div onClick={handleOpen} className="qnaWrite">
-                <img src="./img/pencil.svg" alt="pencil" />
-                업무 추가하기
-            </div>
+            
+            {
+                searchMenu === "watch" &&
+                <div onClick={handleOpen} className="qnaWrite">
+                    <img src="./img/pencil.svg" alt="pencil" />
+                    업무 추가하기
+                </div>
+            }
+            
 
             <Modal
                 open={open}
