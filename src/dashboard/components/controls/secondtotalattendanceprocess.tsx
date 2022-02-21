@@ -6,6 +6,8 @@ import { createTheme, darken, lighten } from '@mui/material/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SecondOutingTest from "./secondoutingtest";
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -52,10 +54,10 @@ const columns1: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'status', headerName: '위치', width: 100, filterable: true },
     { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
-    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field : "oneReply_1", headerName : "1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
-    { field : "oneReply_2", headerName : "1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field: 'secondReply', headerName: '최종처리', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field : "oneReply_1", headerName : "1교시 상황", width : 250, filterable : false, renderCell : renderCellExpand},
+    { field : "oneReply_2", headerName : "1교시 최종처리", width : 250, filterable : false, renderCell : renderCellExpand},
     { field : "twoReply_1", headerName : "2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "twoReply_2", headerName : "2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "threeReply_1", headerName : "3교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
@@ -74,10 +76,10 @@ const columns3: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'status', headerName: '위치', width: 100, filterable: true },
     { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
-    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field : "twoReply_1", headerName : "2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
-    { field : "twoReply_2", headerName : "2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field: 'secondReply', headerName: '최종처리', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field : "twoReply_1", headerName : "2교시 상황", width : 250, filterable : false, renderCell : renderCellExpand},
+    { field : "twoReply_2", headerName : "2교시 최종처리", width : 250, filterable : false, renderCell : renderCellExpand},
     { field : "oneReply_1", headerName : "1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "oneReply_2", headerName : "1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "threeReply_1", headerName : "3교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
@@ -96,10 +98,10 @@ const columns4: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'status', headerName: '위치', width: 100, filterable: true },
     { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
-    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field : "threeReply_1", headerName : "3교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
-    { field : "threeReply_2", headerName : "3교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field: 'secondReply', headerName: '최종처리', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field : "threeReply_1", headerName : "3교시 상황", width : 250, filterable : false, renderCell : renderCellExpand},
+    { field : "threeReply_2", headerName : "3교시 최종처리", width : 250, filterable : false, renderCell : renderCellExpand},
     { field : "twoReply_1", headerName : "2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "twoReply_2", headerName : "2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "oneReply_1", headerName : "1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
@@ -118,10 +120,10 @@ const columns5: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'status', headerName: '위치', width: 100, filterable: true },
     { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
-    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field : "fourReply_1", headerName : "4교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
-    { field : "fourReply_2", headerName : "4교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field: 'secondReply', headerName: '최종처리', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field : "fourReply_1", headerName : "4교시 상황", width : 250, filterable : false, renderCell : renderCellExpand},
+    { field : "fourReply_2", headerName : "4교시 최종처리", width : 250, filterable : false, renderCell : renderCellExpand},
     { field : "threeReply_1", headerName : "3교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "threeReply_2", headerName : "3교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "twoReply_1", headerName : "2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
@@ -140,10 +142,10 @@ const columns6: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'status', headerName: '위치', width: 100, filterable: true },
     { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
-    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field : "fiveReply_1", headerName : "5교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
-    { field : "fiveReply_2", headerName : "5교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 300, filterable: false, renderCell: renderCellExpand},
+    { field: 'secondReply', headerName: '최종처리', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field : "fiveReply_1", headerName : "5교시 상황", width : 250, filterable : false, renderCell : renderCellExpand},
+    { field : "fiveReply_2", headerName : "5교시 최종처리", width : 250, filterable : false, renderCell : renderCellExpand},
     { field : "fourReply_1", headerName : "4교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "fourReply_2", headerName : "4교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "threeReply_1", headerName : "3교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
@@ -162,10 +164,10 @@ const columns7: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'status', headerName: '위치', width: 100, filterable: true },
     { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
-    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
-    { field : "sixReply_1", headerName : "6교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
-    { field : "sixReply_2", headerName : "6교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field: 'secondReply', headerName: '최종처리', width: 300, filterable: false, renderCell: renderCellExpand },
+    { field : "sixReply_1", headerName : "6교시 상황", width : 250, filterable : false, renderCell : renderCellExpand},
+    { field : "sixReply_2", headerName : "6교시 최종처리", width : 250, filterable : false, renderCell : renderCellExpand},
     { field : "fiveReply_1", headerName : "5교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "fiveReply_2", headerName : "5교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "fourReply_1", headerName : "4교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
@@ -180,7 +182,7 @@ const columns7: GridColDef[] = [
     { field : "sevenReply_2", headerName : "7교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand}
 ];
 
-const SecondAttendanceProcess: React.FC<any> = (props) => {
+const SecondTotalAttendanceProcess: React.FC<any> = (props) => {
     const classes = useStyles2();
     const [rows, setRows] = useState<any>([]);
     const [loading, setLoading] = useState(false);
@@ -221,7 +223,6 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
 
     useEffect(() => {
         var currentDateTime = new Date();
-        currentDateTime.setDate(currentDateTime.getDate());
         var index = -1;
 
         if (currentDateTime.getTime() > first.getTime()) {
@@ -246,12 +247,10 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
             index = 6;
         }
 
-        console.log('-----');
-        console.log(index);
 
         const newBool = bool;
 
-        for (var i = 0; i <= index; i++) {
+        for (var i = 0; i <= index + 10; i++) {
             newBool[i] = false;
         }
 
@@ -561,7 +560,23 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
         setOutNumber(outCount);
     }
 
+    const previousDay = () => {
+        setRows([]);
+        setLoading(true);
+        const newDate = targetDate;
+        newDate.setDate(newDate.getDate()-1);
+        setTargetDate(newDate);
+        start(newDate.getTime(), alignment);
+    }
 
+    const nextDay = () => {
+        setRows([]);
+        setLoading(true);
+        const newDate = targetDate;
+        newDate.setDate(newDate.getDate()+1);
+        setTargetDate(newDate);
+        start(newDate.getTime(), alignment);
+    }
 
 
 
@@ -584,7 +599,17 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
                 </ToggleButtonGroup>
 
                 <div style={{ marginTop: "16px", fontFamily: "Apple_R" }}>
-                    기준 시간 : {targetDate.getMonth() + 1}월 {targetDate.getDate()}일 {targetDate.getHours() < 10 ? "0" + targetDate.getHours() : targetDate.getHours()}시 {targetDate.getMinutes() < 10 ? "0" + targetDate.getMinutes() : targetDate.getMinutes()}분
+                    <div>
+                        기준 시간 : {targetDate.getMonth() + 1}월 {targetDate.getDate()}일 {targetDate.getHours() < 10 ? "0" + targetDate.getHours() : targetDate.getHours()}시 {targetDate.getMinutes() < 10 ? "0" + targetDate.getMinutes() : targetDate.getMinutes()}분
+                    </div>
+                </div>
+            </div>
+            <div style={{display : "flex", justifyContent : "end", marginTop : "12px"}}>
+                <div style={{ fontSize: "18px", fontFamily: "Apple_B" }}>
+                    <ButtonGroup variant="outlined" aria-label="outlined button group">
+                        <Button onClick={previousDay}>◁</Button>
+                        <Button onClick={nextDay}>▷</Button>
+                    </ButtonGroup>
                 </div>
             </div>
             
@@ -623,4 +648,4 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
     )
 }
 
-export default SecondAttendanceProcess;
+export default SecondTotalAttendanceProcess;

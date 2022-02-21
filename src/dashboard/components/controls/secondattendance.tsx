@@ -7,6 +7,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import TotalFingerprint from './totalfingerprint';
 import CurrentSeat from './currentseat';
 import SecondAttendanceProcess from './secondattendanceprocess';
+import SecondTotalAttendanceProcess from './secondtotalattendanceprocess';
 
 const SecondAttendance: React.FC<any> = (props) => {
     const [value, setValue] = React.useState('1');
@@ -24,6 +25,7 @@ const SecondAttendance: React.FC<any> = (props) => {
                             <Tab label={<span style={{fontFamily : "Apple_B", fontSize : "18px"}}>출석체크</span>} value="1" />
                             <Tab label={<span style={{fontFamily : "Apple_B", fontSize : "18px"}}>현재 등원생</span>} value="2" />
                             <Tab label={<span style={{fontFamily : "Apple_B", fontSize : "18px"}}>전체 지문 인식</span>} value="3" />
+                            <Tab label={<span style={{fontFamily : "Apple_B", fontSize : "18px"}}>전체 출석체크</span>} value="4" />
                         </TabList>
                     </Box>
                     <TabPanel value="1">
@@ -36,6 +38,9 @@ const SecondAttendance: React.FC<any> = (props) => {
                     </TabPanel>
                     <TabPanel value="3">
                         <TotalFingerprint />
+                    </TabPanel>
+                    <TabPanel value="4">
+                        <SecondTotalAttendanceProcess />
                     </TabPanel>
                 </TabContext>
             </Box>
