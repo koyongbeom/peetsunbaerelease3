@@ -13,6 +13,7 @@ import styles from '../../componentsStyle/upload.module.css';
 import { createTheme, darken, lighten } from '@mui/material/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import QrCheck from './qrcheck';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -446,6 +447,8 @@ const WorkLoadToday: React.FC<any> = (props) => {
       <div className={styles.mysearchDescription}>
         * 미완료 - 빨강색, 현재 할일 - 주황색, 완료 - 파랑색<br />
       </div>
+
+      <QrCheck />
     </div>
   )
 }

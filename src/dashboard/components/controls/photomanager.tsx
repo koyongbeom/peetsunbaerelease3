@@ -33,6 +33,35 @@ const PhotoManager: React.FC<any> = (props) => {
         fontSize: "16px"
     });
     const [alignment, setAlignment] = React.useState('title');
+    const [day, setDay] = useState("월");
+
+    useEffect(()=>{
+        const day = new Date().getDay();
+
+        switch (day) {
+            case 0:
+                setDay("일");
+                break;
+            case 1:
+                setDay("월");
+                break;
+            case 2:
+                setDay("화");
+                break;
+            case 3:
+                setDay("수");
+                break;
+            case 4:
+                setDay("목");
+                break;
+            case 5:
+                setDay("금");
+                break;
+            case 6:
+                setDay("토");
+                break;
+        }
+    }, [])
 
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -143,14 +172,14 @@ const PhotoManager: React.FC<any> = (props) => {
 
     const previousDay = () => {
         var targetDate = new Date(dateTime);
-        targetDate.setDate(targetDate.getDate()-1);
+        targetDate.setDate(targetDate.getDate() - 1);
         setDateTime(targetDate.getTime());
         start(targetDate.getTime());
     }
 
     const nextDay = () => {
         var targetDate = new Date(dateTime);
-        targetDate.setDate(targetDate.getDate()+1);
+        targetDate.setDate(targetDate.getDate() + 1);
         setDateTime(targetDate.getTime());
         start(targetDate.getTime());
     }
@@ -159,7 +188,7 @@ const PhotoManager: React.FC<any> = (props) => {
         <div>
             <div className={styles.dateChange}>
                 <div>
-                    <ButtonGroup sx={{marginLeft : "20px", marginBottom : "12px"}} variant="outlined" aria-label="outlined button group">
+                    <ButtonGroup sx={{ marginLeft: "20px", marginBottom: "12px" }} variant="outlined" aria-label="outlined button group">
                         <Button onClick={previousDay}>◁</Button>
                         <Button onClick={nextDay}>▷</Button>
                     </ButtonGroup>
@@ -187,13 +216,13 @@ const PhotoManager: React.FC<any> = (props) => {
             </div>
 
 
-            <Box sx={{ width: '100%', typography: 'body1', marginTop : "12px" }}>
+            <Box sx={{ width: '100%', typography: 'body1', marginTop: "12px" }}>
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChange} aria-label="lab API tabs example">
-                            <Tab label={<span style={{ fontFamily: "Apple_B", fontSize : "18px" }}>4층</span>} value="four" />
-                            <Tab label={<span style={{ fontFamily: "Apple_B", fontSize : "18px"}}>6층</span>} value="six" />
-                            <Tab label={<span style={{ fontFamily: "Apple_B", fontSize : "18px" }}>2호점</span>} value="second" />
+                            <Tab label={<span style={{ fontFamily: "Apple_B", fontSize: "18px" }}>4층</span>} value="four" />
+                            <Tab label={<span style={{ fontFamily: "Apple_B", fontSize: "18px" }}>6층</span>} value="six" />
+                            <Tab label={<span style={{ fontFamily: "Apple_B", fontSize: "18px" }}>2호점</span>} value="second" />
                         </TabList>
                     </Box>
                 </TabContext>
@@ -252,7 +281,7 @@ const PhotoManager: React.FC<any> = (props) => {
 
                     {
                         certifyingImageList.map((eachList: any, index: number) => {
-                            if (eachList.location === value && eachList.time === "별도") {
+                            if (eachList.location === value && eachList.time === "별도" && eachList.description.includes(`${day} -`)) {
                                 return (
                                     <div key={eachList.id} className={`${styles.eachList} ${index === active ? styles.active : ""}`} onClick={(e) => { activeMenu(index, eachList.id, eachList.description) }}>
                                         <div className={styles.eachListDiv}>{eachList.description}</div> <span className={`${styles.count} ${eachList.count === eachList.number ? styles.active : ""}`}>{eachList.count}/{eachList.number}</span>
@@ -288,25 +317,55 @@ const PhotoManager: React.FC<any> = (props) => {
                             if (eachTitle.location === value) {
                                 return (
                                     <div key={eachTitle.id}>
-                                        <div className={styles.eachTitle}>
-                                            {eachTitle.description} - ({eachTitle.count}/{eachTitle.number})
-                                        </div>
-                                        <div className={`${styles.imageBox} ${styles.second}`}>
-                                            {
-                                                images.map((eachImage: any) => {
-                                                    if (eachImage.kind === value && eachImage.title === eachTitle.description) {
-                                                        const preTime = eachImage.name.split("_")[1];
-                                                        const time = preTime.split(".")[0];
-                                                        return (
-                                                            <div key={eachImage.id} className={styles.eachImage} onClick={(e) => { clickImage(e, eachImage.id, eachImage.title) }}>
-                                                                <img ref={ref} style={imageStyle} className={`${styles.image} ${eachImage.title ? styles.active : ""}`} src={eachImage.url} alt="image" />
-                                                                <div className={`${styles.date} ${styles.second}`}>{time[0]}{time[1]}시&nbsp;{time[2]}{time[3]}분&nbsp;{time[4]}{time[5]}초</div>
-                                                            </div>
-                                                        )
+                                        {eachTitle.time !== "별도" &&
+                                            <>
+                                                <div className={styles.eachTitle}>
+                                                    {eachTitle.description} - ({eachTitle.count}/{eachTitle.number})
+                                                </div>
+
+                                                <div className={`${styles.imageBox} ${styles.second}`}>
+                                                    {
+                                                        images.map((eachImage: any) => {
+                                                            if (eachImage.kind === value && eachImage.title === eachTitle.description) {
+                                                                const preTime = eachImage.name.split("_")[1];
+                                                                const time = preTime.split(".")[0];
+                                                                return (
+                                                                    <div key={eachImage.id} className={styles.eachImage} onClick={(e) => { clickImage(e, eachImage.id, eachImage.title) }}>
+                                                                        <img ref={ref} style={imageStyle} className={`${styles.image} ${eachImage.title ? styles.active : ""}`} src={eachImage.url} alt="image" />
+                                                                        <div className={`${styles.date} ${styles.second}`}>{time[0]}{time[1]}시&nbsp;{time[2]}{time[3]}분&nbsp;{time[4]}{time[5]}초</div>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        })
                                                     }
-                                                })
-                                            }
-                                        </div>
+                                                </div>
+                                            </>
+                                        }
+                                        {
+                                            (eachTitle.time === "별도" && eachTitle.description.includes(`${day} -`)) &&
+                                            <>
+                                                <div className={styles.eachTitle}>
+                                                    {eachTitle.description} - ({eachTitle.count}/{eachTitle.number})
+                                                </div>
+
+                                                <div className={`${styles.imageBox} ${styles.second}`}>
+                                                    {
+                                                        images.map((eachImage: any) => {
+                                                            if (eachImage.kind === value && eachImage.title === eachTitle.description) {
+                                                                const preTime = eachImage.name.split("_")[1];
+                                                                const time = preTime.split(".")[0];
+                                                                return (
+                                                                    <div key={eachImage.id} className={styles.eachImage} onClick={(e) => { clickImage(e, eachImage.id, eachImage.title) }}>
+                                                                        <img ref={ref} style={imageStyle} className={`${styles.image} ${eachImage.title ? styles.active : ""}`} src={eachImage.url} alt="image" />
+                                                                        <div className={`${styles.date} ${styles.second}`}>{time[0]}{time[1]}시&nbsp;{time[2]}{time[3]}분&nbsp;{time[4]}{time[5]}초</div>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        })
+                                                    }
+                                                </div>
+                                            </>
+                                        }
                                     </div>
                                 );
                             }
