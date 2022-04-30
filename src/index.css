@@ -58,6 +58,18 @@
    color : red;
  }
 
+ .css-1knaqv7-MuiButtonBase-root-MuiButton-root:first-child{
+   display: none !important;
+ }
+
+ .css-1knaqv7-MuiButtonBase-root-MuiButton-root:nth-child(3){
+  display: none !important;
+}
+
+.css-1knaqv7-MuiButtonBase-root-MuiButton-root:nth-child(4){
+  display: none !important;
+}
+
 
   
 

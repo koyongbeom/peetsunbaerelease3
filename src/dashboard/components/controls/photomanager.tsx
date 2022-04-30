@@ -36,7 +36,7 @@ const PhotoManager: React.FC<any> = (props) => {
     const [day, setDay] = useState("월");
 
     useEffect(()=>{
-        const day = new Date().getDay();
+        const day = new Date(dateTime).getDay();
 
         switch (day) {
             case 0:
@@ -61,7 +61,7 @@ const PhotoManager: React.FC<any> = (props) => {
                 setDay("토");
                 break;
         }
-    }, [])
+    }, [dateTime]);
 
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -281,7 +281,9 @@ const PhotoManager: React.FC<any> = (props) => {
 
                     {
                         certifyingImageList.map((eachList: any, index: number) => {
+                            console.log(`${day} -`);
                             if (eachList.location === value && eachList.time === "별도" && eachList.description.includes(`${day} -`)) {
+                                console.log("go");
                                 return (
                                     <div key={eachList.id} className={`${styles.eachList} ${index === active ? styles.active : ""}`} onClick={(e) => { activeMenu(index, eachList.id, eachList.description) }}>
                                         <div className={styles.eachListDiv}>{eachList.description}</div> <span className={`${styles.count} ${eachList.count === eachList.number ? styles.active : ""}`}>{eachList.count}/{eachList.number}</span>

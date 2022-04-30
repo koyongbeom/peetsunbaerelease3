@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import RegularSchedule from './controls/regularSchedule';
 import ChartProfile from './controls/chartprofile';
 import ChartProfileSecond from './controls/chartprofilesecond';
+import QuestionList from './controls/questionList';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -386,16 +387,16 @@ const Chart: React.FC<chartProps> = (props) => {
                             과목
                         </div>
                         <div>
-                            일반화학
+                            국어
                         </div>
                         <div>
-                            유기화학
+                            수학
                         </div>
                         <div>
-                            일반물리학
+                            영어
                         </div>
                         <div>
-                            일반생물학
+                            탐구
                         </div>
                     </div>
                     <div className={styles.secondRow}>
@@ -581,6 +582,11 @@ const Chart: React.FC<chartProps> = (props) => {
                     </div>
                 }
 
+            </div>
+
+
+            <div style={{marginTop : "50px"}}>
+                <QuestionList selectedUser={selectedUser} />
             </div>
 
             {selectedUser &&

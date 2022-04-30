@@ -6,6 +6,7 @@ import { useLocation } from 'react-router';
 import Box from '@mui/material/Box'
 import { FormControl, FormHelperText, Modal, OutlinedInput } from '@mui/material';
 import styles from './complete.module.css';
+import { ReactComponent as LogoSvg } from '../svg/newlogo.svg';
 
 interface props {
     history: any;
@@ -35,7 +36,7 @@ const Complete: React.FC<props> = (props) => {
         <main className={styles.main}>
             <div className={styles.appbar}>
                 <div>
-                    <img className={styles.logo1} alt="logo" src="img/logo1.svg"></img>
+                    <LogoSvg className={styles.logo1} />
                 </div>
                 <Link to="/">
                     <div className={styles.login}>

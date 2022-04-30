@@ -105,7 +105,7 @@ const SecondOutingTest: React.FC<any> = (props) => {
                         const newRows: any = [];
 
                         users.forEach((user: any) => {
-                            if (user.access_groups[0].name === "학생" && user.name !== "Administrator") {
+                            if (user.access_groups && user.access_groups[0].name === "학생" && user.name !== "Administrator") {
                                 var previousRecord: any;
                                 user.records.forEach((record: any, index: number) => {
                                     const oneRow: any = {};

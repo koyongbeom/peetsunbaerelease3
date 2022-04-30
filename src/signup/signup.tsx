@@ -9,6 +9,7 @@ import { useState } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import { red } from '@mui/material/colors';
 import styles from './signup.module.css';
+import { ReactComponent as LogoSvg } from '../svg/newlogo.svg';
 
 const React = require("react");
 
@@ -191,7 +192,7 @@ const SignUp: React.FC<props> = (props) => {
         <main className={styles.main}>
             <div className={styles.appbar}>
                 <div>
-                    <img className={styles.logo1} alt="logo" src="img/logo1.svg"></img>
+                    <LogoSvg className={styles.logo1} />
                 </div>
                 <Link to="/">
                     <div className={styles.login}>

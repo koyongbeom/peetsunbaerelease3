@@ -18,7 +18,8 @@ import Report from './components/report';
 import Restaurant from './components/restaurant';
 import Search from './components/search';
 import NotificationWrite from './components/notificationwrite';
-
+import { ReactComponent as LogoSvg } from '../svg/newlogowhite.svg';
+import { ReactComponent as ShapeLogoSvg } from '../svg/onlyshape.svg';
 
 import menulist from './components/menulist'
 import { forEachChild } from 'typescript';
@@ -277,7 +278,7 @@ const Dashboard: React.FC<props> = (props) => {
             <main className={styles.main}>
                 <div className={`${styles.appBar} ${styles.notablet}`}>
                     <div className={styles.logoDiv}>
-                        <img src="img/longlogo_white.svg" alt="logo"></img>
+                        <LogoSvg className={styles.logoSvg} />
                     </div>
                     <div className={styles.profileDiv}>
                         <Link to="/dashboard/profile">
@@ -318,10 +319,10 @@ const Dashboard: React.FC<props> = (props) => {
 
                             </div>
                             <div className={styles.sideMenuAvatar}>
-                                <img className={styles.logo2} src="img/logo2.webp" alt="logo"></img>
+                                <ShapeLogoSvg className={styles.logo2} />
                             </div>
                             <div className={styles.sideMenuName}>
-                                피트선배<span> </span>
+                                수능선배<span> </span>
                                 {user && user.name}
                             </div>
                         </div>

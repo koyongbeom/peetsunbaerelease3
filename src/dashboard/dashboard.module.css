@@ -18,6 +18,10 @@
     width: 143.7px;
 }
 
+.logoSvg{
+    width: 120.7px;
+}
+
 .profileDiv {
     display: flex;
     align-items: center;
@@ -129,6 +133,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.logo2{
+    width: 25px;
 }
 
 .sideMenuName {

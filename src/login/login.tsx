@@ -10,6 +10,8 @@ import { StringLiteralLike } from 'typescript';
 import { send } from 'process';
 import { ipcRenderer} from 'electron';
 import styles from './login.module.css';
+import { ReactComponent as LogoSvg } from '../svg/newlogo.svg';
+import { ReactComponent as WhiteShapeLogoSvg } from '../svg/whiteshape.svg';
 
 interface props {
     history: any;
@@ -250,7 +252,7 @@ const Login: React.FC<props> = (props) => {
         <main className={styles.main}>
             <div className={`${styles.appbar} ${styles.onlyPc}`}>
                 <div>
-                    <img className={styles.logo1} alt="logo" src="img/logo1.svg"></img>
+                    <LogoSvg className={styles.logo1} />
                 </div>
                 <Link to="/signup">
                     <div className={styles.login}>
@@ -261,7 +263,7 @@ const Login: React.FC<props> = (props) => {
             </div>
 
             <div ref={mobileAppbar} className={`${styles.appbar2} ${styles.onlyMobile}`}>
-                <img className={styles.logo2} alt="logo" src="img/logo.svg"></img>
+                <WhiteShapeLogoSvg className={styles.logo2} />
             </div>
 
             <div className={styles.body}>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { GridRenderCellParams, DataGridPro, GridRowsProp, GridColDef, GridToolbar, LicenseInfo, useGridApiRef, GridEditRowsModel, GridFilterModel } from '@mui/x-data-grid-pro';
 import { createStyles, makeStyles } from '@mui/styles';
 import { createTheme, darken, lighten } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
@@ -70,37 +72,37 @@ const columns: GridColDef[] = [
 const QrCheck: React.FC<any> = (props) => {
     const [loading, setLoading] = useState(false);
     const [rows, setRows] = useState<any>([]);
+    const [targetDate, setTargetDate] = useState(new Date());
 
     const classes = useStyles2();
 
-    useEffect(() => {
-        const time = new Date().getTime();
-
+    const start = (time : number) => {
         console.log("qrcheck");
-
-
         const newRows = [
-            { id : "sixone",name: "sixone", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "sixtwo", name: "sixtwo", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "sixthree", name: "sixthree", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "sixfour", name: "sixfour", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "sixrest", name: "sixrest", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "sixwait", name: "sixwait", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "foura", name: "foura", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "fourc", name: "fourb", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "fourc", name: "fourc", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "fourd", name: "fourd", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "fours", name: "fours", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "secondleftone", name: "secondleftone", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "secondlefttwo", name: "secondlefttwo", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "secondleftthree", name: "secondleftthree", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "secondopenone", name: "secondopenone", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "secondopentwo", name: "secondopentwo", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
-            { id : "secondopenthree", name: "secondopenthree", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "sixone", name: "sixone", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "sixtwo", name: "sixtwo", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "sixthree", name: "sixthree", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "sixfour", name: "sixfour", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "sixrest", name: "sixrest", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "sixwait", name: "sixwait", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "foura", name: "foura", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "fourb", name: "fourb", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "fourc", name: "fourc", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "fourd", name: "fourd", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "fours", name: "fours", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "secondleftone", name: "secondleftone", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "secondlefttwo", name: "secondlefttwo", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "secondleftthree", name: "secondleftthree", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "secondopenone", name: "secondopenone", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "secondopentwo", name: "secondopentwo", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
+            { id: "secondopenthree", name: "secondopenthree", one: [], two: [], three: [], four: [], five: [], six: [], seven: [], eight: [], nine: [] },
         ]
 
-        fetch(`http://211.37.149.74:3010/total?time=${time}`, {
-            method: "GET"
+        var token = "";
+
+        fetch(`https://peetsunbae.com/dashboard/report/qrcheck?time=${time}`, {
+            method: "GET",
+            credentials: "include",
         }).then((response) => {
             response.json()
                 .then((result) => {
@@ -114,21 +116,21 @@ const QrCheck: React.FC<any> = (props) => {
                             if (qrcheck.location + qrcheck.room === eachRow.name) {
                                 if (evaluateTime >= 540 && evaluateTime <= 620) {
                                     eachRow.one.push(qrcheck);
-                                }else if (evaluateTime >= 630 && evaluateTime <= 710) {
+                                } else if (evaluateTime >= 630 && evaluateTime <= 710) {
                                     eachRow.two.push(qrcheck);
-                                }else if (evaluateTime >= 800 && evaluateTime <= 880) {
+                                } else if (evaluateTime >= 800 && evaluateTime <= 880) {
                                     eachRow.three.push(qrcheck);
-                                }else if (evaluateTime >= 890 && evaluateTime <= 970) {
+                                } else if (evaluateTime >= 890 && evaluateTime <= 970) {
                                     eachRow.four.push(qrcheck);
-                                }else if (evaluateTime >= 980 && evaluateTime <= 1040) {
+                                } else if (evaluateTime >= 980 && evaluateTime <= 1040) {
                                     eachRow.five.push(qrcheck);
-                                }else if (evaluateTime >= 1120 && evaluateTime <= 1150) {
+                                } else if (evaluateTime >= 1120 && evaluateTime <= 1150) {
                                     eachRow.six.push(qrcheck);
-                                }else if (evaluateTime >= 1170 && evaluateTime <= 1200) {
+                                } else if (evaluateTime >= 1170 && evaluateTime <= 1200) {
                                     eachRow.seven.push(qrcheck);
-                                }else if (evaluateTime >= 1200 && evaluateTime <= 1290) {
+                                } else if (evaluateTime >= 1200 && evaluateTime <= 1290) {
                                     eachRow.eight.push(qrcheck);
-                                }else if (evaluateTime >= 1290 && evaluateTime <= 1320) {
+                                } else if (evaluateTime >= 1290 && evaluateTime <= 1320) {
                                     eachRow.nine.push(qrcheck);
                                 }
                             }
@@ -197,7 +199,7 @@ const QrCheck: React.FC<any> = (props) => {
                                     const length = eachRow[key].length;
                                     const lastQr = eachRow[key][length - 1];
                                     eachRow[key] = `${new Date(lastQr.createdAt).getHours() < 10 ? "0" + new Date(lastQr.createdAt).getHours() : new Date(lastQr.createdAt).getHours()}:${new Date(lastQr.createdAt).getMinutes() < 10 ? "0" + new Date(lastQr.createdAt).getMinutes() : new Date(lastQr.createdAt).getMinutes()}:${new Date(lastQr.createdAt).getSeconds() < 10 ? "0" + new Date(lastQr.createdAt).getSeconds() : new Date(lastQr.createdAt).getSeconds()}`;
-                                }else{
+                                } else {
                                     eachRow[key] = "";
                                 }
                             }
@@ -209,35 +211,72 @@ const QrCheck: React.FC<any> = (props) => {
                     console.log("new");
                     console.log(newRows);
                     setRows(newRows);
-                    
+                    setLoading(false);
+
                 })
         })
+
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        const time = targetDate.getTime();
+
+        start(time);
     }, []);
+
+    const previousDay = () => {
+        var newDate = targetDate;
+        newDate.setDate(newDate.getDate()-1);
+        start(newDate.getTime());
+        setTargetDate(newDate);
+    }
+
+    const nextDay = () => {
+        var newDate = targetDate;
+        newDate.setDate(newDate.getDate()+1);
+        start(newDate.getTime());
+        setTargetDate(newDate);
+    }
 
 
     return (
         <div>
-            <div style={{marginTop : "48px", fontFamily : "Apple_B", marginBottom : "12px"}}>
-                순찰 가이드라인
+            <div style={{display : "flex", justifyContent : "space-between",  marginTop: "48px", marginBottom: "12px"}}>
+                <div>
+                    <div style={{fontFamily: "Apple_B" }}>
+                        순찰 가이드라인
+                    </div>
+                    <div>
+                        1. QR CODE 태깅 전 열람실에 자는 학생은 깨워주시고 딴짓 하는 사람한테는 주의주세요.
+                    </div>
+                    <div>
+                        2. 순찰 돌 때는 항상 출석부 판 들고 돌아주세요.
+                    </div>
+                </div>
+                <div>
+                    <div style={{marginBottom : "6px", fontFamily : "Apple_B"}}>
+                        {targetDate.getFullYear()}-{targetDate.getMonth()+1}-{targetDate.getDate()}
+                    </div>
+                    <ButtonGroup variant="outlined" aria-label="outlined button group">
+                        <Button onClick={previousDay}>◁</Button>
+                        <Button onClick={nextDay}>▷</Button>
+                    </ButtonGroup>
+                </div>
             </div>
-            <div>
-                1. QR CODE 태깅 전 열람실에 자는 학생은 깨워주시고 딴짓 하는 사람한테는 주의주세요.
-            </div>
-            <div>
-                2. 순찰 돌 때는 항상 출석부 판 들고 돌아주세요.
-            </div>
-            <div className={classes.root} style={{ height: 720, width: '100%', backgroundColor: "white", marginTop : "12px" }}>
+
+            <div className={classes.root} style={{ height: 720, width: '100%', backgroundColor: "white", marginTop: "12px" }}>
 
                 <DataGridPro loading={loading} rows={rows} columns={columns}
                     density='compact'
                     disableSelectionOnClick={true}
                     getCellClassName={(params: any) => {
-                        if(!params.value){
+                        if (!params.value) {
                             return "super-app-theme--확인";
-                        }else{
+                        } else {
                             return "";
                         }
-                      }}
+                    }}
                 />
 
             </div>

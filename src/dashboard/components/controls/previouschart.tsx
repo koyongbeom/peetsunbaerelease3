@@ -140,16 +140,16 @@ const PreviousChart: React.FC<any> = (props) => {
                             과목
                         </div>
                         <div>
-                            일반화학
+                            국어
                         </div>
                         <div>
-                            유기화학
+                            수학
                         </div>
                         <div>
-                            일반물리학
+                            영어
                         </div>
                         <div>
-                            일반생물학
+                            탐구
                         </div>
                     </div>
                     <div className={styles.secondRow}>

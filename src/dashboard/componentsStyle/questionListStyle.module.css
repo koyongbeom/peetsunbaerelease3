@@ -1,0 +1,59 @@
+.textFieldDiv{
+    margin-top: 30px;
+    width: 1150px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.submit {
+    margin-left: 16px;
+    width: 181px;
+    height: 46px;
+    background-color: #3d50b0;
+    color: white;
+    border-radius: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.disabledSubmit {
+    margin-left: 16px;
+    width: 181px;
+    height: 46px;
+    background-color: rgb(224, 224, 224);
+    color: rgb(163, 163, 163);
+    border-radius: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 20px;
+    cursor: not-allowed;
+}
+
+.answerBtnDiv{
+    margin-top: 12px;
+    margin-left: 12px;
+    border: 1px solid black;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.answerBtnDiv:hover{
+    background-color: #1b49af;
+    color: white;
+}
+
+.submitDiv{
+    width: 1150px;
+    display: flex;
+    justify-content: end;
+}
