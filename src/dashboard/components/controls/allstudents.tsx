@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import koLocale from 'date-fns/locale/ko'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { GridCellParams, GridApiRef, GridRenderCellParams, DataGridPro, GridRowsProp, GridColumns, GridColDef, GridToolbar, LicenseInfo, useGridApiRef, GridEditRowsModel, GridFilterModel } from '@mui/x-data-grid-pro';
+import { GridCellParams, GridApiRef, GridRenderCellParams, DataGridPro, GridRowsProp, GridColumns, GridColDef, GridToolbar, LicenseInfo, useGridApiRef, GridEditRowsModel, GridFilterModel,  } from '@mui/x-data-grid-pro';
 import { eachDayOfInterval } from 'date-fns';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -17,8 +17,17 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { Alert, Stack } from '@mui/material';
 import renderCellExpand from '../data/rendercellexpand';
 
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 
 import styles from "../../componentsStyle/upload.module.css"
+
+import {
+    MuiEvent,
+    GridEvents,
+    useGridApiContext,
+
+  } from '@mui/x-data-grid-pro';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -79,83 +88,62 @@ const useStyles2 = makeStyles(
     { defaultTheme },
 );
 
-
 interface EditToolbarProps {
-    apiRef: GridApiRef;
     selectedCellParams?: any;
     setSelectedCellParams: (value: any) => void;
-}
-
-function EditToolbar(props: EditToolbarProps) {
-    const { selectedCellParams, apiRef, setSelectedCellParams } = props;
-
+  }
+  
+  function EditToolbar(props: EditToolbarProps) {
+    const apiRef : any = useGridApiContext();
+    const { selectedCellParams, setSelectedCellParams } = props;
+  
     const handleClick = async () => {
-        console.log(selectedCellParams);
-
-        if (!selectedCellParams) {
-            return;
-        }
-        if (selectedCellParams.field != "answer") {
-            return;
-        }
-        const { id, field, cellMode } = selectedCellParams;
-        if (cellMode === 'edit') {
-            // Wait for the validation to run
-            const isValid = await apiRef.current.commitCellChange({ id, field });
-            if (isValid) {
-                apiRef.current.setCellMode(id, field, 'view');
-                setSelectedCellParams({ ...selectedCellParams, cellMode: 'view' });
-            }
-        } else {
-            apiRef.current.setCellMode(id, field, 'edit');
-            setSelectedCellParams({ ...selectedCellParams, cellMode: 'edit' });
-        }
+      if (!selectedCellParams) {
+        return;
+      }
+      const { id, field, cellMode } = selectedCellParams;
+      if (cellMode === 'edit') {
+        apiRef.current.stopCellEditMode({ id, field });
+        setSelectedCellParams({ ...selectedCellParams, cellMode: 'view' });
+      } else {
+        apiRef.current.startCellEditMode({ id, field });
+        setSelectedCellParams({ ...selectedCellParams, cellMode: 'edit' });
+      }
     };
-
-    const handleMouseDown = (event: any) => {
-        // Keep the focus in the cell
-        event.preventDefault();
+  
+    const handleMouseDown = (event: React.MouseEvent) => {
+      // Keep the focus in the cell
+      event.preventDefault();
     };
-
+  
     return (
-        <Box
-            sx={{
-                borderBottom: 1,
-                borderColor: 'divider',
-                display: "flex",
-                justifyContent : "space-between"
-            }}
+      <Box
+        sx={{
+          justifyContent: 'center',
+          display: 'flex',
+          borderBottom: 1,
+          borderColor: 'divider',
+        }}
+      >
+        <Button
+          onClick={handleClick}
+          onMouseDown={handleMouseDown}
+          disabled={!selectedCellParams}
+          color="primary"
         >
-            <GridToolbar />
-            <Button
-                onClick={handleClick}
-                onMouseDown={handleMouseDown}
-                disabled={!selectedCellParams}
-                color="primary"
-            >
-                {selectedCellParams?.cellMode === 'edit' ? 'Save' : 'Edit'}
-            </Button>
-
-
-        </Box>
+          {selectedCellParams?.cellMode === 'edit' ? 'Save' : 'Edit'}
+        </Button>
+      </Box>
     );
-}
+  }
 
 
 
-
-
-
-
-
-
-
-LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 const columns: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 120, filterable: true, editable: false },
     { field: 'kind', headerName: '직책', width: 120, filterable: true, editable: false },
-    { field: 'status', headerName: '상태', width: 120, filterable: true, editable: false, renderCell: renderCellExpand },
+    { field: 'status', headerName: '재원중', width: 120, filterable: true, editable: true, type : "boolean" },
     { field: 'phoneNumber', headerName: '전화번호', width: 120, filterable: true, editable: false },
     { field: 'location', headerName: '호점', width: 120, filterable: true, editable: false },
     { field: 'room', headerName: '열람실', width: 120, filterable: true, editable: false },
@@ -163,10 +151,10 @@ const columns: GridColDef[] = [
     { field: 'demerit', headerName: '이번달 벌점', width: 120, filterable: true, editable: false },
     { field: 'parentPhoneNumber', headerName: '부모님번호', width: 120, filterable: true, editable: false },
     { field: 'chargedMoney', headerName: '충전금잔액', width: 120, filterable: true, editable: false },
-    { field: 'fingerprintId', headerName: '지문인식ID', width: 120, filterable: true, editable: false },
+    { field: 'fingerprintId', headerName: '지문인식ID', width: 120, filterable: true, editable: true },
     { field: 'firstCome', headerName: '첫 등원', width: 120, filterable: true, editable: false },
     { field: 'createdAt', headerName: '회원가입일', width: 120, filterable: true, editable: false },
-    { field: 'teacher', headerName: '담임', width: 120, filterable: true, editable: false },
+    { field: 'teacher', headerName: '담임', width: 120, filterable: true, editable: true },
     { field: 'teacherDescription', headerName: '담임 배정 이유', width: 120, filterable: true, editable: false, renderCell: renderCellExpand },
 ];
 
@@ -179,8 +167,6 @@ const AllStudents: React.FC<any> = (props) => {
     const [editRowsModel, setEditRowsModel] = React.useState({});
 
     const apiRef = useGridApiRef();
-    const [selectedCellParams, setSelectedCellParams] =
-        React.useState<GridCellParams | null>(null);
 
     const [selectedUserId, setSelectedUserId] = useState();
     const [selectedUserName, setSelectedUserName] = useState();
@@ -198,6 +184,9 @@ const AllStudents: React.FC<any> = (props) => {
             { id: 2, columnField: 'name', operatorValue: 'contains', value: "" }
         ],
     });
+
+    const [selectedCellParams, setSelectedCellParams] =
+    React.useState<GridCellParams | null>(null);
 
     const nameChange = (e : any) => {
         setName(e.target.value);
@@ -264,29 +253,21 @@ const AllStudents: React.FC<any> = (props) => {
 
     const handleCellClick = React.useCallback((params: GridCellParams) => {
         setSelectedCellParams(params);
-    }, []);
-
-    const handleDoubleCellClick = React.useCallback((params, event) => {
+      }, []);
+    
+      const handleCellEditStart = (
+        params: GridCellParams,
+        event: MuiEvent<React.SyntheticEvent>,
+      ) => {
         event.defaultMuiPrevented = true;
-    }, []);
-
-    // Prevent from rolling back on escape
-    const handleCellKeyDown = React.useCallback((params, event) => {
-        if (
-            ['Escape', 'Delete', 'Backspace', 'Enter'].includes(
-                (event as React.KeyboardEvent).key,
-            )
-        ) {
-            event.defaultMuiPrevented = true;
-        }
-    }, []);
-
-    // Prevent from committing on focus out
-    const handleCellFocusOut = React.useCallback((params, event) => {
-        if (params.cellMode === 'edit' && event) {
-            event.defaultMuiPrevented = true;
-        }
-    }, []);
+      };
+    
+      const handleCellEditStop: any = (
+        params : any,
+        event : any,
+      ) => {
+        event.defaultMuiPrevented = true;
+      };
 
 
 
@@ -397,32 +378,21 @@ const AllStudents: React.FC<any> = (props) => {
             </div>
             <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white" }}>
                 <DataGridPro loading={loading} rows={rows} columns={columns}
-                    apiRef={apiRef}
-                    onCellClick={handleCellClick}
                     density='compact'
-                    onCellDoubleClick={handleDoubleCellClick}
-                    onCellFocusOut={handleCellFocusOut}
-                    onCellKeyDown={handleCellKeyDown}
-                    onSelectionModelChange={(newSelectionModel) => {
-                        console.log(newSelectionModel);
-                        if(apiRef.current.getSelectedRows()){
-                            const selectedRow : any = apiRef.current.getSelectedRows().get(newSelectionModel[0]);
-                            console.log(selectedRow ? selectedRow.name : "");
-                            setSelectedUserName(selectedRow.name);
-                            setSelectedUserId(selectedRow.id);
-                        };
-                    }}
-                    onCellEditCommit={handleCommit}
+
+                    onCellClick={handleCellClick}
+                    onCellEditStart={handleCellEditStart}
+                    onCellEditStop={handleCellEditStop}
                     components={{
                         Toolbar: EditToolbar,
                     }}
                     componentsProps={{
                         toolbar: {
                             selectedCellParams,
-                            apiRef,
                             setSelectedCellParams,
                         },
                     }}
+                    experimentalFeatures={{newEditingApi : true}}
                     filterModel={filterModel}
                     onFilterModelChange={(model) => setFilterModel(model)}
                 />

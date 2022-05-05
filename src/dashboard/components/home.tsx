@@ -150,7 +150,7 @@ const Home: React.FC<socketProps> = (props) => {
                 </div>
             </div>
 
-            <div className={styles.notificationDiv}>
+            {/* <div className={styles.notificationDiv}>
                 <div className={styles.notificationTitle}>최근 공지사항</div>
 
                 <div className={styles.notifications}>
@@ -218,7 +218,7 @@ const Home: React.FC<socketProps> = (props) => {
 
                 </div>
 
-            </div>
+            </div> */}
         </div>
     </>
     )
