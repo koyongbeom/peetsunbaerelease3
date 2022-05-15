@@ -67,7 +67,7 @@ const columns: GridColDef[] = [
     { field: 'second', headerName: '두번째 시도', width: 120, filterable: true, editable : true },
     { field: 'third', headerName: '세번째 시도', width: 120, filterable: true, editable : true },
 
-    // { field: 'answer', headerName: '정답', width: 100, filterable: true },
+    { field: 'answer', headerName: '정답', width: 100, filterable: true },
 ];
 
 
@@ -166,9 +166,10 @@ const QuestionList: React.FC<any> = (props) => {
             return;
         }
 
+
         setLoading(true);
         setRows([]);
-        fetch(`https://peetsunbae.com/questions/questionList?subject=${alignment}&studentId=${props.selectedUser ? props.selectedUser.id : ""}`, {
+        fetch(`https://peetsunbae.com/questions/questionList?subject=${alignment}&studentId=${(props.selectedUser && props.selectedUser.id) ? props.selectedUser.id : ""}`, {
             method: "GET",
             credentials : "include"
         }).then((response: any) => {
@@ -519,7 +520,7 @@ const QuestionList: React.FC<any> = (props) => {
 
                 <div className={styles.submitDiv}>
                     {active &&
-                        <a href={`https://peetsunbae.com/questions?pros=${JSON.stringify(realSelectionModel)}&studentId=${props.selectedUser.id ? props.selectedUser.id : ""}&studentName=${props.selectedUser.label ? props.selectedUser.label : ""}`} target="_blank">
+                        <a href={`https://peetsunbae.com/questions?pros=${JSON.stringify(realSelectionModel)}&studentId=${props.selectedUser ? props.selectedUser.id : ""}&studentName=${props.selectedUser ? props.selectedUser.label : ""}`} target="_blank">
                             <div className={styles.submit}>
                                 문제보기
                                 <img src="img/navigate_next.svg" alt="right"></img>

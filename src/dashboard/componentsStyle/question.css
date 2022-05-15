@@ -531,12 +531,43 @@ border-radius: 6px;
     }
 
     .bodyTitle {
-        font-size: 26px;
+        font-size: 44px;
+        font-weight: 600;
     }
 
     .bodyDescription {
-        font-size: 22px;
+        font-size: 38px;
+        margin-top: 38px;
+        margin-bottom: 38px;
     }
+
+    .reviewAuthor{
+        font-size: 22px;
+        font-weight: 500;
+    }   
+
+    /* .review{
+        display: block;
+        vertical-align: top;
+    }
+
+    .reviewAvatar{
+        display: inline-block;
+        vertical-align: top;
+
+    }
+
+    .reviewDescriptionDiv{
+        display: inline-block;
+        width: 950px;
+    }
+
+    .reviewAuthor{
+        margin-bottom: 0px;
+    } */
+
+
+
 
     @media (orientation : portrait){
         .imgOperator {

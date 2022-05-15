@@ -146,10 +146,10 @@ const Upload: React.FC<props> = (props) => {
             <FormControl sx={{marginBottom : "12px"}} component="fieldset">
                 <FormLabel component="legend" sx={{ fontFamily : "Apple_R", color : "black !important"}}><span className="radioTitle">과목 선택</span></FormLabel>
                 <RadioGroup onChange={(e, value)=>{selectSubject(e, value)}} row aria-label="gender" name="row-radio-buttons-group">
-                    <FormControlLabel value="chemistry" control={<Radio />} label={<span className="radio">화학</span>} />
-                    <FormControlLabel value="organic" control={<Radio />} label={<span className="radio">유기</span>} />
-                    <FormControlLabel value="physics" control={<Radio />} label={<span className="radio">물리</span>} />
-                    <FormControlLabel value="biology" control={<Radio />} label={<span className="radio">생물</span>} />
+                    <FormControlLabel value="chemistry" control={<Radio />} label={<span className="radio">국어</span>} />
+                    <FormControlLabel value="organic" control={<Radio />} label={<span className="radio">수학</span>} />
+                    <FormControlLabel value="physics" control={<Radio />} label={<span className="radio">영어</span>} />
+                    <FormControlLabel value="biology" control={<Radio />} label={<span className="radio">탐구</span>} />
                 </RadioGroup>
             </FormControl>
 

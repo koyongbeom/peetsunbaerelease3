@@ -1,7 +1,7 @@
 const menu = [
     //--------------------------------- 학생, 학부모 뺀곳---------------
     {
-        value : ["teacher", "parent", "staff"],
+        value : ["teacher", "parent", "student","staff"],
         name : "home",
         description : "홈"
     },
@@ -11,7 +11,7 @@ const menu = [
         description : "공지사항"
     },
     {
-        value : ["teacher", "parent", "staff"],
+        value : ["teacher", "student", "staff"],
         name : "alarm",
         description : "출석 기록"
     },
@@ -21,12 +21,12 @@ const menu = [
         description : "지각/결석 사유 제출"
     },
     {
-        value : ["parent", "teacher", "staff"],
+        value : ["parent", "student", "staff"],
         name : "book",
         description : "상담일지"
     },
     {
-        value : ["teacher", "parent", "staff"],
+        value : ["teacher", "student", "staff"],
         name : "question",
         description : "질의응답"
     },
@@ -36,7 +36,7 @@ const menu = [
         description : "도시락신청"
     },
     {
-        value : ["teacher", "parent", "staff"],
+        value : ["teacher", "parent", "staff", "student"],
         name : "envelope",
         description : "나에게 온 메시지"
     },

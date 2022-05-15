@@ -134,7 +134,7 @@ const OfflineStatus: React.FC<any> = (props) => {
                         oneRow.id = index + 1;
                         oneRow.name = each.name;
                         oneRow.date = `${new Date(each.targetDate).getMonth() + 1}월 ${new Date(each.targetDate).getDate()}일`;
-                        oneRow.when = each.hours + " : " + each.minutes;
+                        oneRow.when = each.ampm + " " + each.hours + " : " + each.minutes;
                         oneRow.teacher = each.teacherName;
                         if(each.subject === "chemistry"){
                             each.subject = "화학"
@@ -266,7 +266,7 @@ const OfflineStatus: React.FC<any> = (props) => {
                                                                     {eachEnroll.ampm} {eachEnroll.hours}:{eachEnroll.minutes}
                                                                 </div>
                                                                 <div>
-                                                                    {eachEnroll.teacherName}
+                                                                    {eachEnroll.teacherName} 튜터
                                                                 </div>
 
                                                             </div>

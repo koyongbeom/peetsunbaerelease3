@@ -139,7 +139,10 @@
 
 .teacherImage {
     width: 487px;
+    width: 315px;
     height: 326px;
+    object-fit: cover;
+    background-color: rgb(202,175, 206);
 }
 
 .teacherDescription {
@@ -170,7 +173,7 @@
 }
 
 .selectDiv {
-    margin-top: 54px;
+    margin-top: 35px;
     display: flex;
     justify-content: start;
     margin-bottom: 20px;
@@ -248,13 +251,32 @@
 }
 
 .questionDiscriptionDiv {
-    margin-top: 23px;
+    margin-top: 5px;
     font-family: "Apple_R";
+}
+
+.fileUploadDivWrapper{
+    height: 45.438px;
+}
+
+.fileNameDivWrapper{
+    max-height: 40px;
+    overflow: hidden;
+}
+
+.questionDescriptionSubmitDiv{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0px !important;
 }
 
 .questionDiscriptionDiv div div:last-child{
     margin-top: 12px;
     font-size: 14px;
+}
+
+.justText{
+    font-family: "Apple_B";
 }
 
 .mine {

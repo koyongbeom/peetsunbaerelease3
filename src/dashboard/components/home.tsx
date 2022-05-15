@@ -76,7 +76,7 @@ const Home: React.FC<socketProps> = (props) => {
                             </div>
                         </div>
 
-                        <div className={styles.attendanceBoardDescription_1}>
+                        {/* <div className={styles.attendanceBoardDescription_1}>
                             <div className={styles.attendanceBoardDescription_1_1}>
                                 지각/결석
                             </div>
@@ -84,7 +84,7 @@ const Home: React.FC<socketProps> = (props) => {
                                 <span className={styles.attendanceBoardDescriptionHour}>3 / 1</span>
                                 <span>회</span>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className={styles.attendanceBoardDescription_1}>
                             <div className={styles.attendanceBoardDescription_1_1}>
@@ -125,7 +125,7 @@ const Home: React.FC<socketProps> = (props) => {
                             </div>
                         </div>
 
-                        <div className={styles.attendanceBoardDescription_1}>
+                        {/* <div className={styles.attendanceBoardDescription_1}>
                             <div className={styles.attendanceBoardDescription_1_1}>
                                 지각/결석
                             </div>
@@ -133,7 +133,7 @@ const Home: React.FC<socketProps> = (props) => {
                                 <span className={styles.attendanceBoardDescriptionHour}>0 / 0</span>
                                 <span>회</span>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className={styles.attendanceBoardDescription_1}>
                             <div className={styles.attendanceBoardDescription_1_1}>

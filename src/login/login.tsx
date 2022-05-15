@@ -295,7 +295,7 @@ const Login: React.FC<props> = (props) => {
                             </span>
                         </div>
 
-                        피트선배가 처음이신가요? <Link to="/signup"><span className={styles.lastTextSpan}>회원가입</span></Link>
+                        수능선배가 처음이신가요? <Link to="/signup"><span className={styles.lastTextSpan}>회원가입</span></Link>
                     </div>
                 </Box>
             </div>

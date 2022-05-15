@@ -13,7 +13,10 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TotalDemerit from './totaldemerit';
+import {DataGridPro, LicenseInfo, GridColDef} from '@mui/x-data-grid-pro';
+import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
+LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
@@ -34,16 +37,27 @@ const date = new Date();
 var i = [1, 2, 3, 4, 5, 6, 7];
 var j = [1, 2, 3, 4, 5, 6];
 
+
+const columns : GridColDef[] = [
+    {field : "score", headerName : "벌점", width : 100},
+    {field : "description", headerName : "내용", width : 200},
+];
+
 const Alarm: React.FC<AlarmProps> = (props) => {
     // const classes = props.classes;
+    const [rows, setRows] = useState([]);
+    const [totalScore, setTotalScore] = useState(0);
+
     const [year, setYear] = useState<number>(date.getFullYear());
     const [month, setMonth] = useState<number>(date.getMonth());
     const [firstDay, setFirstDay] = useState<number>(3);
     const [lastDate, setLastDate] = useState<number>(3);
     const [unit, setUnit] = React.useState('day');
     const [open, setOpen] = React.useState(false);
+    const [open2, setOpen2] = useState(false);
     const [data, setData] = useState<any>();
     const handleClose = () => setOpen(false);
+    const handleClose2 = () => setOpen2(false);
     const [today, setToday] = useState(new Date());
     const [modalKind, setModalKind] = useState(0);
     const [style, setStyle] = useState<any>([
@@ -60,11 +74,35 @@ const Alarm: React.FC<AlarmProps> = (props) => {
           }
     ]
     );
+
+    const [style2, setStyle2] = useState<any>(
+        {
+            position: 'absolute' as 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 800,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+          }
+    )
+
+
     const [targetDate, setTargetDate] = useState(0);
     const [targetDay, setTargetDay] = useState("월");
+    const [loading, setLoading] = useState(false);
+
+
+
 
     const handleOpen = () => {
         setOpen(true);
+    }
+
+    const handleOpen2 = () => {
+        setOpen2(true);
     }
 
     const viewAccessControl = (date : number, day : number) => {
@@ -132,9 +170,19 @@ const Alarm: React.FC<AlarmProps> = (props) => {
             }
             //------------------------------------------------------------------
 
-            fetch(`https://peetsunbae.com/fingerprint/totalMonthStampTest`, {
-                method: "GET",
-                headers: { 'Authorization': token }
+            if(!props.user?.id){
+                console.log("noUser");
+                return;
+            }
+
+            fetch(`https://peetsunbae.com/fingerprint/totalMonthStampRealForReal`, {
+                method: "post",
+                headers: { 'content-type' : 'application/json' },
+                credentials : "include",
+                body : JSON.stringify({
+                    id : props.user?.id,
+                    month : month + 1
+                })
             }).then((response) => {
                 response.json()
                     .then((result) => {
@@ -142,6 +190,11 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                         const newArray : any = [];
                         for(var i=0; i<31; i++){
                             newArray.push([]);
+                        }
+
+                        if(!result.data){
+                            console.log("noresult");
+                            return;
                         }
 
                         result.data.forEach((each : any)=>{
@@ -152,11 +205,40 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                             each.hoursString = each.hours < 10 ? "0" +  each.hours : each.hours;
                             each.minutesString = each.minutes < 10 ? "0" + each.minutes : each.minutes;
                             each.countedTime = each.hours * 60 + each.minutes; 
+                            if(each.hours >= 2){
                             newArray[targetDate-1].push(each);
+                            }else{
+                                if(targetDate === 1){
+
+                                }else{
+                                    newArray[targetDate - 2].push(each);
+                                }
+                            }
                         });
 
                         console.log(newArray);
                         setData(newArray);
+
+                        if(!result.demerit){
+                            console.log("noResult");
+                            return;
+                        }
+
+                        const newRows : any = [];
+                        var newTotalScore = 0;
+
+                        result.demerit.forEach((each : any)=>{
+                            const oneRow : any = {};
+                            oneRow.id = each.id;
+                            oneRow.score = each.score;
+                            oneRow.description = each.description;
+                            newTotalScore += each.score;
+
+                            newRows.push(oneRow);
+                        });
+
+                        setTotalScore(newTotalScore);
+                        setRows(newRows);
                     })
             }).catch(error => {
                 console.log(error);
@@ -166,6 +248,8 @@ const Alarm: React.FC<AlarmProps> = (props) => {
         start();
     }, [month]);
     //-----------------------------------------------------------------------
+
+
 
 
     const minusMonth = () => {
@@ -231,7 +315,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                         </div>
                         <div>
                             <Box>
-                                <Button sx={{ width: "95px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R", fontSize: "15px" }} variant="outlined">상담일정</Button>
+                                <Button onClick={()=>{alert("준비중인 기능입니다")}} sx={{ width: "95px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R", fontSize: "15px" }} variant="outlined">상담일정</Button>
                             </Box>
                         </div>
                         <div>
@@ -246,7 +330,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                         </div>
                     </div>
                     <div>
-                        <Button onClick={()=>{handleOpen()}} sx={{ width: "180px", height: "46px", border: "1px solid #728aff", color: "#3d50b0", fontFamily: "Apple_R", fontSize: "16px" }} variant="outlined"># 이번 달 총 벌점기록</Button>
+                        <Button onClick={()=>{handleOpen2()}} sx={{ width: "180px", height: "46px", border: "1px solid #728aff", color: "#3d50b0", fontFamily: "Apple_R", fontSize: "16px" }} variant="outlined"># {month+1}월 총 벌점기록</Button>
                     </div>
                 </div>
                 <div className={styles.whenMonth}>
@@ -300,6 +384,10 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                                                     totalTime = targetData[targetData.length -1].countedTime - targetData[0].countedTime;
                                                 }
 
+                                                if(totalTime && totalTime < 0){
+                                                    totalTime = targetData[targetData.length -1].countedTime - targetData[0].countedTime + 1440;
+                                                }
+
                                                 return (
                                                     <div key={Math.random()} data-year={year} data-month={month} data-day={day} className={`${styles.calendarDay} ${(targetData && targetData.length > 0) ? styles.active : ""}`} onClick={()=>{ viewAccessControl( (+day), (targetData && targetData.length > 0) ? new Date(+targetData[0].time).getDay() : -1 ) }}>
                                                         <div style={{display : "flex"}}>
@@ -313,10 +401,9 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                                                                 </div>
                                                             }
                                                         </div>
-                                                        <div className={`${styles.startTime} ${(targetData && targetData.length > 0 && targetData[0].countedTime > 540 && new Date(+targetData[0].time).getDay() !== 0) ? styles.late : ""}`}>
+                                                        <div className={`${styles.startTime}`}>
                                                             {(targetData && targetData.length > 0) &&
-                                                             `${targetData[0].hoursString}:${targetData[0].minutesString} 등원
-                                                             ${(targetData[0].countedTime > 540 && new Date(+targetData[0].time).getDay() !== 0) ? "(지각)" : ""}`
+                                                             `${targetData[0].hoursString}:${targetData[0].minutesString} 등원`
                                                              }
                                                         </div>
                                                         <div className={styles.lastTime}>
@@ -356,7 +443,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                                     return (
                                         <div className={`${styles.eachAccessControl}`}>
                                             <div className={`${styles.eachAccessControlChild} ${eachData.direction === "inside" ? styles.inside : styles.outside}`}>
-                                                {eachData.hoursString}:{eachData.minutesString} {eachData.direction === "inside" ? "외출" : "입실"} {(index > 0 && eachData.direction === "outside") ? `(외출 ${data[targetDate-1][index].countedTime - data[targetDate-1][index-1].countedTime}분 경과)` : ""}
+                                                <span className={styles.timeCheck}>{eachData.hoursString}:{eachData.minutesString}</span>&nbsp;&nbsp; {eachData.direction === "inside" ? "외출" : "입실"} {(index > 0 && eachData.direction === "outside") ? `(외출 ${data[targetDate-1][index].countedTime - data[targetDate-1][index-1].countedTime}분 경과)` : ""}
                                             </div>
                                         </div>
                                     );
@@ -364,6 +451,27 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                             }
                         </div>
                     </div>
+                </Box>
+            </Modal>
+
+            <Modal
+                open={open2}
+                onClose={handleClose2}
+            >
+                <Box sx={style2}>
+                            <h4>
+                                {month + 1}월 벌점기록
+                            </h4>
+                            <div style={{ height : 350, width : "100%", backgroundColor : "white", marginTop : "24px"}}>
+                                <DataGridPro
+                                density='compact'
+                                columns={columns}
+                                rows={rows}
+                                />
+                            </div>
+                            <div className={styles.totalScore}>
+                                총 벌점 : {totalScore}점
+                            </div>
                 </Box>
             </Modal>
         </div>

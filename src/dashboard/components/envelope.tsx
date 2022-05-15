@@ -91,10 +91,10 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                                     case "고용범":
                                         each.name = "[대표]" + " 고용범";
                                         break;
-                                    case "곽윤정":
+                                    case "민지희":
                                         each.name = "[2호점 저녁 조교샘]" + " 곽윤정";
                                         break;
-                                    case "김아현":
+                                    case "강다연":
                                         each.name = "[2호점 낮 조교샘]" + " 김아현";
                                         break;
                                     case "박가을":
@@ -103,7 +103,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                                     case "윤예주":
                                         each.name = "[본점 4층 조교샘]" + " 윤예주";
                                         break;
-                                    case "양지원":
+                                    case "최윤":
                                         each.name = "[본점 6층 조교샘]" + " 양지원";
                                         break;
                                     case "김동훈":
@@ -114,7 +114,13 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                                 data.phoneNumber = each.phoneNumber;
                                 data.value = each.value;
                                 data.key = index;
-                                rows.push(data);
+                                if (props.user.value === "student") {
+                                    if (data.label.includes("[")) {
+                                        rows.push(data);
+                                    }
+                                } else {
+                                    rows.push(data);
+                                }
                             })
                             setUsers([...rows]);
                         }

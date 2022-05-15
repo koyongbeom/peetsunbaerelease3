@@ -158,6 +158,7 @@ const columns6: GridColDef[] = [
     { field : "sevenReply_2", headerName : "7교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand}
 ];
 
+//6-1교시용
 const columns7: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'status', headerName: '위치', width: 100, filterable: true },
@@ -176,9 +177,68 @@ const columns7: GridColDef[] = [
     { field : "twoReply_2", headerName : "2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "oneReply_1", headerName : "1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "oneReply_2", headerName : "1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixFirstReply_1", headerName : "6-1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixFirstReply_2", headerName : "6-1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixSecondReply_1", headerName : "6-2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixSecondReply_2", headerName : "6-2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sevenReply_1", headerName : "7교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sevenReply_2", headerName : "7교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+];
+
+//6-2교시용
+const columns8: GridColDef[] = [
+    { field: 'name', headerName: '이름', width: 150 },
+    { field: 'status', headerName: '위치', width: 100, filterable: true },
+    { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
+    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
+    { field : "sixFirstReply_1", headerName : "6-1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixFirstReply_2", headerName : "6-1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixReply_1", headerName : "6교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixReply_2", headerName : "6교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fiveReply_1", headerName : "5교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fiveReply_2", headerName : "5교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fourReply_1", headerName : "4교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fourReply_2", headerName : "4교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "threeReply_1", headerName : "3교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "threeReply_2", headerName : "3교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "twoReply_1", headerName : "2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "twoReply_2", headerName : "2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "oneReply_1", headerName : "1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "oneReply_2", headerName : "1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixSecondReply_1", headerName : "6-2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixSecondReply_2", headerName : "6-2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "sevenReply_1", headerName : "7교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
     { field : "sevenReply_2", headerName : "7교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand}
 ];
+
+//7교시용
+const columns9: GridColDef[] = [
+    { field: 'name', headerName: '이름', width: 150 },
+    { field: 'status', headerName: '위치', width: 100, filterable: true },
+    { field: 'last', headerName: '마지막 기록', width: 250, filterable: false },
+    { field: 'firstReply', headerName: '자리에 없는 이유', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
+    { field: 'secondReply', headerName: '최종 처리', width: 400, filterable: false, renderCell: renderCellExpand, editable: true },
+    { field : "sixSecondReply_1", headerName : "6-2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixSecondReply_2", headerName : "6-2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixFirstReply_1", headerName : "6-1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixFirstReply_2", headerName : "6-1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixReply_1", headerName : "6교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sixReply_2", headerName : "6교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fiveReply_1", headerName : "5교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fiveReply_2", headerName : "5교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fourReply_1", headerName : "4교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "fourReply_2", headerName : "4교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "threeReply_1", headerName : "3교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "threeReply_2", headerName : "3교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "twoReply_1", headerName : "2교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "twoReply_2", headerName : "2교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "oneReply_1", headerName : "1교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "oneReply_2", headerName : "1교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sevenReply_1", headerName : "7교시 상황", width : 100, filterable : false, renderCell : renderCellExpand},
+    { field : "sevenReply_2", headerName : "7교시 최종처리", width : 100, filterable : false, renderCell : renderCellExpand}
+];
+
 
 const SecondAttendanceProcess: React.FC<any> = (props) => {
     const classes = useStyles2();
@@ -189,7 +249,7 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
     const apiRef = useGridApiRef();
     const [name, setName] = useState("");
     const [userData, setUserData] = useState<any>();
-    const [bool, setBool] = useState([true, true, true, true, true, true, true]);
+    const [bool, setBool] = useState([true, true, true, true, true, true, true, true, true]);
 
     const [inNumber, setInNumber] = useState(0);
     const [outNumber, setOutNumber] = useState(0);
@@ -204,6 +264,8 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
     const [fifth, setFifth] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 16, 20));
     const [sixth, setSixth] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 18, 40));
     const [seventh, setSeventh] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 21, 30));
+    const [sixFirst, setSixFirst] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 19, 30));
+    const [sixSecond, setSixSecond] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 20, 30));
 
 
     const [filterModel, setFilterModel] = React.useState<GridFilterModel>({
@@ -242,9 +304,16 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
         if (currentDateTime.getTime() > sixth.getTime()) {
             index = 5;
         }
-        if (currentDateTime.getTime() > seventh.getTime()) {
+        if (currentDateTime.getTime() > sixFirst.getTime()) {
             index = 6;
         }
+        if (currentDateTime.getTime() > sixSecond.getTime()) {
+            index = 7;
+        }
+        if (currentDateTime.getTime() > seventh.getTime()) {
+            index = 8;
+        }
+
 
         console.log('-----');
         console.log(index);
@@ -377,6 +446,14 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
                         oneRow.sixReply_1 = eachReply.firstReply;
                         oneRow.sixReply_2 = eachReply.secondReply;
                         break;
+                    case "sixFirst" :
+                        oneRow.sixFirstReply_1 = eachReply.firstReply;
+                        oneRow.sixFirstReply_2 = eachReply.secondReply;
+                        break;
+                    case "sixSecond" :
+                        oneRow.sixSecondReply_1 = eachReply.firstReply;
+                        oneRow.sixSecondReply_2 = eachReply.secondReply;
+                        break;
                     case "seven":
                         oneRow.sevenReply_1 = eachReply.firstReply;
                         oneRow.sevenReply_2 = eachReply.secondReply;
@@ -491,6 +568,22 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
                 setTargetDate(newDate);
                 start(newDate.getTime(), newAlignment);
                 break;
+            case "sixFirst":
+                setRows([]);
+                setLoading(true);
+                var newDate = targetDate;
+                newDate.setHours(19, 30);
+                setTargetDate(newDate);
+                start(newDate.getTime(), newAlignment);
+                break;
+            case "sixSecond":
+                setRows([]);
+                setLoading(true);
+                var newDate = targetDate;
+                newDate.setHours(20, 30);
+                setTargetDate(newDate);
+                start(newDate.getTime(), newAlignment);
+                break;
             case "seven":
                 setRows([]);
                 setLoading(true);
@@ -580,7 +673,10 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
                     <ToggleButton disabled={bool[3]} value="four"><span style={{ fontFamily: "Apple_B" }}>4교시</span></ToggleButton>
                     <ToggleButton disabled={bool[4]} value="five"><span style={{ fontFamily: "Apple_B" }}>5교시</span></ToggleButton>
                     <ToggleButton disabled={bool[5]} value="six"><span style={{ fontFamily: "Apple_B" }}>6교시</span></ToggleButton>
-                    <ToggleButton disabled={bool[6]} value="seven"><span style={{ fontFamily: "Apple_B" }}>7교시</span></ToggleButton>
+                    <ToggleButton disabled={bool[6]} value="sixFirst"><span style={{ fontFamily: "Apple_B" }}>6-1교시</span></ToggleButton>
+                    <ToggleButton disabled={bool[7]} value="sixSecond"><span style={{ fontFamily: "Apple_B" }}>6-2교시</span></ToggleButton>
+                    <ToggleButton disabled={bool[8]} value="seven"><span style={{ fontFamily: "Apple_B" }}>6-3교시</span></ToggleButton>
+
                 </ToggleButtonGroup>
 
                 <div style={{ marginTop: "16px", fontFamily: "Apple_R" }}>
@@ -595,7 +691,7 @@ const SecondAttendanceProcess: React.FC<any> = (props) => {
                 </div>
                 <div className={classes.root} style={{ height: 500, width: '100%', backgroundColor: "white", marginTop: "8px" }}>
 
-                    <DataGridPro loading={loading} rows={rows} columns={(alignment === "one" || alignment === "two") ? columns1 : alignment === "three" ? columns3 : alignment === "four" ? columns4 : alignment === "five" ? columns5 : alignment === "six" ? columns6 : alignment === "seven" ? columns7 : columns1}
+                    <DataGridPro loading={loading} rows={rows} columns={(alignment === "one" || alignment === "two") ? columns1 : alignment === "three" ? columns3 : alignment === "four" ? columns4 : alignment === "five" ? columns5 : alignment === "six" ? columns6 : alignment === "sixFirst" ? columns7 : alignment === "sixSecond" ? columns8 : alignment === "seven" ? columns9 : columns1}
                         density='compact'
                         components={{ Toolbar: GridToolbar }}
                         filterModel={filterModel}

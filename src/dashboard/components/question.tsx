@@ -70,16 +70,16 @@ const Question: React.FC<questionProps> = (props) => {
 
             <div className="selectMenu">
                 <div onClick={(e) => { changeSelectedMenu(e, "chemistry") }} className={`selectedMenu ${selectMenu === "chemistry" ? "active" : ""}`}>
-                    화학 질의응답방
+                    국어 질의응답방
                 </div>
                 <div onClick={(e) => { changeSelectedMenu(e, "organic") }} className={`selectedMenu ${selectMenu === "organic" ? "active" : ""}`}>
-                    유기 질의응답방
+                    수학 질의응답방
                 </div>
                 <div onClick={(e) => { changeSelectedMenu(e, "physics") }} className={`selectedMenu ${selectMenu === "physics" ? "active" : ""}`}>
-                    물리 질의응답방
+                    영어 질의응답방
                 </div>
                 <div onClick={(e) => { changeSelectedMenu(e, "biology") }} className={`selectedMenu ${selectMenu === "biology" ? "active" : ""}`}>
-                    생물 질의응답방
+                    탐구 질의응답방
                 </div>
                 <div onClick={(e) => { changeSelectedMenu(e, "offline") }} className={`selectedMenu ${selectMenu === "offline" ? "active" : ""}`}>
                     오프라인 신청방

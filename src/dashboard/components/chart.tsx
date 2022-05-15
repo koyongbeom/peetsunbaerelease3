@@ -13,6 +13,7 @@ import RegularSchedule from './controls/regularSchedule';
 import ChartProfile from './controls/chartprofile';
 import ChartProfileSecond from './controls/chartprofilesecond';
 import QuestionList from './controls/questionList';
+import CalendarModal from './controls/calendarmodal';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -45,6 +46,7 @@ const Chart: React.FC<chartProps> = (props) => {
     const [selectedUser, setSelectedUser] = useState<any>();
     const componentRef = useRef(null);
     const [active, setActive] = useState(false);
+    const [active2, setActive2] = useState(true);
 
     const [correctChemistry, setCorrectChemistry] = useState("");
     const [correctOrganic, setCorrectOrganic] = useState("");
@@ -106,6 +108,10 @@ const Chart: React.FC<chartProps> = (props) => {
                     console.log(result);
                     const id = result.id;
                     const pw = result.pw;
+                    if(!id||!pw){
+                        console.log("noIdnoPw");
+                        return;
+                    }
                     fetch("http://localhost:5001", {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
@@ -214,6 +220,61 @@ const Chart: React.FC<chartProps> = (props) => {
                 setAddText(e.target.value);
                 break;
         }
+    }
+
+    const sendToParent = async () => {
+        const studentId = selectedUser.id;
+        const newDate = new Date();
+        const year = newDate.getFullYear();
+        const month = newDate.getMonth() + 1;
+        const date = newDate.getDate();
+        const alimtalkMonthString = month + "월";
+        const alimtalkDateString = date + "일";
+        const dateString = `${year}${month < 10 ? "0" + month : month}${date < 10 ? "0" + date : date}`;
+        const name = selectedUser.label;
+
+        console.log(studentId);
+        console.log(newDate);
+        console.log(year);
+        console.log(month);
+        console.log(date);
+        console.log(alimtalkMonthString);
+        console.log(alimtalkDateString);
+        console.log(dateString);
+        console.log(name);
+
+        fetch("https://peetsunbae.com/dashboard/chart/charttoparentalimtalk", {
+            method : "post",
+            headers : {"content-type" : "application/json"},
+            credentials : "include",
+            body : JSON.stringify({
+                studentId,
+                year,
+                month,
+                date,
+                alimtalkMonthString,
+                alimtalkDateString,
+                dateString,
+                name
+            })
+        }).then((response : any)=>{
+            response.json()
+            .then((result : any)=>{
+                console.log(result);
+                if(result.message === "noLog"){
+                    alert("오늘 저장한 상담일지가 없습니다");
+                }
+                if(result.message === "noUser"){
+                    alert("잘못된 학생 id 입니다");
+                }
+                if(result.message === "noParentPhoneNumber"){
+                    alert("학부모 번호가 없어 학생한테만 전송되었습니다");
+                }
+                if(result.message === "success"){
+                    alert("학생과 학부모에게 알림톡이 전송되었습니다");
+                }
+            })
+        })
     }
 
     const submit = async () => {
@@ -327,8 +388,10 @@ const Chart: React.FC<chartProps> = (props) => {
         setSelectedUser(value);
         if (value) {
             setActive(true);
+            setActive2(true);
         } else {
             setActive(false);
+            setActive2(false);
         }
     }
 
@@ -360,7 +423,7 @@ const Chart: React.FC<chartProps> = (props) => {
                 <div onClick={(e)=>{handleOpen("previous")}} className={styles.selectMenu}>
                     #이전 상담일지
                 </div>
-                <div className={styles.selectMenu}>
+                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("calendar");}}>
                     #출석 기록
                 </div>
                 <div className={styles.selectMenu} onClick={handleMenuClick} aria-expanded={open ? 'true' : undefined}>
@@ -583,6 +646,24 @@ const Chart: React.FC<chartProps> = (props) => {
                 }
 
             </div>
+            <div className={styles.printDiv} style={{marginBottom : "4px"}}>
+                {active2 &&
+                    <div onClick={sendToParent} className={styles.submit}>
+                        부모님께 전송
+                        <img src="img/navigate_next.svg" alt="right"></img>
+                    </div>
+                }
+                {!active2 &&
+                    <div className={styles.disabledSubmit}>
+                        부모님께 전송
+                        <img src="img/navigate_next.svg" alt="right"></img>
+                    </div>
+                }
+            </div>
+            <div className={styles.printDiv} style={{fontSize : "12px"}}>
+                * 저장을 반드시 먼저 누르고 전송을 하셔야 합니다.<br></br>
+                현재 화면에 적혀있는 내용이 아니라<br></br> 마지막 저장 내용이 전송됩니다.<br></br>
+            </div>
 
 
             <div style={{marginTop : "50px"}}>
@@ -606,6 +687,7 @@ const Chart: React.FC<chartProps> = (props) => {
                                 {modalMenu === "regular" && <RegularSchedule selectedUser={selectedUser} /> }
                                 {modalMenu === "profile" && <ChartProfile selectedUser={selectedUser} setModalMenu={setModalMenu} /> }
                                 {modalMenu === "profileSecond" && <ChartProfileSecond selectedUser={selectedUser} /> }
+                                {modalMenu === "calendar" && <CalendarModal user={selectedUser} />}
                             </div>
                         </Box>
                     </Modal>

@@ -142,8 +142,7 @@ const Mobile: React.FC<any> = (props) => {
                     console.log(result);
                     console.log(result.data);
                     const rows: any = [];
-                    const defaultRow: any = { id: Math.random(), date: "--------------", time: "-----------", number: "--------------------", description: "----------------------------------------------------------------------------------------------------------------------------------------------", from: "blank" }
-                    result.data.forEach((each: any) => {
+                    result.data.forEach((each: any, userIndex : any) => {
                         each.name = ""
                         each.fullMessages.reverse();
                         if(users){
@@ -170,8 +169,12 @@ const Mobile: React.FC<any> = (props) => {
                             rows.push(oneRow);
                             }
                         })
+                        const defaultRow: any = { id : userIndex + "defaultRow",date: "--------------", time: "-----------", number: "--------------------", description: "----------------------------------------------------------------------------------------------------------------------------------------------", from: "blank" }
                         rows.push(defaultRow);
                     })
+
+                    console.log("rows");
+                    console.log(rows);
                     setRows([...rows]);
                     setLoading(false);
                 })
