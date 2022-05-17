@@ -228,7 +228,7 @@ const Notification: React.FC<notificationProps> = (props) => {
 
             </div>
             {
-                (props.user.value === "teacher" || props.user.value === "staff") &&
+                (props.user && (props.user.value === "teacher" || props.user.value === "staff")) &&
                 <Link to="/dashboard/notification/write">
                     <div className={styles.newNotification}>
                         <img src="./img/pencil.svg" alt="pencil" className={styles.pencil} />

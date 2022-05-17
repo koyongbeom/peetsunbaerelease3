@@ -150,6 +150,10 @@ const Book: React.FC<bookProps> = (props) => {
 
     useEffect(() => {
 
+        if(!props.user){
+            return;
+        }
+
         console.log("---------");
         async function start() {
             setLoading(true);
@@ -159,7 +163,7 @@ const Book: React.FC<bookProps> = (props) => {
                 token = await window.electron.sendMessageApi.getToken();
             }
 
-            fetch(`https://peetsunbae.com/dashboard/chart/before?userId=${props.user.id}&index=${index}`, {
+            fetch(`https://peetsunbae.com/dashboard/chart/before?userId=${props.user ? props.user.id : ""}&index=${index}`, {
                 method: "GET",
                 headers: { "Authorization": token },
                 credentials: "include",
@@ -208,11 +212,11 @@ const Book: React.FC<bookProps> = (props) => {
             })
         }
 
-        if(props.user.value === "student" || props.user.value === "parent"){
+        if(props.user && (props.user.value === "student" || props.user.value === "parent")){
         start();
         }
 
-    }, [index]);
+    }, [index, props.user]);
 
     useEffect(() => {
 
@@ -247,11 +251,11 @@ const Book: React.FC<bookProps> = (props) => {
             })
         }
 
-        if(props.user.value === "teacher" || props.user.value === "staff"){
+        if(props.user && (props.user.value === "teacher" || props.user.value === "staff")){
         start();
         }
 
-    }, [])
+    }, [props.user]);
 
 
     const change = (e: any, type: string) => {
@@ -276,7 +280,7 @@ const Book: React.FC<bookProps> = (props) => {
         console.log(selectedUser);
         setLoading(true);
 
-        if(props.user.value === "teacher" || props.user.value === "staff"){
+        if(props.user && (props.user.value === "teacher" || props.user.value === "staff")){
 
 
             var token = "";
@@ -382,7 +386,7 @@ const Book: React.FC<bookProps> = (props) => {
             </div>
 
             {
-                (props.user.value === "student" || props.user.value === "parent") &&
+                (props.user && (props.user.value === "student" || props.user.value === "parent")) &&
                 <div className={styles.onlyStudent}>
                     <div>
                         <Box>
@@ -399,7 +403,7 @@ const Book: React.FC<bookProps> = (props) => {
 
             <div>
                 {
-                    (props.user.value === "staff" || props.user.value === "teacher") &&
+                    (props.user && (props.user.value === "staff" || props.user.value === "teacher")) &&
                     <>
                         <div className={styles.direction}>
                             <div>

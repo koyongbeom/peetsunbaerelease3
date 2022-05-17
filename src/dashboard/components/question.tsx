@@ -19,7 +19,7 @@ interface questionProps extends RouteComponentProps {
 
 
 const Question: React.FC<questionProps> = (props) => {
-    const [selectMenu, setSelectMenu] = useState("chemistry");
+    const [selectMenu, setSelectMenu] = useState("offline");
     const [pageStartNumber, setPageStartNumber] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [alignment, setAlignment] = React.useState('All');
@@ -69,6 +69,9 @@ const Question: React.FC<questionProps> = (props) => {
             </div>
 
             <div className="selectMenu">
+                <div onClick={(e) => { changeSelectedMenu(e, "offline") }} className={`selectedMenu ${selectMenu === "offline" ? "active" : ""}`}>
+                    오프라인 신청방
+                </div>
                 <div onClick={(e) => { changeSelectedMenu(e, "chemistry") }} className={`selectedMenu ${selectMenu === "chemistry" ? "active" : ""}`}>
                     국어 질의응답방
                 </div>
@@ -80,9 +83,6 @@ const Question: React.FC<questionProps> = (props) => {
                 </div>
                 <div onClick={(e) => { changeSelectedMenu(e, "biology") }} className={`selectedMenu ${selectMenu === "biology" ? "active" : ""}`}>
                     탐구 질의응답방
-                </div>
-                <div onClick={(e) => { changeSelectedMenu(e, "offline") }} className={`selectedMenu ${selectMenu === "offline" ? "active" : ""}`}>
-                    오프라인 신청방
                 </div>
             </div>
 

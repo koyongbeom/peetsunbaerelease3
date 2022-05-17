@@ -92,20 +92,20 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                                         each.name = "[대표]" + " 고용범";
                                         break;
                                     case "민지희":
-                                        each.name = "[2호점 저녁 조교샘]" + " 곽윤정";
+                                        each.name = "[수능선배 야간 사감조교]" + " 민지희";
                                         break;
                                     case "강다연":
-                                        each.name = "[2호점 낮 조교샘]" + " 김아현";
+                                        each.name = "[수능선배 주간 사감조교]" + " 강다연";
                                         break;
                                     case "박가을":
                                         each.name = "[원장]" + " 박가을";
                                         break;
-                                    case "윤예주":
-                                        each.name = "[본점 4층 조교샘]" + " 윤예주";
-                                        break;
-                                    case "최윤":
-                                        each.name = "[본점 6층 조교샘]" + " 양지원";
-                                        break;
+                                    // case "윤예주":
+                                    //     each.name = "[본점 4층 조교샘]" + " 윤예주";
+                                    //     break;
+                                    // case "최윤":
+                                    //     each.name = "[본점 6층 조교샘]" + " 최윤";
+                                    //     break;
                                     case "김동훈":
                                         each.name = "[담임관리자]" + " 김동훈";
                                         break;
@@ -114,7 +114,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                                 data.phoneNumber = each.phoneNumber;
                                 data.value = each.value;
                                 data.key = index;
-                                if (props.user.value === "student") {
+                                if (props.user && props.user.value === "student") {
                                     if (data.label.includes("[")) {
                                         rows.push(data);
                                     }
@@ -129,7 +129,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
         }
 
         start();
-    }, []);
+    }, [props.user]);
 
 
     const onchange = (e: any, value: any) => {
@@ -179,8 +179,10 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                         setTimeout(() => {
                             setUploadBool(false);
                         }, 1000);
+                        if(props.socket){
                         props.socket.emit("newMessage", selectedUser.id, props.user.name);
                         setUpdate(Math.random());
+                        }
                     }
                 })
         })
@@ -200,7 +202,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                     <div onClick={(e) => { setSearchMenu("write") }} className={`${styles.searchMenuDiv} ${searchMenu === "write" ? styles.active : ""}`}>
                         메세지함
                     </div>
-                    {(props.user.value === "teacher" || props.user.value === "staff") &&
+                    {(props.user && (props.user.value === "teacher" || props.user.value === "staff")) &&
                         <div onClick={(e) => { setSearchMenu("watch") }} className={`${styles.searchMenuDiv} ${searchMenu === "watch" ? styles.active : ""}`}>
                             전체 메세지
                         </div>

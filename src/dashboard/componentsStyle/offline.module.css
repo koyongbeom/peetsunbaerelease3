@@ -326,6 +326,67 @@
     height: 300px;
 }
 
+.imageWrapperDiv{
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.imageExample{
+    width: 600px;
+}
+
+.exampleQuestionDescription{
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 40px;
+    font-size: 22px;
+    font-family: "Apple_R";
+}
+
+.logoDiv{
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 60px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.newlogo{
+    width: 120px;
+}
+
+@media screen and (max-width : 1024px){
+    .imageWrapperDiv{
+        margin-top: 20px;
+        width: 80%;
+    }
+
+    .imageExample{
+        width: 100%;
+    }
+
+    .exampleQuestionDescription{
+        margin-top: 20px;
+        width: 80%;
+        font-size: 16px;
+    }
+
+    .logoDiv{
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 40px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .newlogo{
+        width: 80px;
+    }
+}
+
+
+
 
 
 

@@ -21,7 +21,7 @@ const menu = [
         description : "지각/결석 사유 제출"
     },
     {
-        value : ["parent", "student", "staff"],
+        value : ["parent", "student", "staff", "teacher"],
         name : "book",
         description : "상담일지"
     },
@@ -36,12 +36,12 @@ const menu = [
         description : "도시락신청"
     },
     {
-        value : ["teacher", "parent", "staff", "student"],
+        value : ["teacher", "parent", "staff"],
         name : "envelope",
         description : "나에게 온 메시지"
     },
     {
-        value : ["teacher", "parent", "staff"],
+        value : ["teacher", "parent", "staff", "student"],
         name : "search",
         description : "의견 보내기"
     },

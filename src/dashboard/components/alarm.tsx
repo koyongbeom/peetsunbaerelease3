@@ -246,7 +246,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
         }
 
         start();
-    }, [month]);
+    }, [month, props.user]);
     //-----------------------------------------------------------------------
 
 

@@ -162,11 +162,11 @@ const Offline: React.FC<any> = (props) => {
             })
         }
 
-        if (props.user.value === "teacher") {
+        if (props.user && props.user.value === "teacher") {
             start();
         }
 
-    }, [])
+    }, [props.user]);
 
 
     useEffect(() => {
@@ -699,7 +699,7 @@ const Offline: React.FC<any> = (props) => {
                                 <div key={each.id}>
                                     <div className={styles.teacherDiv}>
                                         <div className={styles.teacherImg}>
-                                            <img className={styles.teacherImage} src={`https://peetsunbae.com/img/questionteacherimage/${each.teacherName}.webp`} alt="img"></img>
+                                            <img className={styles.teacherImage} src={`https://peetsunbae.com/img/questionteacherimage/${each.teacherName.split(" ")[0]}.webp`} alt="img"></img>
                                         </div>
                                         <div className={styles.teacherDescription}>
                                             <div className={styles.teacherSubject}>
@@ -754,7 +754,7 @@ const Offline: React.FC<any> = (props) => {
                                     </div> */}
                                         <div className={styles.timeSelect}>
                                             <div className={styles.timeSelectTitle}>
-                                                <div>시간선택</div>
+                                                <div>시간선택 (2개까지 가능)</div>
                                                 {props.user && (props.user.value === "teacher" || props.user.value === "staff") ?
                                                     <div id="basic-button" onClick={(e)=>{handleClick(e, each.id)}}>
 
@@ -767,13 +767,13 @@ const Offline: React.FC<any> = (props) => {
                                             {enrollStatus === "DELETED" && <Alert severity="info"><span className={styles.alertSpan}>해당 시간 예약이 취소되었습니다.</span></Alert>}
                                             {enrollStatus === "success" && <Alert severity="info"><span className={styles.alertSpan}>해당 시간 예약이 완료되었습니다.</span></Alert>}
                                         </div> */}
-                                            {enrollLoading ?
+                                            {(enrollLoading || !props.user) ?
                                                 <div className={styles.enrollLoading}>
                                                     <CircularProgress />
                                                 </div>
                                                 :
                                                 <div className={styles.times}>
-                                                    {
+                                                    {   
                                                         each.availableTimes.map((one: any) => {
                                                             var status;
                                                             var count = 0;
@@ -782,8 +782,14 @@ const Offline: React.FC<any> = (props) => {
                                                                     status = "occupied"
                                                                     if (+enrolledTime.userId === +props.user.id) {
                                                                         status = "mine";
+                                                                        //첫번째 등록한 시간 기준으로 카톡가게 하려고
+                                                                        if(!enrolledQuestionTime){
                                                                         enrolledQuestionTime = (+one.hours * 60 + +one.minutes);
+                                                                        }
+                                                                        if(!enrolledId){
                                                                         enrolledId = enrolledTime.id;
+                                                                        }
+                                                                        //--------------------------------------------------
                                                                     }
                                                                 }
                                                             })
