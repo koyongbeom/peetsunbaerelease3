@@ -234,8 +234,11 @@ const AllStudents: React.FC<any> = (props) => {
     const [open2, setOpen2] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
     const [active, setActive] = useState(true);
+    
+    
     const [message, setMessage] = useState("");
     const [score, setScore] = useState(0);
+    const [totalScore, setTotalScore] = useState(0);
 
     const [update, setUpdate] = useState(0);
     const [name, setName] = useState("");
@@ -263,7 +266,7 @@ const AllStudents: React.FC<any> = (props) => {
     }
 
 
-    const handleClick = (e : any) => {  setSelectedUserFingerprintId(e.row.fingerprintId); setSelectedUserId(e.id); setSelectedUserName(e.row.name);}
+    const handleClick = (e : any) => {setSelectedUserFingerprintId(e.row.fingerprintId); setSelectedUserId(e.id); setSelectedUserName(e.row.name); setTotalScore(e.row.demerit)}
     const handleOpen = () => { if (selectedUserFingerprintId) setOpen(true); }
     const handleClose = () => { setActive(true); setOpen(false); setScore(0); setMessage("") }
 
@@ -282,9 +285,10 @@ const AllStudents: React.FC<any> = (props) => {
 
     const submit = async (e: any) => {
         setDemeritLoading(true);
-        console.log(selectedUserFingerprintId);
+        console.log(selectedUserId);
         console.log(score);
         console.log(message);
+        console.log(totalScore);
 
         var token = "";
         if (window.electron) {
@@ -296,9 +300,10 @@ const AllStudents: React.FC<any> = (props) => {
             headers: { "Authorization": token, "Content-Type": "application/json" },
             credentials: "include",
             body: JSON.stringify({
-                userId: selectedUserFingerprintId,
+                userId: selectedUserId,
                 score: score,
-                description: message
+                description: message,
+                totalScore : totalScore
             })
         }).then((response: any) => {
             response.json()
@@ -440,7 +445,7 @@ const AllStudents: React.FC<any> = (props) => {
                     credentials: "include",
                     body: JSON.stringify({
                         userId: newRow.id,
-                        value:  newRow[field] ? newRow[field] : "",
+                        value:  newRow[field] ? newRow[field] : null,
                         field
                     })
                 }).then((response: any) => {
@@ -590,6 +595,12 @@ const AllStudents: React.FC<any> = (props) => {
                             value={score}
                             onChange={(e: any) => { setScore(e.target.value); }}
                         />
+                    </div>
+                    <div style={{ marginTop: "8px" }} className={styles.messageTitle}>
+                        누적 벌점
+                    </div>
+                    <div className={styles.textfieldDiv}>
+                        <TextField margin='dense' type="number" value={totalScore} onChange={(e : any) => { setTotalScore(e.target.value); }} fullWidth id="outlined-basic" placeholder="월별 누적 벌점" variant="outlined" />
                     </div>
                     <div style={{ marginTop: "8px" }} className={styles.messageTitle}>
                         사유

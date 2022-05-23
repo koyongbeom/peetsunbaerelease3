@@ -809,7 +809,7 @@ const Offline: React.FC<any> = (props) => {
                                         </div>
                                         <div className={styles.questionDescription}>
                                             <div className={styles.questionDescriptionTitle}>
-                                                질의 내용 전송(권유사항)
+                                                질의 내용 전송(권장사항)
                                             </div>
                                             <div className={styles.questionDiscriptionDiv}>
                                                 {/* <div>

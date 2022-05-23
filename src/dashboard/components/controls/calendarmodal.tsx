@@ -30,6 +30,7 @@ var j = [1, 2, 3, 4, 5, 6];
 const columns: GridColDef[] = [
     { field: "score", headerName: "벌점", width: 100 },
     { field: "description", headerName: "내용", width: 200 },
+    {field : "createdAt", headerName : "벌점 부여한 날짜", width : 200}
 ];
 
 const CalendarModal: React.FC<any> = (props) => {
@@ -218,10 +219,15 @@ const CalendarModal: React.FC<any> = (props) => {
                             oneRow.id = each.id;
                             oneRow.score = each.score;
                             oneRow.description = each.description;
-                            newTotalScore += each.score;
-
+                            const date = new Date(each.createdAt);
+                            const dateString = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1 }-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`
+                            oneRow.createdAt = dateString;
                             newRows.push(oneRow);
                         });
+
+                        if(result.demeritTotal.length > 0){
+                            newTotalScore = result.demeritTotal[0].totalDemerit;
+                        }
 
                         setTotalScore(newTotalScore);
                         setRows(newRows);
@@ -310,7 +316,7 @@ const CalendarModal: React.FC<any> = (props) => {
                     </div>
                 </div>
                 <div>
-                    <Button onClick={() => { handleOpen2() }} sx={{ width: "180px", height: "46px", border: "1px solid #728aff", color: "#3d50b0", fontFamily: "Apple_R", fontSize: "16px" }} variant="outlined"># {month + 1}월 총 벌점기록</Button>
+                    <Button onClick={() => { handleOpen2() }} sx={{ width: "180px", height: "46px", border: "1px solid #728aff", color: "#3d50b0", fontFamily: "Apple_R", fontSize: "16px" }} variant="outlined"># 총 벌점기록</Button>
                 </div>
             </div>
             <div className={styles.whenMonth}>
@@ -440,7 +446,7 @@ const CalendarModal: React.FC<any> = (props) => {
             >
                 <Box sx={style2}>
                     <h4>
-                        {month + 1}월 벌점기록
+                        총 벌점기록
                     </h4>
                     <div style={{ height: 350, width: "100%", backgroundColor: "white", marginTop: "24px" }}>
                         <DataGridPro
@@ -450,7 +456,7 @@ const CalendarModal: React.FC<any> = (props) => {
                         />
                     </div>
                     <div className={styles.totalScore}>
-                        총 벌점 : {totalScore}점
+                        이번 달 누적 벌점 : {totalScore}점
                     </div>
                 </Box>
             </Modal>
