@@ -40,13 +40,14 @@ const style = {
 
 const Chart: React.FC<chartProps> = (props) => {
 
+    const [getLoading, setGetLoading] = useState(false);
     const [loading, setLoading] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
     const [users, setUsers] = useState<any>();
     const [selectedUser, setSelectedUser] = useState<any>();
     const componentRef = useRef(null);
     const [active, setActive] = useState(false);
-    const [active2, setActive2] = useState(true);
+    const [active2, setActive2] = useState(false);
 
     const [correctChemistry, setCorrectChemistry] = useState("");
     const [correctOrganic, setCorrectOrganic] = useState("");
@@ -400,6 +401,87 @@ const Chart: React.FC<chartProps> = (props) => {
         return `@page { margin: ${marginTop} ${marginRight} ${marginBottom} ${marginLeft} !important; }`;
     };
 
+
+    async function startGetLast() {
+
+
+        var token = "";
+        if (window.electron) {
+            token = await window.electron.sendMessageApi.getToken();
+        }
+
+        fetch(`https://peetsunbae.com/dashboard/chart/before?userId=${selectedUser.id}&index=${0}`, {
+            method: "GET",
+            headers: { "Authorization": token },
+            credentials: "include",
+        }).then((response: any) => {
+            response.json()
+                .then((result: any) => {
+                    if(result.message === "success"){
+                    console.log(result);
+                    const information = result.data.information;
+                    setCorrectChemistry(information.correctChemistry);
+                    setCorrectOrganic(information.correctOrganic);
+                    setCorrectPhysics(information.correctPhysics);
+                    setCorrectBiology(information.correctBiology);
+                    setFeedbackChemistry(information.feedbackChemistry);
+                    setFeedbackOrganic(information.feedbackOrganic);
+                    setFeedbackPhysics(information.feedbackPhysics);
+                    setFeedbackBiology(information.feedbackBiology);
+                    setLectureChemistry(information.lectureChemistry);
+                    setLectureOrganic(information.lectureOrganic);
+                    setLecturePhysics(information.lecturePhysics);
+                    setLectureBiology(information.lectureBiology);
+                    setBeforeWeekChemistry(information.beforeWeekChemistry);
+                    setBeforeWeekOrganic(information.beforeWeekOrganic);
+                    setBeforeWeekPhysics(information.beforeWeekPhysics);
+                    setBeforeWeekBiology(information.beforeWeekBiology);
+                    setNextWeekChemistry(information.nextWeekChemistry);
+                    setNextWeekOrganic(information.nextWeekOrganic);
+                    setNextWeekPhysics(information.nextWeekPhysics);
+                    setNextWeekBiology(information.nextWeekBiology);
+                    setDescriptionChemistry(information.descriptionChemistry);
+                    setDescriptionOrganic(information.descriptionOrganic);
+                    setDescriptionPhysics(information.descriptionPhysics);
+                    setDescriptionBiology(information.descriptionBiology);
+                    setAddText(information.addText);
+                    setGetLoading(false);
+                    }else if(result.message === "NOT"){
+                        // alert("존재하지 않습니다.");
+                        setGetLoading(false);
+                    }
+                })
+        })
+    }
+
+
+    const getLastReport = (e : any) => {
+        console.log(e);
+
+        if(!selectedUser){
+            alert("학생을 선택하세요");
+            return;
+        }
+        if(!selectedUser.id){
+            alert("학생을 선택하세요");
+            return;
+        }
+
+
+        if(window.confirm("가장 최근 일지를 가져올까요?")){
+            console.log("yes");
+
+
+            setGetLoading(true);
+            console.log("---------");
+            startGetLast();
+
+
+        }else{
+            console.log("no");
+        }
+    }
+
     return (
         <div className={styles.main}>
             <div className={styles.title}>
@@ -441,9 +523,21 @@ const Chart: React.FC<chartProps> = (props) => {
   @page {\ size: landscape;\ }\
 "}</style>
                 <div className={styles.manageDivTitle}>
-                    <div>학습관리({new Date().getMonth() + 1}월 {new Date().getDate()}일)</div>
+                    <div style={{display : "flex", alignItems : "center"}}>
+                        <span>학습관리({new Date().getMonth() + 1}월 {new Date().getDate()}일)</span>
+                        <div onClick={(e) => { getLastReport(e);}} className={styles.answerBtnDiv}>
+                            최근 일지 불러오기
+                        </div>
+                    </div>
                     <div>{selectedUser && selectedUser.label}</div>
                 </div>
+
+                {getLoading &&
+                <div className={styles.linearProgress}>
+                    <LinearProgress />
+                </div>
+                }
+
                 <div className={styles.manageTable}>
                     <div className={styles.firstRow}>
                         <div>
@@ -627,6 +721,7 @@ const Chart: React.FC<chartProps> = (props) => {
                 </Stack>
             }
 
+
             <div className={styles.printDiv}>
                 <ReactToPrint
                     trigger={() => <img className={styles.print} src="img/print-regular.svg" alt="print"></img>}
@@ -644,24 +739,23 @@ const Chart: React.FC<chartProps> = (props) => {
                         <img src="img/navigate_next.svg" alt="right"></img>
                     </div>
                 }
-
             </div>
             <div className={styles.printDiv} style={{marginBottom : "4px"}}>
                 {active2 &&
                     <div onClick={sendToParent} className={styles.submit}>
-                        부모님께 전송
+                        학부모 전송
                         <img src="img/navigate_next.svg" alt="right"></img>
                     </div>
                 }
                 {!active2 &&
                     <div className={styles.disabledSubmit}>
-                        부모님께 전송
+                        학부모 전송
                         <img src="img/navigate_next.svg" alt="right"></img>
                     </div>
                 }
             </div>
-            <div className={styles.printDiv} style={{fontSize : "12px"}}>
-                * 저장을 반드시 먼저 누르고 전송을 하셔야 합니다.<br></br>
+            <div className={styles.printDiv} style={{fontSize : "12px", textAlign : "right", display : "block", marginTop : "12px"}}>
+                * <strong>저장을 반드시 먼저 누르고 전송하기</strong><br></br>
                 현재 화면에 적혀있는 내용이 아니라<br></br> 마지막 저장 내용이 전송됩니다.<br></br>
             </div>
 

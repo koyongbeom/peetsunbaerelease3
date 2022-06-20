@@ -356,6 +356,10 @@
     width: 120px;
 }
 
+.exampleQuestionDescription{
+    white-space: pre-wrap;
+}
+
 @media screen and (max-width : 1024px){
     .imageWrapperDiv{
         margin-top: 20px;

@@ -809,7 +809,7 @@ const Offline: React.FC<any> = (props) => {
                                         </div>
                                         <div className={styles.questionDescription}>
                                             <div className={styles.questionDescriptionTitle}>
-                                                질의 내용 전송(권장사항)
+                                                질의 내용 전송 (★권장사항)
                                             </div>
                                             <div className={styles.questionDiscriptionDiv}>
                                                 {/* <div>
@@ -828,6 +828,7 @@ const Offline: React.FC<any> = (props) => {
                                                         <TextField
                                                             fullWidth
                                                             variant='outlined'
+                                                            placeholder='내용을 적어주세요.(ENTER로 줄바꿈)'
                                                             rows={6}
                                                             multiline={true}
                                                             value={questionValue[dataIndex]}
