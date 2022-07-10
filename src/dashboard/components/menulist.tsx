@@ -45,6 +45,11 @@ const menu = [
         name : "search",
         description : "의견 보내기"
     },
+    {
+        value : ["teacher", "staff", "student"],
+        name : "text",
+        description : "영단어 시험"
+    },
     //------------------------------------------------------
     {
         value : ["teacher", "staff"],

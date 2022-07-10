@@ -314,10 +314,10 @@ const Edit: React.FC<editProps> = (props) => {
                                 id="filled-multiline-static"
                                 multiline
                                 rows={8}
-                                defaultValue="구체적인 사유를 적어주세요."
+                                placeholder="구체적인 사유를 적어주세요."
                                 variant="filled"
                                 fullWidth
-                                onChange={(e) => { setDescription(e.target.value); }}
+                                onChange={(e : any) => { setDescription(e.target.value); }}
                             />
                         </div>
                     </div>

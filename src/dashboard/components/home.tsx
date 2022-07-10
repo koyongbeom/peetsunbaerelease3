@@ -59,7 +59,7 @@ const Home: React.FC<socketProps> = (props) => {
                         <div className={styles.attendanceBoardTitle_1}>
                             이번주 공부 시간
                         </div>
-                        <div className={styles.attendanceBoardTitle_2}>
+                        <div onClick={(e : any) => {props.history.push("/dashboard/alarm")}} className={styles.attendanceBoardTitle_2}>
                             #자세히
                         </div>
                     </div>
@@ -108,7 +108,7 @@ const Home: React.FC<socketProps> = (props) => {
                         <div className={styles.attendanceBoardTitle_1}>
                             오늘 공부 시간
                         </div>
-                        <div className={styles.attendanceBoardTitle_2}>
+                        <div onClick={(e : any) => {props.history.push("/dashboard/alarm")}} className={styles.attendanceBoardTitle_2}>
                             #자세히
                         </div>
                     </div>

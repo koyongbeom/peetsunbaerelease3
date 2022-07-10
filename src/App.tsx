@@ -7,6 +7,9 @@ import {Socket} from "socket.io-client";
 import Complete from './signup/complete';
 import ChartForParent from './dashboard/components/chartforparent';
 import QuestionExample from './etc/questionexample';
+import Login2 from "./login/login2";
+import Wordtest from "./etc/wordtest";
+import Wordtestreal from "./etc/wordtestreal";
 
 interface props {
   socket : Socket;
@@ -23,6 +26,9 @@ const App : React.FC<props> = (appProps) => {
         <Route path="/complete" component={Complete}></Route>
         <Route path="/dashboard" render={(props)=><Dashboard socket={appProps.socket} {...props}/>} />
         <Route path="/view/questionexample" component={QuestionExample}></Route>
+        <Route path="/login2" component={Login2}></Route>
+        <Route path="/wordtest" component={Wordtest}></Route>
+        <Route path="/wordtestreal" component={Wordtestreal}></Route> 
       </div>
     </Router>
   )

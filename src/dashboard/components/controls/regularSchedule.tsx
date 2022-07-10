@@ -476,7 +476,7 @@ const RegularSchedule: React.FC<any> = (props) => {
     return (
         <div className={styles.regularSchedule}>
             <div className={styles.title}>
-                <img src="img/calendar.svg" alt="calendar" /> 정기일정 현황
+                <img src="img/calendar.svg" alt="calendar" /> 정기일정 현황 {props.name ? "- " + props.name : ""}
             </div>
             <div className={styles.calendarDiv}>
                 <div className={styles.days}>
@@ -745,12 +745,12 @@ const RegularSchedule: React.FC<any> = (props) => {
                 </div>
             </div>
             <div className={styles.calendarDescription}>
-                <div>*기본 공부시간</div>
-                <div>월~금 : 9:00 ~ 22:00, 토~일 : 자유출석</div>
+                {/* <div>*기본 공부시간</div>
+                <div>월~금 : 9:00 ~ 22:00, 토~일 : 자유출석</div> */}
             </div>
 
             <div className={styles.title}>
-                <img src="img/off/edit.svg" alt="calendar" /> 정기일정 추가
+                <img src="img/off/edit.svg" alt="calendar" /> 정기일정 추가 {props.name ? "- " + props.name : ""}
             </div>
 
             <div className={styles.form}>

@@ -59,6 +59,7 @@
 }
 
 .attendanceBoardTitle_2 {
+    cursor: pointer;
     width: 81px;
     height: 32px;
     background-color: #ffffff;

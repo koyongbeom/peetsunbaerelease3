@@ -30,6 +30,7 @@ import QuestionWrite from './components/questionwrite';
 import Profile from './components/profile';
 import NotificationDetail from './components/controls/notificationdetail';
 import TemporaryDrawer from './components/drawer';
+import Text from './components/test';
 // import { ipcRenderer } from 'electron';
 
 
@@ -49,7 +50,7 @@ interface user {
     id: number;
 }
 
-type currentSideBarMenuList = "avatar" | "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
+type currentSideBarMenuList = "avatar" | "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고" | "text";
 
 
 
@@ -406,10 +407,11 @@ const Dashboard: React.FC<props> = (props) => {
                         <Route exact path="/dashboard/" render={(props) => <Home activateMenuList={activateMenuList} socket={socket} newNotification={newNotification} {...props} />} />
                         <Route path="/dashboard/home" render={(props) => <Home activateMenuList={activateMenuList} socket={socket} newNotification={newNotification} {...props} />} />
                         <Route path="/dashboard/alarm" render={(props) => <Alarm activateMenuList={activateMenuList} user={user} {...props}  />} />
+                        <Route path="/dashboard/text" render={(props) => <Text activateMenuList={activateMenuList} user={user} {...props}  />} />
                         <Route path="/dashboard/attendance" render={(props) => <Attendance user={user} activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/avatar" render={(props) => <Avatar activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/book" render={(props) => <Book activateMenuList={activateMenuList} user={user} {...props}  />} />
-                        <Route path="/dashboard/chart" render={(props) => <Chart activateMenuList={activateMenuList} {...props}  />} />
+                        <Route path="/dashboard/chart" render={(props) => <Chart activateMenuList={activateMenuList} user={user} {...props}  />} />
                         <Route path="/dashboard/edit" render={(props) => <Edit user={user} activateMenuList={activateMenuList} {...props}  />} />
                         <Route path="/dashboard/envelope" render={(props) => <Envelope unreadMessage={unreadMessage} socket={socket} user={user} activateMenuList={activateMenuList} {...props}  />} />
                         <Route exact path="/dashboard/notification" render={(props) => <Notification user={user} activateMenuList={activateMenuList} {...props} />} />

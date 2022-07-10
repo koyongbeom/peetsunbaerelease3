@@ -391,7 +391,7 @@ const SecondTotalAttendanceProcess: React.FC<any> = (props) => {
         const parsedUsers: any = [];
 
         preParsedUsers.forEach((each: any) => {
-            if (each.access_groups[0].name === "학생" && each.name !== "Administrator") {
+            if (each.access_groups && each.access_groups[0].name === "학생" && each.name !== "Administrator") {
                 each.records = each.records.filter((record: any) =>
                     +record.time < targetTime
                 );

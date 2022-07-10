@@ -29,6 +29,8 @@ import {
     useGridApiContext,
 } from '@mui/x-data-grid-pro';
 import { GridRowModel } from '@mui/x-data-grid';
+import RegularSchedule from './regularSchedule';
+import RegularSchedule2 from './regularSchedule2';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -61,6 +63,21 @@ const style2 = {
     justifyContent : "center",
     pt: 1,
     pb: 4,
+    borderRadius: "8px",
+};
+
+const style3 = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '500px',
+    bgcolor: 'white',
+    border: '2px solid #000',
+    boxShadow: 24,
+    backgroundColor : "white",
+    display : "flex",
+    justifyContent : "center",
     borderRadius: "8px",
 };
 
@@ -232,6 +249,8 @@ const AllStudents: React.FC<any> = (props) => {
     const [selectedUserName, setSelectedUserName] = useState();
     const [open, setOpen] = React.useState(false);
     const [open2, setOpen2] = useState(false);
+    const [open3, setOpen3] = useState(false);
+
     const [uploadBool, setUploadBool] = useState(false);
     const [active, setActive] = useState(true);
     
@@ -272,6 +291,9 @@ const AllStudents: React.FC<any> = (props) => {
 
     const handleOpen2 = () => { if (selectedUserFingerprintId) setOpen2(true); }
     const handleClose2 = () => { setOpen2(false); }
+
+    const handleOpen3 = () => { if (selectedUserId) setOpen3(true); }
+    const handleClose3 = () => { setOpen3(false); }
 
 
     
@@ -541,7 +563,8 @@ const AllStudents: React.FC<any> = (props) => {
             <div style={{ marginBottom: "12px", display: "flex", justifyContent: "space-between" }}>
                 <div>
                     <Button onClick={handleOpen} sx={{marginRight : "8px"}} variant="outlined">벌점 추가</Button>
-                    <Button onClick={handleOpen2} variant="outlined">출입기록 및 벌점</Button>
+                    <Button onClick={handleOpen2} sx={{marginRight : "8px"}} variant="outlined">출입기록 및 벌점</Button>
+                    <Button onClick={handleOpen3} variant="outlined">정기일정</Button>
                 </div>
                 <div>
                     <TextField value={name} onChange={nameChange} id="standard-basic" placeholder="이름을 검색하세요" variant="standard" />
@@ -636,6 +659,16 @@ const AllStudents: React.FC<any> = (props) => {
             >
                 <Box sx={style2}>
                     <CalendarModal user={{id : selectedUserId}} />
+                </Box>
+            </Modal>
+
+
+            <Modal
+                open={open3}
+                onClose={handleClose3}
+            >
+                <Box sx={style3}>
+                    <RegularSchedule2 selectedUser={{id : selectedUserId}} name={selectedUserName} />
                 </Box>
             </Modal>
         </div>

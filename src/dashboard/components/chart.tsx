@@ -14,11 +14,13 @@ import ChartProfile from './controls/chartprofile';
 import ChartProfileSecond from './controls/chartprofilesecond';
 import QuestionList from './controls/questionList';
 import CalendarModal from './controls/calendarmodal';
+import Text from './test';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 interface chartProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
+    user : any;
 }
 
 const style = {
@@ -517,6 +519,9 @@ const Chart: React.FC<chartProps> = (props) => {
                 <div className={styles.selectMenu} onClick={(e)=>{handleOpen("profile");}}>
                     #학생 프로필
                 </div>
+                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("words");}}>
+                    #영어 단어
+                </div>
             </div>
             <div className={styles.manageDiv} ref={componentRef}>
                 <style type="text/css" media="print">{"\
@@ -782,6 +787,7 @@ const Chart: React.FC<chartProps> = (props) => {
                                 {modalMenu === "profile" && <ChartProfile selectedUser={selectedUser} setModalMenu={setModalMenu} /> }
                                 {modalMenu === "profileSecond" && <ChartProfileSecond selectedUser={selectedUser} /> }
                                 {modalMenu === "calendar" && <CalendarModal user={selectedUser} />}
+                                {modalMenu === "words" && <Text user={props.user} activateMenuList={props.activateMenuList} chart={true} selectedUser={selectedUser}  />}
                             </div>
                         </Box>
                     </Modal>

@@ -1,0 +1,655 @@
+* {
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.appBar {
+    background-color: #3d50b0;
+    display: flex;
+    justify-content: space-between;
+    height: 78px;
+    align-items: center;
+    padding-left: 47px;
+    padding-right: 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.logoDiv{
+    width: 143.7px;
+}
+
+.logoSvg{
+    width: 120.7px;
+}
+
+.profileDiv {
+    display: flex;
+    align-items: center;
+}
+
+.profileConfig {
+    color: #e6e6e6;
+    font-family: "Apple_R";
+    font-size: 15px;
+    padding-right: 7.5px;
+    border-right: 1px solid #ffffff;
+    margin-right: 16.5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.avatarCircle {
+    width: 36px;
+    height: 36px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    margin-right: 11px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.logout {
+    color: #e6e6e6;
+    font-family: "Apple_R";
+    font-size: 15px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 14px;
+}
+
+/* .title{
+    text-align: center;
+    margin-top: 179px;
+    font-family: "Apple_B";
+    font-size: 30.5px;
+    line-height: 42px;
+} */
+
+.subTitle{
+    color: #646464;
+    font-size: 15.5px;
+    font-weight: 300;
+    line-height: 28px;
+    margin-top: 42px;
+    text-align: center;
+    font-family: "Apple_L";
+}
+
+.tableDiv{
+    width: 970px;
+    margin: 0 auto;
+    margin-top: 45px;
+}
+
+.tableTop{
+    display: flex;
+}
+
+.tableTop .col_1{
+    padding: 15px 0;
+    border-top: 2px solid #222;
+    background-color: #f5f5f5;
+    color: #000;
+    font-family: "Apple_B";
+}
+
+.tableTop .col_2{
+    padding: 15px 0;
+    border-top: 2px solid #222;
+    background-color: #f5f5f5;
+    color: #000;
+    font-family: "Apple_B";
+}
+
+.tableTop .col_3{
+    padding: 15px 0;
+    border-top: 2px solid #222;
+    background-color: #f5f5f5;
+    color: #000;
+    font-family: "Apple_B";
+}
+
+.tableTop .col_4{
+    padding: 15px 0;
+    border-top: 2px solid #222;
+    background-color: #f5f5f5;
+    color: #000;
+    font-family: "Apple_B";
+}
+
+.col_1{
+    width: 200px;
+    text-align: center;
+
+}
+
+.col_2{
+    width: 200px;
+    text-align: center;
+}
+
+.col_3{
+    text-align: center;
+    width: 200px;
+}
+
+.col_4{
+    text-align: center;
+    width: 370px;
+}
+
+.rowDiv{
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.rowDiv:hover{
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.rowDiv .col_1{
+    padding: 10px 0;
+    font-size: 15px;
+    line-height: 42px;
+    font-family: "Apple_B";
+    font-weight: 700;
+}
+
+.rowDiv .col_2{
+    padding: 10px 0;
+    font-size: 15px;
+    line-height: 42px;
+    font-family: "Apple_R";
+}
+
+.rowDiv .col_3{
+    padding: 10px 0;
+    font-size: 15px;
+    line-height: 42px;
+    font-family: "Apple_R";
+}
+
+.rowDiv .col_4{
+    padding: 10px 0;
+    font-size: 15px;
+    line-height: 42px;
+    font-family: "Apple_R";
+}
+
+.tableDiv{
+    padding-bottom: 200px;
+}
+
+.startBtn{
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    border: 2px solid black;
+    padding: 10px 25px;
+    font-family: "Apple_B";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all ease-in 150ms;
+}
+
+.startBtn2{
+    position: fixed;
+    bottom: 60px;
+    right: 80px;
+    border: 2px solid black;
+    width: 130px;
+    height: 46px;
+    font-family: "Apple_B";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all ease-in 150ms;
+}
+
+.startBtn:hover{
+    border: 2px solid #1b49af;
+    color: #1b49af;
+}
+
+.startBtn2:hover{
+    background-color: black;
+    color: white;
+}
+
+
+.paper{
+    background-color: #f3f3f3;
+
+    width: 100%;
+    height: 100vh;
+    min-height: 950px;
+}
+
+.titleDiv{
+    padding-top: 180px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.dayList{
+    margin-right: 16px;
+    font-size: 28px;
+    font-family: "Apple_M";
+}
+
+.dayList:last-child{
+    margin-right: 0;
+}
+
+.paperBackground{
+    margin-top: 60px;
+    background-color: white;
+    padding-top: 40px;
+    border-radius: 12px;
+    padding-left: 67px;
+    padding-right: 67px;
+    box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0px, rgb(20 20 20 / 2%) 0px 1px 3px 0px;
+
+}
+
+.wordsPaper{
+    width: 890px;
+    height: 500px;
+
+    width: 950px;
+    height: 600px;
+
+    margin: 0 auto;
+    background-color: white;
+}
+
+.wordsHeaderDiv{
+    padding-top: 40px;
+
+    padding-top: 80px;
+
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    margin: 0 auto;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.clockDiv{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #1b49af;
+    color: white;
+    text-align: center;
+    line-height: 33px;
+    font-size: 20px;
+    position: relative;
+    align-items: center;
+}
+
+.leftEar{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #1b49af;
+    width: 14px;
+    height: 2.5px;
+    left: -6px;
+    top: 2px;
+    transform: rotate(-45deg);
+    border-radius: 6px;
+}
+
+.rightEar{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #1b49af;
+    width: 14px;
+    height: 2.5px;
+    right: -6px;
+    top: 2px;
+    transform: rotate(45deg);
+    border-radius: 6px;
+}
+
+.wordBox{
+    width: 600px;
+    height: 200px;
+    background-color: rgb(237, 239, 249);
+
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 15px;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.inputDiv{
+    width: 600px;
+    margin: 0 auto;
+    height: 60px;
+
+    border-radius: 4px;
+
+    border: 2px solid #e4e4e4;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.inputDiv.stop{
+    border: 2px solid black;  
+}
+
+.answerInput{
+    width: 100%;
+    height: 40px;
+    border: 0;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Apple_R";
+}
+
+
+
+.answerInput:focus{
+    outline: none;
+}
+
+.correctingDiv{
+    margin: 0 auto;
+    margin-top: 24px;
+    display: flex;
+    width: 600px;
+}
+
+.correct{
+    flex-grow: 1;
+    margin-right: 12px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: #1b49af;
+    color: white;
+    font-family: "Apple_B";
+    font-size: 18px;
+    border-radius: 4px;
+    /* background-color: rgb(237, 236, 241);
+    color: rgb(141, 141, 141); */
+    cursor: pointer;
+    transition: all 100ms ease-in;
+}
+
+.inCorrect{
+    flex-grow: 1;
+    margin-left: 12px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: rgb(237, 236, 241);
+    color: rgb(141, 141, 141);
+    font-family: "Apple_B";
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 100ms ease-in;
+}
+
+/* .correct:hover{
+    background-color: #1b49af;
+    color: white;
+}
+
+.inCorrect:hover{
+    background-color: #1b49af;
+    color: white;
+} */
+
+.resultTitle{
+    width: 970px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 35px;
+    font-family: "Apple_B";
+}
+
+.chevron{
+    width: 20px;
+    cursor: pointer;
+}
+
+.resultNumberDiv{
+    margin: 0 auto;
+    margin-top: 30px;
+    border-top: 2px solid #343434;
+    background-color: #f3f3f3;
+    text-align: center;
+    width: 970px;
+    padding-bottom: 35px;
+}
+
+.resultNumberDiv .titleDiv{
+    padding-top: 50px;
+    padding-bottom: 40px;
+}
+
+.resultNumber{
+    width: 890px;
+    margin: 0 auto;
+    padding-top: 28px;
+    padding-bottom: 35px;
+    background-color: white;
+    font-size: 22px;
+    font-family: "Apple_R";
+}
+
+.correctNumber{
+    font-size: 40px;
+}
+
+.incorrectNumber{
+    font-size: 40px;
+    color: #d14e4e;
+}
+
+.resultReportDiv{
+    padding-top: 45px;
+    width: 970px;
+    margin: 0 auto;
+    padding-bottom: 120px;
+}
+
+.resultReportTitle{
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 10px;
+    font-family: "Apple_R";
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.resultReportWordsHeader{
+    display: flex;
+    padding: 15px 0;
+    border-top: 2px solid #222;
+    background-color: #f5f5f5;
+    font-family: "Apple_M";
+}
+
+.resultReportWordsBody{
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    font-size: 15px;
+    font-family: "Apple_R";
+}
+
+.resultReportWordsBody:hover{
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.resultReportWordsBody.incorrect{
+    color: #d14e4e;
+    font-weight: 600;
+}
+
+.reportcol_1{
+    width: 100px;
+    text-align: center;
+}
+
+.reportcol_2{
+    width: 100px;
+    text-align: center;
+
+}
+
+.reportcol_3{
+    width: 150px;
+    text-align: center;
+
+}
+
+.reportcol_4{
+    width: 350px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.reportcol_5{
+    width: 270px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.reportcol_6{
+    width: 100px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.main {
+    background-color: #f5f5f5;
+    width: calc(100% - 244px);
+    height: calc(100vh - 78px);
+    overflow : scroll;
+    padding-left: 46px;
+    padding-right: 46px;
+    padding-top: 45.7px;
+    padding-bottom: 71px;
+}
+
+.main::-webkit-scrollbar{
+    width: 6px !important;
+}
+
+.clock {
+    margin-right: 7.1px;
+    width: 23.516px;
+}
+
+.title {
+    width: 1164px;
+    font-family: "Apple_B";
+    font-size: 22px;
+}
+
+.title div:first-child{
+    display: flex;
+    align-items: center;
+}
+
+.chevronDiv{
+    display: flex;
+    margin-top: 32px;
+}
+
+.eye{
+    cursor: pointer;
+    width: 18px;
+    margin-right: 8px;
+}
+
+.boxDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.paperBackground.noMargin{
+    margin-top: 30px;
+}
+
+.noMargin{
+    margin-top: 30px !important;
+}
+
+
+

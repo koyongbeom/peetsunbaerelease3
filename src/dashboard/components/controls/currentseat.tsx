@@ -119,10 +119,17 @@ const CurrentSeat: React.FC<any> = (props) => {
 
                     users.forEach((eachUser: any) => {
                         const oneRow: any = {};
+                        console.log(1);
                         oneRow.id = +eachUser.user_id;
+                        console.log(2);
                         oneRow.name = eachUser.name;
+                        console.log(3);
                         const lastRecord = eachUser.records[eachUser.records.length - 1];
+                        console.log(4);
+                        if(eachUser.access_groups){
                         oneRow.group = eachUser.access_groups[0].name;
+                        }
+                        console.log(5);
                         oneRow.lastRecord = lastRecord;
                         var createdAt
                         if (lastRecord) {

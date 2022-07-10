@@ -158,6 +158,10 @@
     align-items: center;
 }
 
+.sideMenuListImg{
+    width: 22.516px;
+}
+
 .noticeNumber {
     display: flex;
     justify-content: center;
