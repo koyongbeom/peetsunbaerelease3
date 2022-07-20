@@ -16,6 +16,8 @@ const PreviousChart: React.FC<any> = (props) => {
     const [month, setMonth] = useState<any>();
     const [date, setDate] = useState<any>();
 
+    const [sendTime, setSendTime] = useState<any>();
+
     const [teacherName, setTeacherName] = useState("");
 
     const [correctChemistry, setCorrectChemistry] = useState("");
@@ -67,6 +69,7 @@ const PreviousChart: React.FC<any> = (props) => {
 
     useEffect(() => {
         setLoading(true);
+        
         console.log("---------");
         async function start() {
             var token = "";
@@ -86,6 +89,18 @@ const PreviousChart: React.FC<any> = (props) => {
                         setMonth(result.month);
                         setDate(result.date);
                         const information = result.data.information;
+                        
+                        const sendTimeString = result.data.sendTime;
+                        console.log("gogogogogoo");
+                        if(sendTimeString){
+                            console.log("ggogo");
+                            const sendDate = new Date(sendTimeString);
+                            const sendString = `${sendDate.getFullYear()}년 ${sendDate.getMonth()+1}월 ${sendDate.getDate()}일 학부모 전송 완료`;
+                            setSendTime(sendString);
+                        }else{
+                            setSendTime("");
+                        }
+
                         setCorrectChemistry(information.correctChemistry);
                         setCorrectOrganic(information.correctOrganic);
                         setCorrectPhysics(information.correctPhysics);
@@ -129,7 +144,7 @@ const PreviousChart: React.FC<any> = (props) => {
     return (
         <div className={styles.mainModal}>
             <div className={styles.manageModalDivTitle}>
-                <div>학습관리({month ? month : ""}월 {date ? date : ""}일) - {teacherName} 담임선생님</div>
+                <div>학습관리({month ? month : ""}월 {date ? date : ""}일) - {teacherName} 담임선생님 </div>
                 <div>{props.selectedUser && props.selectedUser.label}</div>
             </div>
             <div className={styles.manageTableModalDiv}>

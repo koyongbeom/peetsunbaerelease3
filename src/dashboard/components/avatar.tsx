@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import { RouteComponentProps } from 'react-router';
 import styles from '../componentsStyle/avatar.module.css';
 import AllStudents from './controls/allstudents';
+import ManageRegular from './controls/manageregular';
 
 type currentSideBarMenuList = "avatar" | "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -30,16 +31,23 @@ const Avatar : React.FC<avatarProps> = (props) => {
                         전체 학생정보
                     </div>
                     <div onClick={(e) => { setSearchMenu("watch") }} className={`${styles.searchMenuDiv} ${searchMenu === "watch" ? styles.active : ""}`}>
-                        신규안내
+                        신규 안내
                     </div>
                     <div onClick={(e) => { setSearchMenu("out") }} className={`${styles.searchMenuDiv} ${searchMenu === "out" ? styles.active : ""}`}>
                         퇴원자 처리
+                    </div>
+                    <div onClick={(e) => { setSearchMenu("regular") }} className={`${styles.searchMenuDiv} ${searchMenu === "regular" ? styles.active : ""}`}>
+                        정기일정 관리
                     </div>
                 </div>
 
                 <div>
                     { searchMenu === "write" && 
                     <AllStudents />
+                    }
+                    {
+                        searchMenu === "regular" &&
+                        <ManageRegular />
                     }
                 </div>
                 

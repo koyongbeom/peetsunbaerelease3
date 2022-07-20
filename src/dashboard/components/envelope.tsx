@@ -21,6 +21,7 @@ import MyMessage from './controls/mymessage';
 import TotalMessage from './controls/totalmessage';
 import { Socket } from 'socket.io-client';
 import MineMessage from './controls/minemessage';
+import Chat from './controls/chat';
 
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
@@ -192,7 +193,8 @@ const Envelope: React.FC<envelopeProps> = (props) => {
 
     return (
         <div className={styles.main}>
-            <div className={styles.mainBoard}>
+            <Chat />
+            {/* <div className={styles.mainBoard}>
                 <div className={styles.title}>
                     <img src="img/off/envelope.svg" alt="envelope" />
                     나에게 온 메세지
@@ -275,7 +277,7 @@ const Envelope: React.FC<envelopeProps> = (props) => {
                         <Button onClick={submit} disabled={active} variant="contained"><span className={styles.buttonText}>전송하기</span></Button>
                     </div>
                 </Box>
-            </Modal>
+            </Modal> */}
 
 
         </div>

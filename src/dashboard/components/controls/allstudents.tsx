@@ -32,6 +32,8 @@ import { GridRowModel } from '@mui/x-data-grid';
 import RegularSchedule from './regularSchedule';
 import RegularSchedule2 from './regularSchedule2';
 
+import TestResult from "../testresult";
+
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 
@@ -59,8 +61,8 @@ const style2 = {
     border: '2px solid #000',
     boxShadow: 24,
     backgroundColor: "#f5f5f5",
-    display : "flex",
-    justifyContent : "center",
+    display: "flex",
+    justifyContent: "center",
     pt: 1,
     pb: 4,
     borderRadius: "8px",
@@ -75,9 +77,25 @@ const style3 = {
     bgcolor: 'white',
     border: '2px solid #000',
     boxShadow: 24,
-    backgroundColor : "white",
-    display : "flex",
-    justifyContent : "center",
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "center",
+    borderRadius: "8px",
+};
+
+const style4 = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '1420px',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    backgroundColor: "#f5f5f5",
+    pt: 1,
+    pb: 4,
+    p : 4,
     borderRadius: "8px",
 };
 
@@ -127,7 +145,7 @@ const useStyles2 = makeStyles(
 function SelectEditInputCell(props: GridRenderCellParams) {
     const { id, value, field } = props;
     const apiRef = useGridApiContext();
-    const [teachersList, setTeachersList] = useState<any>([{id : 1, name : "고용범"}]);
+    const [teachersList, setTeachersList] = useState<any>([{ id: 1, name: "고용범" }]);
 
     useEffect(() => {
         const start = async () => {
@@ -155,27 +173,27 @@ function SelectEditInputCell(props: GridRenderCellParams) {
         console.log(id, field, +event.target.value);
 
         fetch("https://peetsunbae.com/dashboard/avatar/teacher", {
-            method : "POST",
-            headers : {"content-type" : "application/json"},
-            credentials : "include",
-            body : JSON.stringify({
-                userId : +id,
-                teacherId : +event.target.value
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+                userId: +id,
+                teacherId: +event.target.value
             })
-        }).then((response : any)=>{
+        }).then((response: any) => {
             response.json()
-            .then((result : any)=>{
-                console.log(result);
-            })
+                .then((result: any) => {
+                    console.log(result);
+                })
         })
 
         console.log(event.target);
-        if(!event.target.value){
+        if (!event.target.value) {
             event.target.value = "";
         }
         var teacherName = "";
-        teachersList.forEach((each : any) => {
-            if(+each.id === +event.target.value){
+        teachersList.forEach((each: any) => {
+            if (+each.id === +event.target.value) {
                 teacherName = each.name;
             }
         })
@@ -192,12 +210,12 @@ function SelectEditInputCell(props: GridRenderCellParams) {
             sx={{ height: 1 }}
             native
             autoFocus
-        >   
+        >
             <option key={1} value={1}>
                 ----------
             </option>
             {
-                teachersList.map((each : any) => {
+                teachersList.map((each: any) => {
                     return (
                         <option key={each.id} value={each.id}>
                             {each.name}
@@ -208,10 +226,10 @@ function SelectEditInputCell(props: GridRenderCellParams) {
         </Select>
     );
 }
-  
-  const renderSelectEditInputCell: GridColDef['renderCell'] = (params) => {
+
+const renderSelectEditInputCell: GridColDef['renderCell'] = (params) => {
     return <SelectEditInputCell {...params} />;
-  };
+};
 
 
 
@@ -229,7 +247,7 @@ const columns: GridColDef[] = [
     { field: 'teacherDescription', headerName: '담임 배정 이유', width: 120, filterable: true, editable: true, renderCell: renderCellExpand },
     { field: 'chargedMoney', headerName: '충전금잔액', width: 120, filterable: true, editable: false },
     { field: 'fingerprintId', headerName: '지문인식ID', width: 120, filterable: true, editable: true },
-    { field: 'firstCome', headerName: '첫 등원', width: 120,type : "date", filterable: true, editable: true },
+    { field: 'firstCome', headerName: '첫 등원', width: 120, type: "date", filterable: true, editable: true },
     { field: 'createdAt', headerName: '회원가입일', width: 120, filterable: true, editable: false },
 ];
 
@@ -239,22 +257,28 @@ const columns: GridColDef[] = [
 const AllStudents: React.FC<any> = (props) => {
     const classes = useStyles2();
     const [rows, setRows] = useState<any>([]);
+
+    const [studentRows, setStudentRows] = useState<any>([]);
+    const [teacherRows, setTeacherRows] = useState<any>([]);
+
+
     const [loading, setLoading] = useState(false);
     const [demeritLoading, setDemeritLoading] = useState(false);
 
     const [editRowsModel, setEditRowsModel] = React.useState({});
 
     const [selectedUserId, setSelectedUserId] = useState();
-    const [selectedUserFingerprintId, setSelectedUserFingerprintId ] = useState();
+    const [selectedUserFingerprintId, setSelectedUserFingerprintId] = useState();
     const [selectedUserName, setSelectedUserName] = useState();
     const [open, setOpen] = React.useState(false);
     const [open2, setOpen2] = useState(false);
     const [open3, setOpen3] = useState(false);
+    const [open4, setOpen4] = useState(false);
 
     const [uploadBool, setUploadBool] = useState(false);
     const [active, setActive] = useState(true);
-    
-    
+
+
     const [message, setMessage] = useState("");
     const [score, setScore] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
@@ -267,7 +291,7 @@ const AllStudents: React.FC<any> = (props) => {
     const [filterModel, setFilterModel] = React.useState<GridFilterModel>({
         items: [
             { id: 2, columnField: 'name', operatorValue: 'contains', value: "" },
-            { id : 3, columnField : "status", operatorValue : "is", value : "true"}
+            { id: 3, columnField: "status", operatorValue: "is", value: "true" }
         ],
     });
 
@@ -285,7 +309,7 @@ const AllStudents: React.FC<any> = (props) => {
     }
 
 
-    const handleClick = (e : any) => {setSelectedUserFingerprintId(e.row.fingerprintId); setSelectedUserId(e.id); setSelectedUserName(e.row.name); setTotalScore(e.row.demerit)}
+    const handleClick = (e: any) => { setSelectedUserFingerprintId(e.row.fingerprintId); setSelectedUserId(e.id); setSelectedUserName(e.row.name); setTotalScore(e.row.demerit) }
     const handleOpen = () => { if (selectedUserFingerprintId) setOpen(true); }
     const handleClose = () => { setActive(true); setOpen(false); setScore(0); setMessage("") }
 
@@ -295,8 +319,10 @@ const AllStudents: React.FC<any> = (props) => {
     const handleOpen3 = () => { if (selectedUserId) setOpen3(true); }
     const handleClose3 = () => { setOpen3(false); }
 
+    const handleOpen4 = () => { if (selectedUserId) setOpen4(true); }
+    const handleClose4 = () => { setOpen4(false); }
 
-    
+
 
     const changeMessage = (e: any) => {
         setMessage(e.target.value);
@@ -325,7 +351,7 @@ const AllStudents: React.FC<any> = (props) => {
                 userId: selectedUserId,
                 score: score,
                 description: message,
-                totalScore : totalScore
+                totalScore: totalScore
             })
         }).then((response: any) => {
             response.json()
@@ -366,6 +392,8 @@ const AllStudents: React.FC<any> = (props) => {
 
                         console.log(result);
                         const newRows: any = [];
+                        const teacherNewRows: any = [];
+                        const studentNewRows: any = [];
                         result.data.forEach((each: any) => {
                             const oneRow: any = {};
                             const date = new Date(+each.createdAt);
@@ -384,13 +412,13 @@ const AllStudents: React.FC<any> = (props) => {
                                     break;
                             }
                             oneRow.kind = value;
-                            if(each.isNow === 0){
+                            if (each.isNow === 0) {
                                 oneRow.status = false;
                             }
-                            if(each.isNow === null){
+                            if (each.isNow === null) {
                                 oneRow.status = true;
                             }
-                            if(each.isNow === 1){
+                            if (each.isNow === 1) {
                                 oneRow.status = true;
                             }
                             oneRow.phoneNumber = each.phoneNumber;
@@ -403,7 +431,7 @@ const AllStudents: React.FC<any> = (props) => {
                             oneRow.chargedMoney = each.amount ? each.amount : 0;
                             oneRow.fingerprintId = each.fingerprintId;
                             oneRow.firstCome = each.firstCome;
-                            if(each.firstCome){
+                            if (each.firstCome) {
                                 oneRow.firstCome = new Date(each.firstCome);
                             }
                             oneRow.createdAt = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -411,8 +439,15 @@ const AllStudents: React.FC<any> = (props) => {
                             oneRow.teacherId = each.teacherId;
                             oneRow.teacherDescription = each.description;
                             newRows.push(oneRow);
+                            if (each.value === "teacher") {
+                                teacherNewRows.push(oneRow);
+                            } else {
+                                studentNewRows.push(oneRow);
+                            }
                         })
                         setRows([...newRows]);
+                        setTeacherRows([...teacherNewRows]);
+                        setStudentRows([...studentNewRows]);
                         setLoading(false);
                     })
             })
@@ -425,36 +460,36 @@ const AllStudents: React.FC<any> = (props) => {
 
 
     const handleEditCommit = React.useCallback(
-        async (newRow : GridRowModel, old : any) => {
+        async (newRow: GridRowModel, old: any) => {
             var field = "";
             console.log("new");
-            
-            for (const [key, value] of Object.entries(newRow)){
-                if(value !== old[key]){
+
+            for (const [key, value] of Object.entries(newRow)) {
+                if (value !== old[key]) {
                     field = key;
                     console.log(field);
                 }
             }
 
-            if(field === "status"){
+            if (field === "status") {
                 console.log(newRow.id);
                 console.log(newRow.status);
-                
+
 
                 fetch("https://peetsunbae.com/dashboard/avatar/userDetail", {
-                    method : "POST",
-                    headers : {"content-type" : "application/json"},
-                    credentials : "include",
-                    body : JSON.stringify({
-                        userId : newRow.id,
-                        value : newRow[field] ? newRow[field] : false,
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        userId: newRow.id,
+                        value: newRow[field] ? newRow[field] : false,
                         field
                     })
-                }).then((response : any)=>{
+                }).then((response: any) => {
                     response.json()
-                    .then((result : any)=>{
-                        console.log(result);
-                    })
+                        .then((result: any) => {
+                            console.log(result);
+                        })
                 })
             }
 
@@ -467,7 +502,7 @@ const AllStudents: React.FC<any> = (props) => {
                     credentials: "include",
                     body: JSON.stringify({
                         userId: newRow.id,
-                        value:  newRow[field] ? newRow[field] : null,
+                        value: newRow[field] ? newRow[field] : null,
                         field
                     })
                 }).then((response: any) => {
@@ -479,17 +514,17 @@ const AllStudents: React.FC<any> = (props) => {
 
             }
 
-            if (field === "firstCome" ){
+            if (field === "firstCome") {
 
-                var value : any = null;
+                var value: any = null;
 
                 const rowValue = newRow[field];
 
-                if(rowValue){
+                if (rowValue) {
                     const date = new Date(rowValue);
-                    value = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} 00:00:00`
+                    value = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 00:00:00`
                 }
-                
+
                 fetch("https://peetsunbae.com/dashboard/avatar/userDetail", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
@@ -508,7 +543,7 @@ const AllStudents: React.FC<any> = (props) => {
             }
 
             //mysql상 user table 아니고 teacher table 이라 분리해놨음
-            if(field === "teacherDescription"){
+            if (field === "teacherDescription") {
                 fetch("https://peetsunbae.com/dashboard/avatar/userDetail", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
@@ -527,7 +562,7 @@ const AllStudents: React.FC<any> = (props) => {
             }
 
 
-            if(field === "location" || field === "room" || field === "seat"){
+            if (field === "location" || field === "room" || field === "seat") {
                 fetch("https://peetsunbae.com/dashboard/avatar/userDetail", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
@@ -544,16 +579,16 @@ const AllStudents: React.FC<any> = (props) => {
                         })
                 })
             }
-            
+
 
             return newRow;
-      }, []
+        }, []
     );
 
     const handleProcessRowUpdateError = React.useCallback((error: Error) => {
         console.log("error");
         alert(error.message);
-      }, []);
+    }, []);
 
 
 
@@ -562,9 +597,10 @@ const AllStudents: React.FC<any> = (props) => {
         <div>
             <div style={{ marginBottom: "12px", display: "flex", justifyContent: "space-between" }}>
                 <div>
-                    <Button onClick={handleOpen} sx={{marginRight : "8px"}} variant="outlined">벌점 추가</Button>
-                    <Button onClick={handleOpen2} sx={{marginRight : "8px"}} variant="outlined">출입기록 및 벌점</Button>
-                    <Button onClick={handleOpen3} variant="outlined">정기일정</Button>
+                    <Button onClick={handleOpen} sx={{ marginRight: "8px" }} variant="outlined">벌점 추가</Button>
+                    <Button onClick={handleOpen2} sx={{ marginRight: "8px" }} variant="outlined">출입기록 및 벌점</Button>
+                    <Button onClick={handleOpen3} sx={{ marginRight: "8px" }} variant="outlined">정기일정</Button>
+                    <Button onClick={handleOpen4} variant="outlined">시험결과</Button>
                 </div>
                 <div>
                     <TextField value={name} onChange={nameChange} id="standard-basic" placeholder="이름을 검색하세요" variant="standard" />
@@ -579,14 +615,14 @@ const AllStudents: React.FC<any> = (props) => {
                     onRowClick={handleClick}
                     processRowUpdate={handleEditCommit}
                     onProcessRowUpdateError={handleProcessRowUpdateError}
-                    isCellEditable={(params : any) => {
-                        if(params.field === "teacherDescription"){
-                            if(!apiRef.current.getCellValue(params.id, "teacher")){
+                    isCellEditable={(params: any) => {
+                        if (params.field === "teacherDescription") {
+                            if (!apiRef.current.getCellValue(params.id, "teacher")) {
                                 return false;
-                            }else{
+                            } else {
                                 return true;
                             }
-                        }else{
+                        } else {
                             return true
                         }
                     }}
@@ -596,6 +632,7 @@ const AllStudents: React.FC<any> = (props) => {
             <div className={styles.mysearchDescription}>
                 * 미답변 메세지 - 파랑색<br />
             </div>
+
 
             <Modal
                 open={open}
@@ -623,7 +660,7 @@ const AllStudents: React.FC<any> = (props) => {
                         누적 벌점
                     </div>
                     <div className={styles.textfieldDiv}>
-                        <TextField margin='dense' type="number" value={totalScore} onChange={(e : any) => { setTotalScore(e.target.value); }} fullWidth id="outlined-basic" placeholder="월별 누적 벌점" variant="outlined" />
+                        <TextField margin='dense' type="number" value={totalScore} onChange={(e: any) => { setTotalScore(e.target.value); }} fullWidth id="outlined-basic" placeholder="월별 누적 벌점" variant="outlined" />
                     </div>
                     <div style={{ marginTop: "8px" }} className={styles.messageTitle}>
                         사유
@@ -658,7 +695,7 @@ const AllStudents: React.FC<any> = (props) => {
                 onClose={handleClose2}
             >
                 <Box sx={style2}>
-                    <CalendarModal user={{id : selectedUserId}} />
+                    <CalendarModal user={{ id: selectedUserId }} />
                 </Box>
             </Modal>
 
@@ -668,7 +705,24 @@ const AllStudents: React.FC<any> = (props) => {
                 onClose={handleClose3}
             >
                 <Box sx={style3}>
-                    <RegularSchedule2 selectedUser={{id : selectedUserId}} name={selectedUserName} />
+                    <RegularSchedule2 selectedUser={{ id: selectedUserId }} name={selectedUserName} />
+                </Box>
+            </Modal>
+
+
+            <Modal
+                open={open4}
+                onClose={handleClose4}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style4}>
+                    <div className={styles.cancelBtn}>
+                        <img onClick={handleClose4} src="img/times-circle-light.svg" alt="cancel" />
+                    </div>
+                    <div className={styles.modalFirstDiv}>
+                        <TestResult selectedUser={{ id : selectedUserId}} name={selectedUserName} />
+                    </div>
                 </Box>
             </Modal>
         </div>

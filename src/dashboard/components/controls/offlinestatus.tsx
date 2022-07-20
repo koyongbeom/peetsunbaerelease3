@@ -259,11 +259,11 @@ const OfflineStatus: React.FC<any> = (props) => {
                                                                     {eachEnroll.subject === "physics" && "[물리]"}
                                                                     {eachEnroll.subject === "biology" && "[생물]"}
                                                                 </div>
-                                                                <div>
-                                                                    {eachEnroll.uploadTeacherDescription}
+                                                                <div style={{fontWeight : 600}}>
+                                                                    {eachEnroll.ampm} {eachEnroll.hours}:{eachEnroll.minutes}
                                                                 </div>
                                                                 <div>
-                                                                    {eachEnroll.ampm} {eachEnroll.hours}:{eachEnroll.minutes}
+                                                                    {eachEnroll.uploadTeacherDescription}
                                                                 </div>
                                                                 <div>
                                                                     {eachEnroll.teacherName} 튜터

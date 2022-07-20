@@ -4,6 +4,8 @@ import styles from "../componentsStyle/text.module.css";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
+import { Link } from 'react-router-dom';
+
 import Checkbox from '@mui/material/Checkbox';
 import { LinearProgress } from "@mui/material";
 
@@ -70,6 +72,7 @@ const Text: React.FC<any> = (props) => {
                 response.json()
                     .then((result: any) => {
                         console.log(result);
+
                         const rows: any = [];
                         result.data.forEach((each: any, index: number) => {
                             var data: any = {};
@@ -104,28 +107,28 @@ const Text: React.FC<any> = (props) => {
     }
 
     useEffect(() => {
-        if(!props.chart){
-        props.activateMenuList("text");
+        if (!props.chart) {
+            props.activateMenuList("text");
         }
     }, []);
 
     useEffect(() => {
-        if(props.chart){
+        if (props.chart) {
             setSelectedUser(props.selectedUser);
         }
     }, []);
 
     useEffect(() => {
 
-        if(props.user){
+        if (props.user) {
             setUserValue(props.user.value);
         }
 
         var studentId = 0;
 
-        if(selectedUser && props.user && props.user.value === "teacher"){
+        if (selectedUser && props.user && props.user.value === "teacher") {
             studentId = selectedUser.id;
-            if(studentId === 0){
+            if (studentId === 0) {
                 return;
             }
         }
@@ -192,8 +195,8 @@ const Text: React.FC<any> = (props) => {
     }, [selectMenu, index, props.user, selectedUser])
 
     const plus = (e: any) => {
-        if(indexChangeable){
-        setIndex(index + 1);
+        if (indexChangeable) {
+            setIndex(index + 1);
         }
     }
 
@@ -456,6 +459,14 @@ const Text: React.FC<any> = (props) => {
                 selectMenu === "day" &&
                 <EachdayTest selectedUser={selectedUser} user={props.user} />
             }
+
+
+            <Link to="/wordtest">
+                <div className="qnaWrite">
+                    <img src="./img/pencil.svg" alt="pencil" />
+                    시험보러 가기
+                </div>
+            </Link>
 
 
         </div>

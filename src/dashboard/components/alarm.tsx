@@ -15,6 +15,8 @@ import Modal from '@mui/material/Modal';
 import TotalDemerit from './totaldemerit';
 import {DataGridPro, LicenseInfo, GridColDef} from '@mui/x-data-grid-pro';
 import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
+import RegularSchedule2 from './controls/regularSchedule2';
+import RegularSchedule3 from './controls/regularSchedule3';
 
 LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
@@ -44,6 +46,21 @@ const columns : GridColDef[] = [
     {field : "createdAt", headerName : "벌점 부여한 날짜", width : 200}
 ];
 
+const style3 = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '500px',
+    bgcolor: 'white',
+    border: '2px solid #000',
+    boxShadow: 24,
+    backgroundColor : "white",
+    display : "flex",
+    justifyContent : "center",
+    borderRadius: "8px",
+};
+
 const Alarm: React.FC<AlarmProps> = (props) => {
     // const classes = props.classes;
     const [rows, setRows] = useState([]);
@@ -61,6 +78,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
     const handleClose2 = () => setOpen2(false);
     const [today, setToday] = useState(new Date());
     const [modalKind, setModalKind] = useState(0);
+    const [open3, setOpen3] = useState(false);
     const [style, setStyle] = useState<any>([
         {
             position: 'absolute' as 'absolute',
@@ -75,6 +93,9 @@ const Alarm: React.FC<AlarmProps> = (props) => {
           }
     ]
     );
+
+    const handleClose3 = () => { setOpen3(false); }
+    const handleOpen3 = () => { setOpen3(true); }
 
     const [style2, setStyle2] = useState<any>(
         {
@@ -302,7 +323,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
             <div className={styles.paper}>
                 <div className={styles.paperTitle}>
                     <div className={styles.paperTitleFirst}>
-                        <div>
+                        {/* <div>
                             <Box sx={{ minWidth: "150px" }}>
                                 <FormControl fullWidth>
                                     <Select
@@ -318,12 +339,7 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                                     </Select>
                                 </FormControl>
                             </Box>
-                        </div>
-                        <div>
-                            <Box>
-                                <Button onClick={()=>{alert("준비중인 기능입니다")}} sx={{ width: "95px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R", fontSize: "15px" }} variant="outlined">상담일정</Button>
-                            </Box>
-                        </div>
+                        </div> */}
                         <div>
                             <Box>
                                 <Button onClick={minusMonth} sx={{ minWidth: "46px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R" }} variant="outlined"><img src="img/chevron-left.svg" alt="left"></img></Button>
@@ -334,6 +350,17 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                                 <Button onClick={plusMonth} sx={{ minWidth: "46px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R" }} variant="outlined"><img src="img/chevron-right.svg" alt="right"></img></Button>
                             </Box>
                         </div>
+                        <div>
+                            <Box>
+                                <Button onClick={(e : any) => { handleOpen3() }} sx={{ width: "95px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R", fontSize: "15px" }} variant="outlined">정기일정</Button>
+                            </Box>
+                        </div>
+                        <div>
+                            <Box>
+                                <Button onClick={()=>{alert("준비중인 기능입니다")}} sx={{ width: "95px", height: "46px", marginLeft: "7px", border: "1px solid #cfcfcf", color: "#6b6b6b", fontFamily: "Apple_R", fontSize: "15px" }} variant="outlined">상담일정</Button>
+                            </Box>
+                        </div>
+
                     </div>
                     <div>
                         <Button onClick={()=>{handleOpen2()}} sx={{ width: "180px", height: "46px", border: "1px solid #728aff", color: "#3d50b0", fontFamily: "Apple_R", fontSize: "16px" }} variant="outlined"># 총 벌점기록</Button>
@@ -480,6 +507,17 @@ const Alarm: React.FC<AlarmProps> = (props) => {
                             </div>
                 </Box>
             </Modal>
+
+            <Modal
+                open={open3}
+                onClose={handleClose3}
+            >
+                <Box sx={style3}>
+                    <RegularSchedule3 month={month + 1} />
+                </Box>
+            </Modal>
+
+
         </div>
     )
 }

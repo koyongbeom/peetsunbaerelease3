@@ -160,6 +160,7 @@ const columns: GridColDef[] = [
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'date', headerName: '날짜', width: 150, filterable: false },
     { field: 'type', headerName: "종류", width: 150 },
+    { field: 'agree', headerName: "학부모 승인", width: 150 },
     { field: 'endTime', headerName: "출발 시간", width: 150 },
     { field: 'startTime', headerName: "도착 시간", width: 150 },
     { field: 'reason', headerName: "사유", width: 150, filterable: false, renderCell: renderCellExpand },

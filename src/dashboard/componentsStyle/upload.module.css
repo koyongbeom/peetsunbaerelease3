@@ -278,6 +278,28 @@
     margin-top: 48px;
 }
 
+.modalFirstDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.cancelBtn {
+    cursor: pointer;
+    display: flex;
+    justify-content: end;   
+}
+
+.cancelBtn img {
+    width: 32px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+.cancelBtn img:hover{
+    background-color: rgb(200, 200, 200);
+    border-radius: 50%;
+}
+
 @media screen and (max-width : 1024px){
     .main {
         height: 130vh;

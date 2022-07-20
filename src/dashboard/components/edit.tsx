@@ -101,6 +101,12 @@ const Edit: React.FC<editProps> = (props) => {
         //     alert("사유를 적은 후에 제출 부탁드립니다 : )");
         //     return;
         // }
+        console.log(description);
+
+        if(!description){
+            alert("사유 내용을 적은 후 제출해주세요");
+            return;
+        }
 
         setLoading(true);
         var dateInfo = new Date(dateValue);
@@ -341,7 +347,7 @@ const Edit: React.FC<editProps> = (props) => {
                 </Stack>
             }
 
-            {select === "submit" &&
+            {(select === "submit") &&
                 <div className="submitDiv">
                     <div className="submit" onClick={submit}>
                         제출하기
@@ -355,8 +361,9 @@ const Edit: React.FC<editProps> = (props) => {
                     <div className="checkBoardTitle">
                         이번달 사유 제출 현황
                     </div>
+                    <div className="checkBoardBody">
                     {
-                        checkResult && checkResult.map((each: { id: number, type: string, targetDate: string, reason: string, startHours: number, startMinutes: number, endHours: number, endMinutes: number }) => {
+                        checkResult && checkResult.map((each: { id: number, type: string, targetDate: string, reason: string, startHours: number, startMinutes: number, endHours: number, endMinutes: number, parentpermit : number }) => {
                             const date = new Date(each.targetDate);
                             const currentDate = new Date();
                             const bool = currentDate.getTime() < date.getTime();
@@ -382,10 +389,16 @@ const Edit: React.FC<editProps> = (props) => {
                                                     {each.type === "early" && `${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0" + each.endMinutes : each.endMinutes}분 하원`}
                                                     {each.type === "among" && `${each.endHours > 11 ? "오후" : "오전"}  ${each.startHours > 12 ? each.startHours - 12 : each.startHours}시 ${each.startMinutes.toString().length === 1 ? "0" + each.startMinutes : each.startMinutes}분 외출 -
                                                     ${each.endHours > 11 ? "오후" : "오전"} ${each.endHours > 12 ? each.endHours - 12 : each.endHours}시 ${each.endMinutes.toString().length === 1 ? "0" + each.endMinutes : each.endMinutes}분 복귀
-                                                    `
-
-                                                    }
-
+                                                    `}
+                                                </span>
+                                                <span style={{color : "black"}}>
+                                                     {each.parentpermit === 0 && " (학부모 승인 필요)"}
+                                                </span>
+                                                <span style={{color : "blue"}}>
+                                                     {each.parentpermit === 1 && " (학부모 승인 완료)"}
+                                                </span>
+                                                <span style={{color : "red"}}>
+                                                     {each.parentpermit === 2 && " (학부모 승인 거절)"}
                                                 </span>
                                             </div>
                                         </div>
@@ -403,6 +416,7 @@ const Edit: React.FC<editProps> = (props) => {
                             );
                         })
                     }
+                    </div>
 
                 </div>}
 

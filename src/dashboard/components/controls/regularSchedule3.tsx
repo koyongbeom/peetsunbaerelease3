@@ -5,11 +5,11 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import HorizontalLinearStepper from "../data/horizontallinearstepper";
 
-//선생님용
+//학생용
 
-const RegularSchedule2: React.FC<any> = (props) => {
+const RegularSchedule3: React.FC<any> = (props) => {
 
-    const [month, setMonth] = useState<any>();
+    // const [month, setMonth] = useState<any>();
     const [data, setData] = useState<any>({
         monday: "",
         tuesday: "",
@@ -23,17 +23,24 @@ const RegularSchedule2: React.FC<any> = (props) => {
     const [activeStep, setActiveStep] = useState(-1); 
     const [errorStep, setErrorStep] = useState(-1);
 
+    const [disabed, setDisabled] = useState(true);
+
     const [update, setUpdate] = useState(0);
 
 
     useEffect(() => {
         const date = new Date();
-        setMonth(date.getMonth() + 1);
+        // setMonth(date.getMonth() + 1);
+
+        if(date.getDate() === 1){
+            setDisabled(false);
+        }
+
     }, []);
 
     useEffect(() => {
-        if (month) {
-            fetch("https://peetsunbae.com/dashboard/chart/regularSchedule/teacherget?studentId=" + props.selectedUser.id + "&month=" + month, {
+        if (props.month) {
+            fetch("https://peetsunbae.com/dashboard/chart/regularSchedule/studentget?month=" + props.month, {
                 method: "GET",
                 credentials: "include"
             }).then((response: any) => {
@@ -68,18 +75,25 @@ const RegularSchedule2: React.FC<any> = (props) => {
             });
         }
 
-    }, [month, update]);
+    }, [props.month, update]);
 
     const submit = (e: any) => {
+
+        const date = new Date();
+        if(date.getDate() !== 1){
+            alert("정기일정은 각 월 1일에만\n수정/등록 가능합니다.");
+            return;
+        }
+
+
         setLoading(true);
         console.log(data);
 
         const body = {
-            month, data,
-            studentId: props.selectedUser.id
+            month : props.month, data
         }
 
-        fetch(`https://peetsunbae.com/dashboard/chart/regularSchedule/teacherwrite`, {
+        fetch(`https://peetsunbae.com/dashboard/chart/regularSchedule/studentwrite`, {
             method: "POST",
             headers: { "content-type": "application/json" },
             credentials: "include",
@@ -109,7 +123,7 @@ const RegularSchedule2: React.FC<any> = (props) => {
         <div className={styles.main}>
             <div className={styles.title}>
                 <div>
-                    {month && month}월 정기일정 {props.name && "(" + props.name + ")"}
+                    {props.month && props.month}월 정기일정
                 </div>
             </div>
             <div className={`${styles.eachdayDiv} ${styles.first}`}>
@@ -171,7 +185,7 @@ const RegularSchedule2: React.FC<any> = (props) => {
 
 
             <div className={styles.submitBtnDiv}>
-                <Button disabled={(props.kind && props.kind === "chart") ? true : false} onClick={submit} variant="contained" fullWidth sx={{ height: "62px", backgroundColor: "#1b49af", color: "white", fontFamily: "Apple_B", fontSize: "18px", "&:hover": { backgroundColor: "rgb(35,93,221)" }, "@media (max-width : 1024px)": { fontSize: "16px", height: '55.5px' } }}>
+                <Button disabled={true} onClick={submit} variant="contained" fullWidth sx={{ height: "62px", backgroundColor: "#1b49af", color: "white", fontFamily: "Apple_B", fontSize: "18px", "&:hover": { backgroundColor: "rgb(35,93,221)" }, "@media (max-width : 1024px)": { fontSize: "16px", height: '55.5px' } }}>
                     정기일정 제출
                 </Button>
             </div>
@@ -195,4 +209,4 @@ const RegularSchedule2: React.FC<any> = (props) => {
     );
 }
 
-export default RegularSchedule2;
+export default RegularSchedule3;

@@ -6,6 +6,8 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
+import { Link } from 'react-router-dom';
+
 
 
 const WordTest: React.FC<any> = (props) => {
@@ -23,6 +25,9 @@ const WordTest: React.FC<any> = (props) => {
         }).then((response: any) => {
             response.json()
                 .then((result: any) => {
+                    if(result.message === "NoLogin"){
+                        props.history.push("/login2");
+                    }
                     console.log(result);
                     if (result.message === "success") {
                         setUserName(result.data.name);
@@ -115,9 +120,11 @@ const WordTest: React.FC<any> = (props) => {
         <div>
 
             <div className={`${styles.appBar} ${styles.notablet}`}>
-                <div className={styles.logoDiv}>
-                    <LogoSvg className={styles.logoSvg} />
-                </div>
+                <Link to="/dashboard/home">
+                    <div className={styles.logoDiv} style={{cursor : "pointer"}}>
+                        <LogoSvg className={styles.logoSvg} />
+                    </div>
+                </Link>
                 <div className={styles.profileDiv}>
                     <div className={styles.profileConfig} style={{ cursor: "auto" }}>
                         {userName}

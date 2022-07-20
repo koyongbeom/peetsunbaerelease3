@@ -110,7 +110,7 @@ const Login2: React.FC<props> = (props) => {
                 response.json()
                 .then((result)=>{
                     if(result.message === "LOGIN"){
-                        props.history.push("/dashboard/home");
+                        props.history.push("/wordtest");
                     }
                 })
             })

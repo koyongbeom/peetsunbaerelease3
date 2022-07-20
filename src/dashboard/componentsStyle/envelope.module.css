@@ -1,12 +1,15 @@
 .main {
     background-color: #f5f5f5;
+    background-color: #fff;
     width: calc(100% - 244px);
-    padding-left: 46px;
+    border-left: 1px solid #d5dadb;
+    /* padding-left: 46px;
     padding-top: 45.7px;
     padding-right: 46px;
-    padding-bottom: 71px;
+    padding-bottom: 71px; */
     height: calc(100vh - 78px);
-    overflow: auto;
+    overflow: hidden;
+    position: relative;
 }
 
 .main::-webkit-scrollbar{
@@ -93,6 +96,133 @@
         overflow: auto;
     }
 } */
+
+
+.chatFooter{
+    position: absolute;
+    bottom: 0;
+    z-index: 15;
+    min-height: 104px;
+    width: 100%;
+    border-top: 1px solid #d5dadb;
+}
+
+.inputDiv{
+    border: 1px solid #ddd;
+    margin: 10px 8px 8px 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,.08);
+    border-radius: 8px;
+    width: calc(100% - 20px);
+    float: left;
+    min-height: 85px;
+    position: relative;
+}
+
+.inputDiv.focus{
+    border: 1.5px solid #3d50b0;
+    z-index: 3;
+}
+
+.messageDiv{
+    min-height: 45px;
+    max-height: 310px;
+}
+
+.messageDiv::-webkit-scrollbar{
+    background-color: #f5f5f5;
+    width: 0px !important;
+}
+
+.messageDiv::-webkit-scrollbar-thumb{
+    background-color: #bbbcb6;
+    border-radius: 10px;
+}
+
+.textarea::-webkit-scrollbar{
+    background-color: #f5f5f5;
+    width: 0px !important;
+}
+
+.textarea::-webkit-scrollbar-thumb{
+    background-color: #bbbcb6;
+    border-radius: 10px;
+}
+
+.textarea {
+    font-size: 17px;
+    font-family: "Apple_R";
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    resize: none;
+    background-color: transparent;
+    color: #3d3c40;
+}
+
+.textarea:focus {
+    outline: none !important;
+  }
+
+  .sendBtn{
+      background-color: #f2f4f8;
+      color: #c2c2c2;
+      cursor: not-allowed;
+      width: 57px;
+      height: 32px;
+      border-radius: 30px;
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Apple_R";
+  }
+
+  .sendBtn.active{
+      background-color: #3d50b0;
+      color: white;
+      cursor: pointer;
+  }
+
+  .sendBtn.active:hover{
+      background-color: rgb(78, 97, 194);
+  }
+
+  .messageBtns{
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .emoticons{
+      display: flex;
+  }
+
+  .smileFace{
+      width: 17px;
+      margin-right: 12px;
+      cursor: pointer;
+  }
+
+  .clipImg{
+      width: 17px;
+      cursor: pointer;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media screen and (max-width : 1024px){

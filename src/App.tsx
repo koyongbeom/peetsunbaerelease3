@@ -10,6 +10,8 @@ import QuestionExample from './etc/questionexample';
 import Login2 from "./login/login2";
 import Wordtest from "./etc/wordtest";
 import Wordtestreal from "./etc/wordtestreal";
+import RegularParentpermit from './etc/regularparentpermit';
+import SuddenNoticepermit from './etc/suddennoticepermit';
 
 interface props {
   socket : Socket;
@@ -29,6 +31,8 @@ const App : React.FC<props> = (appProps) => {
         <Route path="/login2" component={Login2}></Route>
         <Route path="/wordtest" component={Wordtest}></Route>
         <Route path="/wordtestreal" component={Wordtestreal}></Route> 
+        <Route path="/regularschedulepermit" component={RegularParentpermit}></Route>
+        <Route path="/suddennoticepermit" component={SuddenNoticepermit}></Route>
       </div>
     </Router>
   )

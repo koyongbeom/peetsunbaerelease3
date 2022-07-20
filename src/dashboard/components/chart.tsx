@@ -15,12 +15,14 @@ import ChartProfileSecond from './controls/chartprofilesecond';
 import QuestionList from './controls/questionList';
 import CalendarModal from './controls/calendarmodal';
 import Text from './test';
+import RegularSchedule2 from './controls/regularSchedule2';
+import TestResult from './testresult';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
 interface chartProps extends RouteComponentProps {
     activateMenuList: (curret: currentSideBarMenuList) => void;
-    user : any;
+    user: any;
 }
 
 const style = {
@@ -35,6 +37,22 @@ const style = {
     backgroundColor: "#f5f5f5",
     pt: 1,
     pb: 4,
+    p : 4,
+    borderRadius: "8px",
+};
+
+const style3 = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '500px',
+    bgcolor: 'white',
+    border: '2px solid #000',
+    boxShadow: 24,
+    backgroundColor : "white",
+    display : "flex",
+    justifyContent : "center",
     borderRadius: "8px",
 };
 
@@ -88,6 +106,11 @@ const Chart: React.FC<chartProps> = (props) => {
 
     const [modalMenu, setModalMenu] = useState("");
 
+    const [open3, setOpen3] = useState(false);
+
+    const handleOpen3 = () => { if (selectedUser) setOpen3(true); }
+    const handleClose3 = () => { setOpen3(false); }
+
     const handleMenuClick = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -111,23 +134,23 @@ const Chart: React.FC<chartProps> = (props) => {
                     console.log(result);
                     const id = result.id;
                     const pw = result.pw;
-                    if(!id||!pw){
+                    if (!id || !pw) {
                         console.log("noIdnoPw");
                         return;
                     }
                     fetch("http://localhost:5001", {
-                        method : "POST",
-                        headers : {"Content-Type" : "application/json"},
-                        body : JSON.stringify({
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
                             id,
                             pw,
                             kind
                         })
-                    }).then((response : any)=>{
+                    }).then((response: any) => {
                         response.json()
-                        .then((result : any)=>{
-                            console.log(result);
-                        })
+                            .then((result: any) => {
+                                console.log(result);
+                            })
                     })
                 })
         })
@@ -135,7 +158,7 @@ const Chart: React.FC<chartProps> = (props) => {
     };
 
     const [open, setOpen] = useState(false);
-    const handleOpen = (modalMenu : string) => {
+    const handleOpen = (modalMenu: string) => {
         setModalMenu(modalMenu);
         setOpen(true);
     }
@@ -247,10 +270,10 @@ const Chart: React.FC<chartProps> = (props) => {
         console.log(name);
 
         fetch("https://peetsunbae.com/dashboard/chart/charttoparentalimtalk", {
-            method : "post",
-            headers : {"content-type" : "application/json"},
-            credentials : "include",
-            body : JSON.stringify({
+            method: "post",
+            headers: { "content-type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
                 studentId,
                 year,
                 month,
@@ -260,23 +283,23 @@ const Chart: React.FC<chartProps> = (props) => {
                 dateString,
                 name
             })
-        }).then((response : any)=>{
+        }).then((response: any) => {
             response.json()
-            .then((result : any)=>{
-                console.log(result);
-                if(result.message === "noLog"){
-                    alert("오늘 저장한 상담일지가 없습니다");
-                }
-                if(result.message === "noUser"){
-                    alert("잘못된 학생 id 입니다");
-                }
-                if(result.message === "noParentPhoneNumber"){
-                    alert("학부모 번호가 없어 학생한테만 전송되었습니다");
-                }
-                if(result.message === "success"){
-                    alert("학생과 학부모에게 알림톡이 전송되었습니다");
-                }
-            })
+                .then((result: any) => {
+                    console.log(result);
+                    if (result.message === "noLog") {
+                        alert("오늘 저장한 상담일지가 없습니다");
+                    }
+                    if (result.message === "noUser") {
+                        alert("잘못된 학생 id 입니다");
+                    }
+                    if (result.message === "noParentPhoneNumber") {
+                        alert("학부모 번호가 없어 학생한테만 전송되었습니다");
+                    }
+                    if (result.message === "success") {
+                        alert("학생과 학부모에게 알림톡이 전송되었습니다");
+                    }
+                })
         })
     }
 
@@ -419,36 +442,36 @@ const Chart: React.FC<chartProps> = (props) => {
         }).then((response: any) => {
             response.json()
                 .then((result: any) => {
-                    if(result.message === "success"){
-                    console.log(result);
-                    const information = result.data.information;
-                    setCorrectChemistry(information.correctChemistry);
-                    setCorrectOrganic(information.correctOrganic);
-                    setCorrectPhysics(information.correctPhysics);
-                    setCorrectBiology(information.correctBiology);
-                    setFeedbackChemistry(information.feedbackChemistry);
-                    setFeedbackOrganic(information.feedbackOrganic);
-                    setFeedbackPhysics(information.feedbackPhysics);
-                    setFeedbackBiology(information.feedbackBiology);
-                    setLectureChemistry(information.lectureChemistry);
-                    setLectureOrganic(information.lectureOrganic);
-                    setLecturePhysics(information.lecturePhysics);
-                    setLectureBiology(information.lectureBiology);
-                    setBeforeWeekChemistry(information.beforeWeekChemistry);
-                    setBeforeWeekOrganic(information.beforeWeekOrganic);
-                    setBeforeWeekPhysics(information.beforeWeekPhysics);
-                    setBeforeWeekBiology(information.beforeWeekBiology);
-                    setNextWeekChemistry(information.nextWeekChemistry);
-                    setNextWeekOrganic(information.nextWeekOrganic);
-                    setNextWeekPhysics(information.nextWeekPhysics);
-                    setNextWeekBiology(information.nextWeekBiology);
-                    setDescriptionChemistry(information.descriptionChemistry);
-                    setDescriptionOrganic(information.descriptionOrganic);
-                    setDescriptionPhysics(information.descriptionPhysics);
-                    setDescriptionBiology(information.descriptionBiology);
-                    setAddText(information.addText);
-                    setGetLoading(false);
-                    }else if(result.message === "NOT"){
+                    if (result.message === "success") {
+                        console.log(result);
+                        const information = result.data.information;
+                        setCorrectChemistry(information.correctChemistry);
+                        setCorrectOrganic(information.correctOrganic);
+                        setCorrectPhysics(information.correctPhysics);
+                        setCorrectBiology(information.correctBiology);
+                        setFeedbackChemistry(information.feedbackChemistry);
+                        setFeedbackOrganic(information.feedbackOrganic);
+                        setFeedbackPhysics(information.feedbackPhysics);
+                        setFeedbackBiology(information.feedbackBiology);
+                        setLectureChemistry(information.lectureChemistry);
+                        setLectureOrganic(information.lectureOrganic);
+                        setLecturePhysics(information.lecturePhysics);
+                        setLectureBiology(information.lectureBiology);
+                        setBeforeWeekChemistry(information.beforeWeekChemistry);
+                        setBeforeWeekOrganic(information.beforeWeekOrganic);
+                        setBeforeWeekPhysics(information.beforeWeekPhysics);
+                        setBeforeWeekBiology(information.beforeWeekBiology);
+                        setNextWeekChemistry(information.nextWeekChemistry);
+                        setNextWeekOrganic(information.nextWeekOrganic);
+                        setNextWeekPhysics(information.nextWeekPhysics);
+                        setNextWeekBiology(information.nextWeekBiology);
+                        setDescriptionChemistry(information.descriptionChemistry);
+                        setDescriptionOrganic(information.descriptionOrganic);
+                        setDescriptionPhysics(information.descriptionPhysics);
+                        setDescriptionBiology(information.descriptionBiology);
+                        setAddText(information.addText);
+                        setGetLoading(false);
+                    } else if (result.message === "NOT") {
                         // alert("존재하지 않습니다.");
                         setGetLoading(false);
                     }
@@ -457,20 +480,20 @@ const Chart: React.FC<chartProps> = (props) => {
     }
 
 
-    const getLastReport = (e : any) => {
+    const getLastReport = (e: any) => {
         console.log(e);
 
-        if(!selectedUser){
+        if (!selectedUser) {
             alert("학생을 선택하세요");
             return;
         }
-        if(!selectedUser.id){
+        if (!selectedUser.id) {
             alert("학생을 선택하세요");
             return;
         }
 
 
-        if(window.confirm("가장 최근 일지를 가져올까요?")){
+        if (window.confirm("가장 최근 일지를 가져올까요?")) {
             console.log("yes");
 
 
@@ -479,7 +502,7 @@ const Chart: React.FC<chartProps> = (props) => {
             startGetLast();
 
 
-        }else{
+        } else {
             console.log("no");
         }
     }
@@ -504,23 +527,26 @@ const Chart: React.FC<chartProps> = (props) => {
                 />
             </div>
             <div className={styles.selectMenuDiv}>
-                <div onClick={(e)=>{handleOpen("previous")}} className={styles.selectMenu}>
+                <div onClick={(e) => { handleOpen("previous") }} className={styles.selectMenu}>
                     #이전 상담일지
                 </div>
-                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("calendar");}}>
+                <div className={styles.selectMenu} onClick={(e) => { handleOpen("calendar"); }}>
                     #출석 기록
                 </div>
-                <div className={styles.selectMenu} onClick={handleMenuClick} aria-expanded={open ? 'true' : undefined}>
+                {/* <div className={styles.selectMenu} onClick={handleMenuClick} aria-expanded={open ? 'true' : undefined}>
                     #인강 수강 기록
-                </div>
-                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("regular");}}>
+                </div> */}
+                <div className={styles.selectMenu} onClick={(e) => { handleOpen3(); }}>
                     #정기 일정
                 </div>
-                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("profile");}}>
+                <div className={styles.selectMenu} onClick={(e) => { handleOpen("profile"); }}>
                     #학생 프로필
                 </div>
-                <div className={styles.selectMenu} onClick={(e)=>{handleOpen("words");}}>
+                <div className={styles.selectMenu} onClick={(e) => { handleOpen("words"); }}>
                     #영어 단어
+                </div>
+                <div className={styles.selectMenu} onClick={(e) => { handleOpen("testRecords"); }}>
+                    #시험 기록 
                 </div>
             </div>
             <div className={styles.manageDiv} ref={componentRef}>
@@ -528,9 +554,9 @@ const Chart: React.FC<chartProps> = (props) => {
   @page {\ size: landscape;\ }\
 "}</style>
                 <div className={styles.manageDivTitle}>
-                    <div style={{display : "flex", alignItems : "center"}}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
                         <span>학습관리({new Date().getMonth() + 1}월 {new Date().getDate()}일)</span>
-                        <div onClick={(e) => { getLastReport(e);}} className={styles.answerBtnDiv}>
+                        <div onClick={(e) => { getLastReport(e); }} className={styles.answerBtnDiv}>
                             최근 일지 불러오기
                         </div>
                     </div>
@@ -538,9 +564,9 @@ const Chart: React.FC<chartProps> = (props) => {
                 </div>
 
                 {getLoading &&
-                <div className={styles.linearProgress}>
-                    <LinearProgress />
-                </div>
+                    <div className={styles.linearProgress}>
+                        <LinearProgress />
+                    </div>
                 }
 
                 <div className={styles.manageTable}>
@@ -745,7 +771,7 @@ const Chart: React.FC<chartProps> = (props) => {
                     </div>
                 }
             </div>
-            <div className={styles.printDiv} style={{marginBottom : "4px"}}>
+            <div className={styles.printDiv} style={{ marginBottom: "4px" }}>
                 {active2 &&
                     <div onClick={sendToParent} className={styles.submit}>
                         학부모 전송
@@ -759,13 +785,13 @@ const Chart: React.FC<chartProps> = (props) => {
                     </div>
                 }
             </div>
-            <div className={styles.printDiv} style={{fontSize : "12px", textAlign : "right", display : "block", marginTop : "12px"}}>
+            <div className={styles.printDiv} style={{ fontSize: "12px", textAlign: "right", display: "block", marginTop: "12px" }}>
                 * <strong>저장을 반드시 먼저 누르고 전송하기</strong><br></br>
                 현재 화면에 적혀있는 내용이 아니라<br></br> 마지막 저장 내용이 전송됩니다.<br></br>
             </div>
 
 
-            <div style={{marginTop : "50px"}}>
+            <div style={{ marginTop: "50px" }}>
                 <QuestionList selectedUser={selectedUser} />
             </div>
 
@@ -783,11 +809,12 @@ const Chart: React.FC<chartProps> = (props) => {
                             </div>
                             <div className={styles.modalFirstDiv}>
                                 {modalMenu === "previous" && <PreviousChart selectedUser={selectedUser} />}
-                                {modalMenu === "regular" && <RegularSchedule selectedUser={selectedUser} /> }
-                                {modalMenu === "profile" && <ChartProfile selectedUser={selectedUser} setModalMenu={setModalMenu} /> }
-                                {modalMenu === "profileSecond" && <ChartProfileSecond selectedUser={selectedUser} /> }
+                                {modalMenu === "regular" && <RegularSchedule selectedUser={selectedUser} />}
+                                {modalMenu === "profile" && <ChartProfile selectedUser={selectedUser} setModalMenu={setModalMenu} />}
+                                {modalMenu === "profileSecond" && <ChartProfileSecond selectedUser={selectedUser} />}
                                 {modalMenu === "calendar" && <CalendarModal user={selectedUser} />}
-                                {modalMenu === "words" && <Text user={props.user} activateMenuList={props.activateMenuList} chart={true} selectedUser={selectedUser}  />}
+                                {modalMenu === "words" && <Text user={props.user} activateMenuList={props.activateMenuList} chart={true} selectedUser={selectedUser} />}
+                                {modalMenu === "testRecords" && <TestResult selectedUser={{ id : selectedUser.id}} name={selectedUser.label} />}
                             </div>
                         </Box>
                     </Modal>
@@ -805,9 +832,23 @@ const Chart: React.FC<chartProps> = (props) => {
                         <MenuItem onClick={(e) => { handleMenuClose(e, "peetdangi") }}>핏단기</MenuItem>
                         <MenuItem onClick={(e) => { handleMenuClose(e, "mdnp") }}>엠디엔피</MenuItem>
                     </Menu>
-                    
 
-                    
+
+
+                </>
+            }
+
+            {
+                selectedUser &&
+                <>
+                    <Modal
+                        open={open3}
+                        onClose={handleClose3}
+                    >
+                        <Box sx={style3}>
+                            <RegularSchedule2 selectedUser={{ id: selectedUser.id }} name={selectedUser.label} kind="chart" />
+                        </Box>
+                    </Modal>
                 </>
             }
 
