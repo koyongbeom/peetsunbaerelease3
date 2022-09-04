@@ -73,7 +73,7 @@ const columns: GridColDef[] = [
 
 const QuestionList: React.FC<any> = (props) => {
     const classes = useStyles2();
-    const [rows, setRows] = useState<any>();
+    const [rows, setRows] = useState<any>([]);
     const [loading, setLoading] = useState(false);
     const [answerLoading, setAnswerLoading] = useState(false);
     const [alignment, setAlignment] = React.useState('one');
@@ -489,9 +489,9 @@ const QuestionList: React.FC<any> = (props) => {
                         components={{ Toolbar: GridToolbar }}
                         checkboxSelection={true}
                         filterModel={filterModel}
-                        onFilterModelChange={(model) => setFilterModel(model)}
+                        onFilterModelChange={(model : any) => setFilterModel(model)}
                         selectionModel={selectionModel}
-                        onSelectionModelChange={(newSelectionModel, abc)=>{
+                        onSelectionModelChange={(newSelectionModel : any, abc : any)=>{
                             console.log(newSelectionModel);
                             // const information : any = [];
                             // newSelectionModel.forEach((each : any)=>{

@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
-import DateRangePicker, { DateRange } from '@mui/lab/DateRangePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import DateRangePicker, { DateRange } from '@mui/lab/DateRangePicker';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { DateRangePicker, DateRange } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers-pro/AdapterDateFns';
+
+
 import Box from '@mui/material/Box';
 import styles from "../../componentsStyle/restaurant.module.css";
 import renderCellExpand from '../data/rendercellexpand';
@@ -124,13 +130,13 @@ const LifeReview: React.FC<any> = (props) => {
                         startText="시작일"
                         endText="마지막일"
                         value={value}
-                        onChange={(newValue) => {
+                        onChange={(newValue : any) => {
                             setValue(newValue);
                             if (newValue[0] && newValue[1]) {
                                 setSubmitBool(true);
                             }
                         }}
-                        renderInput={(startProps, endProps) => (
+                        renderInput={(startProps : any, endProps : any) => (
                             <React.Fragment>
                                 <TextField {...startProps} />
                                 <Box sx={{ mx: 2 }}> to </Box>

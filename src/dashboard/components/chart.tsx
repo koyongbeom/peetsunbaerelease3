@@ -546,7 +546,7 @@ const Chart: React.FC<chartProps> = (props) => {
                     #영어 단어
                 </div>
                 <div className={styles.selectMenu} onClick={(e) => { handleOpen("testRecords"); }}>
-                    #시험 기록 
+                    #시험 기록
                 </div>
             </div>
             <div className={styles.manageDiv} ref={componentRef}>
@@ -814,7 +814,7 @@ const Chart: React.FC<chartProps> = (props) => {
                                 {modalMenu === "profileSecond" && <ChartProfileSecond selectedUser={selectedUser} />}
                                 {modalMenu === "calendar" && <CalendarModal user={selectedUser} />}
                                 {modalMenu === "words" && <Text user={props.user} activateMenuList={props.activateMenuList} chart={true} selectedUser={selectedUser} />}
-                                {modalMenu === "testRecords" && <TestResult selectedUser={{ id : selectedUser.id}} name={selectedUser.label} />}
+                                {modalMenu === "testRecords" && <TestResult selectedUser={{ id: selectedUser.id }} name={selectedUser.label} />}
                             </div>
                         </Box>
                     </Modal>
@@ -854,6 +854,7 @@ const Chart: React.FC<chartProps> = (props) => {
 
 
         </div>
+
     )
 }
 

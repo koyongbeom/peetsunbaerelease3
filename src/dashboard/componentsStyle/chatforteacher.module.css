@@ -1,0 +1,224 @@
+.main {
+    background-color: #f5f5f5;
+    width: 100%;
+    height: calc(100vh - 78px);
+    padding-top: 44px;
+    padding-left: 53px;
+    padding-right: 53px;
+    font-family: "Apple_R";
+    overflow: auto;
+}
+
+.mainBoard {
+    padding-bottom: 60px;
+}
+
+.mainBoard.photo{
+    padding-bottom: 10px;
+}
+
+.main::-webkit-scrollbar{
+    background-color: #f5f5f5;
+    width: 6px !important;
+}
+
+.main::-webkit-scrollbar-thumb{
+    background-color: #bbbcb6;
+    border-radius: 10px;
+
+}
+
+.kindDiv {
+    margin-bottom: 21px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-family: "Apple_B";
+    color: #303030;
+    margin-bottom:6px;
+}
+
+.title img {
+    margin-right: 10px;
+}
+
+.searchMenu {
+    margin-top: 23px;
+    display: flex;
+    margin-bottom: 33px;   
+}
+
+.searchMenuDiv {
+    font-family: "Apple_R";
+    width: 177px;
+    height: 51px;
+    border-radius: 28px;
+    border: 1px solid #cbcbcb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 14px;
+    cursor: pointer;
+}
+
+.searchMenuDiv.active{
+    background-color: #3d50b0;
+    border: none;
+    color: white;
+}
+
+.messageTitle {
+    font-family: "Apple_B";
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.textfieldDiv {
+    margin-top: 20px;
+}
+
+.buttonDiv {
+    margin-top: 16px;
+    display: flex;
+    justify-content: end;
+}
+
+.buttonText {
+    font-family: "Apple_R";
+}
+
+.spanStyles2 {
+    font-family: "Apple_R";
+}
+
+.chatroomListDiv{
+    padding-top: 24px;
+    background-color: white;
+    padding-bottom: 24px;
+}
+
+.chatRoomList{
+    width: 940px;
+    height: 600px;
+    margin: 0 auto;
+    border-top: 1px solid #b0b0b0;
+    border-bottom: 1px solid #b0b0b0;
+    position: relative;
+    overflow: auto;
+}
+
+
+
+.eachChatRoomList{
+    height: 69px;
+    width: 100%;
+    border-bottom: 1px solid #b0b0b0;
+    padding: 9px 0;
+    cursor: pointer;
+}
+
+.innerEachChatRoomList{
+    height: 50px;
+}
+
+.item_info{
+    width: 580px;
+    padding-left: 51px;
+    position: relative;
+    display: inline-block;
+}
+
+.wrap_thumb{
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.tit_info{
+    display: block;
+    margin: -3px 0 4px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.txt_name{
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: top;
+}
+
+.bubble_g{
+    max-width: 764px;
+    padding: 0;
+    display: inline-block;
+    position: relative;
+    padding-right: 365px;
+}
+
+.txt_info{
+    overflow: hidden;
+    max-width: 641px;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 2px;
+    font-size: 12px;
+    line-height: 28px;
+    background-color: #fceea0;
+    color: rgba(0,0,0,0.5);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.num_round{
+    position: absolute;
+    display: inline-block;
+    height: 13px;
+    margin: 3px 0 0 6px;
+    padding: 0 5px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 10px;
+    font-family: helvetica,sans-serif;
+    line-height: 13px;
+    background-color: #ff5640;
+    color: white;
+    vertical-align: top;
+    -webkit-font-smoothing: auto;
+}
+
+.ico_arr{
+    position: absolute;
+    top: 14px;
+    left: -16px;
+    font-size: 0;
+    line-height: 0;
+    pointer-events: none;
+}
+
+.ico_arr::before{
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-width: 4px 8px 4px 8px;
+    border-right-color: #f9ee9f;
+    content: '';
+}
+
+.txt_date{
+    position: absolute;
+    top: 27px;
+    right: 29px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #999999;
+    font-family: "Apple_R";
+}

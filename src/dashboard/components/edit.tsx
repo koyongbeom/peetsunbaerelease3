@@ -4,16 +4,25 @@ import { RouteComponentProps } from 'react-router';
 import "../componentsStyle/edit.css";
 // import styles from "../componentsStyle/editStyles";
 import TextField from "@mui/material/TextField";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import StaticDatePicker from '@mui/lab/StaticDatePicker';
-import TimePicker from '@mui/lab/TimePicker'
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import StaticDatePicker from '@mui/lab/StaticDatePicker';
+// import TimePicker from '@mui/lab/TimePicker'
+
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress'
 import { Alert, Stack } from '@mui/material';
 import koLocale from 'date-fns/locale/ko'
 import Totaledits from './controls/totaledits';
 
+import {LicenseInfo} from "@mui/x-license-pro";
+
+LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
@@ -249,7 +258,7 @@ const Edit: React.FC<editProps> = (props) => {
                                 console.log(newValue);
                                 setDateValue(newValue);
                             }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params : any) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
 
@@ -284,7 +293,7 @@ const Edit: React.FC<editProps> = (props) => {
                                                 console.log(newValue);
                                                 setExitValue(newValue);
                                             }}
-                                            renderInput={(params) => <TextField {...params} />}
+                                            renderInput={(params : any) => <TextField {...params} />}
                                         />
                                     </LocalizationProvider>
                                 </div>
@@ -302,7 +311,7 @@ const Edit: React.FC<editProps> = (props) => {
                                                 console.log(newValue);
                                                 setArriveValue(newValue);
                                             }}
-                                            renderInput={(params) => <TextField {...params} />}
+                                            renderInput={(params : any) => <TextField {...params} />}
                                         />
                                     </LocalizationProvider>
                                 </div>

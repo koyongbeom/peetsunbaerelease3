@@ -811,7 +811,7 @@ const RegularSchedule: React.FC<any> = (props) => {
                                     onChange={(newValue: any) => {
                                         change(newValue, "startTime");
                                     }}
-                                    renderInput={(params) => <TextField sx={{ minWidth: 300, ml: 1, mt: 1 }} {...params}>출발시간</TextField>}
+                                    renderInput={(params : any) => <TextField sx={{ minWidth: 300, ml: 1, mt: 1 }} {...params}>출발시간</TextField>}
                                 />
                             </LocalizationProvider>
                         </div>
@@ -825,7 +825,7 @@ const RegularSchedule: React.FC<any> = (props) => {
                                     onChange={(newValue: any) => {
                                         change(newValue, "exitTime");
                                     }}
-                                    renderInput={(params) => <TextField sx={{ minWidth: 300, ml: 1, mt: 1 }} {...params}>출발시간</TextField>}
+                                    renderInput={(params : any) => <TextField sx={{ minWidth: 300, ml: 1, mt: 1 }} {...params}>출발시간</TextField>}
                                 />
                             </LocalizationProvider>
                         </div>

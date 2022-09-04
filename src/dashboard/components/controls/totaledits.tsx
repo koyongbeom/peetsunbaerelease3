@@ -246,13 +246,13 @@ const Totaledits: React.FC<any> = (props) => {
                         startText="시작일"
                         endText="마지막일"
                         value={value}
-                        onChange={(newValue) => {
+                        onChange={(newValue : any) => {
                             setValue(newValue);
                             if (newValue[0] && newValue[1]) {
                                 setSubmitBool(true);
                             }
                         }}
-                        renderInput={(startProps, endProps) => (
+                        renderInput={(startProps : any, endProps : any) => (
                             <React.Fragment>
                                 <TextField {...startProps} />
                                 <Box sx={{ mx: 2 }}> to </Box>

@@ -36,7 +36,7 @@ const menu = [
         description : "도시락신청"
     },
     {
-        value : ["teacher", "parent", "staff"],
+        value : ["teacher", "parent", "staff", "student"],
         name : "envelope",
         description : "나에게 온 메시지"
     },

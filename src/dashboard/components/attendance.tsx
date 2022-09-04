@@ -8,9 +8,19 @@ import Modal from '@mui/material/Modal';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import TimePicker from '@mui/lab/TimePicker'
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+
+
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import TimePicker from '@mui/lab/TimePicker'
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDateFns } from '@mui/x-date-pickers-pro/AdapterDateFns';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
+
+
 import TextField from "@mui/material/TextField";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -48,7 +58,7 @@ const style = {
     p: 4,
 };
 
-const Attendance: React.FC<attendanceProps> = (props) => {
+const Attendance: React.FC<attendanceProps> = (props : any) => {
 
     const [loading, setLoading] = useState(false);
     const [uploadBool, setUploadBool] = useState(false);
@@ -244,7 +254,7 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                                             console.log(newValue);
                                             setStartTime(newValue);
                                         }}
-                                        renderInput={(params) => <TextField sx={{ width: "160px" }} {...params} />}
+                                        renderInput={(params : any) => <TextField sx={{ width: "160px" }} {...params} />}
                                     />
                                 </LocalizationProvider>
                             </div>
@@ -259,7 +269,7 @@ const Attendance: React.FC<attendanceProps> = (props) => {
                                             console.log(newValue);
                                             setEndTime(newValue);
                                         }}
-                                        renderInput={(params) => <TextField sx={{ width: "160px" }} {...params} />}
+                                        renderInput={(params : any) => <TextField sx={{ width: "160px" }} {...params} />}
                                     />
                                 </LocalizationProvider>
                             </div>

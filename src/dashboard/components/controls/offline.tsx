@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../componentsStyle/offline.module.css'
 import { Autocomplete, Button, CircularProgress, Divider } from "@mui/material";
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import StaticDatePicker from '@mui/lab/StaticDatePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import StaticDatePicker from '@mui/lab/StaticDatePicker';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+
 import koLocale from 'date-fns/locale/ko'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -14,14 +18,29 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import DatePicker from '@mui/lab/DatePicker';
+
+// import DatePicker from '@mui/lab/DatePicker';
+
 import TextField from '@mui/material/TextField';
-import TimePicker from '@mui/lab/TimePicker';
+
+// import TimePicker from '@mui/lab/TimePicker';
+
 import { AnySrvRecord, AnyTxtRecord } from 'dns';
 import Alert from '@mui/material/Alert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import OfflineStatus from './offlinestatus';
+
+
+
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {LicenseInfo} from "@mui/x-license-pro";
+
+LicenseInfo.setLicenseKey("e3ec4d79d1fa1f36cc88ecffd4e68392T1JERVI6MzMyMjMsRVhQSVJZPTE2NjkzODUyMDIwMDAsS0VZVkVSU0lPTj0x");
 
 
 const Offline: React.FC<any> = (props) => {
@@ -746,7 +765,7 @@ const Offline: React.FC<any> = (props) => {
                                                     //     })
                                                     // }
                                                 }}
-                                                renderInput={(params) => <TextField {...params} />}
+                                                renderInput={(params : any) => <TextField {...params} />}
                                             />
                                         </LocalizationProvider>
                                         {/* <div style={{width : "320px"}}>
@@ -1108,7 +1127,7 @@ const Offline: React.FC<any> = (props) => {
                                                 setSelectedUploadTeacher(newValue);
                                             }}
                                             fullWidth
-                                            renderInput={(params) => <TextField {...params} />}
+                                            renderInput={(params : any) => <TextField {...params} />}
                                         />
                                     </FormControl>
 
@@ -1149,7 +1168,7 @@ const Offline: React.FC<any> = (props) => {
                                                     console.log(new Date(newValue).toString());
                                                     setDate(newValue);
                                                 }}
-                                                renderInput={(params) => <TextField fullWidth {...params} />}
+                                                renderInput={(params : any) => <TextField fullWidth {...params} />}
                                             />
 
                                             <div className={styles.datePickerDiv}>
@@ -1158,7 +1177,7 @@ const Offline: React.FC<any> = (props) => {
 
                                                     <TimePicker
                                                         value={startTime}
-                                                        onChange={(newValue) => {
+                                                        onChange={(newValue : any) => {
                                                             console.log(new Date(newValue).toString());
                                                             setStartTime(newValue);
                                                             if (uploadSubject && selectedUploadTeacher && uploadTeacherDescription && date && startTime && endTime && new Date(newValue).getTime() < new Date(endTime).getTime() && new Date(newValue).getMinutes() % 15 === 0 && new Date(endTime).getMinutes() % 15 === 0) {
@@ -1168,7 +1187,7 @@ const Offline: React.FC<any> = (props) => {
                                                             }
 
                                                         }}
-                                                        renderInput={(params) => <TextField className={styles.timePicker1} {...params} />}
+                                                        renderInput={(params : any) => <TextField className={styles.timePicker1} {...params} />}
                                                     />
                                                 </div>
 
@@ -1177,7 +1196,7 @@ const Offline: React.FC<any> = (props) => {
 
                                                     <TimePicker
                                                         value={endTime}
-                                                        onChange={(newValue) => {
+                                                        onChange={(newValue : any) => {
                                                             if (uploadSubject && selectedUploadTeacher && uploadTeacherDescription && date && startTime && endTime && new Date(startTime).getTime() < new Date(newValue).getTime() && new Date(startTime).getMinutes() % 15 === 0 && new Date(newValue).getMinutes() % 15 === 0) {
                                                                 setUploadBool(true);
                                                             } else {
@@ -1185,7 +1204,7 @@ const Offline: React.FC<any> = (props) => {
                                                             }
                                                             setEndTime(newValue);
                                                         }}
-                                                        renderInput={(params) => <TextField className={styles.timePicker2} {...params} />}
+                                                        renderInput={(params : any) => <TextField className={styles.timePicker2} {...params} />}
                                                     />
                                                 </div>
 
@@ -1272,7 +1291,7 @@ const Offline: React.FC<any> = (props) => {
                                         <div className={styles.datePickerTitle1}>시작 시간</div>
                                         <TimePicker
                                             value={startTime}
-                                            onChange={(newValue) => {
+                                            onChange={(newValue : any) => {
                                                 console.log(new Date(newValue).toString());
                                                 setStartTime(newValue);
                                                 if (startTime && endTime && new Date(newValue).getTime() < new Date(endTime).getTime() && new Date(newValue).getMinutes() % 15 === 0 && new Date(endTime).getMinutes() % 15 === 0) {
@@ -1282,7 +1301,7 @@ const Offline: React.FC<any> = (props) => {
                                                 }
 
                                             }}
-                                            renderInput={(params) => <TextField className={styles.timePicker1} {...params} />}
+                                            renderInput={(params : any) => <TextField className={styles.timePicker1} {...params} />}
                                         />
                                     </div>
 
@@ -1291,7 +1310,7 @@ const Offline: React.FC<any> = (props) => {
 
                                         <TimePicker
                                             value={endTime}
-                                            onChange={(newValue) => {
+                                            onChange={(newValue : any) => {
                                                 if (startTime && endTime && new Date(startTime).getTime() < new Date(newValue).getTime() && new Date(startTime).getMinutes() % 15 === 0 && new Date(newValue).getMinutes() % 15 === 0) {
                                                     setUpdateBool(true);
                                                 } else {
@@ -1299,7 +1318,7 @@ const Offline: React.FC<any> = (props) => {
                                                 }
                                                 setEndTime(newValue);
                                             }}
-                                            renderInput={(params) => <TextField className={styles.timePicker2} {...params} />}
+                                            renderInput={(params : any) => <TextField className={styles.timePicker2} {...params} />}
                                         />
                                     </div>
 

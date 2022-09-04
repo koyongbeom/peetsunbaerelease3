@@ -22,6 +22,23 @@
     border-radius: 10px;
 }
 
+.chatMain{
+    width: 100%;
+    height: calc(100vh - 182px);
+    padding-bottom: 32px;
+    overflow: auto;
+}
+
+.chatMain::-webkit-scrollbar{
+    background-color: #f5f5f5;
+    width: 6px !important;
+}
+
+.chatMain::-webkit-scrollbar-thumb{
+    background-color: #bbbcb6;
+    border-radius: 10px;
+}
+
 .title {
     display: flex;
     align-items: center;
@@ -105,6 +122,7 @@
     min-height: 104px;
     width: 100%;
     border-top: 1px solid #d5dadb;
+    background-color: white;
 }
 
 .inputDiv{
@@ -210,8 +228,27 @@
   .clipImg{
       width: 17px;
       cursor: pointer;
+      margin-right: 12px;
+
   }
 
+  .linkImg{
+    width: 17px;
+    cursor: pointer;
+  }
+
+  .emojiBox{
+    position: absolute;
+    top: -325px;
+    width: 370px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    height: 312px;
+  }
+
+
+  
 
 
 
@@ -245,4 +282,163 @@
             height: auto;
         }
     }
+}
+
+
+.modalTitle{
+    padding: 16px 24px;
+    font-family: "Apple_EB";
+    color: #333;
+    font-size: 20px;
+    line-height: 22px;
+    height: 54px;
+}
+
+.modalBody{
+    padding: 16px 24px;
+}
+
+.messageImg{
+    width: 459px;
+    height: 229px;
+    object-fit: contain;
+}
+
+.modalFooter{
+    padding: 15px 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cancelBtn{
+    cursor: pointer;
+    color: #bcbcbc;
+    border-color: rgba(0, 0, 0, 0.12);
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 8px 12px;
+    font-family: "Apple_R";
+    margin-right: 4px;
+}
+
+.uploadBtn{
+    font-family: "Apple_R";
+    color: white;
+    cursor: pointer;
+    background-color: #3d50b0;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.imgLoadingDiv{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eachMessage{
+    margin: 12px 0 0;
+    padding: 0 0 0 56px;
+}
+
+.profileAnchor{
+    position: relative;
+}
+
+.profileContainer{
+    width: 32px;
+    height: 32px;
+    margin-left: -40px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #e1e1e1;
+    position: relative;
+    float: left;
+}
+
+.profileContainer.ofStudent{
+    background-color: rgba(218,218,218);
+}
+
+.shapeLogo{
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.avatar{
+    width: 60%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.userName{
+    vertical-align: top;
+    font-size: 15px;
+    font-family: "Apple_B";
+    line-height: 32px;
+    display: inline-block;
+    padding-top: 0px;
+}
+
+.msg_container{
+
+}
+
+.msg_item{
+    border-radius: 8px;
+    background-color: #EBF5F1;
+    padding: 6px 12px;
+    margin-top: 2px;
+    max-width: 440px;
+    background-clip: border-box;
+    color: #333;
+    vertical-align: bottom;
+    word-break: keep-all;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+.msg_item.ofStudent{
+    background-color: #f3f3f3;
+}
+
+.msg_text_box{
+    white-space: pre-wrap;
+    word-break: normal;
+    line-height: 23px;
+    color: #505050;
+    font-size: 15px;
+}
+
+.msg_img{
+    max-width: 416px;
+}
+
+.msg_extra{
+    padding-left: 6px;
+    font-size: 11px;
+    display: inline-flex;
+    flex-flow: wrap-reverse;
+    margin-top: 4px;
+}
+
+.msg_extra_action{
+    display: block;
+    color: #797979;
+}
+
+.divider{
+    margin-top: 20px;
+    padding: 8px 12px;
 }

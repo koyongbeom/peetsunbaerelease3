@@ -14,14 +14,24 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { AccountCircle } from '@mui/icons-material';
 import { Socket } from 'socket.io-client';
 import { CircularProgress, FormHelperText } from "@mui/material";
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import StaticDatePicker from '@mui/lab/StaticDatePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import StaticDatePicker from '@mui/lab/StaticDatePicker';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+
+
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Meals from './controls/meals';
 import Totalmeals from './controls/totalmeals';
 import koLocale from 'date-fns/locale/ko'
+import { AnyNsRecord } from 'dns';
 
 type currentSideBarMenuList = "home" | "notification" | "alarm" | "edit" | "book" | "question" | "restaurant" | "envelope" | "search" | "chart" | "attendance" | "출석 관리 보고";
 
@@ -567,7 +577,7 @@ const Restaurant: React.FC<restaurantProps> = (props) => {
                                                 }
                                             }
                                         }}
-                                        renderInput={(params) => <TextField {...params} />}
+                                        renderInput={(params : any) => <TextField {...params} />}
                                     />
                                 </LocalizationProvider>
                             </div>

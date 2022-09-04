@@ -212,7 +212,14 @@ const Dashboard: React.FC<props> = (props) => {
     useEffect(() => {
         if (user) {
             socket.emit("myRoom", user.id);
+            console.log("myRoom");
+            if(user.value === "teacher" || user.value === "staff"){
+                console.log("teacherRoom");
+                socket.emit("teacherRoom");
+            }
+
         }
+
     }, [user]);
     //---------------------------------------------------------------------------------------------
 
@@ -260,7 +267,7 @@ const Dashboard: React.FC<props> = (props) => {
             new window.Notification("새로운 메세지가 왔습니다.", {body : `${messageUserName}님이 메세지를 보냈습니다.`});
         })
 
-        return function cleanup() {socket.off("newAnswer")}
+        return function cleanup() {socket.off("newAnswer");}
 
     }, []);
     //--------------------------------------------------------------------------------------------
@@ -314,9 +321,6 @@ const Dashboard: React.FC<props> = (props) => {
                                         <div className={styles.outsideText}>외출중</div>
                                     </>
                                 }
-
-
-
 
                             </div>
                             <div className={styles.sideMenuAvatar}>
