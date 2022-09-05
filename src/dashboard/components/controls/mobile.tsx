@@ -123,10 +123,10 @@ const Mobile: React.FC<any> = (props) => {
 
         var port;
         if (where === "second") {
-            port = 3100;
+            port = 3101;
         }
         if (where === "six") {
-            port = 3101;
+            port = 3100;
         }
         if (where === "four") {
             port = 3102;
